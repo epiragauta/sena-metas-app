@@ -1,0 +1,292 @@
+[
+  {
+    "id": 6,
+    "tablaOrigen": "meta_formacion_profesional_integral",
+    "idPadre": 7,
+    "nombrePadre": "EDUCACION SUPERIOR (=E)",
+    "idHijo": 6,
+    "nombreHijo": "SubTotal Tecnólogos ( E)",
+    "tablaHijo": "meta_formacion_profesional_integral",
+    "operacion": "suma"
+  },
+  {
+    "id": 11,
+    "tablaOrigen": "meta_formacion_profesional_integral",
+    "idPadre": 15,
+    "nombrePadre": "SubTotal Auxiliares (A)",
+    "idHijo": 13,
+    "nombreHijo": "Auxiliares CampeSENA",
+    "tablaHijo": "meta_formacion_profesional_integral",
+    "operacion": "suma"
+  },
+  {
+    "id": 12,
+    "tablaOrigen": "meta_formacion_profesional_integral",
+    "idPadre": 15,
+    "nombrePadre": "SubTotal Auxiliares (A)",
+    "idHijo": 14,
+    "nombreHijo": "Auxiliares Full Popular",
+    "tablaHijo": "meta_formacion_profesional_integral",
+    "operacion": "suma"
+  },
+  {
+    "id": 10,
+    "tablaOrigen": "meta_formacion_profesional_integral",
+    "idPadre": 15,
+    "nombrePadre": "SubTotal Auxiliares (A)",
+    "idHijo": 12,
+    "nombreHijo": "Auxiliares Regular",
+    "tablaHijo": "meta_formacion_profesional_integral",
+    "operacion": "suma"
+  },
+  {
+    "id": 8,
+    "tablaOrigen": "meta_formacion_profesional_integral",
+    "idPadre": 11,
+    "nombrePadre": "SubTotal Operarios (B)",
+    "idHijo": 9,
+    "nombreHijo": "Operarios CampeSENA",
+    "tablaHijo": "meta_formacion_profesional_integral",
+    "operacion": "suma"
+  },
+  {
+    "id": 9,
+    "tablaOrigen": "meta_formacion_profesional_integral",
+    "idPadre": 11,
+    "nombrePadre": "SubTotal Operarios (B)",
+    "idHijo": 10,
+    "nombreHijo": "Operarios Full Popular",
+    "tablaHijo": "meta_formacion_profesional_integral",
+    "operacion": "suma"
+  },
+  {
+    "id": 7,
+    "tablaOrigen": "meta_formacion_profesional_integral",
+    "idPadre": 11,
+    "nombrePadre": "SubTotal Operarios (B)",
+    "idHijo": 8,
+    "nombreHijo": "Operarios Regular",
+    "tablaHijo": "meta_formacion_profesional_integral",
+    "operacion": "suma"
+  },
+  {
+    "id": 4,
+    "tablaOrigen": "meta_formacion_profesional_integral",
+    "idPadre": 6,
+    "nombrePadre": "SubTotal Tecnólogos ( E)",
+    "idHijo": 4,
+    "nombreHijo": "Tecnólogos CampeSENA",
+    "tablaHijo": "meta_formacion_profesional_integral",
+    "operacion": "suma"
+  },
+  {
+    "id": 5,
+    "tablaOrigen": "meta_formacion_profesional_integral",
+    "idPadre": 6,
+    "nombrePadre": "SubTotal Tecnólogos ( E)",
+    "idHijo": 5,
+    "nombreHijo": "Tecnólogos Full Popular",
+    "tablaHijo": "meta_formacion_profesional_integral",
+    "operacion": "suma"
+  },
+  {
+    "id": 3,
+    "tablaOrigen": "meta_formacion_profesional_integral",
+    "idPadre": 6,
+    "nombrePadre": "SubTotal Tecnólogos ( E)",
+    "idHijo": 3,
+    "nombreHijo": "Tecnólogos Regular - A Distancia",
+    "tablaHijo": "meta_formacion_profesional_integral",
+    "operacion": "suma"
+  },
+  {
+    "id": 1,
+    "tablaOrigen": "meta_formacion_profesional_integral",
+    "idPadre": 6,
+    "nombrePadre": "SubTotal Tecnólogos ( E)",
+    "idHijo": 1,
+    "nombreHijo": "Tecnólogos Regular - Presencial",
+    "tablaHijo": "meta_formacion_profesional_integral",
+    "operacion": "suma"
+  },
+  {
+    "id": 2,
+    "tablaOrigen": "meta_formacion_profesional_integral",
+    "idPadre": 6,
+    "nombrePadre": "SubTotal Tecnólogos ( E)",
+    "idHijo": 2,
+    "nombreHijo": "Tecnólogos Regular - Virtual",
+    "tablaHijo": "meta_formacion_profesional_integral",
+    "operacion": "suma"
+  },
+  {
+    "id": 17,
+    "tablaOrigen": "meta_formacion_profesional_integral",
+    "idPadre": 21,
+    "nombrePadre": "SubTotal Técnico Laboral (C)",
+    "idHijo": 20,
+    "nombreHijo": "Técnico Laboral Articulación con la Media",
+    "tablaHijo": "meta_formacion_profesional_integral",
+    "operacion": "suma"
+  },
+  {
+    "id": 15,
+    "tablaOrigen": "meta_formacion_profesional_integral",
+    "idPadre": 21,
+    "nombrePadre": "SubTotal Técnico Laboral (C)",
+    "idHijo": 18,
+    "nombreHijo": "Técnico Laboral CampeSENA",
+    "tablaHijo": "meta_formacion_profesional_integral",
+    "operacion": "suma"
+  },
+  {
+    "id": 16,
+    "tablaOrigen": "meta_formacion_profesional_integral",
+    "idPadre": 21,
+    "nombrePadre": "SubTotal Técnico Laboral (C)",
+    "idHijo": 19,
+    "nombreHijo": "Técnico Laboral Full Popular",
+    "tablaHijo": "meta_formacion_profesional_integral",
+    "operacion": "suma"
+  },
+  {
+    "id": 13,
+    "tablaOrigen": "meta_formacion_profesional_integral",
+    "idPadre": 21,
+    "nombrePadre": "SubTotal Técnico Laboral (C)",
+    "idHijo": 16,
+    "nombreHijo": "Técnico Laboral Regular - Presencial",
+    "tablaHijo": "meta_formacion_profesional_integral",
+    "operacion": "suma"
+  },
+  {
+    "id": 14,
+    "tablaOrigen": "meta_formacion_profesional_integral",
+    "idPadre": 21,
+    "nombrePadre": "SubTotal Técnico Laboral (C)",
+    "idHijo": 17,
+    "nombreHijo": "Técnico Laboral Regular - Virtual",
+    "tablaHijo": "meta_formacion_profesional_integral",
+    "operacion": "suma"
+  },
+  {
+    "id": 25,
+    "tablaOrigen": "meta_formacion_profesional_integral",
+    "idPadre": 32,
+    "nombrePadre": "TOTAL FORMACION COMPLEMENTARIA (N = G+H+K+L+M)",
+    "idHijo": 26,
+    "nombreHijo": "Formación Complementaria - Presencial (Sin Bilingüismo) (H)",
+    "tablaHijo": "meta_formacion_profesional_integral",
+    "operacion": "suma"
+  },
+  {
+    "id": 24,
+    "tablaOrigen": "meta_formacion_profesional_integral",
+    "idPadre": 32,
+    "nombrePadre": "TOTAL FORMACION COMPLEMENTARIA (N = G+H+K+L+M)",
+    "idHijo": 25,
+    "nombreHijo": "Formación Complementaria - Virtual  (Sin Bilingüismo) (G)",
+    "tablaHijo": "meta_formacion_profesional_integral",
+    "operacion": "suma"
+  },
+  {
+    "id": 26,
+    "tablaOrigen": "meta_formacion_profesional_integral",
+    "idPadre": 32,
+    "nombrePadre": "TOTAL FORMACION COMPLEMENTARIA (N = G+H+K+L+M)",
+    "idHijo": 30,
+    "nombreHijo": "Formación Complementaria CampeSENA (L)",
+    "tablaHijo": "meta_formacion_profesional_integral",
+    "operacion": "suma"
+  },
+  {
+    "id": 27,
+    "tablaOrigen": "meta_formacion_profesional_integral",
+    "idPadre": 32,
+    "nombrePadre": "TOTAL FORMACION COMPLEMENTARIA (N = G+H+K+L+M)",
+    "idHijo": 31,
+    "nombreHijo": "Formación Complementaria Full Popular (M)",
+    "tablaHijo": "meta_formacion_profesional_integral",
+    "operacion": "suma"
+  },
+  {
+    "id": 29,
+    "tablaOrigen": "meta_formacion_profesional_integral",
+    "idPadre": 33,
+    "nombrePadre": "TOTAL FORMACION PROFESIONAL INTEGRAL (O=N+F)",
+    "idHijo": 32,
+    "nombreHijo": "TOTAL FORMACION COMPLEMENTARIA (N = G+H+K+L+M)",
+    "tablaHijo": "meta_formacion_profesional_integral",
+    "operacion": "suma"
+  },
+  {
+    "id": 28,
+    "tablaOrigen": "meta_formacion_profesional_integral",
+    "idPadre": 33,
+    "nombrePadre": "TOTAL FORMACION PROFESIONAL INTEGRAL (O=N+F)",
+    "idHijo": 24,
+    "nombreHijo": "TOTAL FORMACION TITULADA (F = D+E)",
+    "tablaHijo": "meta_formacion_profesional_integral",
+    "operacion": "suma"
+  },
+  {
+    "id": 23,
+    "tablaOrigen": "meta_formacion_profesional_integral",
+    "idPadre": 24,
+    "nombrePadre": "TOTAL FORMACION TITULADA (F = D+E)",
+    "idHijo": 7,
+    "nombreHijo": "EDUCACION SUPERIOR (=E)",
+    "tablaHijo": "meta_formacion_profesional_integral",
+    "operacion": "suma"
+  },
+  {
+    "id": 22,
+    "tablaOrigen": "meta_formacion_profesional_integral",
+    "idPadre": 24,
+    "nombrePadre": "TOTAL FORMACION TITULADA (F = D+E)",
+    "idHijo": 23,
+    "nombreHijo": "TOTAL FORMACIÓN LABORAL (D=A+B+C+T)",
+    "tablaHijo": "meta_formacion_profesional_integral",
+    "operacion": "suma"
+  },
+  {
+    "id": 21,
+    "tablaOrigen": "meta_formacion_profesional_integral",
+    "idPadre": 23,
+    "nombrePadre": "TOTAL FORMACIÓN LABORAL (D=A+B+C+T)",
+    "idHijo": 22,
+    "nombreHijo": "Profundización Técnica (T)",
+    "tablaHijo": "meta_formacion_profesional_integral",
+    "operacion": "suma"
+  },
+  {
+    "id": 18,
+    "tablaOrigen": "meta_formacion_profesional_integral",
+    "idPadre": 23,
+    "nombrePadre": "TOTAL FORMACIÓN LABORAL (D=A+B+C+T)",
+    "idHijo": 15,
+    "nombreHijo": "SubTotal Auxiliares (A)",
+    "tablaHijo": "meta_formacion_profesional_integral",
+    "operacion": "suma"
+  },
+  {
+    "id": 19,
+    "tablaOrigen": "meta_formacion_profesional_integral",
+    "idPadre": 23,
+    "nombrePadre": "TOTAL FORMACIÓN LABORAL (D=A+B+C+T)",
+    "idHijo": 11,
+    "nombreHijo": "SubTotal Operarios (B)",
+    "tablaHijo": "meta_formacion_profesional_integral",
+    "operacion": "suma"
+  },
+  {
+    "id": 20,
+    "tablaOrigen": "meta_formacion_profesional_integral",
+    "idPadre": 23,
+    "nombrePadre": "TOTAL FORMACIÓN LABORAL (D=A+B+C+T)",
+    "idHijo": 21,
+    "nombreHijo": "SubTotal Técnico Laboral (C)",
+    "tablaHijo": "meta_formacion_profesional_integral",
+    "operacion": "suma"
+  }
+]

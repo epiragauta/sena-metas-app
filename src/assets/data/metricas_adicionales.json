@@ -1,0 +1,736 @@
+{
+  "AGENCIA PUBLICA  DE EMPLEO": [
+    {
+      "id": 38,
+      "nombreMetrica": "TOTAL COLOCACIONES",
+      "meta": 534288,
+      "ejecucion": 478950,
+      "tipoDato": "numero",
+      "esTotal": 1
+    },
+    {
+      "id": 41,
+      "nombreMetrica": "TOTAL ORIENTADOS",
+      "meta": 1376869,
+      "ejecucion": 1071249,
+      "tipoDato": "numero",
+      "esTotal": 1
+    },
+    {
+      "id": 36,
+      "nombreMetrica": "COLOCACIONES EGRESADOS SENA",
+      "meta": 295608,
+      "ejecucion": 252809,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 37,
+      "nombreMetrica": "COLOCACIONES NO SENA",
+      "meta": 238680,
+      "ejecucion": 226141,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 34,
+      "nombreMetrica": "INSCRITOS",
+      "meta": 1098970,
+      "ejecucion": 934149,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 39,
+      "nombreMetrica": "ORIENTADOS DESEMPLEADOS",
+      "meta": 1064064,
+      "ejecucion": 803320,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 40,
+      "nombreMetrica": "ORIENTADOS DESPLAZADOS",
+      "meta": 312805,
+      "ejecucion": 267929,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 42,
+      "nombreMetrica": "TASA DE COLOCACION (%)",
+      "meta": 0.63,
+      "ejecucion": 0.5974,
+      "tipoDato": "porcentaje",
+      "esTotal": 0
+    },
+    {
+      "id": 35,
+      "nombreMetrica": "VACANTES",
+      "meta": 884291,
+      "ejecucion": 801661,
+      "tipoDato": "numero",
+      "esTotal": 0
+    }
+  ],
+  "CERTIFICACIÓN FORMACIÓN PROFESIONAL": [
+    {
+      "id": 4,
+      "nombreMetrica": "TOTAL FORMACIÓN COMPLEMENTARIA",
+      "meta": 3420411,
+      "ejecucion": 2646535,
+      "tipoDato": "numero",
+      "esTotal": 1
+    },
+    {
+      "id": 5,
+      "nombreMetrica": "TOTAL FORMACIÓN PROFESIONAL INTEGRAL",
+      "meta": 3866963,
+      "ejecucion": 2764101,
+      "tipoDato": "numero",
+      "esTotal": 1
+    },
+    {
+      "id": 3,
+      "nombreMetrica": "TOTAL FORMACIÓN TITULADA",
+      "meta": 446552,
+      "ejecucion": 117566,
+      "tipoDato": "numero",
+      "esTotal": 1
+    },
+    {
+      "id": 2,
+      "nombreMetrica": "EDUCACIÓN SUPERIOR",
+      "meta": 94127,
+      "ejecucion": 46500,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 1,
+      "nombreMetrica": "FORMACIÓN LABORAL",
+      "meta": 352425,
+      "ejecucion": 71066,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 6,
+      "nombreMetrica": "Full  Popular (Incluidas en Formación Profesional Integral)",
+      "meta": 54421,
+      "ejecucion": 87251,
+      "tipoDato": "numero",
+      "esTotal": 0
+    }
+  ],
+  "CONTRATOS DE APRENDIZAJE": [
+    {
+      "id": 60,
+      "nombreMetrica": "Total Aprendices Con Contrato De Aprendizaje",
+      "meta": 370000,
+      "ejecucion": 338725,
+      "tipoDato": "numero",
+      "esTotal": 1
+    },
+    {
+      "id": 59,
+      "nombreMetrica": "Aprendices Con Contrato De Aprendizaje - NO SENA",
+      "meta": 110280,
+      "ejecucion": 136421,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 61,
+      "nombreMetrica": "Aprendices Con Contrato De Aprendizaje Voluntario",
+      "meta": 13000,
+      "ejecucion": 8850,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 58,
+      "nombreMetrica": "Aprendices SENA Con Contrato De Aprendizaje (Incluye contratos voluntarios)",
+      "meta": 259720,
+      "ejecucion": 202304,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 57,
+      "nombreMetrica": "Número de Empresas con Cuota Voluntaria",
+      "meta": 4500,
+      "ejecucion": 3209,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 56,
+      "nombreMetrica": "Número de Empresas con Cuotas Reguladas",
+      "meta": 42000,
+      "ejecucion": 42665,
+      "tipoDato": "numero",
+      "esTotal": 0
+    }
+  ],
+  "Certificación de Competetencias Laborales": [
+    {
+      "id": 10,
+      "nombreMetrica": "Total Certificaciones en Competencias laborales (D)=(A+B+C)",
+      "meta": 290430,
+      "ejecucion": 257388,
+      "tipoDato": "numero",
+      "esTotal": 1
+    },
+    {
+      "id": 8,
+      "nombreMetrica": "Certificaciones de competencia Laboral expedidas en Full Popular (B)",
+      "meta": 31221,
+      "ejecucion": 30412,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 7,
+      "nombreMetrica": "Certificaciones de competencias laborales expedidas para CampeSENA (A)",
+      "meta": 49870,
+      "ejecucion": 60301,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 9,
+      "nombreMetrica": "Certificaciones expedidas en Competencias Laborales - Regular (C)",
+      "meta": 209339,
+      "ejecucion": 166675,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 11,
+      "nombreMetrica": "No de Evaluaciones en Competencias Laborales",
+      "meta": 301841,
+      "ejecucion": 273464,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 13,
+      "nombreMetrica": "Personas Certificadas en Competencias Laborales",
+      "meta": 247707,
+      "ejecucion": 199371,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 12,
+      "nombreMetrica": "Personas Evaluadas en Competencias Laborales",
+      "meta": 258586,
+      "ejecucion": 210260,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 14,
+      "nombreMetrica": "Reuniones de consejos ejecutivos realizadas",
+      "meta": 340,
+      "ejecucion": 195,
+      "tipoDato": "numero",
+      "esTotal": 0
+    }
+  ],
+  "Cupos autorizados FIC": [
+    {
+      "id": 69,
+      "nombreMetrica": "TOTAL FORMACION PROFESIONAL INTEGRAL FIC (Cupos incluidos en meta regular Formación Profesional Integral)",
+      "meta": 62795,
+      "ejecucion": 57127,
+      "tipoDato": "numero",
+      "esTotal": 1
+    },
+    {
+      "id": 89,
+      "nombreMetrica": "Total Estrategia Formación Continua Especial Campesina (En el marco de FEEC)",
+      "meta": 30000,
+      "ejecucion": 2440,
+      "tipoDato": "numero",
+      "esTotal": 1
+    },
+    {
+      "id": 74,
+      "nombreMetrica": "Total Formación Profesional CampeSENA",
+      "meta": 649193,
+      "ejecucion": 589718,
+      "tipoDato": "numero",
+      "esTotal": 1
+    },
+    {
+      "id": 85,
+      "nombreMetrica": "Total Formación Profesional Full Popular",
+      "meta": 101354,
+      "ejecucion": 128709,
+      "tipoDato": "numero",
+      "esTotal": 1
+    },
+    {
+      "id": 71,
+      "nombreMetrica": "Auxiliares CampeSENA",
+      "meta": 945,
+      "ejecucion": 848,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 82,
+      "nombreMetrica": "Auxiliares Full Popular",
+      "meta": 1091,
+      "ejecucion": 913,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 76,
+      "nombreMetrica": "Certificación - CampeSENA (Incluidas en Formación Profesional Integral)",
+      "meta": 481818,
+      "ejecucion": 333924,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 87,
+      "nombreMetrica": "Certificación - Full  Popular (Incluidas en Formación Profesional Integral)",
+      "meta": 54421,
+      "ejecucion": 87251,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 88,
+      "nombreMetrica": "Estrategia Formación Continua Especial Campesina (En el marco de FEEC)",
+      "meta": 30000,
+      "ejecucion": 2440,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 68,
+      "nombreMetrica": "FORMACION COMPLEMENTARIA FIC (Cupos incluidos en meta regular Formación Complementaria)",
+      "meta": 16830,
+      "ejecucion": 13020,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 67,
+      "nombreMetrica": "FORMACION TITULADA FIC (Cupos incluidos en meta regular Formación Titulada)",
+      "meta": 45965,
+      "ejecucion": 44107,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 73,
+      "nombreMetrica": "Formación Complementaria CampeSENA",
+      "meta": 619134,
+      "ejecucion": 559024,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 84,
+      "nombreMetrica": "Formación Complementaria Full Popular (M)",
+      "meta": 94200,
+      "ejecucion": 120795,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 65,
+      "nombreMetrica": "OPERARIOS FIC (Cupos incluidos en meta regular Operarios)",
+      "meta": 2525,
+      "ejecucion": 1838,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 70,
+      "nombreMetrica": "Operarios CampeSENA",
+      "meta": 1920,
+      "ejecucion": 2340,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 81,
+      "nombreMetrica": "Operarios Full Popular",
+      "meta": 1504,
+      "ejecucion": 1823,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 79,
+      "nombreMetrica": "Proyectos productivos beneficiados para la estrategia CampeSENA",
+      "meta": 1492,
+      "ejecucion": 0,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 80,
+      "nombreMetrica": "Proyectos productivos formulados para la estrategia CampeSENA",
+      "meta": 2120,
+      "ejecucion": 2114,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 75,
+      "nombreMetrica": "Retención - CampeSENA",
+      "meta": 0.8936,
+      "ejecucion": 0.9095,
+      "tipoDato": "porcentaje",
+      "esTotal": 0
+    },
+    {
+      "id": 86,
+      "nombreMetrica": "Retención - Full  Popular",
+      "meta": 0.6101,
+      "ejecucion": 0.8603,
+      "tipoDato": "porcentaje",
+      "esTotal": 0
+    },
+    {
+      "id": 66,
+      "nombreMetrica": "TECNICO LABORAL FIC (Cupos incluidos en meta regular Técnico Laboral)",
+      "meta": 31209,
+      "ejecucion": 32161,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 72,
+      "nombreMetrica": "Técnico Laboral CampeSENA",
+      "meta": 24795,
+      "ejecucion": 24856,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 83,
+      "nombreMetrica": "Técnico Laboral Full Popular",
+      "meta": 3881,
+      "ejecucion": 4537,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 77,
+      "nombreMetrica": "Unidades productivas creadas para la estrategia CampeSENA",
+      "meta": 3948,
+      "ejecucion": 489,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 78,
+      "nombreMetrica": "Unidades productivas fortalecidas para la estrategia CampeSENA",
+      "meta": 4000,
+      "ejecucion": 1717,
+      "tipoDato": "numero",
+      "esTotal": 0
+    }
+  ],
+  "Desagregación OTRAS POBLACIONES VULNERABLES": [
+    {
+      "id": 28,
+      "nombreMetrica": "Afrocolombianos",
+      "meta": 57615,
+      "ejecucion": 67156,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 25,
+      "nombreMetrica": "INPEC",
+      "meta": 21240,
+      "ejecucion": 29381,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 24,
+      "nombreMetrica": "Indígenas",
+      "meta": 55932,
+      "ejecucion": 49248,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 26,
+      "nombreMetrica": "Jóvenes Vulnerables",
+      "meta": 874647,
+      "ejecucion": 722780,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 27,
+      "nombreMetrica": "Negritudes (Negros)",
+      "meta": 18842,
+      "ejecucion": 12134,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 30,
+      "nombreMetrica": "Palenqueros",
+      "meta": 510,
+      "ejecucion": 3217,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 23,
+      "nombreMetrica": "Personas en condición de Discapacidad",
+      "meta": 41719,
+      "ejecucion": 34289,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 31,
+      "nombreMetrica": "Proceso de Reintegración y Adolescentes desvinculados de Grupos Armados Organizados al margen de la ley",
+      "meta": 2938,
+      "ejecucion": 3389,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 29,
+      "nombreMetrica": "Raizales",
+      "meta": 3000,
+      "ejecucion": 1702,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 33,
+      "nombreMetrica": "Rroom",
+      "meta": 106,
+      "ejecucion": 92,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 32,
+      "nombreMetrica": "Tercera Edad",
+      "meta": 36139,
+      "ejecucion": 56770,
+      "tipoDato": "numero",
+      "esTotal": 0
+    }
+  ],
+  "EMPRENDIMIENTO Y FORTALECIMIENTO": [
+    {
+      "id": 45,
+      "nombreMetrica": "Emprendedores Orientados",
+      "meta": 534864,
+      "ejecucion": 449918,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 43,
+      "nombreMetrica": "Emprendimientos Asesorados",
+      "meta": 4977,
+      "ejecucion": 3388,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 47,
+      "nombreMetrica": "Empresas Creadas Poblaciones NARP (Incluidas en Empresas creadas a partir del asesoramiento )",
+      "meta": 125,
+      "ejecucion": 112,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 46,
+      "nombreMetrica": "Empresas Fortalecidas Poblaciones NARP (Incluidas en Empresas en Fortalecimiento)",
+      "meta": 100,
+      "ejecucion": 186,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 51,
+      "nombreMetrica": "No. Planes de Negocio Desplazados por la Violencia",
+      "meta": 3096,
+      "ejecucion": 2848,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 52,
+      "nombreMetrica": "No. Unidades Productivas Desplazados por la Violencia",
+      "meta": 1703,
+      "ejecucion": 1643,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 49,
+      "nombreMetrica": "Número de Campesinos atendidos en el programa de emprendimiento",
+      "meta": 100229,
+      "ejecucion": 83158,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 50,
+      "nombreMetrica": "Número de personas de Full Popular atendidos en el programa de emprendimiento",
+      "meta": 7000,
+      "ejecucion": 30597,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 44,
+      "nombreMetrica": "Planes de Negocio Formulados",
+      "meta": 4885,
+      "ejecucion": 2296,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 48,
+      "nombreMetrica": "Planes de negocios formulados de Full Popular",
+      "meta": 171,
+      "ejecucion": 0,
+      "tipoDato": "numero",
+      "esTotal": 0
+    }
+  ],
+  "FONDO EMPRENDER": [
+    {
+      "id": 54,
+      "nombreMetrica": "Empleos potenciales directos Fondo Emprender",
+      "meta": 5204,
+      "ejecucion": 278,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 55,
+      "nombreMetrica": "Empleos potenciales directos de full popular a través del Fondo Emprender",
+      "meta": 189,
+      "ejecucion": 0,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 53,
+      "nombreMetrica": "Iniciativas empresariales financiadas con recursos del Fondo Emprender",
+      "meta": 2665,
+      "ejecucion": 186,
+      "tipoDato": "numero",
+      "esTotal": 0
+    }
+  ],
+  "INTERNACIONALIZACIÓN": [
+    {
+      "id": 62,
+      "nombreMetrica": "Alianzas estratégicas, convenios y/o proyectos nacionales e internacionales suscritos y/o fortalecidos por el SENA",
+      "meta": 20,
+      "ejecucion": 22,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 63,
+      "nombreMetrica": "Movilidad Internacional (Entrante y saliente)",
+      "meta": 500,
+      "ejecucion": 246,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 64,
+      "nombreMetrica": "Personas formadas y entrenadas en el marco de alianzas con cooperantes internacionales",
+      "meta": 6000,
+      "ejecucion": 5421,
+      "tipoDato": "numero",
+      "esTotal": 0
+    }
+  ],
+  "POBLACIONES VULNERABLES (Están incluidas en el Total de la Formación Profesional Integral)": [
+    {
+      "id": 21,
+      "nombreMetrica": "TOTAL VICTIMAS (C) = (A+B)",
+      "meta": 684554,
+      "ejecucion": 1228594,
+      "tipoDato": "numero",
+      "esTotal": 1
+    },
+    {
+      "id": 19,
+      "nombreMetrica": "DESPLAZADOS POR LA VIOLENCIA (A)",
+      "meta": 628935,
+      "ejecucion": 1177333,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 20,
+      "nombreMetrica": "HECHOS VICTIMIZANTES  (B)",
+      "meta": 55619,
+      "ejecucion": 51261,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 22,
+      "nombreMetrica": "OTRAS POBLACIONES VULNERABLES (D)",
+      "meta": 1578446,
+      "ejecucion": 1403461,
+      "tipoDato": "numero",
+      "esTotal": 0
+    }
+  ],
+  "Productividad CampeSENA": [
+    {
+      "id": 17,
+      "nombreMetrica": "Proyectos productivos beneficiados para la estrategia CampeSENA",
+      "meta": 1492,
+      "ejecucion": 0,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 18,
+      "nombreMetrica": "Proyectos productivos formulados para la estrategia CampeSENA",
+      "meta": 2120,
+      "ejecucion": 2114,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 15,
+      "nombreMetrica": "Unidades productivas creadas para la estrategia CampeSENA",
+      "meta": 3948,
+      "ejecucion": 489,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 16,
+      "nombreMetrica": "Unidades productivas fortalecidas para la estrategia CampeSENA",
+      "meta": 4000,
+      "ejecucion": 1717,
+      "tipoDato": "numero",
+      "esTotal": 0
+    }
+  ]
+}

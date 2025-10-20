@@ -1,0 +1,332 @@
+[
+  {
+    "id": 15,
+    "descripcion": "SubTotal Auxiliares (A)",
+    "meta": 9103,
+    "ejecucion": 6360,
+    "porcentaje": 69.87,
+    "esSubtotal": 1,
+    "esTotal": 1,
+    "nivelJerarquia": 3
+  },
+  {
+    "id": 11,
+    "descripcion": "SubTotal Operarios (B)",
+    "meta": 22313,
+    "ejecucion": 19134,
+    "porcentaje": 85.75,
+    "esSubtotal": 1,
+    "esTotal": 1,
+    "nivelJerarquia": 3
+  },
+  {
+    "id": 29,
+    "descripcion": "SubTotal Programa de Bilinguïsmo (K = I + J)",
+    "meta": 1029582,
+    "ejecucion": 767908,
+    "porcentaje": 74.58,
+    "esSubtotal": 1,
+    "esTotal": 1,
+    "nivelJerarquia": 3
+  },
+  {
+    "id": 6,
+    "descripcion": "SubTotal Tecnólogos ( E)",
+    "meta": 461619,
+    "ejecucion": 423788,
+    "porcentaje": 91.8,
+    "esSubtotal": 1,
+    "esTotal": 1,
+    "nivelJerarquia": 3
+  },
+  {
+    "id": 21,
+    "descripcion": "SubTotal Técnico Laboral (C)",
+    "meta": 822559,
+    "ejecucion": 780652,
+    "porcentaje": 94.91,
+    "esSubtotal": 1,
+    "esTotal": 1,
+    "nivelJerarquia": 3
+  },
+  {
+    "id": 32,
+    "descripcion": "TOTAL FORMACION COMPLEMENTARIA (N = G+H+K+L+M)",
+    "meta": 7028060,
+    "ejecucion": 5401061,
+    "porcentaje": 76.85,
+    "esSubtotal": 0,
+    "esTotal": 1,
+    "nivelJerarquia": 3
+  },
+  {
+    "id": 33,
+    "descripcion": "TOTAL FORMACION PROFESIONAL INTEGRAL (O=N+F)",
+    "meta": 8344974,
+    "ejecucion": 6631821,
+    "porcentaje": 79.47,
+    "esSubtotal": 0,
+    "esTotal": 1,
+    "nivelJerarquia": 3
+  },
+  {
+    "id": 24,
+    "descripcion": "TOTAL FORMACION TITULADA (F = D+E)",
+    "meta": 1316914,
+    "ejecucion": 1230760,
+    "porcentaje": 93.46,
+    "esSubtotal": 0,
+    "esTotal": 1,
+    "nivelJerarquia": 3
+  },
+  {
+    "id": 23,
+    "descripcion": "TOTAL FORMACIÓN LABORAL (D=A+B+C+T)",
+    "meta": 855295,
+    "ejecucion": 806972,
+    "porcentaje": 94.35,
+    "esSubtotal": 0,
+    "esTotal": 1,
+    "nivelJerarquia": 3
+  },
+  {
+    "id": 13,
+    "descripcion": "Auxiliares CampeSENA",
+    "meta": 945,
+    "ejecucion": 848,
+    "porcentaje": 89.74,
+    "esSubtotal": 0,
+    "esTotal": 0,
+    "nivelJerarquia": 1
+  },
+  {
+    "id": 14,
+    "descripcion": "Auxiliares Full Popular",
+    "meta": 1091,
+    "ejecucion": 913,
+    "porcentaje": 83.68,
+    "esSubtotal": 0,
+    "esTotal": 0,
+    "nivelJerarquia": 1
+  },
+  {
+    "id": 12,
+    "descripcion": "Auxiliares Regular",
+    "meta": 7067,
+    "ejecucion": 4599,
+    "porcentaje": 65.08,
+    "esSubtotal": 0,
+    "esTotal": 0,
+    "nivelJerarquia": 1
+  },
+  {
+    "id": 7,
+    "descripcion": "EDUCACION SUPERIOR (=E)",
+    "meta": 461619,
+    "ejecucion": 423788,
+    "porcentaje": 91.8,
+    "esSubtotal": 0,
+    "esTotal": 0,
+    "nivelJerarquia": 1
+  },
+  {
+    "id": 26,
+    "descripcion": "Formación Complementaria - Presencial (Sin Bilingüismo) (H)",
+    "meta": 2864984,
+    "ejecucion": 2285812,
+    "porcentaje": 79.78,
+    "esSubtotal": 0,
+    "esTotal": 0,
+    "nivelJerarquia": 1
+  },
+  {
+    "id": 25,
+    "descripcion": "Formación Complementaria - Virtual  (Sin Bilingüismo) (G)",
+    "meta": 2420160,
+    "ejecucion": 1667522,
+    "porcentaje": 68.9,
+    "esSubtotal": 0,
+    "esTotal": 0,
+    "nivelJerarquia": 1
+  },
+  {
+    "id": 30,
+    "descripcion": "Formación Complementaria CampeSENA (L)",
+    "meta": 619134,
+    "ejecucion": 559024,
+    "porcentaje": 90.29,
+    "esSubtotal": 0,
+    "esTotal": 0,
+    "nivelJerarquia": 1
+  },
+  {
+    "id": 31,
+    "descripcion": "Formación Complementaria Full Popular (M)",
+    "meta": 94200,
+    "ejecucion": 120795,
+    "porcentaje": 128.23,
+    "esSubtotal": 0,
+    "esTotal": 0,
+    "nivelJerarquia": 1
+  },
+  {
+    "id": 9,
+    "descripcion": "Operarios CampeSENA",
+    "meta": 1920,
+    "ejecucion": 2340,
+    "porcentaje": 121.88,
+    "esSubtotal": 0,
+    "esTotal": 0,
+    "nivelJerarquia": 1
+  },
+  {
+    "id": 10,
+    "descripcion": "Operarios Full Popular",
+    "meta": 1504,
+    "ejecucion": 1823,
+    "porcentaje": 121.21,
+    "esSubtotal": 0,
+    "esTotal": 0,
+    "nivelJerarquia": 1
+  },
+  {
+    "id": 8,
+    "descripcion": "Operarios Regular",
+    "meta": 18889,
+    "ejecucion": 14971,
+    "porcentaje": 79.26,
+    "esSubtotal": 0,
+    "esTotal": 0,
+    "nivelJerarquia": 1
+  },
+  {
+    "id": 22,
+    "descripcion": "Profundización Técnica (T)",
+    "meta": 1320,
+    "ejecucion": 826,
+    "porcentaje": 62.58,
+    "esSubtotal": 0,
+    "esTotal": 0,
+    "nivelJerarquia": 1
+  },
+  {
+    "id": 28,
+    "descripcion": "Programa de Bilingüismo - Presencial (J)",
+    "meta": 111822,
+    "ejecucion": 96247,
+    "porcentaje": 86.07,
+    "esSubtotal": 0,
+    "esTotal": 0,
+    "nivelJerarquia": 1
+  },
+  {
+    "id": 27,
+    "descripcion": "Programa de Bilingüismo - Virtual (I)",
+    "meta": 917760,
+    "ejecucion": 671661,
+    "porcentaje": 73.18,
+    "esSubtotal": 0,
+    "esTotal": 0,
+    "nivelJerarquia": 1
+  },
+  {
+    "id": 4,
+    "descripcion": "Tecnólogos CampeSENA",
+    "meta": 2399,
+    "ejecucion": 2650,
+    "porcentaje": 110.46,
+    "esSubtotal": 0,
+    "esTotal": 0,
+    "nivelJerarquia": 1
+  },
+  {
+    "id": 5,
+    "descripcion": "Tecnólogos Full Popular",
+    "meta": 678,
+    "ejecucion": 641,
+    "porcentaje": 94.54,
+    "esSubtotal": 0,
+    "esTotal": 0,
+    "nivelJerarquia": 1
+  },
+  {
+    "id": 3,
+    "descripcion": "Tecnólogos Regular - A Distancia",
+    "meta": 14650,
+    "ejecucion": 7848,
+    "porcentaje": 53.57,
+    "esSubtotal": 0,
+    "esTotal": 0,
+    "nivelJerarquia": 1
+  },
+  {
+    "id": 1,
+    "descripcion": "Tecnólogos Regular - Presencial",
+    "meta": 277973,
+    "ejecucion": 246323,
+    "porcentaje": 88.61,
+    "esSubtotal": 0,
+    "esTotal": 0,
+    "nivelJerarquia": 1
+  },
+  {
+    "id": 2,
+    "descripcion": "Tecnólogos Regular - Virtual",
+    "meta": 165919,
+    "ejecucion": 166326,
+    "porcentaje": 100.25,
+    "esSubtotal": 0,
+    "esTotal": 0,
+    "nivelJerarquia": 1
+  },
+  {
+    "id": 20,
+    "descripcion": "Técnico Laboral Articulación con la Media",
+    "meta": 475067,
+    "ejecucion": 477553,
+    "porcentaje": 100.52,
+    "esSubtotal": 0,
+    "esTotal": 0,
+    "nivelJerarquia": 1
+  },
+  {
+    "id": 18,
+    "descripcion": "Técnico Laboral CampeSENA",
+    "meta": 24795,
+    "ejecucion": 24856,
+    "porcentaje": 100.25,
+    "esSubtotal": 0,
+    "esTotal": 0,
+    "nivelJerarquia": 1
+  },
+  {
+    "id": 19,
+    "descripcion": "Técnico Laboral Full Popular",
+    "meta": 3881,
+    "ejecucion": 4537,
+    "porcentaje": 116.9,
+    "esSubtotal": 0,
+    "esTotal": 0,
+    "nivelJerarquia": 1
+  },
+  {
+    "id": 16,
+    "descripcion": "Técnico Laboral Regular - Presencial",
+    "meta": 260961,
+    "ejecucion": 221679,
+    "porcentaje": 84.95,
+    "esSubtotal": 0,
+    "esTotal": 0,
+    "nivelJerarquia": 1
+  },
+  {
+    "id": 17,
+    "descripcion": "Técnico Laboral Regular - Virtual",
+    "meta": 57855,
+    "ejecucion": 52027,
+    "porcentaje": 89.93,
+    "esSubtotal": 0,
+    "esTotal": 0,
+    "nivelJerarquia": 1
+  }
+]

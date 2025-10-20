@@ -1,0 +1,34 @@
+[
+  {
+    "id": 4,
+    "descripcion": "Tecnólogos Primer Curso",
+    "meta": 200000,
+    "ejecucion": 126645,
+    "porcentaje": 63.32,
+    "tipo": "Primer curso"
+  },
+  {
+    "id": 1,
+    "descripcion": "Total Formación Profesional CampeSENA",
+    "meta": 649193,
+    "ejecucion": 589718,
+    "porcentaje": 90.84,
+    "tipo": "Programa relevante"
+  },
+  {
+    "id": 2,
+    "descripcion": "Total Formación Profesional Full Popular",
+    "meta": 101354,
+    "ejecucion": 128709,
+    "porcentaje": 126.99,
+    "tipo": "Programa relevante"
+  },
+  {
+    "id": 3,
+    "descripcion": "Total Formación Profesional Integral - Virtual",
+    "meta": 3561344,
+    "ejecucion": 2557536,
+    "porcentaje": 71.81,
+    "tipo": "Programa relevante"
+  }
+]

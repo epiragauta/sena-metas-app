@@ -1,0 +1,1109 @@
+{
+  "version": "1.0",
+  "periodo": "2025_09",
+  "descripcion": "Referencias de totales y agregaciones para seguimiento de metas SENA",
+  "jerarquias": {
+    "EDUCACION SUPERIOR (=E)": {
+      "tipo": "suma",
+      "componentes": [
+        "SubTotal Tecnólogos ( E)"
+      ],
+      "tabla": "meta_formacion_profesional_integral"
+    },
+    "SubTotal Auxiliares (A)": {
+      "tipo": "suma",
+      "componentes": [
+        "Auxiliares Regular",
+        "Auxiliares CampeSENA",
+        "Auxiliares Full Popular"
+      ],
+      "tabla": "meta_formacion_profesional_integral"
+    },
+    "SubTotal Operarios (B)": {
+      "tipo": "suma",
+      "componentes": [
+        "Operarios Regular",
+        "Operarios CampeSENA",
+        "Operarios Full Popular"
+      ],
+      "tabla": "meta_formacion_profesional_integral"
+    },
+    "SubTotal Tecnólogos ( E)": {
+      "tipo": "suma",
+      "componentes": [
+        "Tecnólogos Regular - Presencial",
+        "Tecnólogos Regular - Virtual",
+        "Tecnólogos Regular - A Distancia",
+        "Tecnólogos CampeSENA",
+        "Tecnólogos Full Popular"
+      ],
+      "tabla": "meta_formacion_profesional_integral"
+    },
+    "SubTotal Técnico Laboral (C)": {
+      "tipo": "suma",
+      "componentes": [
+        "Técnico Laboral Regular - Presencial",
+        "Técnico Laboral Regular - Virtual",
+        "Técnico Laboral CampeSENA",
+        "Técnico Laboral Full Popular",
+        "Técnico Laboral Articulación con la Media"
+      ],
+      "tabla": "meta_formacion_profesional_integral"
+    },
+    "TOTAL FORMACION COMPLEMENTARIA (N = G+H+K+L+M)": {
+      "tipo": "suma",
+      "componentes": [
+        "Formación Complementaria - Virtual  (Sin Bilingüismo) (G)",
+        "Formación Complementaria - Presencial (Sin Bilingüismo) (H)",
+        "Formación Complementaria CampeSENA (L)",
+        "Formación Complementaria Full Popular (M)"
+      ],
+      "tabla": "meta_formacion_profesional_integral"
+    },
+    "TOTAL FORMACION PROFESIONAL INTEGRAL (O=N+F)": {
+      "tipo": "suma",
+      "componentes": [
+        "TOTAL FORMACION TITULADA (F = D+E)",
+        "TOTAL FORMACION COMPLEMENTARIA (N = G+H+K+L+M)"
+      ],
+      "tabla": "meta_formacion_profesional_integral"
+    },
+    "TOTAL FORMACION TITULADA (F = D+E)": {
+      "tipo": "suma",
+      "componentes": [
+        "TOTAL FORMACIÓN LABORAL (D=A+B+C+T)",
+        "EDUCACION SUPERIOR (=E)"
+      ],
+      "tabla": "meta_formacion_profesional_integral"
+    },
+    "TOTAL FORMACIÓN LABORAL (D=A+B+C+T)": {
+      "tipo": "suma",
+      "componentes": [
+        "SubTotal Auxiliares (A)",
+        "SubTotal Operarios (B)",
+        "SubTotal Técnico Laboral (C)",
+        "Profundización Técnica (T)"
+      ],
+      "tabla": "meta_formacion_profesional_integral"
+    }
+  },
+  "totales": {
+    "formacion_profesional_integral": [
+      {
+        "id": 15,
+        "descripcion": "SubTotal Auxiliares (A)",
+        "es_subtotal": true,
+        "es_total": true,
+        "nivel_jerarquia": 3,
+        "meta": 9103,
+        "ejecucion": 6360
+      },
+      {
+        "id": 11,
+        "descripcion": "SubTotal Operarios (B)",
+        "es_subtotal": true,
+        "es_total": true,
+        "nivel_jerarquia": 3,
+        "meta": 22313,
+        "ejecucion": 19134
+      },
+      {
+        "id": 29,
+        "descripcion": "SubTotal Programa de Bilinguïsmo (K = I + J)",
+        "es_subtotal": true,
+        "es_total": true,
+        "nivel_jerarquia": 3,
+        "meta": 1029582,
+        "ejecucion": 767908
+      },
+      {
+        "id": 6,
+        "descripcion": "SubTotal Tecnólogos ( E)",
+        "es_subtotal": true,
+        "es_total": true,
+        "nivel_jerarquia": 3,
+        "meta": 461619,
+        "ejecucion": 423788
+      },
+      {
+        "id": 21,
+        "descripcion": "SubTotal Técnico Laboral (C)",
+        "es_subtotal": true,
+        "es_total": true,
+        "nivel_jerarquia": 3,
+        "meta": 822559,
+        "ejecucion": 780652
+      },
+      {
+        "id": 32,
+        "descripcion": "TOTAL FORMACION COMPLEMENTARIA (N = G+H+K+L+M)",
+        "es_subtotal": false,
+        "es_total": true,
+        "nivel_jerarquia": 3,
+        "meta": 7028060,
+        "ejecucion": 5401061
+      },
+      {
+        "id": 33,
+        "descripcion": "TOTAL FORMACION PROFESIONAL INTEGRAL (O=N+F)",
+        "es_subtotal": false,
+        "es_total": true,
+        "nivel_jerarquia": 3,
+        "meta": 8344974,
+        "ejecucion": 6631821
+      },
+      {
+        "id": 24,
+        "descripcion": "TOTAL FORMACION TITULADA (F = D+E)",
+        "es_subtotal": false,
+        "es_total": true,
+        "nivel_jerarquia": 3,
+        "meta": 1316914,
+        "ejecucion": 1230760
+      },
+      {
+        "id": 23,
+        "descripcion": "TOTAL FORMACIÓN LABORAL (D=A+B+C+T)",
+        "es_subtotal": false,
+        "es_total": true,
+        "nivel_jerarquia": 3,
+        "meta": 855295,
+        "ejecucion": 806972
+      }
+    ],
+    "formacion_por_nivel_programa": [
+      {
+        "id": 8,
+        "nivel_formacion": " TOTAL FORMACION EDUCACION SUPERIOR ",
+        "componentes": {
+          "regular": {
+            "meta": 458542,
+            "ejecucion": 420497
+          },
+          "campesena": {
+            "meta": 2399,
+            "ejecucion": 2650
+          },
+          "full_popular": {
+            "meta": 678,
+            "ejecucion": 641
+          }
+        },
+        "total_meta": 461619
+      },
+      {
+        "id": 6,
+        "nivel_formacion": " TOTAL FORMACION LABORAL  ",
+        "componentes": {
+          "regular": {
+            "meta": 821159,
+            "ejecucion": 771655
+          },
+          "campesena": {
+            "meta": 27660,
+            "ejecucion": 28044
+          },
+          "full_popular": {
+            "meta": 6476,
+            "ejecucion": 7273
+          }
+        },
+        "total_meta": 855295
+      },
+      {
+        "id": 9,
+        "nivel_formacion": " TOTAL FORMACION TITULADA ",
+        "componentes": {
+          "regular": {
+            "meta": 1279701,
+            "ejecucion": 1192152
+          },
+          "campesena": {
+            "meta": 30059,
+            "ejecucion": 30694
+          },
+          "full_popular": {
+            "meta": 7154,
+            "ejecucion": 7914
+          }
+        },
+        "total_meta": 1316914
+      },
+      {
+        "id": 14,
+        "nivel_formacion": "TOTAL  FORMACION COMPLEMENTARIA ",
+        "componentes": {
+          "regular": {
+            "meta": 6314726,
+            "ejecucion": 4721242
+          },
+          "campesena": {
+            "meta": 619134,
+            "ejecucion": 559024
+          },
+          "full_popular": {
+            "meta": 94200,
+            "ejecucion": 120795
+          }
+        },
+        "total_meta": 7028060
+      },
+      {
+        "id": 15,
+        "nivel_formacion": "TOTAL FORMACIÓN PROFESIONAL INTEGRAL ",
+        "componentes": {
+          "regular": {
+            "meta": 7594427,
+            "ejecucion": 5913394
+          },
+          "campesena": {
+            "meta": 649193,
+            "ejecucion": 589718
+          },
+          "full_popular": {
+            "meta": 101354,
+            "ejecucion": 128709
+          }
+        },
+        "total_meta": 8344974
+      }
+    ],
+    "metricas_adicionales": {
+      "AGENCIA PUBLICA  DE EMPLEO": [
+        {
+          "id": 38,
+          "nombre": "TOTAL COLOCACIONES",
+          "meta": 534288,
+          "ejecucion": 478950,
+          "tipo_dato": "numero",
+          "es_total": true
+        },
+        {
+          "id": 41,
+          "nombre": "TOTAL ORIENTADOS",
+          "meta": 1376869,
+          "ejecucion": 1071249,
+          "tipo_dato": "numero",
+          "es_total": true
+        },
+        {
+          "id": 36,
+          "nombre": "COLOCACIONES EGRESADOS SENA",
+          "meta": 295608,
+          "ejecucion": 252809,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 37,
+          "nombre": "COLOCACIONES NO SENA",
+          "meta": 238680,
+          "ejecucion": 226141,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 34,
+          "nombre": "INSCRITOS",
+          "meta": 1098970,
+          "ejecucion": 934149,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 39,
+          "nombre": "ORIENTADOS DESEMPLEADOS",
+          "meta": 1064064,
+          "ejecucion": 803320,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 40,
+          "nombre": "ORIENTADOS DESPLAZADOS",
+          "meta": 312805,
+          "ejecucion": 267929,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 42,
+          "nombre": "TASA DE COLOCACION (%)",
+          "meta": 0.63,
+          "ejecucion": 0.5974,
+          "tipo_dato": "porcentaje",
+          "es_total": false
+        },
+        {
+          "id": 35,
+          "nombre": "VACANTES",
+          "meta": 884291,
+          "ejecucion": 801661,
+          "tipo_dato": "numero",
+          "es_total": false
+        }
+      ],
+      "CERTIFICACIÓN FORMACIÓN PROFESIONAL": [
+        {
+          "id": 4,
+          "nombre": "TOTAL FORMACIÓN COMPLEMENTARIA",
+          "meta": 3420411,
+          "ejecucion": 2646535,
+          "tipo_dato": "numero",
+          "es_total": true
+        },
+        {
+          "id": 5,
+          "nombre": "TOTAL FORMACIÓN PROFESIONAL INTEGRAL",
+          "meta": 3866963,
+          "ejecucion": 2764101,
+          "tipo_dato": "numero",
+          "es_total": true
+        },
+        {
+          "id": 3,
+          "nombre": "TOTAL FORMACIÓN TITULADA",
+          "meta": 446552,
+          "ejecucion": 117566,
+          "tipo_dato": "numero",
+          "es_total": true
+        },
+        {
+          "id": 2,
+          "nombre": "EDUCACIÓN SUPERIOR",
+          "meta": 94127,
+          "ejecucion": 46500,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 1,
+          "nombre": "FORMACIÓN LABORAL",
+          "meta": 352425,
+          "ejecucion": 71066,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 6,
+          "nombre": "Full  Popular (Incluidas en Formación Profesional Integral)",
+          "meta": 54421,
+          "ejecucion": 87251,
+          "tipo_dato": "numero",
+          "es_total": false
+        }
+      ],
+      "CONTRATOS DE APRENDIZAJE": [
+        {
+          "id": 60,
+          "nombre": "Total Aprendices Con Contrato De Aprendizaje",
+          "meta": 370000,
+          "ejecucion": 338725,
+          "tipo_dato": "numero",
+          "es_total": true
+        },
+        {
+          "id": 59,
+          "nombre": "Aprendices Con Contrato De Aprendizaje - NO SENA",
+          "meta": 110280,
+          "ejecucion": 136421,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 61,
+          "nombre": "Aprendices Con Contrato De Aprendizaje Voluntario",
+          "meta": 13000,
+          "ejecucion": 8850,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 58,
+          "nombre": "Aprendices SENA Con Contrato De Aprendizaje (Incluye contratos voluntarios)",
+          "meta": 259720,
+          "ejecucion": 202304,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 57,
+          "nombre": "Número de Empresas con Cuota Voluntaria",
+          "meta": 4500,
+          "ejecucion": 3209,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 56,
+          "nombre": "Número de Empresas con Cuotas Reguladas",
+          "meta": 42000,
+          "ejecucion": 42665,
+          "tipo_dato": "numero",
+          "es_total": false
+        }
+      ],
+      "Certificación de Competetencias Laborales": [
+        {
+          "id": 10,
+          "nombre": "Total Certificaciones en Competencias laborales (D)=(A+B+C)",
+          "meta": 290430,
+          "ejecucion": 257388,
+          "tipo_dato": "numero",
+          "es_total": true
+        },
+        {
+          "id": 8,
+          "nombre": "Certificaciones de competencia Laboral expedidas en Full Popular (B)",
+          "meta": 31221,
+          "ejecucion": 30412,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 7,
+          "nombre": "Certificaciones de competencias laborales expedidas para CampeSENA (A)",
+          "meta": 49870,
+          "ejecucion": 60301,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 9,
+          "nombre": "Certificaciones expedidas en Competencias Laborales - Regular (C)",
+          "meta": 209339,
+          "ejecucion": 166675,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 11,
+          "nombre": "No de Evaluaciones en Competencias Laborales",
+          "meta": 301841,
+          "ejecucion": 273464,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 13,
+          "nombre": "Personas Certificadas en Competencias Laborales",
+          "meta": 247707,
+          "ejecucion": 199371,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 12,
+          "nombre": "Personas Evaluadas en Competencias Laborales",
+          "meta": 258586,
+          "ejecucion": 210260,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 14,
+          "nombre": "Reuniones de consejos ejecutivos realizadas",
+          "meta": 340,
+          "ejecucion": 195,
+          "tipo_dato": "numero",
+          "es_total": false
+        }
+      ],
+      "Cupos autorizados FIC": [
+        {
+          "id": 69,
+          "nombre": "TOTAL FORMACION PROFESIONAL INTEGRAL FIC (Cupos incluidos en meta regular Formación Profesional Integral)",
+          "meta": 62795,
+          "ejecucion": 57127,
+          "tipo_dato": "numero",
+          "es_total": true
+        },
+        {
+          "id": 89,
+          "nombre": "Total Estrategia Formación Continua Especial Campesina (En el marco de FEEC)",
+          "meta": 30000,
+          "ejecucion": 2440,
+          "tipo_dato": "numero",
+          "es_total": true
+        },
+        {
+          "id": 74,
+          "nombre": "Total Formación Profesional CampeSENA",
+          "meta": 649193,
+          "ejecucion": 589718,
+          "tipo_dato": "numero",
+          "es_total": true
+        },
+        {
+          "id": 85,
+          "nombre": "Total Formación Profesional Full Popular",
+          "meta": 101354,
+          "ejecucion": 128709,
+          "tipo_dato": "numero",
+          "es_total": true
+        },
+        {
+          "id": 71,
+          "nombre": "Auxiliares CampeSENA",
+          "meta": 945,
+          "ejecucion": 848,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 82,
+          "nombre": "Auxiliares Full Popular",
+          "meta": 1091,
+          "ejecucion": 913,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 76,
+          "nombre": "Certificación - CampeSENA (Incluidas en Formación Profesional Integral)",
+          "meta": 481818,
+          "ejecucion": 333924,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 87,
+          "nombre": "Certificación - Full  Popular (Incluidas en Formación Profesional Integral)",
+          "meta": 54421,
+          "ejecucion": 87251,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 88,
+          "nombre": "Estrategia Formación Continua Especial Campesina (En el marco de FEEC)",
+          "meta": 30000,
+          "ejecucion": 2440,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 68,
+          "nombre": "FORMACION COMPLEMENTARIA FIC (Cupos incluidos en meta regular Formación Complementaria)",
+          "meta": 16830,
+          "ejecucion": 13020,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 67,
+          "nombre": "FORMACION TITULADA FIC (Cupos incluidos en meta regular Formación Titulada)",
+          "meta": 45965,
+          "ejecucion": 44107,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 73,
+          "nombre": "Formación Complementaria CampeSENA",
+          "meta": 619134,
+          "ejecucion": 559024,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 84,
+          "nombre": "Formación Complementaria Full Popular (M)",
+          "meta": 94200,
+          "ejecucion": 120795,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 65,
+          "nombre": "OPERARIOS FIC (Cupos incluidos en meta regular Operarios)",
+          "meta": 2525,
+          "ejecucion": 1838,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 70,
+          "nombre": "Operarios CampeSENA",
+          "meta": 1920,
+          "ejecucion": 2340,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 81,
+          "nombre": "Operarios Full Popular",
+          "meta": 1504,
+          "ejecucion": 1823,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 79,
+          "nombre": "Proyectos productivos beneficiados para la estrategia CampeSENA",
+          "meta": 1492,
+          "ejecucion": 0,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 80,
+          "nombre": "Proyectos productivos formulados para la estrategia CampeSENA",
+          "meta": 2120,
+          "ejecucion": 2114,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 75,
+          "nombre": "Retención - CampeSENA",
+          "meta": 0.8936,
+          "ejecucion": 0.9095,
+          "tipo_dato": "porcentaje",
+          "es_total": false
+        },
+        {
+          "id": 86,
+          "nombre": "Retención - Full  Popular",
+          "meta": 0.6101,
+          "ejecucion": 0.8603,
+          "tipo_dato": "porcentaje",
+          "es_total": false
+        },
+        {
+          "id": 66,
+          "nombre": "TECNICO LABORAL FIC (Cupos incluidos en meta regular Técnico Laboral)",
+          "meta": 31209,
+          "ejecucion": 32161,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 72,
+          "nombre": "Técnico Laboral CampeSENA",
+          "meta": 24795,
+          "ejecucion": 24856,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 83,
+          "nombre": "Técnico Laboral Full Popular",
+          "meta": 3881,
+          "ejecucion": 4537,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 77,
+          "nombre": "Unidades productivas creadas para la estrategia CampeSENA",
+          "meta": 3948,
+          "ejecucion": 489,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 78,
+          "nombre": "Unidades productivas fortalecidas para la estrategia CampeSENA",
+          "meta": 4000,
+          "ejecucion": 1717,
+          "tipo_dato": "numero",
+          "es_total": false
+        }
+      ],
+      "Desagregación OTRAS POBLACIONES VULNERABLES": [
+        {
+          "id": 28,
+          "nombre": "Afrocolombianos",
+          "meta": 57615,
+          "ejecucion": 67156,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 25,
+          "nombre": "INPEC",
+          "meta": 21240,
+          "ejecucion": 29381,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 24,
+          "nombre": "Indígenas",
+          "meta": 55932,
+          "ejecucion": 49248,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 26,
+          "nombre": "Jóvenes Vulnerables",
+          "meta": 874647,
+          "ejecucion": 722780,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 27,
+          "nombre": "Negritudes (Negros)",
+          "meta": 18842,
+          "ejecucion": 12134,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 30,
+          "nombre": "Palenqueros",
+          "meta": 510,
+          "ejecucion": 3217,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 23,
+          "nombre": "Personas en condición de Discapacidad",
+          "meta": 41719,
+          "ejecucion": 34289,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 31,
+          "nombre": "Proceso de Reintegración y Adolescentes desvinculados de Grupos Armados Organizados al margen de la ley",
+          "meta": 2938,
+          "ejecucion": 3389,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 29,
+          "nombre": "Raizales",
+          "meta": 3000,
+          "ejecucion": 1702,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 33,
+          "nombre": "Rroom",
+          "meta": 106,
+          "ejecucion": 92,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 32,
+          "nombre": "Tercera Edad",
+          "meta": 36139,
+          "ejecucion": 56770,
+          "tipo_dato": "numero",
+          "es_total": false
+        }
+      ],
+      "EMPRENDIMIENTO Y FORTALECIMIENTO": [
+        {
+          "id": 45,
+          "nombre": "Emprendedores Orientados",
+          "meta": 534864,
+          "ejecucion": 449918,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 43,
+          "nombre": "Emprendimientos Asesorados",
+          "meta": 4977,
+          "ejecucion": 3388,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 47,
+          "nombre": "Empresas Creadas Poblaciones NARP (Incluidas en Empresas creadas a partir del asesoramiento )",
+          "meta": 125,
+          "ejecucion": 112,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 46,
+          "nombre": "Empresas Fortalecidas Poblaciones NARP (Incluidas en Empresas en Fortalecimiento)",
+          "meta": 100,
+          "ejecucion": 186,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 51,
+          "nombre": "No. Planes de Negocio Desplazados por la Violencia",
+          "meta": 3096,
+          "ejecucion": 2848,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 52,
+          "nombre": "No. Unidades Productivas Desplazados por la Violencia",
+          "meta": 1703,
+          "ejecucion": 1643,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 49,
+          "nombre": "Número de Campesinos atendidos en el programa de emprendimiento",
+          "meta": 100229,
+          "ejecucion": 83158,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 50,
+          "nombre": "Número de personas de Full Popular atendidos en el programa de emprendimiento",
+          "meta": 7000,
+          "ejecucion": 30597,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 44,
+          "nombre": "Planes de Negocio Formulados",
+          "meta": 4885,
+          "ejecucion": 2296,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 48,
+          "nombre": "Planes de negocios formulados de Full Popular",
+          "meta": 171,
+          "ejecucion": 0,
+          "tipo_dato": "numero",
+          "es_total": false
+        }
+      ],
+      "FONDO EMPRENDER": [
+        {
+          "id": 54,
+          "nombre": "Empleos potenciales directos Fondo Emprender",
+          "meta": 5204,
+          "ejecucion": 278,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 55,
+          "nombre": "Empleos potenciales directos de full popular a través del Fondo Emprender",
+          "meta": 189,
+          "ejecucion": 0,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 53,
+          "nombre": "Iniciativas empresariales financiadas con recursos del Fondo Emprender",
+          "meta": 2665,
+          "ejecucion": 186,
+          "tipo_dato": "numero",
+          "es_total": false
+        }
+      ],
+      "INTERNACIONALIZACIÓN": [
+        {
+          "id": 62,
+          "nombre": "Alianzas estratégicas, convenios y/o proyectos nacionales e internacionales suscritos y/o fortalecidos por el SENA",
+          "meta": 20,
+          "ejecucion": 22,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 63,
+          "nombre": "Movilidad Internacional (Entrante y saliente)",
+          "meta": 500,
+          "ejecucion": 246,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 64,
+          "nombre": "Personas formadas y entrenadas en el marco de alianzas con cooperantes internacionales",
+          "meta": 6000,
+          "ejecucion": 5421,
+          "tipo_dato": "numero",
+          "es_total": false
+        }
+      ],
+      "POBLACIONES VULNERABLES (Están incluidas en el Total de la Formación Profesional Integral)": [
+        {
+          "id": 21,
+          "nombre": "TOTAL VICTIMAS (C) = (A+B)",
+          "meta": 684554,
+          "ejecucion": 1228594,
+          "tipo_dato": "numero",
+          "es_total": true
+        },
+        {
+          "id": 19,
+          "nombre": "DESPLAZADOS POR LA VIOLENCIA (A)",
+          "meta": 628935,
+          "ejecucion": 1177333,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 20,
+          "nombre": "HECHOS VICTIMIZANTES  (B)",
+          "meta": 55619,
+          "ejecucion": 51261,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 22,
+          "nombre": "OTRAS POBLACIONES VULNERABLES (D)",
+          "meta": 1578446,
+          "ejecucion": 1403461,
+          "tipo_dato": "numero",
+          "es_total": false
+        }
+      ],
+      "Productividad CampeSENA": [
+        {
+          "id": 17,
+          "nombre": "Proyectos productivos beneficiados para la estrategia CampeSENA",
+          "meta": 1492,
+          "ejecucion": 0,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 18,
+          "nombre": "Proyectos productivos formulados para la estrategia CampeSENA",
+          "meta": 2120,
+          "ejecucion": 2114,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 15,
+          "nombre": "Unidades productivas creadas para la estrategia CampeSENA",
+          "meta": 3948,
+          "ejecucion": 489,
+          "tipo_dato": "numero",
+          "es_total": false
+        },
+        {
+          "id": 16,
+          "nombre": "Unidades productivas fortalecidas para la estrategia CampeSENA",
+          "meta": 4000,
+          "ejecucion": 1717,
+          "tipo_dato": "numero",
+          "es_total": false
+        }
+      ]
+    }
+  },
+  "calculos": {
+    "formulas_conocidas": {
+      "EDUCACION SUPERIOR (=E)": {
+        "formula": "SubTotal Tecnólogos ( E)",
+        "descripcion": "Educación Superior es igual al Subtotal de Tecnólogos"
+      },
+      "TOTAL FORMACIÓN LABORAL (D=A+B+C+T)": {
+        "formula": "SubTotal Auxiliares (A) + SubTotal Operarios (B) + SubTotal Técnico Laboral (C) + Profundización Técnica (T)",
+        "componentes": [
+          "SubTotal Auxiliares (A)",
+          "SubTotal Operarios (B)",
+          "SubTotal Técnico Laboral (C)",
+          "Profundización Técnica (T)"
+        ]
+      },
+      "TOTAL FORMACION TITULADA (F = D+E)": {
+        "formula": "TOTAL FORMACIÓN LABORAL (D=A+B+C+T) + EDUCACION SUPERIOR (=E)",
+        "componentes": [
+          "TOTAL FORMACIÓN LABORAL (D=A+B+C+T)",
+          "EDUCACION SUPERIOR (=E)"
+        ]
+      },
+      "SubTotal Programa de Bilinguísmo (K = I + J)": {
+        "formula": "Programa de Bilingüismo - Virtual (I) + Programa de Bilingüismo - Presencial (J)",
+        "componentes": [
+          "Programa de Bilingüismo - Virtual (I)",
+          "Programa de Bilingüismo - Presencial (J)"
+        ]
+      },
+      "TOTAL FORMACION COMPLEMENTARIA (N = G+H+K+L+M)": {
+        "formula": "Formación Complementaria - Virtual (G) + Formación Complementaria - Presencial (H) + SubTotal Programa de Bilinguísmo (K) + Formación Complementaria CampeSENA (L) + Formación Complementaria Full Popular (M)",
+        "componentes": [
+          "Formación Complementaria - Virtual  (Sin Bilingüismo) (G)",
+          "Formación Complementaria - Presencial (Sin Bilingüismo) (H)",
+          "SubTotal Programa de Bilinguísmo (K = I + J)",
+          "Formación Complementaria CampeSENA (L)",
+          "Formación Complementaria Full Popular (M)"
+        ]
+      },
+      "TOTAL FORMACION PROFESIONAL INTEGRAL (O=N+F)": {
+        "formula": "TOTAL FORMACION TITULADA (F = D+E) + TOTAL FORMACION COMPLEMENTARIA (N = G+H+K+L+M)",
+        "componentes": [
+          "TOTAL FORMACION TITULADA (F = D+E)",
+          "TOTAL FORMACION COMPLEMENTARIA (N = G+H+K+L+M)"
+        ]
+      }
+    }
+  },
+  "programas_especiales": [
+    {
+      "descripcion": "Tecnólogos Primer Curso",
+      "meta": 200000,
+      "ejecucion": 126645,
+      "tipo": "Primer curso"
+    },
+    {
+      "descripcion": "Total Formación Profesional CampeSENA",
+      "meta": 649193,
+      "ejecucion": 589718,
+      "tipo": "Programa relevante"
+    },
+    {
+      "descripcion": "Total Formación Profesional Full Popular",
+      "meta": 101354,
+      "ejecucion": 128709,
+      "tipo": "Programa relevante"
+    },
+    {
+      "descripcion": "Total Formación Profesional Integral - Virtual",
+      "meta": 3561344,
+      "ejecucion": 2557536,
+      "tipo": "Programa relevante"
+    }
+  ],
+  "indicadores_transversales": {
+    "CampeSENA": {
+      "tablas": [
+        "meta_formacion_profesional_integral",
+        "formacion_por_nivel_programa",
+        "programa_relevante",
+        "metrica_adicional"
+      ],
+      "descripcion": "Indicadores relacionados con la estrategia CampeSENA aparecen en múltiples tablas"
+    },
+    "Full Popular": {
+      "tablas": [
+        "meta_formacion_profesional_integral",
+        "formacion_por_nivel_programa",
+        "programa_relevante",
+        "metrica_adicional"
+      ],
+      "descripcion": "Indicadores relacionados con Full Popular aparecen en múltiples tablas"
+    },
+    "Virtual": {
+      "tablas": [
+        "meta_formacion_profesional_integral",
+        "programa_relevante"
+      ],
+      "descripcion": "Formación Virtual se reporta de manera agregada en programas relevantes"
+    }
+  }
+}

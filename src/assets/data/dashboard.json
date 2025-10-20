@@ -1,0 +1,121 @@
+{
+  "kpis": [
+    {
+      "titulo": "EDUCACION SUPERIOR (=E)",
+      "meta": 461619,
+      "ejecucion": 423788,
+      "porcentaje": 91.8,
+      "estado": "success"
+    },
+    {
+      "titulo": "TOTAL FORMACION COMPLEMENTARIA (N = G+H+K+L+M)",
+      "meta": 7028060,
+      "ejecucion": 5401061,
+      "porcentaje": 76.85,
+      "estado": "warning"
+    },
+    {
+      "titulo": "TOTAL FORMACION PROFESIONAL INTEGRAL (O=N+F)",
+      "meta": 8344974,
+      "ejecucion": 6631821,
+      "porcentaje": 79.47,
+      "estado": "warning"
+    },
+    {
+      "titulo": "TOTAL FORMACION TITULADA (F = D+E)",
+      "meta": 1316914,
+      "ejecucion": 1230760,
+      "porcentaje": 93.46,
+      "estado": "success"
+    }
+  ],
+  "modalidades": [
+    {
+      "modalidad": "Regular",
+      "meta": 7594427,
+      "ejecucion": 5913394,
+      "porcentaje": 77.86
+    },
+    {
+      "modalidad": "CampeSENA",
+      "meta": 649193,
+      "ejecucion": 589718,
+      "porcentaje": 90.84
+    },
+    {
+      "modalidad": "Full Popular",
+      "meta": 101354,
+      "ejecucion": 128709,
+      "porcentaje": 126.99
+    }
+  ],
+  "topCumplimiento": [
+    {
+      "descripcion": "Formación Complementaria Full Popular (M)",
+      "meta": 94200,
+      "ejecucion": 120795,
+      "porcentaje": 128.23
+    },
+    {
+      "descripcion": "Operarios CampeSENA",
+      "meta": 1920,
+      "ejecucion": 2340,
+      "porcentaje": 121.88
+    },
+    {
+      "descripcion": "Operarios Full Popular",
+      "meta": 1504,
+      "ejecucion": 1823,
+      "porcentaje": 121.21
+    },
+    {
+      "descripcion": "Técnico Laboral Full Popular",
+      "meta": 3881,
+      "ejecucion": 4537,
+      "porcentaje": 116.9
+    },
+    {
+      "descripcion": "Tecnólogos CampeSENA",
+      "meta": 2399,
+      "ejecucion": 2650,
+      "porcentaje": 110.46
+    }
+  ],
+  "mayorBrecha": [
+    {
+      "descripcion": "Formación Complementaria - Virtual  (Sin Bilingüismo) (G)",
+      "meta": 2420160,
+      "ejecucion": 1667522,
+      "brecha": 752638,
+      "porcentaje": 68.9
+    },
+    {
+      "descripcion": "Formación Complementaria - Presencial (Sin Bilingüismo) (H)",
+      "meta": 2864984,
+      "ejecucion": 2285812,
+      "brecha": 579172,
+      "porcentaje": 79.78
+    },
+    {
+      "descripcion": "Programa de Bilingüismo - Virtual (I)",
+      "meta": 917760,
+      "ejecucion": 671661,
+      "brecha": 246099,
+      "porcentaje": 73.18
+    },
+    {
+      "descripcion": "Formación Complementaria CampeSENA (L)",
+      "meta": 619134,
+      "ejecucion": 559024,
+      "brecha": 60110,
+      "porcentaje": 90.29
+    },
+    {
+      "descripcion": "Técnico Laboral Regular - Presencial",
+      "meta": 260961,
+      "ejecucion": 221679,
+      "brecha": 39282,
+      "porcentaje": 84.95
+    }
+  ]
+}
