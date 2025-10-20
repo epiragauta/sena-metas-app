@@ -11,7 +11,8 @@ import {
   DashboardData,
   Referencias,
   EstadoSemaforo,
-  CategorizacionSemaforo
+  CategorizacionSemaforo,
+  FiltrosMetas
 } from '../models/meta.model';
 
 @Injectable({
@@ -184,5 +185,238 @@ export class MetasService {
     if (porcentaje >= 90) return 'success';
     if (porcentaje >= 70) return 'warning';
     return 'danger';
+  }
+
+  // ========================================
+  // MÉTODOS AVANZADOS DE FILTRADO
+  // ========================================
+
+  /**
+   * Filtra metas por múltiples niveles jerárquicos
+   */
+  filtrarPorNiveles(niveles: number[]): Observable<Meta[]> {
+    return this.getMetas().pipe(
+      map(metas => metas.filter(m => niveles.includes(m.nivelJerarquia)))
+    );
+  }
+
+  /**
+   * Filtra metas por rango de porcentaje
+   */
+  filtrarPorRangoPorcentaje(min: number, max: number): Observable<Meta[]> {
+    return this.getMetas().pipe(
+      map(metas => metas.filter(m => m.porcentaje >= min && m.porcentaje <= max))
+    );
+  }
+
+  /**
+   * Filtra metas por estado de semáforo
+   */
+  filtrarPorEstadoSemaforo(estado: EstadoSemaforo, rangos: RangoSemaforo): Observable<Meta[]> {
+    return this.getMetas().pipe(
+      map(metas => metas.filter(m => this.categorizarPorcentaje(m.porcentaje, rangos) === estado))
+    );
+  }
+
+  /**
+   * Filtra metas por tipo (total, subtotal, detalle)
+   */
+  filtrarPorTipo(tipo: 'total' | 'subtotal' | 'detalle' | 'todos'): Observable<Meta[]> {
+    return this.getMetas().pipe(
+      map(metas => {
+        if (tipo === 'todos') return metas;
+        if (tipo === 'total') return metas.filter(m => m.esTotal);
+        if (tipo === 'subtotal') return metas.filter(m => m.esSubtotal && !m.esTotal);
+        return metas.filter(m => !m.esTotal && !m.esSubtotal);
+      })
+    );
+  }
+
+  /**
+   * Busca metas por texto en la descripción
+   */
+  buscarPorTexto(texto: string): Observable<Meta[]> {
+    const textoNormalizado = texto.toLowerCase().trim();
+    return this.getMetas().pipe(
+      map(metas => metas.filter(m =>
+        m.descripcion.toLowerCase().includes(textoNormalizado)
+      ))
+    );
+  }
+
+  /**
+   * Obtiene todas las metas que son hijas de un padre específico (por ID)
+   */
+  filtrarHijosPorPadreId(padreId: number): Observable<Meta[]> {
+    return this.getJerarquias().pipe(
+      map(jerarquias => {
+        const hijosIds = jerarquias
+          .filter(j => j.idPadre === padreId)
+          .map(j => j.idHijo);
+        return hijosIds;
+      }),
+      switchMap(hijosIds => {
+        return this.getMetas().pipe(
+          map(metas => metas.filter(m => hijosIds.includes(m.id)))
+        );
+      })
+    );
+  }
+
+  /**
+   * Obtiene todas las metas que son padres (tienen al menos un hijo)
+   */
+  obtenerMetasPadres(): Observable<Meta[]> {
+    return this.getJerarquias().pipe(
+      map(jerarquias => {
+        const padresIds = [...new Set(jerarquias.map(j => j.idPadre))];
+        return padresIds;
+      }),
+      switchMap(padresIds => {
+        return this.getMetas().pipe(
+          map(metas => metas.filter(m => padresIds.includes(m.id)))
+        );
+      })
+    );
+  }
+
+  /**
+   * Obtiene todas las metas que son hojas (no tienen hijos)
+   */
+  obtenerMetasHojas(): Observable<Meta[]> {
+    return this.getJerarquias().pipe(
+      map(jerarquias => {
+        const padresIds = new Set(jerarquias.map(j => j.idPadre));
+        return padresIds;
+      }),
+      switchMap(padresIds => {
+        return this.getMetas().pipe(
+          map(metas => metas.filter(m => !padresIds.has(m.id)))
+        );
+      })
+    );
+  }
+
+  /**
+   * Obtiene el camino jerárquico completo de una meta (desde la raíz hasta ella)
+   */
+  obtenerCaminoJerarquico(metaId: number): Observable<Meta[]> {
+    return this.getJerarquias().pipe(
+      switchMap(jerarquias => {
+        const camino: number[] = [metaId];
+        let actualId = metaId;
+
+        // Recorrer hacia arriba en la jerarquía
+        let encontrado = true;
+        while (encontrado) {
+          encontrado = false;
+          const relacion = jerarquias.find(j => j.idHijo === actualId);
+          if (relacion) {
+            camino.unshift(relacion.idPadre);
+            actualId = relacion.idPadre;
+            encontrado = true;
+          }
+        }
+
+        return this.getMetas().pipe(
+          map(metas => metas.filter(m => camino.includes(m.id)))
+        );
+      })
+    );
+  }
+
+  /**
+   * Aplica filtros combinados a las metas
+   */
+  aplicarFiltrosCombinados(filtros: FiltrosMetas): Observable<Meta[]> {
+    return this.getMetas().pipe(
+      map(metas => {
+        let resultado = metas;
+
+        // Filtrar por niveles jerárquicos
+        if (filtros.niveles && filtros.niveles.length > 0) {
+          resultado = resultado.filter(m => filtros.niveles!.includes(m.nivelJerarquia));
+        }
+
+        // Filtrar por tipo
+        if (filtros.tipo && filtros.tipo !== 'todos') {
+          if (filtros.tipo === 'total') {
+            resultado = resultado.filter(m => m.esTotal);
+          } else if (filtros.tipo === 'subtotal') {
+            resultado = resultado.filter(m => m.esSubtotal && !m.esTotal);
+          } else {
+            resultado = resultado.filter(m => !m.esTotal && !m.esSubtotal);
+          }
+        }
+
+        // Filtrar por rango de porcentaje
+        if (filtros.porcentajeMin !== undefined) {
+          resultado = resultado.filter(m => m.porcentaje >= filtros.porcentajeMin!);
+        }
+        if (filtros.porcentajeMax !== undefined) {
+          resultado = resultado.filter(m => m.porcentaje <= filtros.porcentajeMax!);
+        }
+
+        // Filtrar por búsqueda de texto
+        if (filtros.textoBusqueda) {
+          const textoNormalizado = filtros.textoBusqueda.toLowerCase().trim();
+          resultado = resultado.filter(m =>
+            m.descripcion.toLowerCase().includes(textoNormalizado)
+          );
+        }
+
+        return resultado;
+      })
+    );
+  }
+
+  /**
+   * Filtra formación por nivel según modalidad
+   */
+  filtrarFormacionPorModalidad(modalidad: 'regular' | 'campesena' | 'fullpopular'): Observable<FormacionPorNivel[]> {
+    return this.getFormacionPorNivel().pipe(
+      map(niveles => niveles.filter(nivel => {
+        if (modalidad === 'regular') {
+          return nivel.regularMeta !== null && nivel.regularMeta > 0;
+        } else if (modalidad === 'campesena') {
+          return nivel.campesenaMeta !== null && nivel.campesenaMeta > 0;
+        } else {
+          return nivel.fullPopularMeta !== null && nivel.fullPopularMeta > 0;
+        }
+      }))
+    );
+  }
+
+  /**
+   * Obtiene estadísticas de filtrado
+   */
+  obtenerEstadisticasFiltradas(filtros: FiltrosMetas): Observable<{
+    total: number;
+    totales: number;
+    subtotales: number;
+    detalles: number;
+    promedioEjecucion: number;
+    promedioCumplimiento: number;
+  }> {
+    return this.aplicarFiltrosCombinados(filtros).pipe(
+      map(metas => {
+        const total = metas.length;
+        const totales = metas.filter(m => m.esTotal).length;
+        const subtotales = metas.filter(m => m.esSubtotal && !m.esTotal).length;
+        const detalles = metas.filter(m => !m.esTotal && !m.esSubtotal).length;
+
+        const sumaEjecucion = metas.reduce((acc, m) => acc + m.ejecucion, 0);
+        const sumaPorcentaje = metas.reduce((acc, m) => acc + m.porcentaje, 0);
+
+        return {
+          total,
+          totales,
+          subtotales,
+          detalles,
+          promedioEjecucion: total > 0 ? sumaEjecucion / total : 0,
+          promedioCumplimiento: total > 0 ? sumaPorcentaje / total : 0
+        };
+      })
+    );
   }
 }
