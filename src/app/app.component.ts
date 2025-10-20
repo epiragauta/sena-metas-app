@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Meta, DashboardData, FormacionPorNivel } from './models/meta.model';
+import { Meta, DashboardData, FormacionPorNivel, FiltrosMetas } from './models/meta.model';
 import { MetasService } from './services/metas.service';
+import { FiltrosComponent } from './components/filtros.component';
+import { FilterMetasPipe } from './pipes/filter-metas.pipe';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, FiltrosComponent, FilterMetasPipe],
   template: `
     <div class="navbar">
       <div class="container-fluid d-flex justify-content-between align-items-center">
@@ -154,20 +156,32 @@ import { MetasService } from './services/metas.service';
           <div class="page-subtitle">Detalle completo de metas y cumplimiento</div>
         </div>
 
-        <div class="card">
-          <div class="card-body">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>Descripción</th>
-                  <th class="text-right">Meta</th>
-                  <th class="text-right">Ejecución</th>
-                  <th class="text-right">Cumplimiento</th>
-                  <th>Tipo</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let meta of metas"
+        <!-- Componente de Filtros -->
+        <div class="row">
+          <div class="col-3">
+            <app-filtros
+              [nivelesDisponibles]="[1, 2, 3, 4, 5]"
+              [mostrarEstadisticas]="true"
+              [estadisticas]="estadisticasFiltros"
+              (filtrosChange)="onFiltrosChange($event)"
+            ></app-filtros>
+          </div>
+
+          <div class="col-9">
+            <div class="card">
+              <div class="card-body">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Descripción</th>
+                      <th class="text-right">Meta</th>
+                      <th class="text-right">Ejecución</th>
+                      <th class="text-right">Cumplimiento</th>
+                      <th>Tipo</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let meta of metas | filterMetas: filtrosActuales"
                     [style.background-color]="meta.esTotal ? '#fff3e0' : (meta.esSubtotal ? '#fafafa' : 'white')"
                     [style.font-weight]="meta.esTotal ? 'bold' : (meta.esSubtotal ? '600' : 'normal')">
                   <td>{{ meta.descripcion }}</td>
@@ -181,15 +195,17 @@ import { MetasService } from './services/metas.service';
                       </div>
                     </div>
                   </td>
-                  <td>
-                    <span class="badge"
-                          [ngClass]="meta.esTotal ? 'badge-sena' : (meta.esSubtotal ? 'badge-info' : 'badge-secondary')">
-                      {{ meta.esTotal ? 'TOTAL' : (meta.esSubtotal ? 'SUBTOTAL' : 'DETALLE') }}
-                    </span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                      <td>
+                        <span class="badge"
+                              [ngClass]="meta.esTotal ? 'badge-sena' : (meta.esSubtotal ? 'badge-info' : 'badge-secondary')">
+                          {{ meta.esTotal ? 'TOTAL' : (meta.esSubtotal ? 'SUBTOTAL' : 'DETALLE') }}
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -318,6 +334,17 @@ export class AppComponent implements OnInit {
   metas?: Meta[];
   formacionPorNivel?: FormacionPorNivel[];
 
+  // Filtros
+  filtrosActuales: FiltrosMetas = {};
+  estadisticasFiltros?: {
+    total: number;
+    totales: number;
+    subtotales: number;
+    detalles: number;
+    promedioEjecucion: number;
+    promedioCumplimiento: number;
+  };
+
   constructor(private metasService: MetasService) {}
 
   ngOnInit() {
@@ -369,5 +396,19 @@ export class AppComponent implements OnInit {
       'danger': 'Requiere Atención'
     };
     return textos[estado] || estado;
+  }
+
+  onFiltrosChange(filtros: FiltrosMetas): void {
+    this.filtrosActuales = filtros;
+    this.actualizarEstadisticas();
+  }
+
+  actualizarEstadisticas(): void {
+    this.metasService.obtenerEstadisticasFiltradas(this.filtrosActuales).subscribe({
+      next: (stats) => {
+        this.estadisticasFiltros = stats;
+      },
+      error: (err) => console.error('Error calculando estadísticas:', err)
+    });
   }
 }

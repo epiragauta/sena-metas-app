@@ -129,3 +129,18 @@ export interface CategorizacionSemaforo {
   categoria: EstadoSemaforo;
   color: string;
 }
+
+/**
+ * Interfaz para filtros combinados de metas
+ */
+export interface FiltrosMetas {
+  niveles?: number[];
+  tipo?: 'total' | 'subtotal' | 'detalle' | 'todos';
+  porcentajeMin?: number;
+  porcentajeMax?: number;
+  estadoSemaforo?: EstadoSemaforo;
+  textoBusqueda?: string;
+  padreId?: number;
+  padreNombre?: string;
+  modalidad?: 'regular' | 'campesena' | 'fullpopular';
+}
