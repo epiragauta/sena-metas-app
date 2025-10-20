@@ -1,4 +1,4 @@
-# 🎓 SENA - Aplicación de Seguimiento de Metas
+# SENA - Seguimiento de Metas
 
 Aplicación web desarrollada en Angular para el seguimiento y visualización de metas de formación profesional integral del SENA.
 
