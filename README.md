@@ -59,7 +59,7 @@ La aplicación estará disponible en: **http://localhost:4200**
 ng serve --port 4300
 ```
 
-## 🏗️ Compilar para Producción
+## Compilar para Producción
 
 ```bash
 npm run build
@@ -169,7 +169,7 @@ La aplicación utiliza la paleta de colores institucionales:
 - **Peligro (<70%):** Rojo `#F44336`
 - **Info:** Azul `#2196F3`
 
-## 🔧 Personalización
+## Personalización
 
 ### Modificar Datos
 
@@ -204,7 +204,7 @@ Los estilos globales están en `src/styles.css`. Las variables CSS están defini
 }
 ```
 
-## 📱 Responsive Design
+## Responsive Design
 
 La aplicación es completamente responsive:
 
@@ -240,7 +240,7 @@ ng serve --port 4300
 npm run build -- --delete-output-path
 ```
 
-## 📈 Datos y Métricas
+## Datos y Métricas
 
 ### Período de Datos
 
@@ -266,7 +266,7 @@ python exportar_a_json.py
 
 3. Copiar archivos JSON a la aplicación Angular
 
-## 🚀 Deployment
+## Deployment
 
 ### GitHub Pages
 
@@ -293,7 +293,7 @@ npm run build
    - Build command: `npm run build`
    - Output directory: `dist/sena-metas-app`
 
-## 📝 Notas Técnicas
+## Notas Técnicas
 
 - **Framework:** Angular 17 (Standalone Components)
 - **Arquitectura:** Sin backend (JSON estático)
@@ -302,28 +302,3 @@ npm run build
 - **Gráficas:** Chart.js + ng2-charts
 - **TypeScript:** 5.2+
 
-## 🤝 Contribuir
-
-Para agregar nuevas funcionalidades:
-
-1. Crear nuevos componentes en `src/app/components/`
-2. Registrar servicios en `src/app/services/`
-3. Actualizar modelos en `src/app/models/`
-4. Mantener consistencia con colores institucionales
-
-## 📄 Licencia
-
-Aplicación desarrollada para el SENA (Servicio Nacional de Aprendizaje).
-
-## 📞 Soporte
-
-Para preguntas o soporte:
-
-- Revisar la documentación completa en el README.md del directorio padre
-- Consultar el archivo `RESUMEN_EJECUTIVO.md` para visión general
-- Ver `consultas_sql_ejemplo.sql` para entender el modelo de datos
-
----
-
-**Desarrollado con ❤️ para el SENA**
-**Colores institucionales:** 🟠 Naranja + ⚫ Negro
