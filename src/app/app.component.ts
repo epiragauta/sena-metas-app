@@ -30,7 +30,7 @@ import { FilterMetasPipe } from './pipes/filter-metas.pipe';
           </li>
           <li class="nav-item">
             <a class="nav-link" [class.active]="vistaActual === 'modalidades'"
-               (click)="cambiarVista('modalidades')">Modalidades</a>
+               (click)="cambiarVista('modalidades')">Estrategias</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" [class.active]="vistaActual === 'niveles'"
@@ -69,7 +69,7 @@ import { FilterMetasPipe } from './pipes/filter-metas.pipe';
           </div>
         </div>
 
-        <!-- Modalidades -->
+        <!-- Estrategias -->
         <div class="row mt-3">
           <div class="col-12">
             <div class="card">
@@ -210,7 +210,7 @@ import { FilterMetasPipe } from './pipes/filter-metas.pipe';
         </div>
       </div>
 
-      <!-- Vista de Modalidades -->
+      <!-- Vista de Estrategias -->
       <div *ngIf="vistaActual === 'modalidades' && formacionPorNivel">
         <div class="page-header">
           <div class="page-title">Formación por estrategia</div>
