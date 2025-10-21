@@ -102,6 +102,7 @@ export interface DashboardData {
     brecha: number;
     porcentaje: number;
   }[];
+  fechaElaboracion?: string;
 }
 
 export interface Referencias {

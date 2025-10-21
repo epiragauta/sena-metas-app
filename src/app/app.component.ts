@@ -147,6 +147,15 @@ import { FilterMetasPipe } from './pipes/filter-metas.pipe';
             </div>
           </div>
         </div>
+
+        <!-- Fecha de Elaboración -->
+        <div class="row mt-3" *ngIf="dashboardData.fechaElaboracion">
+          <div class="col-12">
+            <div class="text-right text-muted">
+              <small><em>Fecha de elaboración: {{ dashboardData.fechaElaboracion }}</em></small>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Vista de Metas -->
