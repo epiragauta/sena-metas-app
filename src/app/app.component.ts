@@ -213,7 +213,7 @@ import { FilterMetasPipe } from './pipes/filter-metas.pipe';
       <!-- Vista de Modalidades -->
       <div *ngIf="vistaActual === 'modalidades' && formacionPorNivel">
         <div class="page-header">
-          <div class="page-title">Formación por Modalidad</div>
+          <div class="page-title">Formación por estrategia</div>
           <div class="page-subtitle">Comparación de Regular, CampeSENA y Full Popular</div>
         </div>
 
