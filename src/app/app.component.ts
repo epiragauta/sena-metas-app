@@ -46,6 +46,9 @@ import { FilterMetasPipe } from './pipes/filter-metas.pipe';
         <div class="page-header fade-in">
           <div class="page-title">Dashboard Ejecutivo</div>
           <div class="page-subtitle">Seguimiento de Metas SENA - Septiembre 2025</div>
+          <div class="text-muted" *ngIf="dashboardData.fechaElaboracion">
+            <small>Fecha de actualización: {{ dashboardData.fechaElaboracion }}</small>
+          </div>
         </div>
 
         <!-- KPIs Principales -->
