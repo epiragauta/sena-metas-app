@@ -181,8 +181,9 @@ export class MetasService {
    * Obtiene la clase CSS asociada a un porcentaje
    */
   getClasePorcentaje(porcentaje: number): string {
-    if (porcentaje >= 85) return 'success';
-    if (porcentaje >= 70) return 'warning';
+    if (porcentaje > 100.59) return 'over'
+    if (porcentaje >= 90 && porcentaje <= 100.59) return 'success';
+    if (porcentaje >= 83 && porcentaje <= 89.99) return 'warning';
     return 'danger';
   }
 

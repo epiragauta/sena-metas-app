@@ -2,21 +2,22 @@
 
 /* Colores institucionales SENA */
 :root {
-  --sena-naranja: #FF5722;
-  --sena-naranja-oscuro: #E64A19;
+  --sena-naranja: #007832;
+  --sena-naranja-oscuro: #007832;
   --sena-naranja-claro: #FF8A65;
-  --sena-negro: #212121;
+  --sena-negro: #000000;
   --sena-gris-oscuro: #424242;
   --sena-gris: #757575;
   --sena-gris-claro: #BDBDBD;
   --sena-blanco: #FFFFFF;
-  --sena-verde: #39a900;
+  --sena-verde: #39A900;
 
   /* Colores de estado */
+  --color-sobre: #FFC000;
   --color-exito: #4CAF50;
-  --color-advertencia: #FFC107;
+  --color-advertencia: #ffff75;
   --color-peligro: #F44336;
-  --color-info: #2196F3;
+  --color-info: #000;
 
   /* Colores de semáforo */
   --semaforo-bajo: #ff0000;
@@ -163,6 +164,7 @@ body {
   padding: 0 8px;
 }
 
+.progress-bar.over { background-color: var(--color-sobre); }
 .progress-bar.success { background-color: var(--color-exito); }
 .progress-bar.warning { background-color: var(--color-advertencia); color: var(--sena-negro); }
 .progress-bar.danger { background-color: var(--color-peligro); }
@@ -177,6 +179,7 @@ body {
   text-transform: uppercase;
 }
 
+.badge-over { background-color: var(--color-sobre); color: white; }
 .badge-success { background-color: var(--color-exito); color: white; }
 .badge-warning { background-color: var(--color-advertencia); color: var(--sena-negro); }
 .badge-danger { background-color: var(--color-peligro); color: white; }
