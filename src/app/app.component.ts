@@ -63,8 +63,12 @@ import { FilterMetasPipe } from './pipes/filter-metas.pipe';
                 <div class="progress-bar" [ngClass]="kpi.estado"
                      [style.width.%]="kpi.porcentaje"></div>
               </div>
-              <div class="kpi-value">{{ kpi.ejecucion | number }}</div>
-              <div class="kpi-meta">de {{ kpi.meta | number }}</div>
+              <div style="font-size: 2.1rem; font-weight: bold; color: var(--sena-naranja); margin-bottom: 5px;">
+                <strong>Meta:</strong> {{ kpi.meta | number }}
+              </div>
+              <div style="font-size: 1.6rem; font-weight: bold; color: var(--sena-gris); margin-bottom: 15px;">
+                <strong>Ejecutado:</strong> {{ kpi.ejecucion | number }}
+              </div>
               <span class="badge" [ngClass]="'badge-' + kpi.estado">
                 {{ getTextoEstado(kpi.estado) }}
               </span>
@@ -189,7 +193,6 @@ import { FilterMetasPipe } from './pipes/filter-metas.pipe';
                       <th class="text-right">Meta</th>
                       <th class="text-right">Ejecución</th>
                       <th class="text-right">Cumplimiento</th>
-                      <th>Tipo</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -207,12 +210,6 @@ import { FilterMetasPipe } from './pipes/filter-metas.pipe';
                       </div>
                     </div>
                   </td>
-                      <td>
-                        <span class="badge"
-                              [ngClass]="meta.esTotal ? 'badge-sena' : (meta.esSubtotal ? 'badge-info' : 'badge-secondary')">
-                          {{ meta.esTotal ? 'TOTAL' : (meta.esSubtotal ? 'SUBTOTAL' : 'DETALLE') }}
-                        </span>
-                      </td>
                     </tr>
                   </tbody>
                 </table>
