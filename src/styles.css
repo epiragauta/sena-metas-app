@@ -19,11 +19,10 @@
   --color-info: #2196F3;
 
   /* Colores de semáforo */
-  --semaforo-bajo: #F44336;
-  --semaforo-vulnerable: #FF9800;
-  --semaforo-bueno: #8BC34A;
-  --semaforo-excelente: #4CAF50;
-  --semaforo-sobreejecucion: #2196F3;
+  --semaforo-bajo: #ff0000;
+  --semaforo-vulnerable: #FFFF00;
+  --semaforo-buena: #92D050;
+  --semaforo-sobreejecucion: #FFC000;
 }
 
 * {
@@ -350,13 +349,8 @@ body {
   font-weight: bold;
 }
 
-.semaforo-bueno {
-  color: var(--semaforo-bueno);
-  font-weight: bold;
-}
-
-.semaforo-excelente {
-  color: var(--semaforo-excelente);
+.semaforo-buena {
+  color: var(--semaforo-buena);
   font-weight: bold;
 }
 

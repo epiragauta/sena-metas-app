@@ -122,7 +122,7 @@ export interface Referencias {
   indicadores_transversales: any;
 }
 
-export type EstadoSemaforo = 'bajo' | 'vulnerable' | 'bueno' | 'excelente' | 'sobreejecucion';
+export type EstadoSemaforo = 'bajo' | 'vulnerable' | 'buena' | 'sobreejecucion';
 
 export interface CategorizacionSemaforo {
   indicador: string;

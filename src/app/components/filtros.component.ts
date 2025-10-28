@@ -99,13 +99,13 @@ import { FiltrosMetas } from '../models/meta.model';
               class="btn-quick-filter warning"
               (click)="aplicarFiltroRapido('vulnerable')"
             >
-              En Progreso (70-90%)
+              Vulnerable (70-85%)
             </button>
             <button
               class="btn-quick-filter success"
-              (click)="aplicarFiltroRapido('excelente')"
+              (click)="aplicarFiltroRapido('buena')"
             >
-              Excelente (&gt; 90%)
+              Buena (&gt; 85%)
             </button>
           </div>
         </div>
@@ -345,15 +345,15 @@ export class FiltrosComponent {
     this.onFiltrosChange();
   }
 
-  aplicarFiltroRapido(tipo: 'bajo' | 'vulnerable' | 'excelente'): void {
+  aplicarFiltroRapido(tipo: 'bajo' | 'vulnerable' | 'buena'): void {
     if (tipo === 'bajo') {
       this.filtrosActuales.porcentajeMin = 0;
       this.filtrosActuales.porcentajeMax = 70;
     } else if (tipo === 'vulnerable') {
       this.filtrosActuales.porcentajeMin = 70;
-      this.filtrosActuales.porcentajeMax = 90;
+      this.filtrosActuales.porcentajeMax = 85;
     } else {
-      this.filtrosActuales.porcentajeMin = 90;
+      this.filtrosActuales.porcentajeMin = 85;
       this.filtrosActuales.porcentajeMax = 200;
     }
 

@@ -156,11 +156,11 @@ export class MetasService {
     } else if (porcentaje >= rangos.minVulnerable && porcentaje <= rangos.maxVulnerable) {
       return 'vulnerable';
     } else if (porcentaje >= rangos.minBuena && porcentaje <= rangos.maxBuena) {
-      return 'bueno';
+      return 'buena';
     } else if (porcentaje > rangos.sobreejecucionSuperiorA) {
       return 'sobreejecucion';
     } else {
-      return 'excelente';
+      return 'buena';
     }
   }
 
@@ -169,11 +169,10 @@ export class MetasService {
    */
   getColorSemaforo(categoria: EstadoSemaforo): string {
     const colores = {
-      bajo: '#F44336',
-      vulnerable: '#FF9800',
-      bueno: '#8BC34A',
-      excelente: '#4CAF50',
-      sobreejecucion: '#2196F3'
+      bajo: '#ff0000',
+      vulnerable: '#FFFF00',
+      buena: '#92D050',
+      sobreejecucion: '#FFC000'
     };
     return colores[categoria];
   }
@@ -182,7 +181,7 @@ export class MetasService {
    * Obtiene la clase CSS asociada a un porcentaje
    */
   getClasePorcentaje(porcentaje: number): string {
-    if (porcentaje >= 90) return 'success';
+    if (porcentaje >= 85) return 'success';
     if (porcentaje >= 70) return 'warning';
     return 'danger';
   }
