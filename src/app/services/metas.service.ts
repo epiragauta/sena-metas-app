@@ -370,14 +370,14 @@ export class MetasService {
   }
 
   /**
-   * Filtra formación por nivel según modalidad
+   * Filtra formación por nivel según estrategia
    */
-  filtrarFormacionPorModalidad(modalidad: 'regular' | 'campesena' | 'fullpopular'): Observable<FormacionPorNivel[]> {
+  filtrarFormacionPorModalidad(estrategia: 'regular' | 'campesena' | 'fullpopular'): Observable<FormacionPorNivel[]> {
     return this.getFormacionPorNivel().pipe(
       map(niveles => niveles.filter(nivel => {
-        if (modalidad === 'regular') {
+        if (estrategia === 'regular') {
           return nivel.regularMeta !== null && nivel.regularMeta > 0;
-        } else if (modalidad === 'campesena') {
+        } else if (estrategia === 'campesena') {
           return nivel.campesenaMeta !== null && nivel.campesenaMeta > 0;
         } else {
           return nivel.fullPopularMeta !== null && nivel.fullPopularMeta > 0;

@@ -85,7 +85,7 @@ export interface KPI {
 }
 
 export interface Modalidad {
-  modalidad: string;
+  estrategia: string;
   meta: number;
   ejecucion: number;
   porcentaje: number;
@@ -93,7 +93,7 @@ export interface Modalidad {
 
 export interface DashboardData {
   kpis: KPI[];
-  modalidades: Modalidad[];
+  estrategias: Modalidad[];
   topCumplimiento: Meta[];
   mayorBrecha: {
     descripcion: string;
@@ -143,5 +143,5 @@ export interface FiltrosMetas {
   textoBusqueda?: string;
   padreId?: number;
   padreNombre?: string;
-  modalidad?: 'regular' | 'campesena' | 'fullpopular';
+  estrategia?: 'regular' | 'campesena' | 'fullpopular';
 }

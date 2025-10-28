@@ -29,21 +29,21 @@
       "estado": "success"
     }
   ],
-  "modalidades": [
+  "estrategias": [
     {
-      "modalidad": "Regular",
+      "estrategia": "Regular",
       "meta": 7594427,
       "ejecucion": 5913394,
       "porcentaje": 77.86
     },
     {
-      "modalidad": "CampeSENA",
+      "estrategia": "CampeSENA",
       "meta": 649193,
       "ejecucion": 589718,
       "porcentaje": 90.84
     },
     {
-      "modalidad": "Full Popular",
+      "estrategia": "Full Popular",
       "meta": 101354,
       "ejecucion": 128709,
       "porcentaje": 126.99

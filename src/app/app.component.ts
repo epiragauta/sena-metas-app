@@ -29,8 +29,8 @@ import { FilterMetasPipe } from './pipes/filter-metas.pipe';
                (click)="cambiarVista('metas')">Metas FPI</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [class.active]="vistaActual === 'modalidades'"
-               (click)="cambiarVista('modalidades')">Estrategias</a>
+            <a class="nav-link" [class.active]="vistaActual === 'estrategias'"
+               (click)="cambiarVista('estrategias')">Estrategias</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" [class.active]="vistaActual === 'niveles'"
@@ -76,12 +76,12 @@ import { FilterMetasPipe } from './pipes/filter-metas.pipe';
         <div class="row mt-3">
           <div class="col-12">
             <div class="card">
-              <div class="card-header">Cumplimiento por Modalidad</div>
+              <div class="card-header">Cumplimiento por Estrategia</div>
               <div class="card-body">
                 <div class="row">
-                  <div class="col-4" *ngFor="let mod of dashboardData.modalidades">
+                  <div class="col-4" *ngFor="let mod of dashboardData.estrategias">
                     <div class="text-center p-2">
-                      <h3>{{ mod.modalidad }}</h3>
+                      <h3>{{ mod.estrategia }}</h3>
                       <div class="kpi-percentage" [ngClass]="getClasePorcentaje(mod.porcentaje)">
                         {{ mod.porcentaje }}%
                       </div>
@@ -223,7 +223,7 @@ import { FilterMetasPipe } from './pipes/filter-metas.pipe';
       </div>
 
       <!-- Vista de Estrategias -->
-      <div *ngIf="vistaActual === 'modalidades' && formacionPorNivel">
+      <div *ngIf="vistaActual === 'estrategias' && formacionPorNivel">
         <div class="page-header">
           <div class="page-title">Formación por estrategia</div>
           <div class="page-subtitle">Comparación de Regular, CampeSENA y Full Popular</div>
@@ -339,7 +339,7 @@ import { FilterMetasPipe } from './pipes/filter-metas.pipe';
   providers: [MetasService]
 })
 export class AppComponent implements OnInit {
-  vistaActual: 'dashboard' | 'metas' | 'modalidades' | 'niveles' = 'dashboard';
+  vistaActual: 'dashboard' | 'metas' | 'estrategias' | 'niveles' = 'dashboard';
   cargando = true;
 
   dashboardData?: DashboardData;
@@ -389,7 +389,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  cambiarVista(vista: 'dashboard' | 'metas' | 'modalidades' | 'niveles') {
+  cambiarVista(vista: 'dashboard' | 'metas' | 'estrategias' | 'niveles') {
     this.vistaActual = vista;
   }
 
@@ -403,9 +403,9 @@ export class AppComponent implements OnInit {
 
   getTextoEstado(estado: string): string {
     const textos: {[key: string]: string} = {
-      'success': 'Excelente',
-      'warning': 'En Progreso',
-      'danger': 'Requiere Atención'
+      'success': 'Buena',
+      'warning': 'Vulnerable',
+      'danger': 'Baja'
     };
     return textos[estado] || estado;
   }

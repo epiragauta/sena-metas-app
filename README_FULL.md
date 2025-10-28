@@ -1,4 +1,4 @@
-# SENA - Seguimiento de Metas
+# 🎓 SENA - Aplicación de Seguimiento de Metas
 
 Aplicación web desarrollada en Angular para el seguimiento y visualización de metas de formación profesional integral del SENA.
 
@@ -59,7 +59,7 @@ La aplicación estará disponible en: **http://localhost:4200**
 ng serve --port 4300
 ```
 
-## Compilar para Producción
+## 🏗️ Compilar para Producción
 
 ```bash
 npm run build
@@ -169,7 +169,7 @@ La aplicación utiliza la paleta de colores institucionales:
 - **Peligro (<70%):** Rojo `#F44336`
 - **Info:** Azul `#2196F3`
 
-## Personalización
+## 🔧 Personalización
 
 ### Modificar Datos
 
@@ -198,13 +198,13 @@ Los estilos globales están en `src/styles.css`. Las variables CSS están defini
 
 ```css
 :root {
-  --sena-naranja: #FF5722;
+  --sena-verde: #39a900;
   --sena-negro: #212121;
   /* ... más variables */
 }
 ```
 
-## Responsive Design
+## 📱 Responsive Design
 
 La aplicación es completamente responsive:
 
@@ -240,7 +240,7 @@ ng serve --port 4300
 npm run build -- --delete-output-path
 ```
 
-## Datos y Métricas
+## 📈 Datos y Métricas
 
 ### Período de Datos
 
