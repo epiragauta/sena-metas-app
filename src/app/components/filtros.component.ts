@@ -93,19 +93,25 @@ import { FiltrosMetas } from '../models/meta.model';
               class="btn-quick-filter danger"
               (click)="aplicarFiltroRapido('bajo')"
             >
-              Bajo (&lt; 70%)
+              Bajo (&lt; 82.9%)
             </button>
             <button
               class="btn-quick-filter warning"
               (click)="aplicarFiltroRapido('vulnerable')"
             >
-              Vulnerable (70-85%)
+              Vulnerable (83-89.99%)
             </button>
             <button
               class="btn-quick-filter success"
               (click)="aplicarFiltroRapido('buena')"
             >
-              Buena (&gt; 85%)
+               Buena (90-100.59%)
+            </button>
+            <button
+              class="btn-quick-filter over"
+              (click)="aplicarFiltroRapido('sobreejecucion')"
+            >
+              Sobreejecución (&gt;100.59%)
             </button>
           </div>
         </div>
@@ -248,29 +254,37 @@ import { FiltrosMetas } from '../models/meta.model';
     }
 
     .btn-quick-filter {
-      padding: 0.5rem;
       border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 0.875rem;
       color: white;
-      transition: opacity 0.2s;
+      padding: 10px 16px;
+      margin-bottom: 8px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      width: 100%;
+      transition: all 0.2s ease;
     }
 
     .btn-quick-filter:hover {
-      opacity: 0.8;
+    transform: scale(1.03);
+    filter: brightness(0.9);
     }
 
     .btn-quick-filter.danger {
-      background: #f44336;
+      background: #ff0000;
     }
 
     .btn-quick-filter.warning {
-      background: #ff9800;
+      background: #ffff75;
+      color: #333;
     }
 
     .btn-quick-filter.success {
-      background: #4caf50;
+      background: #4CAF50;
+    }
+    .btn-quick-filter.over {
+      background: #ffc000;
     }
 
     .filtro-stats {
@@ -345,18 +359,20 @@ export class FiltrosComponent {
     this.onFiltrosChange();
   }
 
-  aplicarFiltroRapido(tipo: 'bajo' | 'vulnerable' | 'buena'): void {
+  aplicarFiltroRapido(tipo: 'bajo' | 'vulnerable' | 'buena'| 'sobreejecucion'): void {
     if (tipo === 'bajo') {
-      this.filtrosActuales.porcentajeMin = 0;
-      this.filtrosActuales.porcentajeMax = 70;
-    } else if (tipo === 'vulnerable') {
-      this.filtrosActuales.porcentajeMin = 70;
-      this.filtrosActuales.porcentajeMax = 85;
-    } else {
-      this.filtrosActuales.porcentajeMin = 85;
-      this.filtrosActuales.porcentajeMax = 200;
-    }
-
+    this.filtrosActuales.porcentajeMin = 0;
+    this.filtrosActuales.porcentajeMax = 82.9;
+  } else if (tipo === 'vulnerable') {
+    this.filtrosActuales.porcentajeMin = 83;
+    this.filtrosActuales.porcentajeMax = 89.99;
+  } else if (tipo === 'buena') {
+    this.filtrosActuales.porcentajeMin = 90;
+    this.filtrosActuales.porcentajeMax = 100.59;
+  } else if (tipo === 'sobreejecucion') {
+    this.filtrosActuales.porcentajeMin = 100.6;
+    this.filtrosActuales.porcentajeMax = 200;
+  }
     this.onFiltrosChange();
   }
 
