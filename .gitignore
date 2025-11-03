@@ -50,3 +50,6 @@ Thumbs.db
 # Build files
 *.js.map
 *.css.map
+
+# Local database files
+*.db
