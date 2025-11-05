@@ -27,7 +27,7 @@ import { MetasService } from '../../services/metas.service';
                    [style.width.%]="nivel.regularPorcentaje || 0"></div>
             </div>
             <div class="mt-2">
-              {{ nivel.regularEjecucion | number }} / {{ nivel.regularMeta | number }}
+               Ejecucion: {{ nivel.regularEjecucion | number }} / Meta: {{ nivel.regularMeta | number }}
             </div>
           </div>
 
@@ -41,7 +41,7 @@ import { MetasService } from '../../services/metas.service';
                    [style.width.%]="nivel.campesenaPorcentaje || 0"></div>
             </div>
             <div class="mt-2">
-              {{ nivel.campesenaEjecucion | number }} / {{ nivel.campesenaMeta | number }}
+              Ejecucion: {{ nivel.campesenaEjecucion | number }} / Meta: {{ nivel.campesenaMeta | number }}
             </div>
           </div>
 
@@ -55,7 +55,7 @@ import { MetasService } from '../../services/metas.service';
                    [style.width.%]="nivel.fullPopularPorcentaje || 0"></div>
             </div>
             <div class="mt-2">
-              {{ nivel.fullPopularEjecucion | number }} / {{ nivel.fullPopularMeta | number }}
+              Ejecucion: {{ nivel.fullPopularEjecucion | number }} / Meta: {{ nivel.fullPopularMeta | number }}
             </div>
           </div>
         </div>
