@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { ExportExcelService } from '../../services/exportar-excel.service';
 
 interface SeguimientoItem {
   categoria: string;
@@ -64,6 +65,22 @@ interface DatosJerarquicos {
             </select>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Botón de exportación -->
+    <div class="card mb-3" *ngIf="datosRegional.length > 0">
+      <div class="card-body">
+        <button 
+          class="btn btn-export" 
+          (click)="exportarAExcel()"
+          [disabled]="!datosRegional.length">
+          <i class="fas fa-download"></i>
+          Descargar Excel
+        </button>
+        <span class="export-info" *ngIf="centroSeleccionado === 0">
+          💡 Selecciona un centro para exportar sus datos específicos
+        </span>
       </div>
     </div>
 
@@ -234,27 +251,16 @@ interface DatosJerarquicos {
       font-weight: 600;
     }
 
-    .fila-subtotal td {
-      font-weight: 600;
-      color: var(--sena-verde-oscuro);
-    }
-
     .fila-total {
-      background: linear-gradient(135deg, #ffe0b2 0%, #ffcc80 100%) !important;
-      font-weight: bold;
-    }
-
-    .fila-total td {
-      font-weight: bold;
-      color: var(--sena-negro);
-      font-size: 1rem;
+      background-color: #e8f5e9 !important;
+      font-weight: 700;
+      font-size: 0.95rem;
     }
 
     .badge {
-      padding: 6px 12px;
-      font-size: 0.85rem;
-      font-weight: 600;
+      padding: 6px 10px;
       border-radius: 4px;
+      font-size: 0.85rem;
       min-width: 70px;
       display: inline-block;
       text-align: center;
@@ -287,6 +293,131 @@ interface DatosJerarquicos {
     i.fas {
       margin-right: 8px;
     }
+
+    /* Estilos para el botón de exportación */
+    .btn-export {
+      background: linear-gradient(135deg, #4CAF50 0%, #2d7a00 100%);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-export:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+    }
+
+    .btn-export:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    .btn-export:disabled {
+      background: #cccccc;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    .export-info {
+      margin-left: 15px;
+      color: #666;
+      font-size: 0.9rem;
+      vertical-align: middle;
+      display: inline-block;
+    }
+
+    .page-header {
+      background: linear-gradient(135deg, #4CAF50 0%, #2d7a00 100%);
+      color: white;
+      padding: 30px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .card {
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+
+    .card-header {
+      padding: 15px;
+      border-bottom: 1px solid #e0e0e0;
+      border-radius: 6px 6px 0 0;
+    }
+
+    .card-body {
+      padding: 15px;
+    }
+
+    .mb-3 {
+      margin-bottom: 20px;
+    }
+
+    .mb-0 {
+      margin-bottom: 0;
+    }
+
+    .row {
+      display: flex;
+      gap: 20px;
+      margin: -10px;
+    }
+
+    .col-6 {
+      flex: 1;
+      padding: 10px;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .text-left {
+      text-align: left;
+    }
+
+    .text-right {
+      text-align: right;
+    }
+
+    .mt-3 {
+      margin-top: 20px;
+    }
+
+    .spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #4CAF50;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
   `]
 })
 export class ConsultaRegionalComponent implements OnInit {
@@ -305,51 +436,54 @@ export class ConsultaRegionalComponent implements OnInit {
   // Orden de subcategorías según especificación
   ordenSubcategorias = [
     { nombre: 'Tecnólogos Regular - Presencial', nivel: 0 },
-    { nombre: 'Tecnologos Regular - Presencial', nivel: 0 }, // Variante sin tilde
+    { nombre: 'Tecnologos Regular - Presencial', nivel: 0 },
     { nombre: 'Tecnólogos Regular - Virtual', nivel: 0 },
     { nombre: 'Tecnólogos Regular - A Distancia', nivel: 0 },
     { nombre: 'Tecnólogos CampeSENA', nivel: 0 },
     { nombre: 'Tecnólogos Full Popular', nivel: 0 },
     { nombre: 'SubTotal Tecnólogos (E)', nivel: 1, esSubtotal: true },
     { nombre: 'TOTAL EDUCACION SUPERIOR (E)', nivel: 2, esTotal: true },
-    { nombre: 'EDUCACION SUPERIOR (=E)', nivel: 2, esTotal: true }, // Variante
+    { nombre: 'EDUCACION SUPERIOR (=E)', nivel: 2, esTotal: true },
     { nombre: 'Operarios Regular', nivel: 0 },
     { nombre: 'Operarios CampeSENA', nivel: 0 },
     { nombre: 'Operarios Full Popular', nivel: 0 },
     { nombre: 'Total Operarios (B)', nivel: 1, esSubtotal: true },
-    { nombre: 'SubTotal Operarios (B)', nivel: 1, esSubtotal: true }, // Variante
+    { nombre: 'SubTotal Operarios (B)', nivel: 1, esSubtotal: true },
     { nombre: 'Auxiliares Regular', nivel: 0 },
     { nombre: 'Auxiliares CampeSENA', nivel: 0 },
     { nombre: 'Auxiliares Full Popular', nivel: 0 },
     { nombre: 'Total Auxiliares (A)', nivel: 1, esSubtotal: true },
-    { nombre: 'SubTotal Auxiliares (A)', nivel: 1, esSubtotal: true }, // Variante
+    { nombre: 'SubTotal Auxiliares (A)', nivel: 1, esSubtotal: true },
     { nombre: 'Técnico Laboral Regular - Presencial', nivel: 0 },
     { nombre: 'Técnico Laboral Regular - Virtual', nivel: 0 },
     { nombre: 'Técnico Laboral CampeSENA', nivel: 0 },
     { nombre: 'Técnico Laboral Full Popular', nivel: 0 },
     { nombre: 'Técnico Laboral Articulación con la Media', nivel: 0 },
     { nombre: 'Total Técnico Laboral (C)', nivel: 1, esSubtotal: true },
-    { nombre: 'SubTotal Técnico Laboral (C)', nivel: 1, esSubtotal: true }, // Variante
+    { nombre: 'SubTotal Técnico Laboral (C)', nivel: 1, esSubtotal: true },
     { nombre: 'Total Profundización Técnica (T)', nivel: 1, esSubtotal: true },
-    { nombre: 'Profundización Técnica (T)', nivel: 1, esSubtotal: true }, // Variante
+    { nombre: 'Profundización Técnica (T)', nivel: 1, esSubtotal: true },
     { nombre: 'TOTAL FORMACIÓN LABORAL (Operarios, Auxiliar  y técnico laboral, profundización técnica) (D=A+B+C+T)', nivel: 2, esTotal: true },
-    { nombre: 'TOTAL FORMACIÓN LABORAL (D=A+B+C+T)', nivel: 2, esTotal: true }, // Variante
+    { nombre: 'TOTAL FORMACIÓN LABORAL (D=A+B+C+T)', nivel: 2, esTotal: true },
     { nombre: 'TOTAL FORMACION TITULADA (F)  = (D+E)', nivel: 2, esTotal: true },
-    { nombre: 'TOTAL FORMACION TITULADA (F = D+E)', nivel: 2, esTotal: true }, // Variante
+    { nombre: 'TOTAL FORMACION TITULADA (F = D+E)', nivel: 2, esTotal: true },
     { nombre: 'Formación Complementaria - Virtual  (Sin Bilingüismo) (G)', nivel: 1, esSubtotal: true },
     { nombre: 'Formación Complementaria - Presencial (Sin Bilingüismo) (H)', nivel: 2, esTotal: true },
     { nombre: 'Programa de Bilingüismo - Virtual (I)', nivel: 0 },
     { nombre: 'Programa de Bilingüismo - Presencial (J)', nivel: 0 },
     { nombre: 'Total Programa de Bilinguïsmo (K)', nivel: 1, esSubtotal: true },
-    { nombre: 'SubTotal Programa de Bilinguïsmo (K = I + J)', nivel: 1, esSubtotal: true }, // Variante
+    { nombre: 'SubTotal Programa de Bilinguïsmo (K = I + J)', nivel: 1, esSubtotal: true },
     { nombre: 'Formación Complementaria CampeSENA (L)', nivel: 1, esSubtotal: true },
     { nombre: 'Formación Complementaria Full Popular (M)', nivel: 1, esSubtotal: true },
     { nombre: 'TOTAL FORMACION COMPLEMENTARIA (N) = (G+H+K+L+M)', nivel: 2, esTotal: true },
-    { nombre: 'TOTAL FORMACION COMPLEMENTARIA (N = G+H+K+L+M)', nivel: 2, esTotal: true }, // Variante
+    { nombre: 'TOTAL FORMACION COMPLEMENTARIA (N = G+H+K+L+M)', nivel: 2, esTotal: true },
     { nombre: 'TOTAL FORMACION PROFESIONAL INTEGRAL (O=N+F)', nivel: 2, esTotal: true }
   ];
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private exportExcelService: ExportExcelService
+  ) { }
 
   ngOnInit(): void {
     this.cargarDatos();
@@ -419,10 +553,9 @@ export class ConsultaRegionalComponent implements OnInit {
     const categoriaActual = seguimiento.length > 0 ? seguimiento[0].categoria : '';
 
     // Solo calcular SubTotal Tecnólogos (E) que no existe en seguimiento_regional
-    // Los demás subtotales (Operarios, Auxiliares, Técnico Laboral) ya existen como "Total X"
     const tecnologosItems = [
       'Tecnólogos Regular - Presencial',
-      'Tecnologos Regular - Presencial', // Variante sin tilde
+      'Tecnologos Regular - Presencial',
       'Tecnólogos Regular - Virtual',
       'Tecnólogos Regular - A Distancia',
       'Tecnólogos CampeSENA',
@@ -485,5 +618,27 @@ export class ConsultaRegionalComponent implements OnInit {
     if (porcentaje >= 90) return 'badge-success';
     if (porcentaje >= 70) return 'badge-warning';
     return 'badge-danger';
+  }
+
+  /**
+   * Exporta los datos a Excel
+   */
+  exportarAExcel(): void {
+    if (!this.regionalActual) {
+      alert('Por favor selecciona una regional');
+      return;
+    }
+
+    // CAMBIO: Ahora es async/await
+    this.exportExcelService.exportarSeguimientoMetas(
+      this.regionalActual.nombre,
+      this.regionalActual.codigo,
+      this.centroActual?.nombre,
+      this.centroActual?.codigo,
+      this.datosRegional,
+      this.datosCentro
+    ).catch(error => {
+      console.error('Error en exportación:', error);
+    });
   }
 }
