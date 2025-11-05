@@ -60,7 +60,7 @@ import { MetasService } from '../../services/metas.service';
                            [style.width.%]="mod.porcentaje"></div>
                     </div>
                     <div class="mt-2">
-                      <small>Ejecucion: {{ mod.ejecucion | number }} / Meta: {{ mod.meta | number }}</small>
+                      <small>Meta: {{ mod.meta | number }} / Ejecucion: {{ mod.ejecucion | number }}</small>
                     </div>
                   </div>
                 </div>
