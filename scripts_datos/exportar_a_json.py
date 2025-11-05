@@ -367,7 +367,7 @@ def exportar_resumen_dashboard():
         dm.descripcion,
         SUM(mfpi.meta) as meta,
         SUM(mfpi.ejecucion) as ejecucion,
-        ROUND((SUM(mfpi.ejecucion) * 100.0 / NULLIF(SUM(mfpi.meta), 0)), 2) as porcentaje
+        ROUND(MIN(100.59, (SUM(mfpi.ejecucion) * 100.0 / NULLIF(SUM(mfpi.meta), 0))), 2) as porcentaje
     FROM meta_formacion_profesional_integral mfpi
     JOIN descripcion_meta dm ON mfpi.id_descripcion = dm.id
     WHERE mfpi.es_total = 0 AND mfpi.es_subtotal = 0

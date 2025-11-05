@@ -198,7 +198,7 @@ Los estilos globales están en `src/styles.css`. Las variables CSS están defini
 
 ```css
 :root {
-  --sena-naranja: #FF5722;
+  --sena-verde: #FF5722;
   --sena-negro: #212121;
   /* ... más variables */
 }

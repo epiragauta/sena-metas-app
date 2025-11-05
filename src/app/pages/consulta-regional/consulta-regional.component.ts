@@ -181,7 +181,7 @@ interface DatosJerarquicos {
     }
 
     .form-select:focus {
-      border-color: var(--sena-naranja);
+      border-color: var(--sena-verde);
       outline: none;
       box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.1);
     }
@@ -192,7 +192,7 @@ interface DatosJerarquicos {
     }
 
     .bg-sena {
-      background: linear-gradient(135deg, var(--sena-verde) 0%, #2d7a00 100%);
+      background: linear-gradient(135deg, var(--sena-verde-institucional) 0%, #2d7a00 100%);
       color: white;
     }
 
@@ -236,7 +236,7 @@ interface DatosJerarquicos {
 
     .fila-subtotal td {
       font-weight: 600;
-      color: var(--sena-naranja-oscuro);
+      color: var(--sena-verde-oscuro);
     }
 
     .fila-total {

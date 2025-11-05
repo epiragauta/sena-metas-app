@@ -29,10 +29,10 @@ import { MetasService } from '../../services/metas.service';
               <div class="progress-bar" [ngClass]="kpi.estado"
                    [style.width.%]="kpi.porcentaje"></div>
             </div>
-            <div style="font-size: 2.1rem; font-weight: bold; color: var(--sena-naranja); margin-bottom: 5px;">
+            <div style="font-size: 1.5rem; font-weight: bold; color: var(--sena-verde); margin-bottom: 5px;">
               <strong>Meta:</strong> {{ kpi.meta | number }}
             </div>
-            <div style="font-size: 1.6rem; font-weight: bold; color: var(--sena-gris); margin-bottom: 15px;">
+            <div style="font-size: 1.1rem; font-weight: bold; color: var(--sena-gris); margin-bottom: 15px;">
               <strong>Ejecutado:</strong> {{ kpi.ejecucion | number }}
             </div>
             <span class="badge" [ngClass]="'badge-' + kpi.estado">
@@ -60,7 +60,7 @@ import { MetasService } from '../../services/metas.service';
                            [style.width.%]="mod.porcentaje"></div>
                     </div>
                     <div class="mt-2">
-                      <small>{{ mod.ejecucion | number }} / {{ mod.meta | number }}</small>
+                      <small>Ejecucion: {{ mod.ejecucion | number }} / Meta: {{ mod.meta | number }}</small>
                     </div>
                   </div>
                 </div>

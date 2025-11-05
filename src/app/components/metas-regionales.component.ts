@@ -187,7 +187,7 @@ import proj4 from 'proj4';
     .value-large {
       font-size: 1.5rem;
       font-weight: bold;
-      color: var(--sena-naranja);
+      color: var(--sena-verde);
     }
 
     .value-medium {

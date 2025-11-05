@@ -19,10 +19,9 @@ import { MetasService } from '../../services/metas.service';
           <thead>
             <tr>
               <th>Nivel de Formación</th>
-              <th class="text-right">Meta Total</th>
-              <th class="text-right">Regular</th>
-              <th class="text-right">CampeSENA</th>
-              <th class="text-right">Full Popular</th>
+              <th class="text-right">Meta</th>
+              <th class="text-right">Ejecucion</th>
+              <th class="text-right">Cumplimiento</th>
             </tr>
           </thead>
           <tbody>
@@ -30,23 +29,12 @@ import { MetasService } from '../../services/metas.service';
                 [style.background-color]="nivel.esTotal ? '#fff3e0' : 'white'"
                 [style.font-weight]="nivel.esTotal ? 'bold' : 'normal'">
               <td>{{ nivel.nivelFormacion }}</td>
-              <td class="text-right">{{ nivel.totalMeta | number }}</td>
+              <td class="text-right">{{ getMetaTotal(nivel) | number }}</td>
+              <td class="text-right">{{ getEjecucionTotal(nivel) | number }}</td>
               <td class="text-right">
-                <span *ngIf="nivel.regularPorcentaje" class="badge"
-                      [ngClass]="'badge-' + getClasePorcentaje(nivel.regularPorcentaje)">
-                  {{ nivel.regularPorcentaje }}%
-                </span>
-              </td>
-              <td class="text-right">
-                <span *ngIf="nivel.campesenaPorcentaje" class="badge"
-                      [ngClass]="'badge-' + getClasePorcentaje(nivel.campesenaPorcentaje)">
-                  {{ nivel.campesenaPorcentaje }}%
-                </span>
-              </td>
-              <td class="text-right">
-                <span *ngIf="nivel.fullPopularPorcentaje" class="badge"
-                      [ngClass]="'badge-' + getClasePorcentaje(nivel.fullPopularPorcentaje)">
-                  {{ nivel.fullPopularPorcentaje }}%
+                <span class="badge"
+                      [ngClass]="'badge-' + getClasePorcentaje(getCumplimientoTotal(nivel))">
+                  {{ getCumplimientoTotal(nivel) | number:'1.2-2' }}%
                 </span>
               </td>
             </tr>
@@ -88,5 +76,19 @@ export class NivelesComponent implements OnInit {
 
   getClasePorcentaje(porcentaje: number): string {
     return this.metasService.getClasePorcentaje(porcentaje);
+  }
+
+  getMetaTotal(nivel: FormacionPorNivel): number {
+    return (nivel.regularMeta || 0) + (nivel.campesenaMeta || 0) + (nivel.fullPopularMeta || 0);
+  }
+
+  getEjecucionTotal(nivel: FormacionPorNivel): number {
+    return (nivel.regularEjecucion || 0) + (nivel.campesenaEjecucion || 0) + (nivel.fullPopularEjecucion || 0);
+  }
+
+  getCumplimientoTotal(nivel: FormacionPorNivel): number {
+    const metaTotal = this.getMetaTotal(nivel);
+    const ejecucionTotal = this.getEjecucionTotal(nivel);
+    return metaTotal > 0 ? (ejecucionTotal / metaTotal) * 100 : 0;
   }
 }

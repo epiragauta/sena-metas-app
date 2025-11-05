@@ -2,15 +2,15 @@
 
 /* Colores institucionales SENA */
 :root {
-  --sena-naranja: #007832;
-  --sena-naranja-oscuro: #007832;
-  --sena-naranja-claro: #FF8A65;
+  --sena-verde: #007832;
+  --sena-verde-oscuro: #007832;
+  --sena-verde-claro: #FF8A65;
   --sena-negro: #000000;
   --sena-gris-oscuro: #424242;
   --sena-gris: #757575;
   --sena-gris-claro: #BDBDBD;
   --sena-blanco: #FFFFFF;
-  --sena-verde: #39A900;
+  --sena-verde-institucional: #39A900;
 
   /* Colores de estado */
   --color-sobre: #FFC000;
@@ -57,23 +57,24 @@ body {
   margin: -10px;
 }
 
-.col-1 { flex: 0 0 8.333%; max-width: 8.333%; }
-.col-2 { flex: 0 0 16.666%; max-width: 16.666%; }
-.col-3 { flex: 0 0 25%; max-width: 25%; }
-.col-4 { flex: 0 0 33.333%; max-width: 33.333%; }
-.col-6 { flex: 0 0 50%; max-width: 50%; }
-.col-8 { flex: 0 0 66.666%; max-width: 66.666%; }
-.col-12 { flex: 0 0 100%; max-width: 100%; }
+.col-1 { flex: 0 0 8.333%; max-width: 8.333%; display: flex;}
+.col-2 { flex: 0 0 16.666%; max-width: 16.666%; display: flex;}
+.col-3 { flex: 0 0 25%; max-width: 25%; display: flex;}
+.col-4 { flex: 0 0 33.333%; max-width: 33.333%; display: flex;}
+.col-6 { flex: 0 0 50%; max-width: 50%; display: flex;}
+.col-8 { flex: 0 0 66.666%; max-width: 66.666%; display: flex;}
+.col-12 { flex: 0 0 100%; max-width: 100%; display: flex;}
 
 [class*="col-"] {
   padding: 10px;
+  flex-direction: column;
 }
 
 /* Tarjetas */
 .card {
   background: white;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin-bottom: 20px;
   transition: transform 0.2s, box-shadow 0.2s;
@@ -90,7 +91,7 @@ body {
   color: var(--sena-negro);
   margin-bottom: 15px;
   padding-bottom: 10px;
-  border-bottom: 3px solid var(--sena-naranja);
+  border-bottom: 3px solid var(--sena-verde);
 }
 
 .card-body {
@@ -109,6 +110,9 @@ body {
 .kpi-card {
   text-align: center;
   padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .kpi-title {
@@ -122,7 +126,7 @@ body {
 .kpi-value {
   font-size: 2.5rem;
   font-weight: bold;
-  color: var(--sena-naranja);
+  color: var(--sena-verde);
   margin-bottom: 5px;
 }
 
@@ -150,7 +154,7 @@ body {
 
 .progress-bar {
   height: 100%;
-  background-color: var(--sena-naranja);
+  background-color: var(--sena-verde);
   transition: width 0.6s ease;
   border-radius: 5px;
   display: flex;
@@ -177,6 +181,10 @@ body {
   font-size: 0.85rem;
   font-weight: 600;
   text-transform: uppercase;
+  white-space: nowrap;
+    justify-self: center;
+    margin: 0 auto;
+    width: fit-content;
 }
 
 .badge-over { background-color: var(--color-sobre); color: white; }
@@ -184,7 +192,7 @@ body {
 .badge-warning { background-color: var(--color-advertencia); color: var(--sena-negro); }
 .badge-danger { background-color: var(--color-peligro); color: white; }
 .badge-info { background-color: var(--color-info); color: white; }
-.badge-sena { background-color: var(--sena-naranja); color: white; }
+.badge-sena { background-color: var(--sena-verde); color: white; }
 
 /* Tablas */
 .table {
@@ -194,7 +202,7 @@ body {
 }
 
 .table thead {
-  background-color: var(--sena-naranja);
+  background-color: var(--sena-verde);
   color: white;
 }
 
@@ -233,12 +241,12 @@ body {
 }
 
 .btn-primary {
-  background-color: var(--sena-naranja);
+  background-color: var(--sena-verde);
   color: white;
 }
 
 .btn-primary:hover {
-  background-color: var(--sena-naranja-oscuro);
+  background-color: var(--sena-verde-oscuro);
 }
 
 .btn-secondary {
@@ -253,7 +261,7 @@ body {
 
 /* Navegación */
 .navbar {
-  background-color: var(--sena-verde);
+  background-color: var(--sena-verde-institucional);
   color: white;
   padding: 15px 30px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
@@ -299,7 +307,7 @@ body {
 
 .nav-link:hover,
 .nav-link.active {
-  background-color: var(--sena-naranja);
+  background-color: var(--sena-verde);
   color: white;
 }
 
@@ -330,7 +338,7 @@ body {
 
 .sidebar-menu a:hover,
 .sidebar-menu a.active {
-  background-color: var(--sena-naranja);
+  background-color: var(--sena-verde);
   color: white;
 }
 
@@ -408,6 +416,7 @@ body {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -420,7 +429,7 @@ body {
 
 /* Header de página */
 .page-header {
-  background: linear-gradient(135deg, var(--sena-naranja) 0%, var(--sena-naranja-oscuro) 100%);
+  background: linear-gradient(135deg, var(--sena-verde) 0%, var(--sena-verde-oscuro) 100%);
   color: white;
   padding: 30px;
   border-radius: 8px;
@@ -442,7 +451,7 @@ body {
 /* Loading spinner */
 .spinner {
   border: 4px solid #f3f3f3;
-  border-top: 4px solid var(--sena-naranja);
+  border-top: 4px solid var(--sena-verde);
   border-radius: 50%;
   width: 40px;
   height: 40px;
