@@ -324,9 +324,9 @@ export class MetasRegionalesComponent implements OnInit, AfterViewInit {
           },
           properties: {
             title: 'Centros de Formación (Cluster)',
-            visible: true
+            visible: false
           },
-          visible: true
+          visible: false
         });
 
         // Si el mapa ya está inicializado, agregar las capas
