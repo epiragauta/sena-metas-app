@@ -1,5 +1,8 @@
 /* Estilos globales - Aplicación SENA Seguimiento de Metas */
 
+/* Importar estilos de OpenLayers */
+@import 'ol/ol.css';
+
 /* Importar estilos de ol-layerswitcher */
 @import 'ol-layerswitcher/dist/ol-layerswitcher.css';
 
