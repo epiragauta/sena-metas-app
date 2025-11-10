@@ -458,7 +458,7 @@ export class MetasRegionalesComponent implements OnInit, AfterViewInit {
     const selectInteraction = new Select({
       condition: click,
       style: (feature) => {
-        this.getSelectedStyle(feature)
+        return this.getSelectedStyle(feature);
       },
       layers: [this.vectorLayer]
     });
