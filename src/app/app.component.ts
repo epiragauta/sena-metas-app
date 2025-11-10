@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
@@ -8,13 +8,13 @@ import { HttpClientModule } from '@angular/common/http';
   standalone: true,
   imports: [CommonModule, RouterModule, RouterOutlet, HttpClientModule],
   template: `
-    <div class="navbar">
+    <div class="navbar" [class.scrolled]="isScrolled">
       <div class="container-fluid d-flex justify-content-between align-items-center">
-        <div class="navbar-brand d-flex align-items-center">
+        <div class="navbar-brand d-flex align-items-center" [class.compact]="isScrolled">
           <img src="https://www.sena.edu.co/Style%20Library/alayout/images/logoSena.png"
                alt="Logo SENA"
                class="navbar-logo">
-          <span>SENA - Seguimiento de Metas</span>
+          <span *ngIf="!isScrolled">SENA - Seguimiento de Metas</span>
         </div>
         <ul class="navbar-nav">
           <li class="nav-item">
@@ -45,6 +45,21 @@ import { HttpClientModule } from '@angular/common/http';
   `,
   styles: []
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'SENA - Seguimiento de Metas';
+  isScrolled = false;
+
+  ngOnInit(): void {
+    // Verificar el estado inicial del scroll
+    this.checkScroll();
+  }
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    this.checkScroll();
+  }
+
+  private checkScroll(): void {
+    this.isScrolled = window.scrollY > 50;
+  }
 }

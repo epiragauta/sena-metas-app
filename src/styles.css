@@ -271,6 +271,15 @@ body {
   color: white;
   padding: 15px 30px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.navbar.scrolled {
+  padding: 8px 30px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
 .navbar-brand {
@@ -279,6 +288,15 @@ body {
   color: var(--sena-blanco);
   text-decoration: none;
   gap: 15px;
+  transition: all 0.3s ease;
+}
+
+.navbar-brand.compact {
+  font-size: 1.2rem;
+}
+
+.navbar-brand span {
+  transition: opacity 0.3s ease;
 }
 
 .navbar-logo {
@@ -289,6 +307,12 @@ body {
   padding: 5px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
   object-fit: contain;
+  transition: all 0.3s ease;
+}
+
+.navbar.scrolled .navbar-logo {
+  height: 40px;
+  width: 40px;
 }
 
 .navbar-nav {
