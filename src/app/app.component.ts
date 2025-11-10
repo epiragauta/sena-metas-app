@@ -20,9 +20,9 @@ import { HttpClientModule } from '@angular/common/http';
           <li class="nav-item">
             <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" routerLink="/metas" routerLinkActive="active">Metas FPI</a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a class="nav-link" routerLink="/estrategias" routerLinkActive="active">Estrategias</a>
           </li>
@@ -30,7 +30,7 @@ import { HttpClientModule } from '@angular/common/http';
             <a class="nav-link" routerLink="/niveles" routerLinkActive="active">Niveles</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/regionales" routerLinkActive="active">Metas Regionales</a>
+            <a class="nav-link" routerLink="/regionales" routerLinkActive="active">Mapa</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="/consulta-regional" routerLinkActive="active">Consulta Regional y Centros</a>

@@ -1,0 +1,2832 @@
+{
+  "type": "FeatureCollection",
+  "name": "Centros de Formación SENA - Coordenadas Aproximadas",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "metadata": {
+    "fecha_generacion": "2025-11-06T20:48:25.996865",
+    "fuente_datos": "Directorio SENA 2019",
+    "coordenadas": "Aproximadas - Centroide municipal",
+    "precision": "0.5-5 km",
+    "sistema_referencia": "WGS84 (EPSG:4326)",
+    "total_centros": 148
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -69.9406,
+          -4.2153
+        ]
+      },
+      "properties": {
+        "codigo_centro": 1010,
+        "nombre_centro": "Despacho Dirección",
+        "direccion": "Calle 12 No. 10 – 60 Centro",
+        "municipio": "Leticia",
+        "departamento": "Amazonas",
+        "regional": "Amazonas",
+        "codigo_regional": 91
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -69.9406,
+          -4.2153
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9517,
+        "nombre_centro": "Centro para la Biodiversidad y el Turismo del Amazonas",
+        "direccion": "Carretera Vía Leticia Tarapaca Km 1.3",
+        "municipio": "Leticia",
+        "departamento": "Amazonas",
+        "regional": "Amazonas",
+        "codigo_regional": 91
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.5658,
+          6.2476
+        ]
+      },
+      "properties": {
+        "codigo_centro": 1010,
+        "nombre_centro": "Despacho Dirección",
+        "direccion": "Calle 51 No. 57 - 70",
+        "municipio": "Medellín",
+        "departamento": "Antioquia",
+        "regional": "Antioquia",
+        "codigo_regional": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.635,
+          6.0921
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9101,
+        "nombre_centro": "Centro de los Recursos Naturales Renovables -La Salada",
+        "direccion": "Km 6 Vía a la Pintada Caldas Antioquia",
+        "municipio": "Caldas",
+        "departamento": "Antioquia",
+        "regional": "Antioquia",
+        "codigo_regional": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.599,
+          6.1844
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9201,
+        "nombre_centro": "Centro del Diseño y Manufactura del Cuero",
+        "direccion": "Cl.63 58B-03 Itagui-Calatrava",
+        "municipio": "Itaguí",
+        "departamento": "Antioquia",
+        "regional": "Antioquia",
+        "codigo_regional": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.599,
+          6.1844
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9202,
+        "nombre_centro": "Centro de Formación en Diseño, Confección y Moda",
+        "direccion": "Cl.63 58B-03 Itagui-Calatrava",
+        "municipio": "Itaguí",
+        "departamento": "Antioquia",
+        "regional": "Antioquia",
+        "codigo_regional": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.5658,
+          6.2476
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9203,
+        "nombre_centro": "Centro para el Desarrollo del Hábitat y la Construcción",
+        "direccion": "Diag.104 69-120 El pedregal",
+        "municipio": "Medellín",
+        "departamento": "Antioquia",
+        "regional": "Antioquia",
+        "codigo_regional": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.5658,
+          6.2476
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9204,
+        "nombre_centro": "Centro de Tecnología de la Manufactura Avanzada",
+        "direccion": "Diag.104 69-120 El pedregal",
+        "municipio": "Medellín",
+        "departamento": "Antioquia",
+        "regional": "Antioquia",
+        "codigo_regional": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.599,
+          6.1844
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9205,
+        "nombre_centro": "Centro Tecnológico del Mobiliario",
+        "direccion": "Cl.63 58B-03 Itagui-Calatrava",
+        "municipio": "Itaguí",
+        "departamento": "Antioquia",
+        "regional": "Antioquia",
+        "codigo_regional": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.5658,
+          6.2476
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9206,
+        "nombre_centro": "Centro Textil y de Gestión Industrial",
+        "direccion": "Diag.104 69-120 El pedregal",
+        "municipio": "Medellín",
+        "departamento": "Antioquia",
+        "regional": "Antioquia",
+        "codigo_regional": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.5658,
+          6.2476
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9301,
+        "nombre_centro": "Centro de Comercio",
+        "direccion": "Calle 51 No. 57 – 70 Torre Sur Piso 5",
+        "municipio": "Medellín",
+        "departamento": "Antioquia",
+        "regional": "Antioquia",
+        "codigo_regional": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.5658,
+          6.2476
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9401,
+        "nombre_centro": "Centro de Servicios de Salud",
+        "direccion": "Calle 51 No. 57 – 70 Torre Sur",
+        "municipio": "Medellín",
+        "departamento": "Antioquia",
+        "regional": "Antioquia",
+        "codigo_regional": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.5658,
+          6.2476
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9402,
+        "nombre_centro": "Centro de Servicios y Gestión Empresarial",
+        "direccion": "Calle 51 No. 57 – 70 Torre Norte",
+        "municipio": "Medellín",
+        "departamento": "Antioquia",
+        "regional": "Antioquia",
+        "codigo_regional": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.1931,
+          7.9867
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9501,
+        "nombre_centro": "Complejo Tecnológico para la Gestión Agroempresarial",
+        "direccion": "Transversal 16 calle 33 No. 102",
+        "municipio": "Caucasia",
+        "departamento": "Antioquia",
+        "regional": "Antioquia",
+        "codigo_regional": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.4036,
+          6.4909
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9502,
+        "nombre_centro": "Complejo Tecnológico Minero Agroempresarial",
+        "direccion": "Calle 50 Vía La Malena",
+        "municipio": "Puerto Berrío",
+        "departamento": "Antioquia",
+        "regional": "Antioquia",
+        "codigo_regional": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.3736,
+          6.1549
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9503,
+        "nombre_centro": "Centro de la Innovación, la Agroindustria y la Aviación",
+        "direccion": "Carrera 1 No. 28-71",
+        "municipio": "Rionegro",
+        "departamento": "Antioquia",
+        "regional": "Antioquia",
+        "codigo_regional": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.6366,
+          7.8816
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9504,
+        "nombre_centro": "Complejo Tecnológico Agroindustrial, Pecuario y Turístico",
+        "direccion": "Kilometro 1 Salida Turbo",
+        "municipio": "Apartadó",
+        "departamento": "Antioquia",
+        "regional": "Antioquia",
+        "codigo_regional": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.8281,
+          6.5581
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9549,
+        "nombre_centro": "Complejo Tecnológico, Turístico y Agroindustrial del Occidente Antioqueño",
+        "direccion": "Calle 11 Nro. 12-42",
+        "municipio": "Santafé de Antioquia",
+        "departamento": "Antioquia",
+        "regional": "Antioquia",
+        "codigo_regional": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.8088,
+          7.5969
+        ]
+      },
+      "properties": {
+        "codigo_centro": 912710,
+        "nombre_centro": "Centro de Formación Minero Ambiental El Bagre",
+        "direccion": "Municipio El Bagre en el sector conocido como los Comodatos de Arriba",
+        "municipio": "El Bagre",
+        "departamento": "Antioquia",
+        "regional": "Antioquia",
+        "codigo_regional": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.7591,
+          7.0902
+        ]
+      },
+      "properties": {
+        "codigo_centro": 1010,
+        "nombre_centro": "Despacho Dirección",
+        "direccion": "Carrera 20 No.28-163",
+        "municipio": "Arauca",
+        "departamento": "Arauca",
+        "regional": "Arauca",
+        "codigo_regional": 81
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.7591,
+          7.0902
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9530,
+        "nombre_centro": "Centro de Gestión y Desarrollo Agroindustrial de Arauca",
+        "direccion": "Carrera 20 No.28-163",
+        "municipio": "Arauca",
+        "departamento": "Arauca",
+        "regional": "Arauca",
+        "codigo_regional": 81
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.7813,
+          10.9685
+        ]
+      },
+      "properties": {
+        "codigo_centro": 1010,
+        "nombre_centro": "Despacho Dirección",
+        "direccion": "Carrera 43 42-40 Piso 11",
+        "municipio": "Barranquilla",
+        "departamento": "Atlántico",
+        "regional": "Atlántico",
+        "codigo_regional": 8
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.9216,
+          10.6302
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9103,
+        "nombre_centro": "Centro para el Desarrollo Agroecologico y Agroindustrial",
+        "direccion": "Calle 9 19-120",
+        "municipio": "Sabanalarga",
+        "departamento": "Atlántico",
+        "regional": "Atlántico",
+        "codigo_regional": 8
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.7813,
+          10.9685
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9207,
+        "nombre_centro": "Centro Nacional Colombo Alemán",
+        "direccion": "Calle 30 3E-164",
+        "municipio": "Barranquilla",
+        "departamento": "Atlántico",
+        "regional": "Atlántico",
+        "codigo_regional": 8
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.7813,
+          10.9685
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9208,
+        "nombre_centro": "Centro Industrial y de Aviación",
+        "direccion": "Calle 30 3E-164",
+        "municipio": "Barranquilla",
+        "departamento": "Atlántico",
+        "regional": "Atlántico",
+        "codigo_regional": 8
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.7813,
+          10.9685
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9302,
+        "nombre_centro": "Centro de Comercio y Servicios",
+        "direccion": "Carrera 43 42-40 Piso 10",
+        "municipio": "Barranquilla",
+        "departamento": "Atlántico",
+        "regional": "Atlántico",
+        "codigo_regional": 8
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.4794,
+          10.391
+        ]
+      },
+      "properties": {
+        "codigo_centro": 1010,
+        "nombre_centro": "Despacho Dirección",
+        "direccion": "Ternera Km 1 Vía Turbaco",
+        "municipio": "Cartagena",
+        "departamento": "Bolívar",
+        "regional": "Bolívar",
+        "codigo_regional": 13
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.4794,
+          10.391
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9104,
+        "nombre_centro": "Centro Agroempresarial y Minero",
+        "direccion": "Ternera Km 1 Vía Turbaco",
+        "municipio": "Cartagena",
+        "departamento": "Bolívar",
+        "regional": "Bolívar",
+        "codigo_regional": 13
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.4794,
+          10.391
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9105,
+        "nombre_centro": "Centro Internacional Náutico, Fluvial y Portuario",
+        "direccion": "Carretera Mamonal Km 5",
+        "municipio": "Cartagena",
+        "departamento": "Bolívar",
+        "regional": "Bolívar",
+        "codigo_regional": 13
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.4794,
+          10.391
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9218,
+        "nombre_centro": "Centro para la Industria Petroquímica",
+        "direccion": "Avenida Pedro de Heredia, Sector Tesca",
+        "municipio": "Cartagena",
+        "departamento": "Bolívar",
+        "regional": "Bolívar",
+        "codigo_regional": 13
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.4794,
+          10.391
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9304,
+        "nombre_centro": "Centro de Comercio y Servicios",
+        "direccion": "Ternera Km 1 Vía Turbaco",
+        "municipio": "Cartagena",
+        "departamento": "Bolívar",
+        "regional": "Bolívar",
+        "codigo_regional": 13
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.9341,
+          5.714
+        ]
+      },
+      "properties": {
+        "codigo_centro": 1010,
+        "nombre_centro": "Despacho Dirección",
+        "direccion": "Carrera 12 55 A – 51",
+        "municipio": "Sogamoso",
+        "departamento": "Boyacá",
+        "regional": "Boyacá",
+        "codigo_regional": 15
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.0348,
+          5.8272
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9110,
+        "nombre_centro": "Centro de Desarrollo Agropecuario y Agroindustrial",
+        "direccion": "Kilómetro 1 Vía Duitama - Pantano de Vargas",
+        "municipio": "Duitama",
+        "departamento": "Boyacá",
+        "regional": "Boyacá",
+        "codigo_regional": 15
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.9341,
+          5.714
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9111,
+        "nombre_centro": "Centro Minero",
+        "direccion": "Veredá Morcá",
+        "municipio": "Sogamoso",
+        "departamento": "Boyacá",
+        "regional": "Boyacá",
+        "codigo_regional": 15
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.3678,
+          5.5353
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9305,
+        "nombre_centro": "Centro de Gestión Administrativa y Fortalecimiento Empresarial",
+        "direccion": "Calle 19 12-29",
+        "municipio": "Tunja",
+        "departamento": "Boyacá",
+        "regional": "Boyacá",
+        "codigo_regional": 15
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.9341,
+          5.714
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9514,
+        "nombre_centro": "Centro Industrial de Mantenimiento y Manufactura",
+        "direccion": "Carrera 12 55 A – 51",
+        "municipio": "Sogamoso",
+        "departamento": "Boyacá",
+        "regional": "Boyacá",
+        "codigo_regional": 15
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.5138,
+          5.0703
+        ]
+      },
+      "properties": {
+        "codigo_centro": 1010,
+        "nombre_centro": "Despacho Dirección",
+        "direccion": "Kilómetro 10 Vía al Magdalena",
+        "municipio": "Manizales",
+        "departamento": "Caldas",
+        "regional": "Caldas",
+        "codigo_regional": 17
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.5138,
+          5.0703
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9112,
+        "nombre_centro": "Centro para la Formación Cafetera",
+        "direccion": "Kilómetro 10 Vía al Magdalena",
+        "municipio": "Manizales",
+        "departamento": "Caldas",
+        "regional": "Caldas",
+        "codigo_regional": 17
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.5138,
+          5.0703
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9219,
+        "nombre_centro": "Centro de Automatización Industrial",
+        "direccion": "Kilómetro 10 Vía al Magdalena",
+        "municipio": "Manizales",
+        "departamento": "Caldas",
+        "regional": "Caldas",
+        "codigo_regional": 17
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.5138,
+          5.0703
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9220,
+        "nombre_centro": "Centro de Procesos Industriales y Construcción",
+        "direccion": "Kilómetro 10 Vía al Magdalena",
+        "municipio": "Manizales",
+        "departamento": "Caldas",
+        "regional": "Caldas",
+        "codigo_regional": 17
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.5138,
+          5.0703
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9306,
+        "nombre_centro": "Centro de Comercio y Servicios",
+        "direccion": "Kilómetro 10 Vía al Magdalena",
+        "municipio": "Manizales",
+        "departamento": "Caldas",
+        "regional": "Caldas",
+        "codigo_regional": 17
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.6653,
+          5.4508
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9515,
+        "nombre_centro": "Centro Pecuario y Agroempresarial",
+        "direccion": "Calle 41 Carrera 1ª",
+        "municipio": "La Dorada",
+        "departamento": "Caldas",
+        "regional": "Caldas",
+        "codigo_regional": 17
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6062,
+          1.6144
+        ]
+      },
+      "properties": {
+        "codigo_centro": 1010,
+        "nombre_centro": "Despacho Dirección",
+        "direccion": "Kilómetro 3 Vía Aeropuerto",
+        "municipio": "Florencia",
+        "departamento": "Caquetá",
+        "regional": "Caquetá",
+        "codigo_regional": 18
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6062,
+          1.6144
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9516,
+        "nombre_centro": "Centro Tecnológico de la Amazonia",
+        "direccion": "Kilómetro 3 Vía Aeropuerto",
+        "municipio": "Florencia",
+        "departamento": "Caquetá",
+        "regional": "Caquetá",
+        "codigo_regional": 18
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.3959,
+          5.3378
+        ]
+      },
+      "properties": {
+        "codigo_centro": 1010,
+        "nombre_centro": "Despacho Dirección",
+        "direccion": "Carrera 19 No. 36-68",
+        "municipio": "Yopal",
+        "departamento": "Casanare",
+        "regional": "Casanare",
+        "codigo_regional": 85
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.3959,
+          5.3378
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9519,
+        "nombre_centro": "Centro Agroindustrial y Fortalecimiento Empresarial de Casanare",
+        "direccion": "Carrera 19 No. 36-68",
+        "municipio": "Yopal",
+        "departamento": "Casanare",
+        "regional": "Casanare",
+        "codigo_regional": 85
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.6063,
+          2.4419
+        ]
+      },
+      "properties": {
+        "codigo_centro": 1010,
+        "nombre_centro": "Despacho Dirección",
+        "direccion": "Calle 4 2-80",
+        "municipio": "Popayán",
+        "departamento": "Cauca",
+        "regional": "Cauca",
+        "codigo_regional": 19
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.6063,
+          2.4419
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9113,
+        "nombre_centro": "Centro Agropecuario",
+        "direccion": "Carrera 9N 71N-60 Sede Alto Cauca",
+        "municipio": "Popayán",
+        "departamento": "Cauca",
+        "regional": "Cauca",
+        "codigo_regional": 19
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.6063,
+          2.4419
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9221,
+        "nombre_centro": "Centro de Teleinformática y Producción Industrial",
+        "direccion": "Carrera 9N 71N-60 Sede Alto Cauca",
+        "municipio": "Popayán",
+        "departamento": "Cauca",
+        "regional": "Cauca",
+        "codigo_regional": 19
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.6063,
+          2.4419
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9307,
+        "nombre_centro": "Centro de Comercio y Servicios",
+        "direccion": "Calle 4 2-80",
+        "municipio": "Popayán",
+        "departamento": "Cauca",
+        "regional": "Cauca",
+        "codigo_regional": 19
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.2532,
+          10.4631
+        ]
+      },
+      "properties": {
+        "codigo_centro": 1010,
+        "nombre_centro": "Despacho Dirección",
+        "direccion": "Kra 19 calles 15 y 15",
+        "municipio": "Valledupar",
+        "departamento": "Cesar",
+        "regional": "Cesar",
+        "codigo_regional": 20
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.2532,
+          10.4631
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9114,
+        "nombre_centro": "Centro Biotecnológico del Caribe",
+        "direccion": "Km. 7 Vía a La Paz",
+        "municipio": "Valledupar",
+        "departamento": "Cesar",
+        "regional": "Cesar",
+        "codigo_regional": 20
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.6169,
+          8.3083
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9520,
+        "nombre_centro": "Centro Agroempresarial",
+        "direccion": "Km 1 Vía Bucaramanga",
+        "municipio": "Aguachica",
+        "departamento": "Cesar",
+        "regional": "Cesar",
+        "codigo_regional": 20
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.2532,
+          10.4631
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9521,
+        "nombre_centro": "Centro de Operación y Mantenimiento Minero",
+        "direccion": "Kra 19 calles 15 y 15",
+        "municipio": "Valledupar",
+        "departamento": "Cesar",
+        "regional": "Cesar",
+        "codigo_regional": 20
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.6611,
+          5.6947
+        ]
+      },
+      "properties": {
+        "codigo_centro": 1010,
+        "nombre_centro": "Despacho Dirección",
+        "direccion": "Carrera 1 No. 28-71",
+        "municipio": "Quibdó",
+        "departamento": "Chocó",
+        "regional": "Chocó",
+        "codigo_regional": 27
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.6611,
+          5.6947
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9522,
+        "nombre_centro": "Centro de Recursos Naturales, Industria y Biodiversidad",
+        "direccion": "Carrera 1 No. 28-71",
+        "municipio": "Quibdó",
+        "departamento": "Chocó",
+        "regional": "Chocó",
+        "codigo_regional": 27
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.8814,
+          8.7479
+        ]
+      },
+      "properties": {
+        "codigo_centro": 1010,
+        "nombre_centro": "Despacho Dirección",
+        "direccion": "Avenida circunvalar calle 24 y 27",
+        "municipio": "Montería",
+        "departamento": "Córdoba",
+        "regional": "Córdoba",
+        "codigo_regional": 23
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.8814,
+          8.7479
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9115,
+        "nombre_centro": "Centro Agropecuario y de Biotecnología el Porvenir",
+        "direccion": "k. 45 corregimiento Santa Isabel vía Tierralta",
+        "municipio": "Montería",
+        "departamento": "Córdoba",
+        "regional": "Córdoba",
+        "codigo_regional": 23
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.8814,
+          8.7479
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9523,
+        "nombre_centro": "Centro de Comercio, Industria y Turismo de Córdoba",
+        "direccion": "Avenida circunvalar calle 24 y 27",
+        "municipio": "Montería",
+        "departamento": "Córdoba",
+        "regional": "Córdoba",
+        "codigo_regional": 23
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.0721,
+          4.711
+        ]
+      },
+      "properties": {
+        "codigo_centro": 1010,
+        "nombre_centro": "Despacho Dirección",
+        "direccion": "Diagonal 45D No. 19 – 72",
+        "municipio": "Bogotá",
+        "departamento": "Cundinamarca",
+        "regional": "Cundinamarca",
+        "codigo_regional": 25
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.2169,
+          4.5794
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9232,
+        "nombre_centro": "Centro Industrial y de Desarrollo Empresarial de Soacha",
+        "direccion": "Clle 13 No. 10 -60",
+        "municipio": "Soacha",
+        "departamento": "Cundinamarca",
+        "regional": "Cundinamarca",
+        "codigo_regional": 25
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.4731,
+          5.0119
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9509,
+        "nombre_centro": "Centro de Desarrollo Agroindustrial y Empresarial",
+        "direccion": "Calle 2 No. 13 – 03 Barrio San Rafael",
+        "municipio": "Villeta",
+        "departamento": "Cundinamarca",
+        "regional": "Cundinamarca",
+        "codigo_regional": 25
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.3642,
+          4.3417
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9510,
+        "nombre_centro": "Centro Agroecológico y Empresarial",
+        "direccion": "Avenida Manuel Humberto Cardenas calle 16",
+        "municipio": "Fusagasugá",
+        "departamento": "Cundinamarca",
+        "regional": "Cundinamarca",
+        "codigo_regional": 25
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.8006,
+          4.3017
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9511,
+        "nombre_centro": "Centro de la Tecnología de Diseño y la Productividad Empresarial",
+        "direccion": "Cra. 10 No. 30 – 04",
+        "municipio": "Girardot",
+        "departamento": "Cundinamarca",
+        "regional": "Cundinamarca",
+        "codigo_regional": 25
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.2303,
+          4.7061
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9512,
+        "nombre_centro": "Centro de Biotecnología Agropecuaria",
+        "direccion": "Kilometro 7 Vía Mosquera",
+        "municipio": "Mosquera",
+        "departamento": "Cundinamarca",
+        "regional": "Cundinamarca",
+        "codigo_regional": 25
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.0589,
+          4.8614
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9513,
+        "nombre_centro": "Centro de Desarrollo Agroempresarial",
+        "direccion": "Vereda Bojacá Carrera 11 Sector el Darien Lote 1",
+        "municipio": "Chía",
+        "departamento": "Cundinamarca",
+        "regional": "Cundinamarca",
+        "codigo_regional": 25
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.0721,
+          4.711
+        ]
+      },
+      "properties": {
+        "codigo_centro": 1010,
+        "nombre_centro": "Despacho Dirección",
+        "direccion": "Carrera 13 No 65-10",
+        "municipio": "Bogotá",
+        "departamento": "Bogotá D.C.",
+        "regional": "Distrito Capital",
+        "codigo_regional": 11
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.0721,
+          4.711
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9209,
+        "nombre_centro": "Centro de Tecnologías para la Construcción y la Madera",
+        "direccion": "Carrera 18 No 2A-18 Sur",
+        "municipio": "Bogotá",
+        "departamento": "Bogotá D.C.",
+        "regional": "Distrito Capital",
+        "codigo_regional": 11
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.0721,
+          4.711
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9210,
+        "nombre_centro": "Centro de Electricidad, Electrónica y Telecomunicaciones",
+        "direccion": "Avenida 30 No 17B-25 Sur",
+        "municipio": "Bogotá",
+        "departamento": "Bogotá D.C.",
+        "regional": "Distrito Capital",
+        "codigo_regional": 11
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.0721,
+          4.711
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9211,
+        "nombre_centro": "Centro de Gestión Industrial",
+        "direccion": "Carrera 31 No 14-20",
+        "municipio": "Bogotá",
+        "departamento": "Bogotá D.C.",
+        "regional": "Distrito Capital",
+        "codigo_regional": 11
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.0721,
+          4.711
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9212,
+        "nombre_centro": "Centro de Manufactura en Textil y Cuero",
+        "direccion": "Avenida 30 No 17B-25 Sur",
+        "municipio": "Bogotá",
+        "departamento": "Bogotá D.C.",
+        "regional": "Distrito Capital",
+        "codigo_regional": 11
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.0721,
+          4.711
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9213,
+        "nombre_centro": "Centro de Tecnologías del Transporte",
+        "direccion": "Autopista Sur, Carrera 4 # 53-54 - Zona industrial Cazuza",
+        "municipio": "Bogotá",
+        "departamento": "Bogotá D.C.",
+        "regional": "Distrito Capital",
+        "codigo_regional": 11
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.0721,
+          4.711
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9214,
+        "nombre_centro": "Centro Metalmecánico",
+        "direccion": "Avenida 30 No 17B-25 Sur",
+        "municipio": "Bogotá",
+        "departamento": "Bogotá D.C.",
+        "regional": "Distrito Capital",
+        "codigo_regional": 11
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.0721,
+          4.711
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9215,
+        "nombre_centro": "Centro de Materiales y Ensayos",
+        "direccion": "Avenida 30 No 17B-25 Sur",
+        "municipio": "Bogotá",
+        "departamento": "Bogotá D.C.",
+        "regional": "Distrito Capital",
+        "codigo_regional": 11
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.0721,
+          4.711
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9216,
+        "nombre_centro": "Centro de Diseño y Metrología",
+        "direccion": "Carrera 31 No 14-20",
+        "municipio": "Bogotá",
+        "departamento": "Bogotá D.C.",
+        "regional": "Distrito Capital",
+        "codigo_regional": 11
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.0721,
+          4.711
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9217,
+        "nombre_centro": "Centro para la Industria de la Comunicación Grafica",
+        "direccion": "Carrera 31 No 14-20",
+        "municipio": "Bogotá",
+        "departamento": "Bogotá D.C.",
+        "regional": "Distrito Capital",
+        "codigo_regional": 11
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.0721,
+          4.711
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9303,
+        "nombre_centro": "Centro de Gestión de Mercados, Logística y Tecnologías de la Información",
+        "direccion": "Calle 52 No 13-65",
+        "municipio": "Bogotá",
+        "departamento": "Bogotá D.C.",
+        "regional": "Distrito Capital",
+        "codigo_regional": 11
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.0721,
+          4.711
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9403,
+        "nombre_centro": "Centro de Formación de Talento Humano en Salud",
+        "direccion": "Carrera 6 No. 45 - 52",
+        "municipio": "Bogotá",
+        "departamento": "Bogotá D.C.",
+        "regional": "Distrito Capital",
+        "codigo_regional": 11
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.0721,
+          4.711
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9404,
+        "nombre_centro": "Centro de Gestión Administrativa",
+        "direccion": "Avenida Carracas No 13-65",
+        "municipio": "Bogotá",
+        "departamento": "Bogotá D.C.",
+        "regional": "Distrito Capital",
+        "codigo_regional": 11
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.0721,
+          4.711
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9405,
+        "nombre_centro": "Centro de Servicios Financieros",
+        "direccion": "Carrera 13 No 65-10",
+        "municipio": "Bogotá",
+        "departamento": "Bogotá D.C.",
+        "regional": "Distrito Capital",
+        "codigo_regional": 11
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.0721,
+          4.711
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9406,
+        "nombre_centro": "Centro Nacional de Hoteleria, Turismo y Alimentos",
+        "direccion": "Carrera 31 No 14-20",
+        "municipio": "Bogotá",
+        "departamento": "Bogotá D.C.",
+        "regional": "Distrito Capital",
+        "codigo_regional": 11
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.0721,
+          4.711
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9508,
+        "nombre_centro": "Centro de Formación en Actividad Física y cultura",
+        "direccion": "Transversal 79 No 41D-15 Sur Kennedy",
+        "municipio": "Bogotá",
+        "departamento": "Bogotá D.C.",
+        "regional": "Distrito Capital",
+        "codigo_regional": 11
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -67.9239,
+          3.8653
+        ]
+      },
+      "properties": {
+        "codigo_centro": 1010,
+        "nombre_centro": "Despacho Dirección",
+        "direccion": "Transversal 6ª No 29ª 03 Vía al Coco",
+        "municipio": "Inírida",
+        "departamento": "Guainía",
+        "regional": "Guainía",
+        "codigo_regional": 94
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -67.9239,
+          3.8653
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9547,
+        "nombre_centro": "Centro Ambiental y Ecoturistico del Nororiente Amazónico",
+        "direccion": "Transversal 6ª No 29ª 03 Vía al Coco",
+        "municipio": "Inírida",
+        "departamento": "Guainía",
+        "regional": "Guainía",
+        "codigo_regional": 94
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.9072,
+          11.5444
+        ]
+      },
+      "properties": {
+        "codigo_centro": 1010,
+        "nombre_centro": "Despacho Dirección",
+        "direccion": "Calle 21 Avenida Aeropuerto Esquina",
+        "municipio": "Riohacha",
+        "departamento": "La Guajira",
+        "regional": "La Guajira",
+        "codigo_regional": 44
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.9072,
+          11.5444
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9222,
+        "nombre_centro": "Centro Industrial y de Energías Alternativas",
+        "direccion": "Calle 21 Avenida Aeropuerto Esquina",
+        "municipio": "Riohacha",
+        "departamento": "La Guajira",
+        "regional": "La Guajira",
+        "codigo_regional": 44
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.8472,
+          10.8878
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9524,
+        "nombre_centro": "Centro Agroempresarial y Acuícola",
+        "direccion": "Km 1 Vía Barrancas",
+        "municipio": "Fonseca",
+        "departamento": "La Guajira",
+        "regional": "La Guajira",
+        "codigo_regional": 44
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.2819,
+          2.9273
+        ]
+      },
+      "properties": {
+        "codigo_centro": 1010,
+        "nombre_centro": "Despacho Dirección",
+        "direccion": "Carrera 5 No 16-16",
+        "municipio": "Neiva",
+        "departamento": "Huila",
+        "regional": "Huila",
+        "codigo_regional": 41
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.3283,
+          2.6883
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9116,
+        "nombre_centro": "Centro de Formación Agroindustrial",
+        "direccion": "Km. 40 via Campoalegre",
+        "municipio": "Campoalegre",
+        "departamento": "Huila",
+        "regional": "Huila",
+        "codigo_regional": 41
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6264,
+          2.1967
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9525,
+        "nombre_centro": "Centro Agroempresarial y Desarrollo Pecuario del Huila",
+        "direccion": "Carrera 10 No 11-22",
+        "municipio": "Garzón",
+        "departamento": "Huila",
+        "regional": "Huila",
+        "codigo_regional": 41
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.8883,
+          2.3881
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9526,
+        "nombre_centro": "Centro de Desarrollo Agroempresarial y Turístico del Huila",
+        "direccion": "Carrera 3 No 2-03",
+        "municipio": "La Plata",
+        "departamento": "Huila",
+        "regional": "Huila",
+        "codigo_regional": 41
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.2819,
+          2.9273
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9527,
+        "nombre_centro": "Centro de la Industria, la Empresa y los Servicios",
+        "direccion": "Calle 66 No. 8-25",
+        "municipio": "Neiva",
+        "departamento": "Huila",
+        "regional": "Huila",
+        "codigo_regional": 41
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.0506,
+          1.8536
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9528,
+        "nombre_centro": "Centro de Gestión y Desarrollo Sostenible Surcolombiano",
+        "direccion": "Carrera 8 No. 7-53",
+        "municipio": "Pitalito",
+        "departamento": "Huila",
+        "regional": "Huila",
+        "codigo_regional": 41
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.2099,
+          11.2408
+        ]
+      },
+      "properties": {
+        "codigo_centro": 1010,
+        "nombre_centro": "Despacho Dirección",
+        "direccion": "Calle 29 # 13 - 127 Barrio Bavaria",
+        "municipio": "Santa Marta",
+        "departamento": "Magdalena",
+        "regional": "Magdalena",
+        "codigo_regional": 47
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.2099,
+          11.2408
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9118,
+        "nombre_centro": "Centro Acuícola y Agroindustrial de Gaira",
+        "direccion": "Kilometro 5 carretera a Gaira",
+        "municipio": "Santa Marta",
+        "departamento": "Magdalena",
+        "regional": "Magdalena",
+        "codigo_regional": 47
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.2099,
+          11.2408
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9529,
+        "nombre_centro": "Centro de Logística y Promoción Ecoturística del Magdalena",
+        "direccion": "Avenida Ferrocarril 27-97",
+        "municipio": "Santa Marta",
+        "departamento": "Magdalena",
+        "regional": "Magdalena",
+        "codigo_regional": 47
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.6266,
+          4.142
+        ]
+      },
+      "properties": {
+        "codigo_centro": 1010,
+        "nombre_centro": "Despacho Dirección",
+        "direccion": "Km 1 Vía Acacias",
+        "municipio": "Villavicencio",
+        "departamento": "Meta",
+        "regional": "Meta",
+        "codigo_regional": 50
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.6266,
+          4.142
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9117,
+        "nombre_centro": "Centro Agroindustrial del Meta",
+        "direccion": "Km 17 Via Puerto López",
+        "municipio": "Villavicencio",
+        "departamento": "Meta",
+        "regional": "Meta",
+        "codigo_regional": 50
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.6266,
+          4.142
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9532,
+        "nombre_centro": "Centro de Industria y Servicios del Meta",
+        "direccion": "Km 1 Vía Acacias",
+        "municipio": "Villavicencio",
+        "departamento": "Meta",
+        "regional": "Meta",
+        "codigo_regional": 50
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.2811,
+          1.2136
+        ]
+      },
+      "properties": {
+        "codigo_centro": 1010,
+        "nombre_centro": "Despacho Dirección",
+        "direccion": "Calle 22 No. 11 Este-05. Vía a Oriente",
+        "municipio": "Pasto",
+        "departamento": "Nariño",
+        "regional": "Nariño",
+        "codigo_regional": 52
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.6419,
+          0.8269
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9534,
+        "nombre_centro": "Centro Sur Colombiano de Logística Internacional",
+        "direccion": "Carrera 8 No. 23-117",
+        "municipio": "Ipiales",
+        "departamento": "Nariño",
+        "regional": "Nariño",
+        "codigo_regional": 52
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -78.8003,
+          1.7997
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9535,
+        "nombre_centro": "Centro Agroindustrial y Pesquero de la Costa Pacifica",
+        "direccion": "Calle del Comercio Muelle",
+        "municipio": "Tumaco",
+        "departamento": "Nariño",
+        "regional": "Nariño",
+        "codigo_regional": 52
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.2811,
+          1.2136
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9536,
+        "nombre_centro": "Centro Internacional de Producción Limpia - Lope",
+        "direccion": "Calle 22 No. 11 Este-05. Vía a Oriente",
+        "municipio": "Pasto",
+        "departamento": "Nariño",
+        "regional": "Nariño",
+        "codigo_regional": 52
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.5078,
+          7.8939
+        ]
+      },
+      "properties": {
+        "codigo_centro": 1010,
+        "nombre_centro": "Despacho Dirección",
+        "direccion": "Calle 2N Avenidas 4y5 Pescadero",
+        "municipio": "Cúcuta",
+        "departamento": "Norte de Santander",
+        "regional": "Norte de Santander",
+        "codigo_regional": 54
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.5078,
+          7.8939
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9119,
+        "nombre_centro": "Centro de Formación para el Desarrollo Rural y Minero",
+        "direccion": "Calle 2N Avenidas 4y5 Pescadero",
+        "municipio": "Cúcuta",
+        "departamento": "Norte de Santander",
+        "regional": "Norte de Santander",
+        "codigo_regional": 54
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.5078,
+          7.8939
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9537,
+        "nombre_centro": "Centro de la Industria, la Empresa y los Servicios",
+        "direccion": "Calle 2N Avenidas 4y5 Pescadero",
+        "municipio": "Cúcuta",
+        "departamento": "Norte de Santander",
+        "regional": "Norte de Santander",
+        "codigo_regional": 54
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.499,
+          0.5055
+        ]
+      },
+      "properties": {
+        "codigo_centro": 1010,
+        "nombre_centro": "Despacho Dirección",
+        "direccion": "Cra 23 A No 25-06, B. 20 de Julio",
+        "municipio": "Puerto Asís",
+        "departamento": "Putumayo",
+        "regional": "Putumayo",
+        "codigo_regional": 86
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.499,
+          0.5055
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9518,
+        "nombre_centro": "Centro Agroforestal y Acuícola Arapaima",
+        "direccion": "Cra 23 A No 25-06, B. 20 de Julio",
+        "municipio": "Puerto Asís",
+        "departamento": "Putumayo",
+        "regional": "Putumayo",
+        "codigo_regional": 86
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6811,
+          4.5339
+        ]
+      },
+      "properties": {
+        "codigo_centro": 1010,
+        "nombre_centro": "Despacho Dirección",
+        "direccion": "Avenida Centenario 42N-02",
+        "municipio": "Armenia",
+        "departamento": "Quindío",
+        "regional": "Quindío",
+        "codigo_regional": 63
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6811,
+          4.5339
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9120,
+        "nombre_centro": "Centro Agroindustrial",
+        "direccion": "Avenida Centenario 42N-02",
+        "municipio": "Armenia",
+        "departamento": "Quindío",
+        "regional": "Quindío",
+        "codigo_regional": 63
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6811,
+          4.5339
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9231,
+        "nombre_centro": "Centro para el Desarrollo Tecnológico de la Construcción y la Industria",
+        "direccion": "Avenida Centenario 44N-02",
+        "municipio": "Armenia",
+        "departamento": "Quindío",
+        "regional": "Quindío",
+        "codigo_regional": 63
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6811,
+          4.5339
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9538,
+        "nombre_centro": "Centro de Comercio y Turismo",
+        "direccion": "Carrera 18 No. 7-58",
+        "municipio": "Armenia",
+        "departamento": "Quindío",
+        "regional": "Quindío",
+        "codigo_regional": 63
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6961,
+          4.8133
+        ]
+      },
+      "properties": {
+        "codigo_centro": 1010,
+        "nombre_centro": "Despacho Dirección",
+        "direccion": "Cra 8ª 26-79",
+        "municipio": "Pereira",
+        "departamento": "Risaralda",
+        "regional": "Risaralda",
+        "codigo_regional": 66
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6961,
+          4.8133
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9121,
+        "nombre_centro": "Centro Atención Sector Agropecuario",
+        "direccion": "Cra 8ª 26-79",
+        "municipio": "Pereira",
+        "departamento": "Risaralda",
+        "regional": "Risaralda",
+        "codigo_regional": 66
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6961,
+          4.8133
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9223,
+        "nombre_centro": "Centro de Diseño e Innovación Tecnológica Industrial",
+        "direccion": "Transversal 7 Calle 26 Barrio Santa Isabel D/quebradas",
+        "municipio": "Pereira",
+        "departamento": "Risaralda",
+        "regional": "Risaralda",
+        "codigo_regional": 66
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6961,
+          4.8133
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9308,
+        "nombre_centro": "Centro de Comercio y Servicios",
+        "direccion": "Cra 8ª 26-79",
+        "municipio": "Pereira",
+        "departamento": "Risaralda",
+        "regional": "Risaralda",
+        "codigo_regional": 66
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -81.7006,
+          12.5847
+        ]
+      },
+      "properties": {
+        "codigo_centro": 1010,
+        "nombre_centro": "Despacho Dirección",
+        "direccion": "Avenida Francisco Newball",
+        "municipio": "San Andrés",
+        "departamento": "San Andrés y Providencia",
+        "regional": "San Andrés",
+        "codigo_regional": 88
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -81.7006,
+          12.5847
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9539,
+        "nombre_centro": "Centro de Formación Turística, Gente de Mar y de Servicios",
+        "direccion": "Avenida Francisco Newball",
+        "municipio": "San Andrés",
+        "departamento": "San Andrés y Providencia",
+        "regional": "San Andrés",
+        "codigo_regional": 88
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.1259,
+          7.1301
+        ]
+      },
+      "properties": {
+        "codigo_centro": 1010,
+        "nombre_centro": "Despacho Dirección",
+        "direccion": "Calle 16 No. 27-37",
+        "municipio": "Bucaramanga",
+        "departamento": "Santander",
+        "regional": "Santander",
+        "codigo_regional": 68
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.0503,
+          6.9878
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9122,
+        "nombre_centro": "Centro Atención Sector Agropecuario Piedecuesta",
+        "direccion": "Kl 2 Via Palogordo Vereda Guatiguara",
+        "municipio": "Piedecuesta",
+        "departamento": "Santander",
+        "regional": "Santander",
+        "codigo_regional": 68
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.1689,
+          7.0658
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9224,
+        "nombre_centro": "Centro Industrial de Mantenimiento Integral Giron",
+        "direccion": "Kl 7 Via Rincon de Giron",
+        "municipio": "Girón",
+        "departamento": "Santander",
+        "regional": "Santander",
+        "codigo_regional": 68
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.0875,
+          7.0622
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9225,
+        "nombre_centro": "Centro Industrial del Diseño y la Manufactura",
+        "direccion": "K6 Autopista a Floridablanca n 55-33",
+        "municipio": "Floridablanca",
+        "departamento": "Santander",
+        "regional": "Santander",
+        "codigo_regional": 68
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.1259,
+          7.1301
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9309,
+        "nombre_centro": "Centro de Servicios Empresariales y Turísticos",
+        "direccion": "Carrera 27 No. 42 - 68",
+        "municipio": "Bucaramanga",
+        "departamento": "Santander",
+        "regional": "Santander",
+        "codigo_regional": 68
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.8547,
+          7.0653
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9540,
+        "nombre_centro": "Centro Industrial y del Desarrollo Tecnológico",
+        "direccion": "Carrera 28 n 56 - 10 Barrio Galan",
+        "municipio": "Barrancabermeja",
+        "departamento": "Santander",
+        "regional": "Santander",
+        "codigo_regional": 68
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.1336,
+          6.5571
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9541,
+        "nombre_centro": "Centro Agroturístico",
+        "direccion": "Calle 22 No. 9 - 82",
+        "municipio": "San Gil",
+        "departamento": "Santander",
+        "regional": "Santander",
+        "codigo_regional": 68
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.7228,
+          6.6656
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9545,
+        "nombre_centro": "Centro Agroempresarial y Turístico de los Andes",
+        "direccion": "Carrera 11 No. 13-13 Barrio Ricaute",
+        "municipio": "Málaga",
+        "departamento": "Santander",
+        "regional": "Santander",
+        "codigo_regional": 68
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.6739,
+          6.0081
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9546,
+        "nombre_centro": "Centro de Gestión Agroempresarial del Oriente",
+        "direccion": "Calle 8 No. 2 Este Par Av. Las Cuadras",
+        "municipio": "Vélez",
+        "departamento": "Santander",
+        "regional": "Santander",
+        "codigo_regional": 68
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.3978,
+          9.3047
+        ]
+      },
+      "properties": {
+        "codigo_centro": 1010,
+        "nombre_centro": "Despacho Dirección",
+        "direccion": "Calle 25B No 31-260",
+        "municipio": "Sincelejo",
+        "departamento": "Sucre",
+        "regional": "Sucre",
+        "codigo_regional": 70
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.3978,
+          9.3047
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9542,
+        "nombre_centro": "Centro de la Innovación, la Tecnología y los Servicios",
+        "direccion": "Calle 25B No 31-260",
+        "municipio": "Sincelejo",
+        "departamento": "Sucre",
+        "regional": "Sucre",
+        "codigo_regional": 70
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.2322,
+          4.4389
+        ]
+      },
+      "properties": {
+        "codigo_centro": 1010,
+        "nombre_centro": "Despacho Dirección",
+        "direccion": "Transversal 1ª No. 42-44",
+        "municipio": "Ibagué",
+        "departamento": "Tolima",
+        "regional": "Tolima",
+        "codigo_regional": 73
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.8833,
+          4.1494
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9123,
+        "nombre_centro": "Centro Agropecuario la Granja",
+        "direccion": "Kilómetro 5 Vía Espinal",
+        "municipio": "Espinal",
+        "departamento": "Tolima",
+        "regional": "Tolima",
+        "codigo_regional": 73
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.2322,
+          4.4389
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9226,
+        "nombre_centro": "Centro de Industria y Construcción",
+        "direccion": "Carrera 45 sur No. 141-05 Sector Picaleña, contiguo a la Casa de la Moneda",
+        "municipio": "Ibagué",
+        "departamento": "Tolima",
+        "regional": "Tolima",
+        "codigo_regional": 73
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.2322,
+          4.4389
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9310,
+        "nombre_centro": "Centro de Comercio y Servicios",
+        "direccion": "Transversal 1ª No. 42-44",
+        "municipio": "Ibagué",
+        "departamento": "Tolima",
+        "regional": "Tolima",
+        "codigo_regional": 73
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.532,
+          3.4516
+        ]
+      },
+      "properties": {
+        "codigo_centro": 1010,
+        "nombre_centro": "Despacho Dirección",
+        "direccion": "Calle 52 No. 2 Bis 15",
+        "municipio": "Cali",
+        "departamento": "Valle del Cauca",
+        "regional": "Valle del Cauca",
+        "codigo_regional": 76
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.2978,
+          3.9011
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9124,
+        "nombre_centro": "Centro Agropecuario de Buga",
+        "direccion": "Carretera Central Variante Buga - Tulúa",
+        "municipio": "Buga",
+        "departamento": "Valle del Cauca",
+        "regional": "Valle del Cauca",
+        "codigo_regional": 76
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.1953,
+          4.0847
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9125,
+        "nombre_centro": "Centro Latinoamericano de Especies Menores",
+        "direccion": "Carretera Central a Tulúa Kilómetro 2",
+        "municipio": "Tuluá",
+        "departamento": "Valle del Cauca",
+        "regional": "Valle del Cauca",
+        "codigo_regional": 76
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.0311,
+          3.8801
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9126,
+        "nombre_centro": "Centro Náutico Pesquero de Buenaventura",
+        "direccion": "Avenida Simón Bolivar Kilómetro 5",
+        "municipio": "Buenaventura",
+        "departamento": "Valle del Cauca",
+        "regional": "Valle del Cauca",
+        "codigo_regional": 76
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.532,
+          3.4516
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9227,
+        "nombre_centro": "Centro de Electricidad y Automatización Industrial -CEAI",
+        "direccion": "Calle 52 No. 2 Bis 15",
+        "municipio": "Cali",
+        "departamento": "Valle del Cauca",
+        "regional": "Valle del Cauca",
+        "codigo_regional": 76
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.532,
+          3.4516
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9228,
+        "nombre_centro": "Centro de la Construcción",
+        "direccion": "Calle 34 No. 17 B 23",
+        "municipio": "Cali",
+        "departamento": "Valle del Cauca",
+        "regional": "Valle del Cauca",
+        "codigo_regional": 76
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.532,
+          3.4516
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9229,
+        "nombre_centro": "Centro de Diseño Tecnológico Industrial",
+        "direccion": "Calle 52 No. 2 Bis 15",
+        "municipio": "Cali",
+        "departamento": "Valle del Cauca",
+        "regional": "Valle del Cauca",
+        "codigo_regional": 76
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.532,
+          3.4516
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9230,
+        "nombre_centro": "Centro Nacional de Asistencia Técnica a la Industria -ASTIN",
+        "direccion": "Calle 52 No. 2 Bis 15",
+        "municipio": "Cali",
+        "departamento": "Valle del Cauca",
+        "regional": "Valle del Cauca",
+        "codigo_regional": 76
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.532,
+          3.4516
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9311,
+        "nombre_centro": "Centro de Gestión Tecnológica de Servicios",
+        "direccion": "Calle 52 No. 2 Bis 15",
+        "municipio": "Cali",
+        "departamento": "Valle del Cauca",
+        "regional": "Valle del Cauca",
+        "codigo_regional": 76
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.9117,
+          4.7467
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9543,
+        "nombre_centro": "Centro de Tecnologías Agroindustriales",
+        "direccion": "Carrera 9 No. 12 -141",
+        "municipio": "Cartago",
+        "departamento": "Valle del Cauca",
+        "regional": "Valle del Cauca",
+        "codigo_regional": 76
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.3036,
+          3.5394
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9544,
+        "nombre_centro": "Centro de Biotecnología Industrial",
+        "direccion": "Carrera 30 No 40 - 25",
+        "municipio": "Palmira",
+        "departamento": "Valle del Cauca",
+        "regional": "Valle del Cauca",
+        "codigo_regional": 76
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.1734,
+          1.1983
+        ]
+      },
+      "properties": {
+        "codigo_centro": 1010,
+        "nombre_centro": "Despacho Dirección",
+        "direccion": "Avenida 15 No. 6 - 176 Barrio San José",
+        "municipio": "Mitú",
+        "departamento": "Vaupés",
+        "regional": "Vaupés",
+        "codigo_regional": 97
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.1734,
+          1.1983
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9548,
+        "nombre_centro": "Centro Agropecuario y de Servicios Ambientales Jiri-jirimo",
+        "direccion": "Avenida 15 No. 6 - 176 Barrio San José",
+        "municipio": "Mitú",
+        "departamento": "Vaupés",
+        "regional": "Vaupés",
+        "codigo_regional": 97
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -67.486,
+          6.189
+        ]
+      },
+      "properties": {
+        "codigo_centro": 1010,
+        "nombre_centro": "Despacho Dirección",
+        "direccion": "Cra 10 Nº 15 – 71 Barrio la Primavera",
+        "municipio": "Puerto Carreño",
+        "departamento": "Vichada",
+        "regional": "Vichada",
+        "codigo_regional": 99
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -67.486,
+          6.189
+        ]
+      },
+      "properties": {
+        "codigo_centro": 9531,
+        "nombre_centro": "Centro de Producción y Transformación Agroindustrial de la Orinoquia",
+        "direccion": "Cra 10 Nº 15 – 71 Barrio la Primavera",
+        "municipio": "Puerto Carreño",
+        "departamento": "Vichada",
+        "regional": "Vichada",
+        "codigo_regional": 99
+      }
+    }
+  ]
+}

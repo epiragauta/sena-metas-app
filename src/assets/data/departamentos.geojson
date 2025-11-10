@@ -1,0 +1,335 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1,
+        "nombre": "ANTIOQUIA",
+        "codigo": "05",
+        "meta": 850000,
+        "ejecucion": 720000,
+        "porcentaje": 84.71
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-75.5, 7.5], [-75.5, 5.5], [-77.0, 5.5], [-77.0, 7.5], [-75.5, 7.5]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 2,
+        "nombre": "ATLANTICO",
+        "codigo": "08",
+        "meta": 320000,
+        "ejecucion": 290000,
+        "porcentaje": 90.63
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-75.0, 11.0], [-75.0, 10.0], [-74.5, 10.0], [-74.5, 11.0], [-75.0, 11.0]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 3,
+        "nombre": "BOGOTA D.C.",
+        "codigo": "11",
+        "meta": 1200000,
+        "ejecucion": 980000,
+        "porcentaje": 81.67
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-74.3, 4.8], [-74.3, 4.5], [-73.9, 4.5], [-73.9, 4.8], [-74.3, 4.8]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 4,
+        "nombre": "BOLIVAR",
+        "codigo": "13",
+        "meta": 280000,
+        "ejecucion": 260000,
+        "porcentaje": 92.86
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-75.5, 10.5], [-75.5, 8.5], [-74.0, 8.5], [-74.0, 10.5], [-75.5, 10.5]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 5,
+        "nombre": "BOYACA",
+        "codigo": "15",
+        "meta": 420000,
+        "ejecucion": 380000,
+        "porcentaje": 90.48
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-73.5, 6.5], [-73.5, 5.0], [-72.0, 5.0], [-72.0, 6.5], [-73.5, 6.5]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 6,
+        "nombre": "CALDAS",
+        "codigo": "17",
+        "meta": 180000,
+        "ejecucion": 165000,
+        "porcentaje": 91.67
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-75.7, 5.5], [-75.7, 5.0], [-75.0, 5.0], [-75.0, 5.5], [-75.7, 5.5]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 7,
+        "nombre": "CAQUETA",
+        "codigo": "18",
+        "meta": 95000,
+        "ejecucion": 78000,
+        "porcentaje": 82.11
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-76.0, 2.0], [-76.0, 0.5], [-74.5, 0.5], [-74.5, 2.0], [-76.0, 2.0]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 8,
+        "nombre": "CAUCA",
+        "codigo": "19",
+        "meta": 230000,
+        "ejecucion": 210000,
+        "porcentaje": 91.30
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-77.0, 3.5], [-77.0, 2.0], [-75.5, 2.0], [-75.5, 3.5], [-77.0, 3.5]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 9,
+        "nombre": "CESAR",
+        "codigo": "20",
+        "meta": 195000,
+        "ejecucion": 175000,
+        "porcentaje": 89.74
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-74.0, 10.5], [-74.0, 8.5], [-73.0, 8.5], [-73.0, 10.5], [-74.0, 10.5]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10,
+        "nombre": "CORDOBA",
+        "codigo": "23",
+        "meta": 260000,
+        "ejecucion": 240000,
+        "porcentaje": 92.31
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-76.5, 9.5], [-76.5, 7.5], [-75.0, 7.5], [-75.0, 9.5], [-76.5, 9.5]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11,
+        "nombre": "CUNDINAMARCA",
+        "codigo": "25",
+        "meta": 580000,
+        "ejecucion": 520000,
+        "porcentaje": 89.66
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-75.0, 5.5], [-75.0, 3.5], [-73.5, 3.5], [-73.5, 5.5], [-75.0, 5.5]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 12,
+        "nombre": "HUILA",
+        "codigo": "41",
+        "meta": 215000,
+        "ejecucion": 195000,
+        "porcentaje": 90.70
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-76.5, 3.5], [-76.5, 1.5], [-75.0, 1.5], [-75.0, 3.5], [-76.5, 3.5]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 13,
+        "nombre": "MAGDALENA",
+        "codigo": "47",
+        "meta": 175000,
+        "ejecucion": 160000,
+        "porcentaje": 91.43
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-75.0, 11.5], [-75.0, 10.0], [-73.5, 10.0], [-73.5, 11.5], [-75.0, 11.5]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 14,
+        "nombre": "META",
+        "codigo": "50",
+        "meta": 185000,
+        "ejecucion": 165000,
+        "porcentaje": 89.19
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-74.5, 4.5], [-74.5, 2.0], [-72.0, 2.0], [-72.0, 4.5], [-74.5, 4.5]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 15,
+        "nombre": "NARIÑO",
+        "codigo": "52",
+        "meta": 270000,
+        "ejecucion": 248000,
+        "porcentaje": 91.85
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-79.0, 2.0], [-79.0, 0.5], [-77.0, 0.5], [-77.0, 2.0], [-79.0, 2.0]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 16,
+        "nombre": "NORTE DE SANTANDER",
+        "codigo": "54",
+        "meta": 240000,
+        "ejecucion": 218000,
+        "porcentaje": 90.83
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-73.5, 9.0], [-73.5, 7.0], [-72.0, 7.0], [-72.0, 9.0], [-73.5, 9.0]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 17,
+        "nombre": "QUINDIO",
+        "codigo": "63",
+        "meta": 125000,
+        "ejecucion": 118000,
+        "porcentaje": 94.40
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-75.9, 4.8], [-75.9, 4.2], [-75.4, 4.2], [-75.4, 4.8], [-75.9, 4.8]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 18,
+        "nombre": "RISARALDA",
+        "codigo": "66",
+        "meta": 165000,
+        "ejecucion": 155000,
+        "porcentaje": 93.94
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-76.2, 5.5], [-76.2, 4.7], [-75.4, 4.7], [-75.4, 5.5], [-76.2, 5.5]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 19,
+        "nombre": "SANTANDER",
+        "codigo": "68",
+        "meta": 380000,
+        "ejecucion": 345000,
+        "porcentaje": 90.79
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-74.0, 8.0], [-74.0, 6.0], [-72.5, 6.0], [-72.5, 8.0], [-74.0, 8.0]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 20,
+        "nombre": "SUCRE",
+        "codigo": "70",
+        "meta": 145000,
+        "ejecucion": 132000,
+        "porcentaje": 91.03
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-75.5, 9.8], [-75.5, 8.5], [-74.5, 8.5], [-74.5, 9.8], [-75.5, 9.8]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 21,
+        "nombre": "TOLIMA",
+        "codigo": "73",
+        "meta": 245000,
+        "ejecucion": 220000,
+        "porcentaje": 89.80
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-76.0, 5.5], [-76.0, 3.0], [-74.5, 3.0], [-74.5, 5.5], [-76.0, 5.5]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 22,
+        "nombre": "VALLE DEL CAUCA",
+        "codigo": "76",
+        "meta": 680000,
+        "ejecucion": 620000,
+        "porcentaje": 91.18
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-77.5, 5.0], [-77.5, 3.0], [-75.5, 3.0], [-75.5, 5.0], [-77.5, 5.0]]]
+      }
+    }
+  ]
+}

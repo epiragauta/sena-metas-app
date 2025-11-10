@@ -1,5 +1,8 @@
 /* Estilos globales - Aplicación SENA Seguimiento de Metas */
 
+/* Importar estilos de ol-layerswitcher */
+@import 'ol-layerswitcher/dist/ol-layerswitcher.css';
+
 /* Colores institucionales SENA */
 :root {
   --sena-verde: #007832;
@@ -462,4 +465,19 @@ body {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.layer-switcher button {    
+    width: 38px !important;
+    height: 38px !important;
+}
+
+.layer-switcher li input {
+  margin-top: 5px;
+}
+
+.layer-switcher li label {
+    padding-left: 3.7em !important;
+    padding-right: 0.2em !important;        
+    font-size: 12px;    
 }

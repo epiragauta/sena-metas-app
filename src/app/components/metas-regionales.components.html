@@ -1,0 +1,165 @@
+<div class="metas-regionales-container">
+
+    <!-- Filtro de Subcategorías -->
+    <div class="row mb-3">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header bg-sena">
+            <h5 class="mb-0">
+              <i class="fas fa-filter"></i>
+              Seleccionar Métrica
+            </h5>
+          </div>
+          <div class="card-body">
+            <label for="subcategoriaSelect" class="form-label">
+              <strong>Total o Subtotal:</strong>
+            </label>
+            <select id="subcategoriaSelect"
+                    class="form-select"
+                    [(ngModel)]="subcategoriaSeleccionada"
+                    (change)="onSubcategoriaChange()">
+              <option *ngFor="let subcat of subcategoriasDisponibles" [value]="subcat">
+                {{ subcat }}
+              </option>
+            </select>
+            <small class="text-muted mt-2 d-block">
+              <i class="fas fa-info-circle"></i>
+              Selecciona una métrica para visualizar su cumplimiento por departamento
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+    <!-- Mapa -->
+    <div class="col-8">
+        <div class="card">
+        <div class="card-body" style="padding: 0;">
+            <div id="map" style="width: 100%; height: 650px;"></div>
+        </div>
+        <div class="card-footer" style="background-color: #f5f5f5; padding: 10px;">
+            <small class="text-muted">
+            <strong>Instrucciones:</strong> Haz clic en un departamento para ver sus detalles
+            </small>
+        </div>
+        </div>
+    </div>
+
+    <!-- Panel de Información -->
+    <div class="col-4">
+        <div class="card" *ngIf="departamentoSeleccionado">
+        <div class="card-header bg-sena">
+            <h5 class="mb-0">{{ departamentoSeleccionado.nombre }}</h5>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-info mb-3" style="padding: 8px 12px; font-size: 0.9rem;">
+              <strong>Métrica:</strong><br>
+              <small>{{ subcategoriaSeleccionada }}</small>
+            </div>
+
+            <div class="info-item">
+            <label>Código:</label>
+            <span>{{ departamentoSeleccionado.codigo }}</span>
+            </div>
+
+            <div class="info-item mt-3">
+            <label>Cumplimiento:</label>
+            <div class="kpi-percentage" [ngClass]="getClasePorcentaje(departamentoSeleccionado.porcentaje)">
+                {{ departamentoSeleccionado.porcentaje }}%
+            </div>
+            </div>
+
+            <div class="progress mt-2">
+            <div class="progress-bar"
+                    [ngClass]="getClasePorcentaje(departamentoSeleccionado.porcentaje)"
+                    [style.width.%]="departamentoSeleccionado.porcentaje">
+            </div>
+            </div>
+
+            <div class="info-item mt-3">
+            <label>Meta:</label>
+            <span class="value-large">{{ departamentoSeleccionado.meta | number }}</span>
+            </div>
+
+            <div class="info-item mt-2">
+            <label>Ejecución:</label>
+            <span class="value-medium">{{ departamentoSeleccionado.ejecucion | number }}</span>
+            </div>
+
+            <div class="info-item mt-2">
+            <label>Brecha:</label>
+            <span class="value-medium" [style.color]="departamentoSeleccionado.meta - departamentoSeleccionado.ejecucion > 0 ? '#f44336' : '#4caf50'">
+                {{ departamentoSeleccionado.meta - departamentoSeleccionado.ejecucion | number }}
+            </span>
+            </div>
+
+            <div class="mt-3">
+            <span class="badge" [ngClass]="'badge-' + getClasePorcentaje(departamentoSeleccionado.porcentaje)">
+                {{ getEstadoTexto(departamentoSeleccionado.porcentaje) }}
+            </span>
+            </div>
+        </div>
+        </div>
+
+        <div class="card mt-3" *ngIf="!departamentoSeleccionado">
+        <div class="card-body text-center" style="padding: 40px;">
+            <i class="fa fa-map-marker-alt" style="font-size: 3rem; color: #ccc;"></i>
+            <p class="mt-3 text-muted">Selecciona un departamento en el mapa para ver sus detalles</p>
+        </div>
+        </div>
+
+        <!-- Leyenda -->
+        <div class="card mt-3">
+        <div class="card-header">
+            <h5>Leyenda</h5>
+        </div>
+        <div class="card-body">
+            <div class="legend-item">
+            <span class="legend-color" style="background-color: #ff0000;"></span>
+            <span>Bajo (&lt; 70%)</span>
+            </div>
+            <div class="legend-item">
+            <span class="legend-color" style="background-color: #FFFF00;"></span>
+            <span>Vulnerable (70% - 85%)</span>
+            </div>
+            <div class="legend-item">
+            <span class="legend-color" style="background-color: #92D050;"></span>
+            <span>Buena (85% - 100%)</span>
+            </div>
+            <div class="legend-item">
+            <span class="legend-color" style="background-color: #FFC000;"></span>
+            <span>Sobreejecución (&gt; 100%)</span>
+            </div>
+        </div>
+        </div>
+
+        <!-- Estadísticas Generales -->
+        <div class="card mt-3">
+        <div class="card-header">
+            <h5>Estadísticas Generales</h5>
+        </div>
+        <div class="card-body">
+            <div class="stat-item">
+            <label>Total Departamentos:</label>
+            <span>{{ estadisticas.totalDepartamentos }}</span>
+            </div>
+            <div class="stat-item">
+            <label>Meta Total:</label>
+            <span>{{ estadisticas.metaTotal | number }}</span>
+            </div>
+            <div class="stat-item">
+            <label>Ejecución Total:</label>
+            <span>{{ estadisticas.ejecucionTotal | number }}</span>
+            </div>
+            <div class="stat-item">
+            <label>Cumplimiento Promedio:</label>
+            <span class="badge" [ngClass]="'badge-' + getClasePorcentaje(estadisticas.promedioNacional)">
+                {{ estadisticas.promedioNacional | number:'1.2-2' }}%
+            </span>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
