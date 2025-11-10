@@ -15,6 +15,7 @@ import { register } from 'ol/proj/proj4';
 import proj4 from 'proj4';
 import LayerSwitcher from 'ol-layerswitcher';
 import { BaseLayerOptions, GroupLayerOptions } from 'ol-layerswitcher';
+import Control from 'ol/control/Control';
 
 interface SeguimientoItem {
   categoria: string;
@@ -30,6 +31,41 @@ interface RegionalConSeguimiento {
   codigo: number;
   nombre: string;
   seguimiento: SeguimientoItem[];
+}
+
+// Control personalizado para resetear el extent del mapa
+class ResetExtentControl extends Control {
+  constructor(opt_options?: any) {
+    const options = opt_options || {};
+
+    const button = document.createElement('button');
+    button.innerHTML = '⌂'; // Símbolo de casa/home
+    button.title = 'Volver a la vista inicial';
+    button.className = 'ol-reset-extent';
+
+    const element = document.createElement('div');
+    element.className = 'ol-reset-extent ol-unselectable ol-control';
+    element.appendChild(button);
+
+    super({
+      element: element,
+      target: options.target,
+    });
+
+    button.addEventListener('click', this.handleResetExtent.bind(this), false);
+  }
+
+  handleResetExtent() {
+    const map = this.getMap();
+    if (map) {
+      const view = map.getView();
+      view.animate({
+        center: fromLonLat([-74.0, 4.5]),
+        zoom: 5.65,
+        duration: 1000
+      });
+    }
+  }
 }
 
 @Component({
@@ -413,6 +449,10 @@ export class MetasRegionalesComponent implements OnInit, AfterViewInit {
       startActive: false
     });
     this.map.addControl(layerSwitcher);
+
+    // Agregar el control de Reset Extent
+    const resetExtentControl = new ResetExtentControl();
+    this.map.addControl(resetExtentControl);
 
     // Agregar interacción de selección
     const selectInteraction = new Select({

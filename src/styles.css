@@ -481,6 +481,38 @@ body {
 
 .layer-switcher li label {
     padding-left: 3.7em !important;
-    padding-right: 0.2em !important;        
-    font-size: 12px;    
+    padding-right: 0.2em !important;
+    font-size: 12px;
+}
+
+/* Estilos para el control de Reset Extent */
+.ol-reset-extent {
+  top: 4.5em;
+  left: .5em;
+}
+
+.ol-reset-extent button {
+  background-color: rgba(0, 120, 50, 0.9);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  width: 38px;
+  height: 38px;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ol-reset-extent button:hover {
+  background-color: rgba(0, 120, 50, 1);
+  transform: scale(1.05);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.ol-reset-extent button:active {
+  transform: scale(0.95);
 }
