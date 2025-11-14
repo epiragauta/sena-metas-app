@@ -19,7 +19,7 @@ import { MetasService } from '../../services/metas.service';
 
       <!-- KPIs Principales -->
       <div class="row">
-        <div class="col-3" *ngFor="let kpi of dashboardData.kpis">
+        <div class="col-3" *ngFor="let kpi of dashboardData.kpis; let i = index">
           <div class="card kpi-card fade-in">
             <div class="kpi-title">{{ kpi.titulo }}</div>
             <div class="kpi-percentage" [ngClass]="getClaseEstado(kpi.estado)">
@@ -38,6 +38,39 @@ import { MetasService } from '../../services/metas.service';
             <span class="badge" [ngClass]="'badge-' + kpi.estado">
               {{ getTextoEstado(kpi.estado) }}
             </span>
+
+            <!-- Bot\u00f3n para expandir informaci\u00f3n -->
+            <div class="info-toggle" (click)="togglePanel('kpi-' + i)">
+              <span class="info-icon">{{ isPanelExpandido('kpi-' + i) ? '\u25bc' : '?' }}</span>
+              <span class="info-text">{{ isPanelExpandido('kpi-' + i) ? 'Ocultar' : 'M\u00e1s informaci\u00f3n' }}</span>
+            </div>
+
+            <!-- Panel informativo colapsable -->
+            <div class="info-panel" [class.expanded]="isPanelExpandido('kpi-' + i)">
+              <div class="info-panel-content">
+                <h4>Informaci\u00f3n del Indicador</h4>
+                <div class="info-item">
+                  <strong>Descripci\u00f3n:</strong>
+                  <p>{{ kpi.titulo }} representa el seguimiento de la ejecuci\u00f3n frente a la meta establecida.</p>
+                </div>
+                <div class="info-item">
+                  <strong>Estado actual:</strong>
+                  <p>El indicador se encuentra en estado <strong>{{ getTextoEstado(kpi.estado) }}</strong> con un cumplimiento del {{ kpi.porcentaje }}%.</p>
+                </div>
+                <div class="info-item">
+                  <strong>Diferencia:</strong>
+                  <p>{{ kpi.ejecucion - kpi.meta > 0 ? 'Sobreejecuci\u00f3n de' : 'Brecha de' }} {{ (kpi.ejecucion - kpi.meta) | number }} unidades.</p>
+                </div>
+                <div class="info-item">
+                  <strong>Interpretaci\u00f3n:</strong>
+                  <ul>
+                    <li *ngIf="kpi.estado === 'success'">El indicador muestra un desempe\u00f1o satisfactorio.</li>
+                    <li *ngIf="kpi.estado === 'warning'">Se requiere atenci\u00f3n para alcanzar la meta establecida.</li>
+                    <li *ngIf="kpi.estado === 'danger'">Es necesario implementar acciones correctivas urgentes.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -49,18 +82,51 @@ import { MetasService } from '../../services/metas.service';
             <div class="card-header">Cumplimiento por Estrategia</div>
             <div class="card-body">
               <div class="row">
-                <div class="col-4" *ngFor="let mod of dashboardData.estrategias">
-                  <div class="text-center p-2">
-                    <h3>{{ mod.estrategia }}</h3>
-                    <div class="kpi-percentage" [ngClass]="getClasePorcentaje(mod.porcentaje)">
-                      {{ mod.porcentaje }}%
-                    </div>
-                    <div class="progress">
-                      <div class="progress-bar" [ngClass]="getClasePorcentaje(mod.porcentaje)"
-                           [style.width.%]="mod.porcentaje"></div>
-                    </div>
-                    <div class="mt-2">
-                      <small>Ejecucion: {{ mod.ejecucion | number }} / Meta: {{ mod.meta | number }}</small>
+                <div class="col-4" *ngFor="let mod of dashboardData.estrategias; let j = index">
+                  <div class="estrategia-card">
+                    <div class="text-center p-2">
+                      <h3>{{ mod.estrategia }}</h3>
+                      <div class="kpi-percentage" [ngClass]="getClasePorcentaje(mod.porcentaje)">
+                        {{ mod.porcentaje }}%
+                      </div>
+                      <div class="progress">
+                        <div class="progress-bar" [ngClass]="getClasePorcentaje(mod.porcentaje)"
+                             [style.width.%]="mod.porcentaje"></div>
+                      </div>
+                      <div class="mt-2">
+                        <small>Ejecucion: {{ mod.ejecucion | number }} / Meta: {{ mod.meta | number }}</small>
+                      </div>
+
+                      <!-- Bot\u00f3n para expandir informaci\u00f3n -->
+                      <div class="info-toggle" (click)="togglePanel('estrategia-' + j)">
+                        <span class="info-icon">{{ isPanelExpandido('estrategia-' + j) ? '\u25bc' : '?' }}</span>
+                        <span class="info-text">{{ isPanelExpandido('estrategia-' + j) ? 'Ocultar' : 'M\u00e1s informaci\u00f3n' }}</span>
+                      </div>
+
+                      <!-- Panel informativo colapsable -->
+                      <div class="info-panel" [class.expanded]="isPanelExpandido('estrategia-' + j)">
+                        <div class="info-panel-content">
+                          <h4>Informaci\u00f3n de la Estrategia</h4>
+                          <div class="info-item">
+                            <strong>Estrategia:</strong>
+                            <p>{{ mod.estrategia }}</p>
+                          </div>
+                          <div class="info-item">
+                            <strong>Cumplimiento:</strong>
+                            <p>Se ha alcanzado un {{ mod.porcentaje }}% de la meta establecida.</p>
+                          </div>
+                          <div class="info-item">
+                            <strong>Diferencia:</strong>
+                            <p>{{ mod.ejecucion - mod.meta > 0 ? 'Sobreejecuci\u00f3n de' : 'Brecha de' }} {{ (mod.ejecucion - mod.meta) | number }} unidades.</p>
+                          </div>
+                          <div class="info-item">
+                            <strong>Observaci\u00f3n:</strong>
+                            <p *ngIf="mod.porcentaje >= 90">La estrategia muestra un excelente desempe\u00f1o.</p>
+                            <p *ngIf="mod.porcentaje >= 70 && mod.porcentaje < 90">La estrategia tiene un buen avance, pero puede mejorar.</p>
+                            <p *ngIf="mod.porcentaje < 70">Se recomienda reforzar las acciones de esta estrategia.</p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -141,6 +207,7 @@ import { MetasService } from '../../services/metas.service';
 export class DashboardComponent implements OnInit {
   dashboardData?: DashboardData;
   cargando = true;
+  panelExpandido: {[key: string]: boolean} = {};
 
   constructor(private metasService: MetasService) {}
 
@@ -177,5 +244,13 @@ export class DashboardComponent implements OnInit {
       'danger': 'Baja'
     };
     return textos[estado] || estado;
+  }
+
+  togglePanel(id: string): void {
+    this.panelExpandido[id] = !this.panelExpandido[id];
+  }
+
+  isPanelExpandido(id: string): boolean {
+    return this.panelExpandido[id] || false;
   }
 }
