@@ -86,6 +86,8 @@ export class MetasRegionalesComponent implements OnInit, AfterViewInit {
   municipioSeleccionado: any = null;
   datosMunicipioSeleccionado: DatosMunicipioAgrupados | null = null;
   mostrarDetallesMunicipio: boolean = false;
+  panelDepartamentoColapsado: boolean = false;
+  panelMunicipioColapsado: boolean = false;
   geojsonDataMpios: any = null;
 
   // Capas de centros de formación
