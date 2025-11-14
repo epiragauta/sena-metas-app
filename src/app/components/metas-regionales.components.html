@@ -102,6 +102,114 @@
         </div>
         </div>
 
+        <!-- Información del Municipio Seleccionado -->
+        <div class="card mt-3" *ngIf="datosMunicipioSeleccionado">
+          <div class="card-header bg-success text-white">
+            <h5 class="mb-0">
+              <i class="fas fa-city"></i>
+              {{ datosMunicipioSeleccionado.nombreMunicipio }}
+            </h5>
+            <small>{{ datosMunicipioSeleccionado.nombreDepartamento }}</small>
+          </div>
+          <div class="card-body">
+            <div class="alert alert-success mb-3" style="padding: 8px 12px; font-size: 0.9rem;">
+              <strong><i class="fas fa-info-circle"></i> Información General</strong>
+            </div>
+
+            <div class="info-item">
+              <label>Código Municipio:</label>
+              <span>{{ datosMunicipioSeleccionado.codigoMunicipio }}</span>
+            </div>
+
+            <div class="info-item mt-2">
+              <label>Ruralidad:</label>
+              <span class="badge badge-info">{{ datosMunicipioSeleccionado.ruralidad }}</span>
+            </div>
+
+            <hr class="my-3">
+
+            <h6 class="mb-3"><strong>Totales de Formación</strong></h6>
+
+            <div class="info-item mb-2">
+              <label>Total General:</label>
+              <span class="value-large text-primary">{{ datosMunicipioSeleccionado.totalGeneral | number }}</span>
+            </div>
+
+            <div class="row mb-2">
+              <div class="col-6">
+                <div class="info-item">
+                  <label><i class="fas fa-female" style="color: #e91e63;"></i> Femeninos:</label>
+                  <span>{{ datosMunicipioSeleccionado.totalFemeninos | number }}</span>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="info-item">
+                  <label><i class="fas fa-male" style="color: #2196f3;"></i> Masculinos:</label>
+                  <span>{{ datosMunicipioSeleccionado.totalMasculinos | number }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="info-item mb-2">
+              <label>No Binario:</label>
+              <span>{{ datosMunicipioSeleccionado.totalNoBinario | number }}</span>
+            </div>
+
+            <hr class="my-3">
+
+            <h6 class="mb-3"><strong>Por Estrategia</strong></h6>
+
+            <div class="info-item mb-2">
+              <label>Formación Regular:</label>
+              <span class="badge badge-success">{{ datosMunicipioSeleccionado.totalFormacionRegular | number }}</span>
+            </div>
+
+            <div class="info-item mb-2">
+              <label>Campesena:</label>
+              <span class="badge badge-warning">{{ datosMunicipioSeleccionado.totalCampesena | number }}</span>
+            </div>
+
+            <div class="info-item mb-2">
+              <label>Full Popular:</label>
+              <span class="badge badge-info">{{ datosMunicipioSeleccionado.totalFullPopular | number }}</span>
+            </div>
+
+            <!-- Sección de detalles por tipo (colapsable) -->
+            <div class="mt-3" *ngIf="datosMunicipioSeleccionado.detallesPorTipo.length > 0">
+              <button class="btn btn-sm btn-outline-primary w-100"
+                      (click)="mostrarDetallesMunicipio = !mostrarDetallesMunicipio">
+                <i class="fas" [ngClass]="mostrarDetallesMunicipio ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+                {{ mostrarDetallesMunicipio ? 'Ocultar' : 'Ver' }} Detalles por Tipo
+              </button>
+
+              <div class="detalles-municipio mt-2" *ngIf="mostrarDetallesMunicipio">
+                <div class="table-responsive" style="max-height: 300px; overflow-y: auto;">
+                  <table class="table table-sm table-striped">
+                    <thead class="table-dark sticky-top">
+                      <tr>
+                        <th>Tipo</th>
+                        <th>Nivel</th>
+                        <th>Modalidad</th>
+                        <th class="text-end">Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let detalle of datosMunicipioSeleccionado.detallesPorTipo">
+                        <td style="font-size: 0.75rem;">{{ detalle.tipoFormacion }}</td>
+                        <td style="font-size: 0.75rem;">{{ detalle.nivelFormacion }}</td>
+                        <td style="font-size: 0.75rem;">{{ detalle.modalidadFormacion }}</td>
+                        <td class="text-end" style="font-size: 0.75rem;">
+                          <strong>{{ detalle.total | number }}</strong>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="card mt-3" *ngIf="!departamentoSeleccionado">
         <div class="card-body text-center" style="padding: 40px;">
             <i class="fa fa-map-marker-alt" style="font-size: 3rem; color: #ccc;"></i>

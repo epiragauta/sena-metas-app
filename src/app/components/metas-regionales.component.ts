@@ -16,6 +16,7 @@ import proj4 from 'proj4';
 import LayerSwitcher from 'ol-layerswitcher';
 import { BaseLayerOptions, GroupLayerOptions } from 'ol-layerswitcher';
 import Control from 'ol/control/Control';
+import { MunicipiosService, DatosMunicipioAgrupados } from '../services/municipios.service';
 
 interface SeguimientoItem {
   categoria: string;
@@ -82,6 +83,9 @@ export class MetasRegionalesComponent implements OnInit, AfterViewInit {
   vectorSourceMpios!: VectorSource;
   vectorLayerMpios!: VectorLayer<VectorSource>;
   departamentoSeleccionado: any = null;
+  municipioSeleccionado: any = null;
+  datosMunicipioSeleccionado: DatosMunicipioAgrupados | null = null;
+  mostrarDetallesMunicipio: boolean = false;
   geojsonDataMpios: any = null;
 
   // Capas de centros de formación
@@ -105,7 +109,10 @@ export class MetasRegionalesComponent implements OnInit, AfterViewInit {
     promedioNacional: 0
   };
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private municipiosService: MunicipiosService
+  ) {
     // Registrar la proyección EPSG:4686 (MAGNA-SIRGAS Colombia)
     proj4.defs('EPSG:4686', '+proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs');
     register(proj4);
@@ -115,6 +122,18 @@ export class MetasRegionalesComponent implements OnInit, AfterViewInit {
     this.cargarDatosRegionales();
     this.cargarMunicipios();
     this.cargarCentros();
+    this.cargarDatosMunicipios();
+  }
+
+  cargarDatosMunicipios(): void {
+    this.municipiosService.cargarDatos().subscribe({
+      next: (datos) => {
+        console.log('Datos de municipios cargados:', datos.length);
+      },
+      error: (error) => {
+        console.error('Error cargando datos de municipios:', error);
+      }
+    });
   }
 
   ngAfterViewInit(): void {
@@ -454,54 +473,137 @@ export class MetasRegionalesComponent implements OnInit, AfterViewInit {
     const resetExtentControl = new ResetExtentControl();
     this.map.addControl(resetExtentControl);
 
-    // Agregar interacción de selección
+    // Manejar clic en el mapa
+    this.map.on('click', (evt) => {
+      // Buscar features en el punto clickeado, dando prioridad a municipios
+      let featureEncontrado: any = null;
+      let esMunicipio = false;
+
+      // Primero buscar en capa de municipios (prioridad)
+      this.map.forEachFeatureAtPixel(evt.pixel, (feature, layer) => {
+        if (layer === this.vectorLayerMpios && !featureEncontrado) {
+          featureEncontrado = feature;
+          esMunicipio = true;
+          return true; // Detener búsqueda
+        }
+        return false;
+      });
+
+      // Si no se encontró municipio, buscar en capa de departamentos
+      if (!featureEncontrado) {
+        this.map.forEachFeatureAtPixel(evt.pixel, (feature, layer) => {
+          if (layer === this.vectorLayer && !featureEncontrado) {
+            featureEncontrado = feature;
+            esMunicipio = false;
+            return true; // Detener búsqueda
+          }
+          return false;
+        });
+      }
+
+      // Procesar el feature encontrado
+      if (featureEncontrado) {
+        const properties = featureEncontrado.getProperties();
+
+        if (esMunicipio) {
+          // Es un municipio
+          this.municipioSeleccionado = properties;
+
+          // Obtener el código del municipio desde el GeoJSON
+          const mpioCdpmp = this.municipioSeleccionado['mpio_cdpmp'];
+
+          // Buscar los datos del municipio en el servicio
+          this.datosMunicipioSeleccionado = this.municipiosService.obtenerDatosMunicipio(mpioCdpmp);
+
+          if (this.datosMunicipioSeleccionado) {
+            console.log('Datos del municipio:', this.datosMunicipioSeleccionado);
+          } else {
+            console.warn('No se encontraron datos para el municipio:', mpioCdpmp);
+          }
+
+          // Aplicar estilo de selección al municipio
+          this.vectorLayerMpios.changed();
+        } else {
+          // Es un departamento
+          this.departamentoSeleccionado = properties;
+          this.municipioSeleccionado = null;
+          this.datosMunicipioSeleccionado = null;
+          this.actualizarCapaMunicipios();
+
+          // Hacer zoom al extent del departamento con un 50% adicional
+          const geometry = featureEncontrado.getGeometry();
+          if (geometry && geometry.getType().indexOf('Point') == -1) {
+            const extent = geometry.getExtent();
+            // Calcular el 50% adicional en cada dirección
+            const width = extent[2] - extent[0];
+            const height = extent[3] - extent[1];
+            const paddingX = width * 0.25; // 25% en cada lado = 50% total
+            const paddingY = height * 0.25; // 25% en cada lado = 50% total
+
+            // Crear el nuevo extent con el padding
+            const paddedExtent = [
+              extent[0] - paddingX,
+              extent[1] - paddingY,
+              extent[2] + paddingX,
+              extent[3] + paddingY
+            ];
+
+            // Animar el zoom al extent
+            this.map.getView().fit(paddedExtent, {
+              duration: 1000,
+              padding: [50, 50, 50, 50]
+            });
+          }
+
+          // Aplicar estilo de selección al departamento
+          this.vectorLayer.changed();
+        }
+      }
+    });
+
+    // Agregar interacción de selección visual para resaltar features
     const selectInteraction = new Select({
       condition: click,
       style: (feature) => {
-        return this.getSelectedStyle(feature);
-      },
-      layers: [this.vectorLayer]
-    });
-
-    selectInteraction.on('select', (e) => {
-      if (e.selected.length > 0) {
-        const feature = e.selected[0];
-        this.departamentoSeleccionado = feature.getProperties();
-        this.actualizarCapaMunicipios();
-
-        // Hacer zoom al extent del departamento con un 50% adicional
-        const geometry = feature.getGeometry();
-        if (geometry && geometry.getType().indexOf('Point') == -1) {
-          const extent = geometry.getExtent();
-          // Calcular el 50% adicional en cada dirección
-          const width = extent[2] - extent[0];
-          const height = extent[3] - extent[1];
-          const paddingX = width * 0.25; // 25% en cada lado = 50% total
-          const paddingY = height * 0.25; // 25% en cada lado = 50% total
-
-          // Crear el nuevo extent con el padding
-          const paddedExtent = [
-            extent[0] - paddingX,
-            extent[1] - paddingY,
-            extent[2] + paddingX,
-            extent[3] + paddingY
-          ];
-
-          // Animar el zoom al extent
-          this.map.getView().fit(paddedExtent, {
-            duration: 1000,
-            padding: [50, 50, 50, 50]
-          });
+        const properties = feature.getProperties();
+        if (properties['mpio_cdpmp']) {
+          return this.getMunicipioSelectedStyle(feature);
+        } else {
+          return this.getSelectedStyle(feature);
         }
-      } else {
-        this.departamentoSeleccionado = null;
-      }
+      },
+      layers: [this.vectorLayer, this.vectorLayerMpios]
     });
 
     this.map.addInteraction(selectInteraction);
 
     // Cargar los datos iniciales en el mapa
     this.actualizarMapaConDatos(geojsonData);
+  }
+
+  getMunicipioSelectedStyle(feature: any): Style {
+    const properties = feature.getProperties();
+
+    return new Style({
+      fill: new Fill({
+        color: 'rgba(0, 120, 50, 0.3)'
+      }),
+      stroke: new Stroke({
+        color: '#00FF00',
+        width: 2
+      }),
+      text: new Text({
+        text: properties.mpio_cnmbr ? properties.mpio_cnmbr[0] + properties.mpio_cnmbr.slice(1).toLowerCase() : '',
+        font: 'bold 12px Calibri,sans-serif',
+        fill: new Fill({
+          color: '#006400'
+        }),
+        stroke: new Stroke({
+          color: '#FFFFFF',
+          width: 3
+        })
+      })
+    });
   }
 
   getFeatureStyle(feature: any): Style {
