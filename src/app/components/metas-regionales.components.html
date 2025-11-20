@@ -1,0 +1,285 @@
+<div class="metas-regionales-container">
+
+    <!-- Filtro de Subcategorías -->
+    <div class="row mb-3">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header bg-sena">
+            <h5 class="mb-0">
+              <i class="fas fa-filter"></i>
+              Seleccionar Métrica
+            </h5>
+          </div>
+          <div class="card-body">
+            <label for="subcategoriaSelect" class="form-label">
+              <strong>Total o Subtotal:</strong>
+            </label>
+            <select id="subcategoriaSelect"
+                    class="form-select"
+                    [(ngModel)]="subcategoriaSeleccionada"
+                    (change)="onSubcategoriaChange()">
+              <option *ngFor="let subcat of subcategoriasDisponibles" [value]="subcat">
+                {{ subcat }}
+              </option>
+            </select>
+            <small class="text-muted mt-2 d-block">
+              <i class="fas fa-info-circle"></i>
+              Selecciona una métrica para visualizar su cumplimiento por departamento
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+    <!-- Mapa -->
+    <div class="col-8">
+        <div class="card">
+        <div class="card-body" style="padding: 0;">
+            <div id="map" style="width: 100%; height: 650px;"></div>
+        </div>
+        <div class="card-footer" style="background-color: #f5f5f5; padding: 10px;">
+            <small class="text-muted">
+            <strong>Instrucciones:</strong> Haz clic en un departamento para ver sus detalles
+            </small>
+        </div>
+        </div>
+    </div>
+
+    <!-- Panel de Información -->
+    <div class="col-4">
+        <div class="card" *ngIf="departamentoSeleccionado">
+        <div class="card-header bg-sena d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">{{ departamentoSeleccionado.nombre }}</h5>
+            <button class="btn btn-sm btn-collapse"
+                    (click)="panelDepartamentoColapsado = !panelDepartamentoColapsado"
+                    [attr.aria-expanded]="!panelDepartamentoColapsado">
+              <i class="fas" [ngClass]="panelDepartamentoColapsado ? 'fa-chevron-down' : 'fa-chevron-up'"></i>
+            </button>
+        </div>
+        <div class="card-body panel-collapse" [class.collapsed]="panelDepartamentoColapsado">
+            <div class="alert alert-info mb-3" style="padding: 8px 12px; font-size: 0.9rem;">
+              <strong>Métrica:</strong><br>
+              <small>{{ subcategoriaSeleccionada }}</small>
+            </div>
+
+            <div class="info-item">
+            <label>Código:</label>
+            <span>{{ departamentoSeleccionado.codigo }}</span>
+            </div>
+
+            <div class="info-item mt-3">
+            <label>Cumplimiento:</label>
+            <div class="kpi-percentage" [ngClass]="getClasePorcentaje(departamentoSeleccionado.porcentaje)">
+                {{ departamentoSeleccionado.porcentaje }}%
+            </div>
+            </div>
+
+            <div class="progress mt-2">
+            <div class="progress-bar"
+                    [ngClass]="getClasePorcentaje(departamentoSeleccionado.porcentaje)"
+                    [style.width.%]="departamentoSeleccionado.porcentaje">
+            </div>
+            </div>
+
+            <div class="info-item mt-3">
+            <label>Meta:</label>
+            <span class="value-large">{{ departamentoSeleccionado.meta | number }}</span>
+            </div>
+
+            <div class="info-item mt-2">
+            <label>Ejecución:</label>
+            <span class="value-medium">{{ departamentoSeleccionado.ejecucion | number }}</span>
+            </div>
+
+            <div class="info-item mt-2">
+            <label>Brecha:</label>
+            <span class="value-medium" [style.color]="departamentoSeleccionado.meta - departamentoSeleccionado.ejecucion > 0 ? '#f44336' : '#4caf50'">
+                {{ departamentoSeleccionado.meta - departamentoSeleccionado.ejecucion | number }}
+            </span>
+            </div>
+
+            <div class="mt-3">
+            <span class="badge" [ngClass]="'badge-' + getClasePorcentaje(departamentoSeleccionado.porcentaje)">
+                {{ getEstadoTexto(departamentoSeleccionado.porcentaje) }}
+            </span>
+            </div>
+        </div>
+        </div>
+
+        <!-- Información del Municipio Seleccionado -->
+        <div class="card mt-3" *ngIf="datosMunicipioSeleccionado">
+          <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+            <div>
+              <h5 class="mb-0">
+                <i class="fas fa-city"></i>
+                {{ datosMunicipioSeleccionado.nombreMunicipio }}
+              </h5>
+              <small>{{ datosMunicipioSeleccionado.nombreDepartamento }}</small>
+            </div>
+            <button class="btn btn-sm btn-collapse text-white"
+                    (click)="panelMunicipioColapsado = !panelMunicipioColapsado"
+                    [attr.aria-expanded]="!panelMunicipioColapsado">
+              <i class="fas" [ngClass]="panelMunicipioColapsado ? 'fa-chevron-down' : 'fa-chevron-up'"></i>
+            </button>
+          </div>
+          <div class="card-body panel-collapse" [class.collapsed]="panelMunicipioColapsado">
+            <div class="alert alert-success mb-3" style="padding: 8px 12px; font-size: 0.9rem;">
+              <strong><i class="fas fa-info-circle"></i> Información General</strong>
+            </div>
+
+            <div class="info-item">
+              <label>Código Municipio:</label>
+              <span>{{ datosMunicipioSeleccionado.codigoMunicipio }}</span>
+            </div>
+
+            <div class="info-item mt-2">
+              <label>Ruralidad:</label>
+              <span class="badge badge-info">{{ datosMunicipioSeleccionado.ruralidad }}</span>
+            </div>
+
+            <hr class="my-3">
+
+            <h6 class="mb-3"><strong>Totales de Formación</strong></h6>
+
+            <div class="info-item mb-2">
+              <label>Total General:</label>
+              <span class="value-large text-primary">{{ datosMunicipioSeleccionado.totalGeneral | number }}</span>
+            </div>
+
+            <div class="row mb-2">
+              <div class="col-6">
+                <div class="info-item">
+                  <label><i class="fas fa-female" style="color: #e91e63;"></i> Femeninos:</label>
+                  <span>{{ datosMunicipioSeleccionado.totalFemeninos | number }}</span>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="info-item">
+                  <label><i class="fas fa-male" style="color: #2196f3;"></i> Masculinos:</label>
+                  <span>{{ datosMunicipioSeleccionado.totalMasculinos | number }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="info-item mb-2">
+              <label>No Binario:</label>
+              <span>{{ datosMunicipioSeleccionado.totalNoBinario | number }}</span>
+            </div>
+
+            <hr class="my-3">
+
+            <h6 class="mb-3"><strong>Por Estrategia</strong></h6>
+
+            <div class="info-item mb-2">
+              <label>Formación Regular:</label>
+              <span class="badge badge-success">{{ datosMunicipioSeleccionado.totalFormacionRegular | number }}</span>
+            </div>
+
+            <div class="info-item mb-2">
+              <label>Campesena:</label>
+              <span class="badge badge-warning">{{ datosMunicipioSeleccionado.totalCampesena | number }}</span>
+            </div>
+
+            <div class="info-item mb-2">
+              <label>Full Popular:</label>
+              <span class="badge badge-info">{{ datosMunicipioSeleccionado.totalFullPopular | number }}</span>
+            </div>
+
+            <!-- Sección de detalles por tipo (colapsable) -->
+            <div class="mt-3" *ngIf="datosMunicipioSeleccionado.detallesPorTipo.length > 0">
+              <button class="btn btn-sm btn-outline-primary w-100"
+                      (click)="mostrarDetallesMunicipio = !mostrarDetallesMunicipio">
+                <i class="fas" [ngClass]="mostrarDetallesMunicipio ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+                {{ mostrarDetallesMunicipio ? 'Ocultar' : 'Ver' }} Detalles por Tipo
+              </button>
+
+              <div class="detalles-municipio mt-2" *ngIf="mostrarDetallesMunicipio">
+                <div class="table-responsive" style="max-height: 300px; overflow-y: auto;">
+                  <table class="table table-sm table-striped">
+                    <thead class="table-dark sticky-top">
+                      <tr>
+                        <th>Tipo</th>
+                        <th>Nivel</th>
+                        <th>Modalidad</th>
+                        <th class="text-end">Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let detalle of datosMunicipioSeleccionado.detallesPorTipo">
+                        <td style="font-size: 0.75rem;">{{ detalle.tipoFormacion }}</td>
+                        <td style="font-size: 0.75rem;">{{ detalle.nivelFormacion }}</td>
+                        <td style="font-size: 0.75rem;">{{ detalle.modalidadFormacion }}</td>
+                        <td class="text-end" style="font-size: 0.75rem;">
+                          <strong>{{ detalle.total | number }}</strong>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mt-3" *ngIf="!departamentoSeleccionado">
+        <div class="card-body text-center" style="padding: 40px;">
+            <i class="fa fa-map-marker-alt" style="font-size: 3rem; color: #ccc;"></i>
+            <p class="mt-3 text-muted">Selecciona un departamento en el mapa para ver sus detalles</p>
+        </div>
+        </div>
+
+        <!-- Leyenda -->
+        <div class="card mt-3">
+        <div class="card-header">
+            <h5>Leyenda</h5>
+        </div>
+        <div class="card-body">
+            <div class="legend-item">
+            <span class="legend-color" style="background-color: #92D050;"></span>
+            <span>Buena (85% - 100%)</span>
+            </div>
+            <div class="legend-item">
+            <span class="legend-color" style="background-color: #FFFF00;"></span>
+            <span>Vulnerable (70% - 85%)</span>
+            </div>
+            <div class="legend-item">
+            <span class="legend-color" style="background-color: #ff0000;"></span>
+            <span>Bajo (&lt; 70%)</span>
+            </div>                        
+            <div class="legend-item">
+            <span class="legend-color" style="background-color: #FFC000;"></span>
+            <span>Sobreejecución (&gt; 100%)</span>
+            </div>
+        </div>
+        </div>
+
+        <!-- Estadísticas Generales -->
+        <div class="card mt-3">
+        <div class="card-header">
+            <h5>Estadísticas Generales</h5>
+        </div>
+        <div class="card-body">
+            <div class="stat-item">
+            <label>Total Departamentos:</label>
+            <span>{{ estadisticas.totalDepartamentos }}</span>
+            </div>
+            <div class="stat-item">
+            <label>Meta Total:</label>
+            <span>{{ estadisticas.metaTotal | number }}</span>
+            </div>
+            <div class="stat-item">
+            <label>Ejecución Total:</label>
+            <span>{{ estadisticas.ejecucionTotal | number }}</span>
+            </div>
+            <div class="stat-item">
+            <label>Cumplimiento Promedio:</label>
+            <span class="badge" [ngClass]="'badge-' + getClasePorcentaje(estadisticas.promedioNacional)">
+                {{ estadisticas.promedioNacional | number:'1.2-2' }}%
+            </span>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>

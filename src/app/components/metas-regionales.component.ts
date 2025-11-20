@@ -1,263 +1,108 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import Map from 'ol/Map';
+import OlMap from 'ol/Map';
 import View from 'ol/View';
-import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
-import { OSM, Vector as VectorSource } from 'ol/source';
+import { Tile as TileLayer, Vector as VectorLayer, Heatmap as HeatmapLayer } from 'ol/layer';
+import { OSM, Vector as VectorSource, Cluster } from 'ol/source';
 import GeoJSON from 'ol/format/GeoJSON';
-import { Style, Fill, Stroke, Text } from 'ol/style';
+import { Style, Fill, Stroke, Text, Circle as CircleStyle } from 'ol/style';
 import { fromLonLat } from 'ol/proj';
 import { Select } from 'ol/interaction';
 import { click } from 'ol/events/condition';
 import { register } from 'ol/proj/proj4';
 import proj4 from 'proj4';
+import LayerSwitcher from 'ol-layerswitcher';
+import { BaseLayerOptions, GroupLayerOptions } from 'ol-layerswitcher';
+import Control from 'ol/control/Control';
+import { MunicipiosService, DatosMunicipioAgrupados } from '../services/municipios.service';
+
+interface SeguimientoItem {
+  categoria: string;
+  subcategoria: string;
+  anio: number;
+  mes: number;
+  cupos: number;
+  ejecucion: number;
+  porcentaje: number;
+}
+
+interface RegionalConSeguimiento {
+  codigo: number;
+  nombre: string;
+  seguimiento: SeguimientoItem[];
+}
+
+// Control personalizado para resetear el extent del mapa
+class ResetExtentControl extends Control {
+  constructor(opt_options?: any) {
+    const options = opt_options || {};
+
+    const button = document.createElement('button');
+    button.innerHTML = '⌂'; // Símbolo de casa/home
+    button.title = 'Volver a la vista inicial';
+    button.className = 'ol-reset-extent';
+
+    const element = document.createElement('div');
+    element.className = 'ol-reset-extent ol-unselectable ol-control';
+    element.appendChild(button);
+
+    super({
+      element: element,
+      target: options.target,
+    });
+
+    button.addEventListener('click', this.handleResetExtent.bind(this), false);
+  }
+
+  handleResetExtent() {
+    const map = this.getMap();
+    if (map) {
+      const view = map.getView();
+      view.animate({
+        center: fromLonLat([-74.0, 4.5]),
+        zoom: 5.65,
+        duration: 1000
+      });
+    }
+  }
+}
 
 @Component({
   selector: 'app-metas-regionales',
   standalone: true,
-  imports: [CommonModule],
-  template: `
-    <div class="metas-regionales-container">
-      <div class="page-header">
-        <div class="page-title">Metas Regionales por Departamento</div>
-        <div class="page-subtitle">Mapa interactivo de cumplimiento de metas en Colombia</div>
-      </div>
-
-      <div class="row">
-        <!-- Mapa -->
-        <div class="col-8">
-          <div class="card">
-            <div class="card-body" style="padding: 0;">
-              <div id="map" style="width: 100%; height: 600px;"></div>
-            </div>
-            <div class="card-footer" style="background-color: #f5f5f5; padding: 10px;">
-              <small class="text-muted">
-                <strong>Instrucciones:</strong> Haz clic en un departamento para ver sus detalles
-              </small>
-            </div>
-          </div>
-        </div>
-
-        <!-- Panel de Información -->
-        <div class="col-4">
-          <div class="card" *ngIf="departamentoSeleccionado">
-            <div class="card-header">
-              <h4>{{ departamentoSeleccionado.nombre }}</h4>
-            </div>
-            <div class="card-body">
-              <div class="info-item">
-                <label>Código:</label>
-                <span>{{ departamentoSeleccionado.codigo }}</span>
-              </div>
-
-              <div class="info-item mt-3">
-                <label>Cumplimiento:</label>
-                <div class="kpi-percentage" [ngClass]="getClasePorcentaje(departamentoSeleccionado.porcentaje)">
-                  {{ departamentoSeleccionado.porcentaje }}%
-                </div>
-              </div>
-
-              <div class="progress mt-2">
-                <div class="progress-bar"
-                     [ngClass]="getClasePorcentaje(departamentoSeleccionado.porcentaje)"
-                     [style.width.%]="departamentoSeleccionado.porcentaje">
-                </div>
-              </div>
-
-              <div class="info-item mt-3">
-                <label>Meta:</label>
-                <span class="value-large">{{ departamentoSeleccionado.meta | number }}</span>
-              </div>
-
-              <div class="info-item mt-2">
-                <label>Ejecución:</label>
-                <span class="value-medium">{{ departamentoSeleccionado.ejecucion | number }}</span>
-              </div>
-
-              <div class="info-item mt-2">
-                <label>Brecha:</label>
-                <span class="value-medium" [style.color]="departamentoSeleccionado.meta - departamentoSeleccionado.ejecucion > 0 ? '#f44336' : '#4caf50'">
-                  {{ departamentoSeleccionado.meta - departamentoSeleccionado.ejecucion | number }}
-                </span>
-              </div>
-
-              <div class="mt-3">
-                <span class="badge" [ngClass]="'badge-' + getClasePorcentaje(departamentoSeleccionado.porcentaje)">
-                  {{ getEstadoTexto(departamentoSeleccionado.porcentaje) }}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div class="card mt-3" *ngIf="!departamentoSeleccionado">
-            <div class="card-body text-center" style="padding: 40px;">
-              <i class="fa fa-map-marker-alt" style="font-size: 3rem; color: #ccc;"></i>
-              <p class="mt-3 text-muted">Selecciona un departamento en el mapa para ver sus detalles</p>
-            </div>
-          </div>
-
-          <!-- Leyenda -->
-          <div class="card mt-3">
-            <div class="card-header">
-              <h5>Leyenda</h5>
-            </div>
-            <div class="card-body">
-              <div class="legend-item">
-                <span class="legend-color" style="background-color: #ff0000;"></span>
-                <span>Bajo (&lt; 70%)</span>
-              </div>
-              <div class="legend-item">
-                <span class="legend-color" style="background-color: #FFFF00;"></span>
-                <span>Vulnerable (70% - 85%)</span>
-              </div>
-              <div class="legend-item">
-                <span class="legend-color" style="background-color: #92D050;"></span>
-                <span>Buena (85% - 100%)</span>
-              </div>
-              <div class="legend-item">
-                <span class="legend-color" style="background-color: #FFC000;"></span>
-                <span>Sobreejecución (&gt; 100%)</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Estadísticas Generales -->
-          <div class="card mt-3">
-            <div class="card-header">
-              <h5>Estadísticas Generales</h5>
-            </div>
-            <div class="card-body">
-              <div class="stat-item">
-                <label>Total Departamentos:</label>
-                <span>{{ estadisticas.totalDepartamentos }}</span>
-              </div>
-              <div class="stat-item">
-                <label>Meta Total:</label>
-                <span>{{ estadisticas.metaTotal | number }}</span>
-              </div>
-              <div class="stat-item">
-                <label>Ejecución Total:</label>
-                <span>{{ estadisticas.ejecucionTotal | number }}</span>
-              </div>
-              <div class="stat-item">
-                <label>Cumplimiento Promedio:</label>
-                <span class="badge" [ngClass]="'badge-' + getClasePorcentaje(estadisticas.promedioNacional)">
-                  {{ estadisticas.promedioNacional | number:'1.2-2' }}%
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  `,
-  styles: [`
-    .metas-regionales-container {
-      padding: 20px;
-    }
-
-    #map {
-      border-radius: 8px;
-    }
-
-    .info-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 8px 0;
-      border-bottom: 1px solid #e0e0e0;
-    }
-
-    .info-item:last-child {
-      border-bottom: none;
-    }
-
-    .info-item label {
-      font-weight: 600;
-      color: #666;
-      font-size: 0.9rem;
-    }
-
-    .info-item span {
-      font-weight: 500;
-      color: #333;
-    }
-
-    .value-large {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: var(--sena-verde);
-    }
-
-    .value-medium {
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: var(--sena-gris-oscuro);
-    }
-
-    .legend-item {
-      display: flex;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .legend-color {
-      width: 30px;
-      height: 20px;
-      border-radius: 4px;
-      margin-right: 10px;
-      border: 1px solid #ccc;
-    }
-
-    .stat-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 8px 0;
-      border-bottom: 1px solid #f0f0f0;
-    }
-
-    .stat-item:last-child {
-      border-bottom: none;
-    }
-
-    .stat-item label {
-      font-weight: 600;
-      color: #666;
-      font-size: 0.85rem;
-    }
-
-    .stat-item span {
-      font-weight: 500;
-      color: #333;
-      font-size: 0.85rem;
-    }
-
-    .kpi-percentage {
-      font-size: 2rem;
-      font-weight: bold;
-      margin: 10px 0;
-    }
-
-    .success {
-      color: #92D050;
-    }
-
-    .warning {
-      color: #FFFF00;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-    }
-
-    .danger {
-      color: #ff0000;
-    }
-  `]
+  imports: [CommonModule, FormsModule],
+  templateUrl: './metas-regionales.components.html',
+  styleUrl: './metas-regionales.components.scss'
 })
 export class MetasRegionalesComponent implements OnInit, AfterViewInit {
-  map!: Map;
+  map!: OlMap;
   vectorSource!: VectorSource;
   vectorLayer!: VectorLayer<VectorSource>;
+  vectorSourceMpios!: VectorSource;
+  vectorLayerMpios!: VectorLayer<VectorSource>;
   departamentoSeleccionado: any = null;
+  municipioSeleccionado: any = null;
+  datosMunicipioSeleccionado: DatosMunicipioAgrupados | null = null;
+  mostrarDetallesMunicipio: boolean = false;
+  panelDepartamentoColapsado: boolean = false;
+  panelMunicipioColapsado: boolean = false;
+  geojsonDataMpios: any = null;
+
+  // Capas de centros de formación
+  centrosSource!: VectorSource;
+  centrosPointLayer!: VectorLayer<VectorSource>;
+  centrosHeatmapLayer!: HeatmapLayer;
+  centrosClusterLayer!: VectorLayer<Cluster>;
+
+  // Datos de regionales
+  regionales: RegionalConSeguimiento[] = [];
+  regionalesMap = new Map<string, RegionalConSeguimiento>();
+
+  // Lista de subcategorías disponibles para filtrar
+  subcategoriasDisponibles: string[] = [];
+  subcategoriaSeleccionada: string = 'TOTAL FORMACION PROFESIONAL INTEGRAL (O=N+F)';
 
   estadisticas = {
     totalDepartamentos: 0,
@@ -266,120 +111,534 @@ export class MetasRegionalesComponent implements OnInit, AfterViewInit {
     promedioNacional: 0
   };
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private municipiosService: MunicipiosService
+  ) {
     // Registrar la proyección EPSG:4686 (MAGNA-SIRGAS Colombia)
     proj4.defs('EPSG:4686', '+proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs');
     register(proj4);
   }
 
   ngOnInit(): void {
-    this.cargarDepartamentos();
+    this.cargarDatosRegionales();
+    this.cargarMunicipios();
+    this.cargarCentros();
+    this.cargarDatosMunicipios();
+  }
+
+  cargarDatosMunicipios(): void {
+    this.municipiosService.cargarDatos().subscribe({
+      next: (datos) => {
+        console.log('Datos de municipios cargados:', datos.length);
+      },
+      error: (error) => {
+        console.error('Error cargando datos de municipios:', error);
+      }
+    });
   }
 
   ngAfterViewInit(): void {
-    this.inicializarMapa();
+    // El mapa se inicializará después de cargar los datos
+  }
+
+  cargarDatosRegionales(): void {
+    this.http.get<{ regionales: RegionalConSeguimiento[] }>('assets/data/seguimiento_metas_por_regional.json')
+      .subscribe({
+        next: (data) => {
+          this.regionales = data.regionales;
+
+          // Crear mapa de regionales por código (con padding de ceros)
+          this.regionales.forEach(regional => {
+            const codigoConPadding = regional.codigo.toString().padStart(2, '0');
+            this.regionalesMap.set(codigoConPadding, regional);
+          });
+
+          // Extraer subcategorías únicas de totales y subtotales
+          this.extraerSubcategorias();
+
+          // Cargar el mapa con los datos
+          this.cargarDepartamentos();
+        },
+        error: (error) => {
+          console.error('Error cargando datos de regionales:', error);
+        }
+      });
+  }
+
+  extraerSubcategorias(): void {
+    const subcategoriasSet = new Set<string>();
+
+    this.regionales.forEach(regional => {
+      regional.seguimiento.forEach(item => {
+        // Solo agregar totales y subtotales (que tienen paréntesis con letras)
+        if (item.subcategoria.includes('Total') || item.subcategoria.includes('TOTAL')) {
+          subcategoriasSet.add(item.subcategoria);
+        }
+      });
+    });
+
+    this.subcategoriasDisponibles = Array.from(subcategoriasSet).sort();
   }
 
   cargarDepartamentos(): void {
     this.http.get('assets/data/dptos.geojson').subscribe((data: any) => {
-      // Agregar datos de metas a cada departamento
+      // Agregar datos reales de metas a cada departamento
       data.features.forEach((feature: any) => {
         const props = feature.properties;
-        // Generar datos de ejemplo basados en el código del departamento
-        const codigo = parseInt(props.dpto_ccdgo);
-        const meta = 100000 + (codigo * 10000);
-        const ejecucion = Math.floor(meta * (0.75 + Math.random() * 0.3));
+        const codigoDpto = props.dpto_ccdgo; // Ya viene con padding de 2 dígitos
 
-        props.meta = meta;
-        props.ejecucion = ejecucion;
-        props.porcentaje = parseFloat(((ejecucion / meta) * 100).toFixed(2));
+        // Buscar la regional correspondiente
+        const regional = this.regionalesMap.get(codigoDpto);
+
+        if (regional) {
+          // Buscar la subcategoría seleccionada
+          const seguimiento = regional.seguimiento.find(
+            s => s.subcategoria === this.subcategoriaSeleccionada
+          );
+
+          if (seguimiento) {
+            props.meta = seguimiento.cupos;
+            props.ejecucion = seguimiento.ejecucion;
+            props.porcentaje = seguimiento.porcentaje;
+          } else {
+            // Si no existe esa subcategoría, usar valores por defecto
+            props.meta = 0;
+            props.ejecucion = 0;
+            props.porcentaje = -99;
+          }
+        } else {
+          // Regional no encontrada
+          props.meta = 0;
+          props.ejecucion = 0;
+          props.porcentaje = 0;
+        }
+
         props.nombre = props.dpto_cnmbr;
         props.codigo = props.dpto_ccdgo;
       });
 
       // Calcular estadísticas
-      this.estadisticas.totalDepartamentos = data.features.length;
-      this.estadisticas.metaTotal = data.features.reduce((sum: number, f: any) => sum + f.properties.meta, 0);
-      this.estadisticas.ejecucionTotal = data.features.reduce((sum: number, f: any) => sum + f.properties.ejecucion, 0);
-      this.estadisticas.promedioNacional = (this.estadisticas.ejecucionTotal / this.estadisticas.metaTotal) * 100;
+      this.calcularEstadisticas(data.features);
+
+      // Inicializar o actualizar el mapa
+      if (!this.map) {
+        this.inicializarMapa(data);
+      } else {
+        // Actualizar la fuente vectorial con los nuevos datos
+        this.actualizarMapaConDatos(data);
+      }
     });
   }
 
-  inicializarMapa(): void {
-    // Crear fuente vectorial con GeoJSON y transformar proyección
-    this.vectorSource = new VectorSource({
-      url: 'assets/data/dptos.geojson',
-      format: new GeoJSON({
-        dataProjection: 'EPSG:4686',  // Proyección origen (MAGNA-SIRGAS)
-        featureProjection: 'EPSG:3857' // Proyección destino (Web Mercator)
-      })
+  calcularEstadisticas(features: any[]): void {
+    this.estadisticas.totalDepartamentos = features.length;
+    this.estadisticas.metaTotal = features.reduce((sum: number, f: any) => sum + (f.properties.meta || 0), 0);
+    this.estadisticas.ejecucionTotal = features.reduce((sum: number, f: any) => sum + (f.properties.ejecucion || 0), 0);
+    this.estadisticas.promedioNacional = this.estadisticas.metaTotal > 0
+      ? (this.estadisticas.ejecucionTotal / this.estadisticas.metaTotal) * 100
+      : 0;
+  }
+
+    cargarMunicipios(): void {
+    
+      this.http.get('assets/data/mpios.geojson').subscribe((data: any) => {
+        this.geojsonDataMpios = data;
+        // Agregar datos reales de metas a cada municipio
+        // data.features.forEach((feature: any) => {
+        //   const props = feature.properties;
+        //   const codigoMcpio = props.mcpio_ccdgo; // Ya viene con padding de 5 dígitos
+        //   const codigoDpto = props.dpto_ccdgo;
+
+        //   // Buscar la regional correspondiente
+        //   const regional = this.regionalesMap.get(codigoDpto);
+        //   if (regional) {
+        //     // Buscar la subcategoría seleccionada
+        //     const seguimiento = regional.seguimiento.find(
+        //       s => s.subcategoria === this.subcategoriaSeleccionada
+        //     );  
+        //     if (seguimiento) {
+        //       props.meta = seguimiento.cupos;
+        //       props.ejecucion = seguimiento.ejecucion;
+        //       props.porcentaje = seguimiento.porcentaje;
+        //     } else {
+        //       // Si no existe esa subcategoría, usar valores por defecto
+        //       props.meta = 0;
+        //       props.ejecucion = 0;
+        //       props.porcentaje = 0;
+        //     }
+        //   } else {
+        //     // Regional no encontrada
+        //     props.meta = 0;
+        //     props.ejecucion = 0;
+        //     props.porcentaje = 0;
+        //   } 
+        //   props.nombre = props.mcpio_cnmbr;
+        //   props.codigo = props.mcpio_ccdgo;
+        // });
+      });
+    }
+
+  cargarCentros(): void {
+    this.http.get('assets/data/sena_centros_aproximado.geojson').subscribe({
+      next: (data: any) => {
+        // Crear la fuente vectorial para los centros
+        this.centrosSource = new VectorSource({
+          features: new GeoJSON({
+            dataProjection: 'EPSG:4686',
+            featureProjection: 'EPSG:3857'
+          }).readFeatures(data)
+        });
+
+        // Crear capa de puntos simples
+        this.centrosPointLayer = new VectorLayer({
+          source: this.centrosSource,
+          style: new Style({
+            image: new CircleStyle({
+              radius: 6,
+              fill: new Fill({ color: 'rgba(255, 87, 34, 0.8)' }),
+              stroke: new Stroke({ color: '#fff', width: 2 })
+            })
+          }),
+          properties: {
+            title: 'Centros de Formación (Puntos)',
+            visible: false
+          },
+          visible: false
+        });
+
+        // Crear capa de heatmap
+        this.centrosHeatmapLayer = new HeatmapLayer({
+          source: this.centrosSource,
+          blur: 15,
+          radius: 8,
+          properties: {
+            title: 'Centros de Formación (Mapa de Calor)',
+            visible: false
+          },
+          visible: false
+        });
+
+        // Crear capa de cluster
+        const clusterSource = new Cluster({
+          distance: 40,
+          source: this.centrosSource
+        });
+
+        this.centrosClusterLayer = new VectorLayer({
+          source: clusterSource,
+          style: (feature) => {
+            const size = feature.get('features').length;
+            const radius = Math.min(Math.max(size * 2 + 10, 15), 30);
+            return new Style({
+              image: new CircleStyle({
+                radius: radius,
+                fill: new Fill({ color: 'rgba(255, 87, 34, 0.7)' }),
+                stroke: new Stroke({ color: '#fff', width: 2 })
+              }),
+              text: new Text({
+                text: size.toString(),
+                fill: new Fill({ color: '#fff' }),
+                font: 'bold 12px sans-serif'
+              })
+            });
+          },
+          properties: {
+            title: 'Centros de Formación (Cluster)',
+            visible: false
+          },
+          visible: false
+        });
+
+        // Si el mapa ya está inicializado, agregar las capas
+        if (this.map) {
+          this.map.addLayer(this.centrosPointLayer);
+          this.map.addLayer(this.centrosHeatmapLayer);
+          this.map.addLayer(this.centrosClusterLayer);
+        }
+      },
+      error: (error) => {
+        console.error('Error cargando centros de formación:', error);
+      }
     });
+  }
+
+  onSubcategoriaChange(): void {
+    // Recargar el mapa con la nueva subcategoría seleccionada
+    this.cargarDepartamentos();
+    this.vectorSourceMpios.clear();
+  }
+
+  actualizarMapaConDatos(geojsonData: any): void {
+    // Limpiar fuente vectorial
+    this.vectorSource.clear();
+
+    // Leer las features del GeoJSON con las propiedades actualizadas
+    const features = new GeoJSON({
+      dataProjection: 'EPSG:4686',
+      featureProjection: 'EPSG:3857'
+    }).readFeatures(geojsonData);
+
+    // Agregar las features actualizadas a la fuente
+    this.vectorSource.addFeatures(features);
+
+    // Forzar actualización de estilos
+    this.vectorLayer.changed();
+  }
+
+  inicializarMapa(geojsonData: any): void {
+    // Crear fuente vectorial vacía
+    this.vectorSource = new VectorSource();
 
     // Crear capa vectorial con estilos
     this.vectorLayer = new VectorLayer({
       source: this.vectorSource,
-      style: (feature) => this.getFeatureStyle(feature)
-    });
-
-    // Crear mapa
-    this.map = new Map({
-      target: 'map',
-      layers: [
-        new TileLayer({
-          source: new OSM()
-        }),
-        this.vectorLayer
-      ],
-      view: new View({
-        center: fromLonLat([-74.0, 4.5]), // Centro de Colombia
-        zoom: 6
-      })
-    });
-
-    // Agregar interacción de selección
-    const selectInteraction = new Select({
-      condition: click,
-      style: (feature) => this.getSelectedStyle(feature)
-    });
-
-    selectInteraction.on('select', (e) => {
-      if (e.selected.length > 0) {
-        const feature = e.selected[0];
-        this.departamentoSeleccionado = feature.getProperties();
-      } else {
-        this.departamentoSeleccionado = null;
+      style: (feature) => this.getFeatureStyle(feature),
+      properties: {
+        title: 'Departamentos (Regionales) '
       }
     });
 
+    // Crear fuente y capa para municipios
+    this.vectorSourceMpios = new VectorSource();
+    this.vectorLayerMpios = new VectorLayer({
+      source: this.vectorSourceMpios,
+      properties: {
+        title: 'Municipios'
+      },
+      style: (feature: any) => {
+        const prop = feature.getProperties();
+        return new Style({          
+          stroke: new Stroke({
+            color: '#878784ff',
+            width: .75
+          }),
+          text: new Text({
+            text: prop.mpio_cnmbr[0] + prop.mpio_cnmbr.slice(1).toLowerCase(),
+            font: 'bold 11px Calibri,sans-serif',
+            fill: new Fill({
+              color: '#6f6e6eff'
+            }),
+            stroke: new Stroke({
+              color: '#e5e0e0ff',
+              width: 2
+            })
+          })
+        });
+      }
+    });
+
+    // Crear capa base de OpenStreetMap
+    const osmLayer = new TileLayer({
+      source: new OSM(),
+      properties: {
+        title: 'OpenStreetMap',
+        type: 'base'
+      }
+    });
+
+    // Crear mapa
+    this.map = new OlMap({
+      target: 'map',
+      layers: [
+        osmLayer,
+        this.vectorLayer,
+        this.vectorLayerMpios
+      ],
+      view: new View({
+        center: fromLonLat([-74.0, 4.5]), // Centro de Colombia
+        zoom: 5.65
+      })
+    });
+
+    // Agregar capas de centros si ya están cargadas
+    if (this.centrosPointLayer) {
+      this.map.addLayer(this.centrosPointLayer);
+    }
+    if (this.centrosHeatmapLayer) {
+      this.map.addLayer(this.centrosHeatmapLayer);
+    }
+    if (this.centrosClusterLayer) {
+      this.map.addLayer(this.centrosClusterLayer);
+    }
+
+    // Agregar el control de Layer Switcher
+    const layerSwitcher = new LayerSwitcher({
+      reverse: true,
+      groupSelectStyle: 'group',
+      activationMode: 'click',
+      startActive: false
+    });
+    this.map.addControl(layerSwitcher);
+
+    // Agregar el control de Reset Extent
+    const resetExtentControl = new ResetExtentControl();
+    this.map.addControl(resetExtentControl);
+
+    // Manejar clic en el mapa
+    this.map.on('click', (evt) => {
+      // Buscar features en el punto clickeado, dando prioridad a municipios
+      let featureEncontrado: any = null;
+      let esMunicipio = false;
+
+      // Primero buscar en capa de municipios (prioridad)
+      this.map.forEachFeatureAtPixel(evt.pixel, (feature, layer) => {
+        if (layer === this.vectorLayerMpios && !featureEncontrado) {
+          featureEncontrado = feature;
+          esMunicipio = true;
+          return true; // Detener búsqueda
+        }
+        return false;
+      });
+
+      // Si no se encontró municipio, buscar en capa de departamentos
+      if (!featureEncontrado) {
+        this.map.forEachFeatureAtPixel(evt.pixel, (feature, layer) => {
+          if (layer === this.vectorLayer && !featureEncontrado) {
+            featureEncontrado = feature;
+            esMunicipio = false;
+            return true; // Detener búsqueda
+          }
+          return false;
+        });
+      }
+
+      // Procesar el feature encontrado
+      if (featureEncontrado) {
+        const properties = featureEncontrado.getProperties();
+
+        if (esMunicipio) {
+          // Es un municipio
+          this.municipioSeleccionado = properties;
+
+          // Obtener el código del municipio desde el GeoJSON
+          const mpioCdpmp = this.municipioSeleccionado['mpio_cdpmp'];
+
+          // Buscar los datos del municipio en el servicio
+          this.datosMunicipioSeleccionado = this.municipiosService.obtenerDatosMunicipio(mpioCdpmp);
+
+          if (this.datosMunicipioSeleccionado) {
+            console.log('Datos del municipio:', this.datosMunicipioSeleccionado);
+          } else {
+            console.warn('No se encontraron datos para el municipio:', mpioCdpmp);
+          }
+
+          // Aplicar estilo de selección al municipio
+          this.vectorLayerMpios.changed();
+        } else {
+          // Es un departamento
+          this.departamentoSeleccionado = properties;
+          this.municipioSeleccionado = null;
+          this.datosMunicipioSeleccionado = null;
+          this.actualizarCapaMunicipios();
+
+          // Hacer zoom al extent del departamento con un 50% adicional
+          const geometry = featureEncontrado.getGeometry();
+          if (geometry && geometry.getType().indexOf('Point') == -1) {
+            const extent = geometry.getExtent();
+            // Calcular el 50% adicional en cada dirección
+            const width = extent[2] - extent[0];
+            const height = extent[3] - extent[1];
+            const paddingX = width * 0.25; // 25% en cada lado = 50% total
+            const paddingY = height * 0.25; // 25% en cada lado = 50% total
+
+            // Crear el nuevo extent con el padding
+            const paddedExtent = [
+              extent[0] - paddingX,
+              extent[1] - paddingY,
+              extent[2] + paddingX,
+              extent[3] + paddingY
+            ];
+
+            // Animar el zoom al extent
+            this.map.getView().fit(paddedExtent, {
+              duration: 1000,
+              padding: [50, 50, 50, 50]
+            });
+          }
+
+          // Aplicar estilo de selección al departamento
+          this.vectorLayer.changed();
+        }
+      }
+    });
+
+    // Agregar interacción de selección visual para resaltar features
+    const selectInteraction = new Select({
+      condition: click,
+      style: (feature) => {
+        const properties = feature.getProperties();
+        if (properties['mpio_cdpmp']) {
+          return this.getMunicipioSelectedStyle(feature);
+        } else {
+          return this.getSelectedStyle(feature);
+        }
+      },
+      layers: [this.vectorLayer, this.vectorLayerMpios]
+    });
+
     this.map.addInteraction(selectInteraction);
+
+    // Cargar los datos iniciales en el mapa
+    this.actualizarMapaConDatos(geojsonData);
+  }
+
+  getMunicipioSelectedStyle(feature: any): Style {
+    const properties = feature.getProperties();
+
+    return new Style({
+      fill: new Fill({
+        color: 'rgba(0, 120, 50, 0.3)'
+      }),
+      stroke: new Stroke({
+        color: '#00FF00',
+        width: 2
+      }),
+      text: new Text({
+        text: properties.mpio_cnmbr ? properties.mpio_cnmbr[0] + properties.mpio_cnmbr.slice(1).toLowerCase() : '',
+        font: 'bold 12px Calibri,sans-serif',
+        fill: new Fill({
+          color: '#006400'
+        }),
+        stroke: new Stroke({
+          color: '#FFFFFF',
+          width: 3
+        })
+      })
+    });
   }
 
   getFeatureStyle(feature: any): Style {
     const properties = feature.getProperties();
-    const porcentaje = properties.porcentaje || 0;
+    const porcentaje = properties.porcentaje || -99;
 
     let fillColor = '#cccccc';
 
-    if (porcentaje < 70) {
-      fillColor = 'rgba(255, 0, 0, 0.6)'; // Rojo
-    } else if (porcentaje < 85) {
-      fillColor = 'rgba(255, 255, 0, 0.6)'; // Amarillo
-    } else if (porcentaje <= 100) {
-      fillColor = 'rgba(146, 208, 80, 0.6)'; // Verde
-    } else {
-      fillColor = 'rgba(255, 192, 0, 0.6)'; // Naranja (sobreejecución)
+    let lblPorcentaje = isNaN(porcentaje) ? 'Sin datos' : "(" + porcentaje.toFixed(2) + '%)';  
+    if (porcentaje < 70 && porcentaje >= 0) {
+      fillColor = 'rgba(255, 0, 0, 0.5)'; // Rojo
+    } else if (porcentaje < 85 && porcentaje >= 70) {
+      fillColor = 'rgba(255, 255, 0, 0.43)'; // Amarillo
+    } else if (porcentaje <= 100 && porcentaje >= 85) {
+      fillColor = 'rgba(146, 208, 80, 0.38)'; // Verde
+    } else if (porcentaje > 100) {
+      fillColor = 'rgba(255, 191, 0, 0.33)'; // Naranja (sobreejecución)
+    }else{
+      fillColor = 'rgba(200, 200, 200, 0.25)'; // Gris para sin datos
+      lblPorcentaje = '';
     }
+
 
     return new Style({
       fill: new Fill({
         color: fillColor
       }),
       stroke: new Stroke({
-        color: '#ffffff',
-        width: 2
+        color: '#878383ff',
+        width: 1.5
       }),
       text: new Text({
-        text: properties.nombre || '',
+        text: (properties.dpto_cnmbr[0] + properties.dpto_cnmbr.slice(1).toLowerCase()) + "  \n " + lblPorcentaje ,
         font: '12px Calibri,sans-serif',
         fill: new Fill({
           color: '#000'
@@ -394,18 +653,22 @@ export class MetasRegionalesComponent implements OnInit, AfterViewInit {
 
   getSelectedStyle(feature: any): Style {
     const properties = feature.getProperties();
+    
     const porcentaje = properties.porcentaje || 0;
 
     let fillColor = '#cccccc';
 
-    if (porcentaje < 70) {
-      fillColor = 'rgba(255, 0, 0, 0.9)';
-    } else if (porcentaje < 85) {
-      fillColor = 'rgba(255, 255, 0, 0.9)';
-    } else if (porcentaje <= 100) {
-      fillColor = 'rgba(146, 208, 80, 0.9)';
+    if (porcentaje < 70 && porcentaje >= 0) {
+      fillColor = 'rgba(255, 0, 0, 0.62)';
+    } else if (porcentaje < 85 && porcentaje >= 70) {
+      fillColor = 'rgba(255, 255, 0, 0.63)';
+    } else if (porcentaje <= 100 && porcentaje >= 85) {
+      fillColor = 'rgba(146, 208, 80, 0.6)';
+    } else if (porcentaje > 100) {
+      fillColor = 'rgba(255, 191, 0, 0.58)';
     } else {
-      fillColor = 'rgba(255, 192, 0, 0.9)';
+      fillColor = 'rgba(200, 200, 200, 0.25)'; // Gris para sin datos
+      
     }
 
     return new Style({
@@ -413,17 +676,17 @@ export class MetasRegionalesComponent implements OnInit, AfterViewInit {
         color: fillColor
       }),
       stroke: new Stroke({
-        color: '#FF5722',
-        width: 4
+        color: '#f1ed0cff',
+        width: 3
       }),
       text: new Text({
-        text: properties.nombre || '',
-        font: 'bold 14px Calibri,sans-serif',
+        text: properties.dpto_cnmbr[0] + properties.dpto_cnmbr.slice(1).toLowerCase(),
+        font: 'bold 12px Calibri,sans-serif',
         fill: new Fill({
-          color: '#000'
+          color: '#555454ff'
         }),
         stroke: new Stroke({
-          color: '#fff',
+          color: '#e5e0e0ff',
           width: 4
         })
       })
@@ -442,4 +705,21 @@ export class MetasRegionalesComponent implements OnInit, AfterViewInit {
     if (porcentaje >= 70) return 'Vulnerable';
     return 'Bajo';
   }
+
+  actualizarCapaMunicipios(): void {
+    if (!this.geojsonDataMpios) return;
+    // Limpiar fuente vectorial de municipios
+    this.vectorSourceMpios.clear();
+    // Filtrar y agregar municipios del departamento seleccionado
+    const filteredFeatures = this.geojsonDataMpios.features.filter((feature: any) => {
+      return feature.properties.dpto_ccdgo === this.departamentoSeleccionado.dpto_ccdgo;
+    });
+    const features = new GeoJSON({
+      dataProjection: 'EPSG:4686',
+      featureProjection: 'EPSG:3857'
+    }).readFeatures({ type: 'FeatureCollection', features: filteredFeatures });
+    this.vectorSourceMpios.addFeatures(features);
+    this.vectorLayerMpios.changed();
+  }
+    
 }
