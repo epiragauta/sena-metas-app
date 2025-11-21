@@ -239,6 +239,42 @@ i.fas {
     align-items: center;
 }
 
+/* Estilos para header de tabla expandido */
+.table-header-row {
+    width: 100%;
+    gap: 8px;
+}
+
+.col-header-concepto {
+    flex: 1;
+    min-width: 0;
+}
+
+.col-header-meta {
+    width: 120px;
+    flex-shrink: 0;
+}
+
+.col-header-ejecucion {
+    width: 120px;
+    flex-shrink: 0;
+}
+
+.col-header-porcentaje {
+    width: 120px;
+    flex-shrink: 0;
+}
+
+.col-header-chevron {
+    width: 30px;
+    flex-shrink: 0;
+    text-align: center;
+}
+
+.flex-grow-1 {
+    flex-grow: 1;
+}
+
 .page-header {
     background: linear-gradient(135deg, #4CAF50 0%, #2d7a00 100%);
     color: white;
