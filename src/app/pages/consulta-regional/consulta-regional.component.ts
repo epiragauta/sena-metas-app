@@ -37,7 +37,7 @@ interface DatosJerarquicos {
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './consulta-regional.component.html',
-  styleUrl: './consulta-regional.component.scss' 
+  styleUrl: './consulta-regional.component.scss'
 })
 export class ConsultaRegionalComponent implements OnInit {
   cargando = true;
@@ -271,11 +271,35 @@ export class ConsultaRegionalComponent implements OnInit {
     return 'badge-danger';
   }
 
-  /**
-   * Alterna el estado de expansión/colapso de una tabla
-   */
   toggleTabla(tabla: string): void {
     this.tablasExpandidas[tabla] = !this.tablasExpandidas[tabla];
+  }
+
+  /**
+   * Exporta con ambos (Regional + Centro)
+   */
+  exportarCompleto(): void {
+    if (!this.regionalActual) {
+      alert('Por favor selecciona una regional');
+      return;
+    }
+
+    if (this.centroSeleccionado === 0) {
+      alert('⚠️ Por favor selecciona un centro para exportar ambos datos\n\nO usa "Descargar Solo Regional" si solo quieres los datos de la regional.');
+      return;
+    }
+
+    this.exportExcelService.exportarSeguimientoMetas(
+      this.regionalActual.nombre,
+      this.regionalActual.codigo,
+      this.centroActual?.nombre,
+      this.centroActual?.codigo,
+      this.datosRegional,
+      this.datosCentro,
+      false  // Exportar ambos
+    ).catch(error => {
+      console.error('Error en exportación:', error);
+    });
   }
 
   /**

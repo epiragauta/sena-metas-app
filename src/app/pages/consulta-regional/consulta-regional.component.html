@@ -29,19 +29,25 @@
     </div>
 </div>
 
-<!-- Botón de exportación -->
+<!-- Botones de Exportación -->
 <div class="card mb-3" *ngIf="datosRegional.length > 0">
     <div class="card-body">
-    <button 
-        class="btn btn-export" 
-        (click)="exportarAExcel()"
+    <div class="export-buttons-container">
+        <button
+        class="btn btn-export btn-export-completo"
+        (click)="exportarCompleto()"
         [disabled]="!datosRegional.length">
         <i class="fas fa-download"></i>
-        Descargar Excel
-    </button>
-    <span class="export-info" *ngIf="centroSeleccionado === 0">
-        💡 Selecciona un centro para exportar sus datos específicos
-    </span>
+        Descargar Excel Completo
+        </button>
+        <button
+        class="btn btn-export btn-export-regional"
+        (click)="exportarRegionalSolo()"
+        [disabled]="!datosRegional.length">
+        <i class="fas fa-file-download"></i>
+        Descargar Solo Regional
+        </button>
+    </div>
     </div>
 </div>
 

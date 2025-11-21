@@ -7,7 +7,6 @@ import { MetasRegionalesComponent } from './components/metas-regionales.componen
 import { ConsultaRegionalComponent } from './pages/consulta-regional/consulta-regional.component';
 import { ConsultaNacionalComponent } from './pages/consulta-nacional/consulta-nacional.component';
 import { MetasRegionalesYCentrosComponent } from './pages/metas-regionales-y-centros/metas-regionales-y-centros.component';
-import { ConsultaNacionalComponent } from './pages/consulta-nacional/consulta-nacional.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
