@@ -36,6 +36,9 @@ import { HttpClientModule } from '@angular/common/http';
             <a class="nav-link" routerLink="/consulta-regional" routerLinkActive="active">Consulta Regional</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" routerLink="/consulta-nacional" routerLinkActive="active">Consulta Nacional</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" routerLink="/metas-regionales-centros" routerLinkActive="active">API Metas</a>
           </li>
         </ul>
