@@ -69,16 +69,27 @@
     font-weight: 600;
 }
 
+.fila-subtotal td {
+    font-weight: 600;
+    color: var(--sena-verde-oscuro);
+}
+
 .fila-total {
-    background-color: #e8f5e9 !important;
-    font-weight: 700;
-    font-size: 0.95rem;
+    background: linear-gradient(135deg, #ffe0b2 0%, #ffcc80 100%) !important;
+    font-weight: bold;
+}
+
+.fila-total td {
+    font-weight: bold;
+    color: var(--sena-negro);
+    font-size: 1rem;
 }
 
 .badge {
-    padding: 6px 10px;
-    border-radius: 4px;
+    padding: 6px 12px;
     font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 4px;
     min-width: 70px;
     display: inline-block;
     text-align: center;
@@ -112,25 +123,31 @@ i.fas {
     margin-right: 8px;
 }
 
-/* Estilos para el botón de exportación */
+/* Estilos para botones de exportación */
+.export-buttons-container {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
 .btn-export {
-    background: linear-gradient(135deg, #4CAF50 0%, #2d7a00 100%);
-    color: white;
-    border: none;
     padding: 12px 24px;
     font-size: 1rem;
     font-weight: 600;
     border-radius: 6px;
+    border: none;
     cursor: pointer;
     transition: all 0.3s ease;
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    min-width: 200px;
+    justify-content: center;
 }
 
 .btn-export:hover:not(:disabled) {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .btn-export:active:not(:disabled) {
@@ -143,12 +160,83 @@ i.fas {
     opacity: 0.6;
 }
 
+.btn-export-completo {
+    background: linear-gradient(135deg, #4CAF50 0%, #2d7a00 100%);
+    color: white;
+}
+
+.btn-export-completo:hover:not(:disabled) {
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.btn-export-regional {
+    background: linear-gradient(135deg, #4CAF50 0%, #2d7a00 100%);
+    color: white;
+}
+
+.btn-export-regional:hover:not(:disabled) {
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+@media (max-width: 768px) {
+    .export-buttons-container {
+        flex-direction: column;
+    }
+
+    .btn-export {
+        min-width: 100%;
+    }
+}
+
 .export-info {
     margin-left: 15px;
     color: #666;
     font-size: 0.9rem;
     vertical-align: middle;
     display: inline-block;
+}
+
+/* Estilos para tablas colapsables */
+.card-header {
+    transition: background-color 0.3s ease;
+}
+
+.card-header:hover {
+    opacity: 0.9;
+}
+
+.card-header i.fas.fa-chevron-up,
+.card-header i.fas.fa-chevron-down {
+    margin-right: 0;
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.bg-sena i.fas.fa-chevron-up,
+.bg-sena i.fas.fa-chevron-down {
+    color: white;
+}
+
+.bg-light i.fas.fa-chevron-up,
+.bg-light i.fas.fa-chevron-down {
+    color: #212529;
+}
+
+.card-header:hover i.fas.fa-chevron-up,
+.card-header:hover i.fas.fa-chevron-down {
+    transform: scale(1.1);
+}
+
+.d-flex {
+    display: flex;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+.align-items-center {
+    align-items: center;
 }
 
 .page-header {
