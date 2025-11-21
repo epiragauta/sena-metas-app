@@ -73,8 +73,8 @@ class ResetExtentControl extends Control {
   selector: 'app-metas-regionales',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './metas-regionales.components.html',
-  styleUrl: './metas-regionales.components.scss'
+  templateUrl: './metas-regionales.component.html',
+  styleUrl: './metas-regionales.component.scss'
 })
 export class MetasRegionalesComponent implements OnInit, AfterViewInit {
   map!: OlMap;

@@ -1,0 +1,1085 @@
+<div class="page-header">
+    <div class="page-title">Consulta Regional y Centros</div>
+    <div class="page-subtitle">Seguimiento de Metas por Regional y Centro de Formación</div>
+</div>
+
+<!-- Filtros -->
+<div class="card mb-3">
+    <div class="card-body">
+    <div class="row">
+        <div class="col-6">
+        <label class="form-label"><strong>Regional:</strong></label>
+        <select class="form-select" [(ngModel)]="regionalSeleccionada" (change)="onRegionalChange()">
+            <option *ngFor="let regional of regionales" [value]="regional.codigo">
+            [{{ regional.codigo }}] {{ regional.nombre }}
+            </option>
+        </select>
+        </div>
+        <div class="col-6">
+        <label class="form-label"><strong>Centro:</strong></label>
+        <select class="form-select" [(ngModel)]="centroSeleccionado" (change)="onCentroChange()"
+                [disabled]="!centrosDisponibles.length">
+            <option [value]="0">-- Seleccione un centro --</option>
+            <option *ngFor="let centro of centrosDisponibles" [value]="centro.codigo">
+            [{{ centro.codigo }}] {{ centro.nombre }}
+            </option>
+        </select>
+        </div>
+    </div>
+    </div>
+</div>
+
+<!-- Botón de exportación -->
+<div class="card mb-3" *ngIf="datosRegional.length > 0">
+    <div class="card-body">
+    <button 
+        class="btn btn-export" 
+        (click)="exportarAExcel()"
+        [disabled]="!datosRegional.length">
+        <i class="fas fa-download"></i>
+        Descargar Excel
+    </button>
+    <span class="export-info" *ngIf="centroSeleccionado === 0">
+        💡 Selecciona un centro para exportar sus datos específicos
+    </span>
+    </div>
+</div>
+
+<!-- Datos en dos columnas -->
+<div class="row" *ngIf="datosRegional.length > 0">
+    <!-- Columna Regional -->
+    <div class="col-6">
+    <!-- TABLA 1: Metas Formación Profesional Integral -->
+    <div class="card mb-3">
+        <div class="card-header bg-sena" style="cursor: pointer;" (click)="toggleTabla('formacion')">
+        <h5 class="mb-0 d-flex justify-content-between align-items-center">
+            <span>
+            <i class="fas fa-map-marker-alt"></i>
+            Regional: {{ regionalActual?.nombre }}
+            </span>
+            <i class="fas" [ngClass]="tablasExpandidas['formacion'] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </h5>
+        </div>
+        <div class="card-body p-0" *ngIf="tablasExpandidas['formacion']">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+            <thead class="table-dark sticky-header">
+                <tr>
+                <th class="text-left">Metas Formación Profesional Integral</th>
+                <th class="text-right">Meta</th>
+                <th class="text-right">Ejecución</th>
+                <th class="text-right">% Ejecución</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of datosRegional"
+                    [class.fila-subtotal]="item.esSubtotal"
+                    [class.fila-total]="item.esTotal">
+                <td [style.padding-left]="item.indentacion">{{ item.subcategoria }}</td>
+                <td class="text-right">{{ item.cupos | number }}</td>
+                <td class="text-right">{{ item.ejecucion | number }}</td>
+                <td class="text-right">
+                    <span class="badge" [ngClass]="getBadgeClass(item.porcentaje)">
+                    {{ item.porcentaje | number:'1.2-2' }}%
+                    </span>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+    <!-- TABLA 2: Metas Programas Relevantes -->
+    <div class="card mb-3">
+        <div class="card-header bg-light" style="cursor: pointer;" (click)="toggleTabla('programas')">
+        <h6 class="mb-0 d-flex justify-content-between align-items-center">
+            <span>Metas Programas Relevantes</span>
+            <i class="fas" [ngClass]="tablasExpandidas['programas'] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </h6>
+        </div>
+        <div class="card-body p-0" *ngIf="tablasExpandidas['programas']">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+            <thead class="table-dark sticky-header">
+                <tr>
+                <th class="text-left">Concepto</th>
+                <th class="text-right">Meta</th>
+                <th class="text-right">Ejecución</th>
+                <th class="text-right">% Ejecución</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of datosProgramasRelevantes">
+                <td>{{ item.concepto }}</td>
+                <td class="text-right">{{ item.meta | number }}</td>
+                <td class="text-right">{{ item.ejecucion | number }}</td>
+                <td class="text-right">
+                    <span class="badge" [ngClass]="getBadgeClass(item.porcentaje)">
+                    {{ item.porcentaje | number:'1.2-2' }}%
+                    </span>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+    <!-- TABLA 3: RETENCIÓN -->
+    <div class="card mb-3">
+        <div class="card-header bg-light" style="cursor: pointer;" (click)="toggleTabla('retencion')">
+        <h6 class="mb-0 d-flex justify-content-between align-items-center">
+            <span>RETENCIÓN</span>
+            <i class="fas" [ngClass]="tablasExpandidas['retencion'] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </h6>
+        </div>
+        <div class="card-body p-0" *ngIf="tablasExpandidas['retencion']">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+            <thead class="table-dark sticky-header">
+                <tr>
+                <th class="text-left">Concepto</th>
+                <th class="text-right">Meta</th>
+                <th class="text-right">Ejecución</th>
+                <th class="text-right">% Ejecución</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of datosRetencion">
+                <td>{{ item.concepto }}</td>
+                <td class="text-right">{{ item.meta }}</td>
+                <td class="text-right">{{ item.ejecucion }}</td>
+                <td class="text-right">
+                    <span class="badge" [ngClass]="getBadgeClass(item.porcentaje)">
+                    {{ item.porcentaje | number:'1.2-2' }}%
+                    </span>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+    <!-- TABLA 4: CERTIFICACIÓN FORMACIÓN PROFESIONAL -->
+    <div class="card mb-3">
+        <div class="card-header bg-light" style="cursor: pointer;" (click)="toggleTabla('certificacion')">
+        <h6 class="mb-0 d-flex justify-content-between align-items-center">
+            <span>CERTIFICACIÓN FORMACIÓN PROFESIONAL</span>
+            <i class="fas" [ngClass]="tablasExpandidas['certificacion'] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </h6>
+        </div>
+        <div class="card-body p-0" *ngIf="tablasExpandidas['certificacion']">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+            <thead class="table-dark sticky-header">
+                <tr>
+                <th class="text-left">Concepto</th>
+                <th class="text-right">Meta</th>
+                <th class="text-right">Ejecución</th>
+                <th class="text-right">% Ejecución</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of datosCertificacion">
+                <td>{{ item.concepto }}</td>
+                <td class="text-right">{{ item.meta | number }}</td>
+                <td class="text-right">{{ item.ejecucion | number }}</td>
+                <td class="text-right">
+                    <span class="badge" [ngClass]="getBadgeClass(item.porcentaje)">
+                    {{ item.porcentaje | number:'1.2-2' }}%
+                    </span>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+    <!-- TABLA 5: Certificación de Competencias Laborales -->
+    <div class="card mb-3">
+        <div class="card-header bg-light" style="cursor: pointer;" (click)="toggleTabla('competencias')">
+        <h6 class="mb-0 d-flex justify-content-between align-items-center">
+            <span>Certificación de Competencias Laborales</span>
+            <i class="fas" [ngClass]="tablasExpandidas['competencias'] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </h6>
+        </div>
+        <div class="card-body p-0" *ngIf="tablasExpandidas['competencias']">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+            <thead class="table-dark sticky-header">
+                <tr>
+                <th class="text-left">Concepto</th>
+                <th class="text-right">Meta</th>
+                <th class="text-right">Ejecución</th>
+                <th class="text-right">% Ejecución</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of datosCompetenciasLaborales">
+                <td>{{ item.concepto }}</td>
+                <td class="text-right">{{ item.meta | number }}</td>
+                <td class="text-right">{{ item.ejecucion | number }}</td>
+                <td class="text-right">
+                    <span class="badge" [ngClass]="getBadgeClass(item.porcentaje)">
+                    {{ item.porcentaje | number:'1.2-2' }}%
+                    </span>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+    <!-- TABLA 6: POBLACIONES VULNERABLES -->
+    <div class="card mb-3">
+        <div class="card-header bg-light" style="cursor: pointer;" (click)="toggleTabla('poblaciones')">
+        <h6 class="mb-0 d-flex justify-content-between align-items-center">
+            <span>POBLACIONES VULNERABLES</span>
+            <i class="fas" [ngClass]="tablasExpandidas['poblaciones'] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </h6>
+        </div>
+        <div class="card-body p-0" *ngIf="tablasExpandidas['poblaciones']">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+            <thead class="table-dark sticky-header">
+                <tr>
+                <th class="text-left">Concepto</th>
+                <th class="text-right">Meta</th>
+                <th class="text-right">Ejecución</th>
+                <th class="text-right">% Ejecución</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of datosPoblacionesVulnerables">
+                <td>{{ item.concepto }}</td>
+                <td class="text-right">{{ item.meta | number }}</td>
+                <td class="text-right">{{ item.ejecucion | number }}</td>
+                <td class="text-right">
+                    <span class="badge" [ngClass]="getBadgeClass(item.porcentaje)">
+                    {{ item.porcentaje | number:'1.2-2' }}%
+                    </span>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+    <!-- TABLA 7: Desagregación OTRAS POBLACIONES VULNERABLES -->
+    <div class="card mb-3">
+        <div class="card-header bg-light" style="cursor: pointer;" (click)="toggleTabla('otrasPoblaciones')">
+        <h6 class="mb-0 d-flex justify-content-between align-items-center">
+            <span>Desagregación OTRAS POBLACIONES VULNERABLES</span>
+            <i class="fas" [ngClass]="tablasExpandidas['otrasPoblaciones'] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </h6>
+        </div>
+        <div class="card-body p-0" *ngIf="tablasExpandidas['otrasPoblaciones']">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+            <thead class="table-dark sticky-header">
+                <tr>
+                <th class="text-left">Concepto</th>
+                <th class="text-right">Meta</th>
+                <th class="text-right">Ejecución</th>
+                <th class="text-right">% Ejecución</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of datosOtrasPoblaciones">
+                <td>{{ item.concepto }}</td>
+                <td class="text-right">{{ item.meta | number }}</td>
+                <td class="text-right">{{ item.ejecucion | number }}</td>
+                <td class="text-right">
+                    <span class="badge" [ngClass]="getBadgeClass(item.porcentaje)">
+                    {{ item.porcentaje | number:'1.2-2' }}%
+                    </span>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+    <!-- TABLA 8: AGENCIA PUBLICA DE EMPLEO -->
+    <div class="card mb-3">
+        <div class="card-header bg-light" style="cursor: pointer;" (click)="toggleTabla('agencia')">
+        <h6 class="mb-0 d-flex justify-content-between align-items-center">
+            <span>AGENCIA PUBLICA DE EMPLEO</span>
+            <i class="fas" [ngClass]="tablasExpandidas['agencia'] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </h6>
+        </div>
+        <div class="card-body p-0" *ngIf="tablasExpandidas['agencia']">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+            <thead class="table-dark sticky-header">
+                <tr>
+                <th class="text-left">Concepto</th>
+                <th class="text-right">Meta</th>
+                <th class="text-right">Ejecución</th>
+                <th class="text-right">% Ejecución</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of datosAgenciaEmpleo">
+                <td>{{ item.concepto }}</td>
+                <td class="text-right">{{ item.meta | number }}</td>
+                <td class="text-right">{{ item.ejecucion | number }}</td>
+                <td class="text-right">
+                    <span class="badge" [ngClass]="getBadgeClass(item.porcentaje)">
+                    {{ item.porcentaje | number:'1.2-2' }}%
+                    </span>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+    <!-- TABLA 9: EMPRENDIMIENTO Y FORTALECIMIENTO -->
+    <div class="card mb-3">
+        <div class="card-header bg-light" style="cursor: pointer;" (click)="toggleTabla('emprendimiento')">
+        <h6 class="mb-0 d-flex justify-content-between align-items-center">
+            <span>EMPRENDIMIENTO Y FORTALECIMIENTO</span>
+            <i class="fas" [ngClass]="tablasExpandidas['emprendimiento'] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </h6>
+        </div>
+        <div class="card-body p-0" *ngIf="tablasExpandidas['emprendimiento']">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+            <thead class="table-dark sticky-header">
+                <tr>
+                <th class="text-left">Concepto</th>
+                <th class="text-right">Meta</th>
+                <th class="text-right">Ejecución</th>
+                <th class="text-right">% Ejecución</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of datosEmprendimiento">
+                <td>{{ item.concepto }}</td>
+                <td class="text-right">{{ item.meta | number }}</td>
+                <td class="text-right">{{ item.ejecucion | number }}</td>
+                <td class="text-right">
+                    <span class="badge" [ngClass]="getBadgeClass(item.porcentaje)">
+                    {{ item.porcentaje | number:'1.2-2' }}%
+                    </span>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+    <!-- TABLA 10: CONTRATOS DE APRENDIZAJE -->
+    <div class="card mb-3">
+        <div class="card-header bg-light" style="cursor: pointer;" (click)="toggleTabla('contratos')">
+        <h6 class="mb-0 d-flex justify-content-between align-items-center">
+            <span>CONTRATOS DE APRENDIZAJE</span>
+            <i class="fas" [ngClass]="tablasExpandidas['contratos'] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </h6>
+        </div>
+        <div class="card-body p-0" *ngIf="tablasExpandidas['contratos']">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+            <thead class="table-dark sticky-header">
+                <tr>
+                <th class="text-left">Concepto</th>
+                <th class="text-right">Meta</th>
+                <th class="text-right">Ejecución</th>
+                <th class="text-right">% Ejecución</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of datosContratosAprendizaje">
+                <td>{{ item.concepto }}</td>
+                <td class="text-right">{{ item.meta | number }}</td>
+                <td class="text-right">{{ item.ejecucion | number }}</td>
+                <td class="text-right">
+                    <span class="badge" [ngClass]="getBadgeClass(item.porcentaje)">
+                    {{ item.porcentaje | number:'1.2-2' }}%
+                    </span>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+    <!-- TABLA 11: CAMPESENA -->
+    <div class="card mb-3">
+        <div class="card-header bg-light" style="cursor: pointer;" (click)="toggleTabla('campesena')">
+        <h6 class="mb-0 d-flex justify-content-between align-items-center">
+            <span>CAMPESENA</span>
+            <i class="fas" [ngClass]="tablasExpandidas['campesena'] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </h6>
+        </div>
+        <div class="card-body p-0" *ngIf="tablasExpandidas['campesena']">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+            <thead class="table-dark sticky-header">
+                <tr>
+                <th class="text-left">Concepto</th>
+                <th class="text-right">Meta</th>
+                <th class="text-right">Ejecución</th>
+                <th class="text-right">% Ejecución</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of datosCampesena">
+                <td>{{ item.concepto }}</td>
+                <td class="text-right">{{ item.meta | number }}</td>
+                <td class="text-right">{{ item.ejecucion | number }}</td>
+                <td class="text-right">
+                    <span class="badge" [ngClass]="getBadgeClass(item.porcentaje)">
+                    {{ item.porcentaje | number:'1.2-2' }}%
+                    </span>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+    <!-- TABLA 12: FULL POPULAR -->
+    <div class="card mb-3">
+        <div class="card-header bg-light" style="cursor: pointer;" (click)="toggleTabla('fullPopular')">
+        <h6 class="mb-0 d-flex justify-content-between align-items-center">
+            <span>FULL POPULAR</span>
+            <i class="fas" [ngClass]="tablasExpandidas['fullPopular'] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </h6>
+        </div>
+        <div class="card-body p-0" *ngIf="tablasExpandidas['fullPopular']">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+            <thead class="table-dark sticky-header">
+                <tr>
+                <th class="text-left">Concepto</th>
+                <th class="text-right">Meta</th>
+                <th class="text-right">Ejecución</th>
+                <th class="text-right">% Ejecución</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of datosFullPopular">
+                <td>{{ item.concepto }}</td>
+                <td class="text-right">{{ item.meta | number }}</td>
+                <td class="text-right">{{ item.ejecucion | number }}</td>
+                <td class="text-right">
+                    <span class="badge" [ngClass]="getBadgeClass(item.porcentaje)">
+                    {{ item.porcentaje | number:'1.2-2' }}%
+                    </span>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+    <!-- TABLA 13: Estrategia Formación Continua Especial Campesina (FEEC) -->
+    <div class="card mb-3">
+        <div class="card-header bg-light" style="cursor: pointer;" (click)="toggleTabla('feec')">
+        <h6 class="mb-0 d-flex justify-content-between align-items-center">
+            <span>Estrategia FEEC</span>
+            <i class="fas" [ngClass]="tablasExpandidas['feec'] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </h6>
+        </div>
+        <div class="card-body p-0" *ngIf="tablasExpandidas['feec']">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+            <thead class="table-dark sticky-header">
+                <tr>
+                <th class="text-left">Concepto</th>
+                <th class="text-right">Meta</th>
+                <th class="text-right">Ejecución</th>
+                <th class="text-right">% Ejecución</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of datosFeec">
+                <td>{{ item.concepto }}</td>
+                <td class="text-right">{{ item.meta | number }}</td>
+                <td class="text-right">{{ item.ejecucion | number }}</td>
+                <td class="text-right">
+                    <span class="badge" [ngClass]="getBadgeClass(item.porcentaje)">
+                    {{ item.porcentaje | number:'1.2-2' }}%
+                    </span>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+    <!-- TABLA 14: Metas Primer Curso -->
+    <div class="card mb-3">
+        <div class="card-header bg-light" style="cursor: pointer;" (click)="toggleTabla('primerCurso')">
+        <h6 class="mb-0 d-flex justify-content-between align-items-center">
+            <span>Metas Primer Curso</span>
+            <i class="fas" [ngClass]="tablasExpandidas['primerCurso'] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </h6>
+        </div>
+        <div class="card-body p-0" *ngIf="tablasExpandidas['primerCurso']">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+            <thead class="table-dark sticky-header">
+                <tr>
+                <th class="text-left">Concepto</th>
+                <th class="text-right">Meta</th>
+                <th class="text-right">Ejecución</th>
+                <th class="text-right">% Ejecución</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of datosPrimerCurso">
+                <td>{{ item.concepto }}</td>
+                <td class="text-right">{{ item.meta | number }}</td>
+                <td class="text-right">{{ item.ejecucion | number }}</td>
+                <td class="text-right">
+                    <span class="badge" [ngClass]="getBadgeClass(item.porcentaje)">
+                    {{ item.porcentaje | number:'1.2-2' }}%
+                    </span>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Columna Centro -->
+    <div class="col-6">
+    <!-- TABLA 1: Metas Formación Profesional Integral (Centro) -->
+    <div class="card mb-3">
+        <div class="card-header bg-sena" style="cursor: pointer;" (click)="toggleTabla('formacion')">
+        <h5 class="mb-0 d-flex justify-content-between align-items-center">
+            <span>
+            <i class="fas fa-building"></i>
+            Centro: {{ centroActual?.nombre || 'Seleccione un centro' }}
+            </span>
+            <i class="fas" [ngClass]="tablasExpandidas['formacion'] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </h5>
+        </div>
+        <div class="card-body p-0" *ngIf="tablasExpandidas['formacion']">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+            <thead class="table-dark sticky-header">
+                <tr>
+                <th class="text-left">Metas Formación Profesional Integral</th>
+                <th class="text-right">Meta</th>
+                <th class="text-right">Ejecución</th>
+                <th class="text-right">% Ejecución</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngIf="datosCentro.length === 0">
+                <td colspan="4" class="text-center text-muted py-4">
+                    <i class="fas fa-info-circle"></i>
+                    Seleccione un centro para ver sus datos
+                </td>
+                </tr>
+                <tr *ngFor="let item of datosCentro"
+                    [class.fila-subtotal]="item.esSubtotal"
+                    [class.fila-total]="item.esTotal">
+                <td [style.padding-left]="item.indentacion">{{ item.subcategoria }}</td>
+                <td class="text-right">{{ item.cupos | number }}</td>
+                <td class="text-right">{{ item.ejecucion | number }}</td>
+                <td class="text-right">
+                    <span class="badge" [ngClass]="getBadgeClass(item.porcentaje)">
+                    {{ item.porcentaje | number:'1.2-2' }}%
+                    </span>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+    <!-- TABLA 2: Metas Programas Relevantes (Centro) -->
+    <div class="card mb-3">
+        <div class="card-header bg-light" style="cursor: pointer;" (click)="toggleTabla('programas')">
+        <h6 class="mb-0 d-flex justify-content-between align-items-center">
+            <span>Metas Programas Relevantes</span>
+            <i class="fas" [ngClass]="tablasExpandidas['programas'] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </h6>
+        </div>
+        <div class="card-body p-0" *ngIf="tablasExpandidas['programas']">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+            <thead class="table-dark sticky-header">
+                <tr>
+                <th class="text-left">Concepto</th>
+                <th class="text-right">Meta</th>
+                <th class="text-right">Ejecución</th>
+                <th class="text-right">% Ejecución</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of datosProgramasRelevantes">
+                <td>{{ item.concepto }}</td>
+                <td class="text-right">{{ item.meta | number }}</td>
+                <td class="text-right">{{ item.ejecucion | number }}</td>
+                <td class="text-right">
+                    <span class="badge" [ngClass]="getBadgeClass(item.porcentaje)">
+                    {{ item.porcentaje | number:'1.2-2' }}%
+                    </span>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+    <!-- TABLA 3: RETENCIÓN (Centro) -->
+    <div class="card mb-3">
+        <div class="card-header bg-light" style="cursor: pointer;" (click)="toggleTabla('retencion')">
+        <h6 class="mb-0 d-flex justify-content-between align-items-center">
+            <span>RETENCIÓN</span>
+            <i class="fas" [ngClass]="tablasExpandidas['retencion'] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </h6>
+        </div>
+        <div class="card-body p-0" *ngIf="tablasExpandidas['retencion']">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+            <thead class="table-dark sticky-header">
+                <tr>
+                <th class="text-left">Concepto</th>
+                <th class="text-right">Meta</th>
+                <th class="text-right">Ejecución</th>
+                <th class="text-right">% Ejecución</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of datosRetencion">
+                <td>{{ item.concepto }}</td>
+                <td class="text-right">{{ item.meta }}</td>
+                <td class="text-right">{{ item.ejecucion }}</td>
+                <td class="text-right">
+                    <span class="badge" [ngClass]="getBadgeClass(item.porcentaje)">
+                    {{ item.porcentaje | number:'1.2-2' }}%
+                    </span>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+    <!-- TABLA 4: CERTIFICACIÓN FORMACIÓN PROFESIONAL (Centro) -->
+    <div class="card mb-3">
+        <div class="card-header bg-light" style="cursor: pointer;" (click)="toggleTabla('certificacion')">
+        <h6 class="mb-0 d-flex justify-content-between align-items-center">
+            <span>CERTIFICACIÓN FORMACIÓN PROFESIONAL</span>
+            <i class="fas" [ngClass]="tablasExpandidas['certificacion'] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </h6>
+        </div>
+        <div class="card-body p-0" *ngIf="tablasExpandidas['certificacion']">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+            <thead class="table-dark sticky-header">
+                <tr>
+                <th class="text-left">Concepto</th>
+                <th class="text-right">Meta</th>
+                <th class="text-right">Ejecución</th>
+                <th class="text-right">% Ejecución</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of datosCertificacion">
+                <td>{{ item.concepto }}</td>
+                <td class="text-right">{{ item.meta | number }}</td>
+                <td class="text-right">{{ item.ejecucion | number }}</td>
+                <td class="text-right">
+                    <span class="badge" [ngClass]="getBadgeClass(item.porcentaje)">
+                    {{ item.porcentaje | number:'1.2-2' }}%
+                    </span>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+    <!-- TABLA 5: Certificación de Competencias Laborales (Centro) -->
+    <div class="card mb-3">
+        <div class="card-header bg-light" style="cursor: pointer;" (click)="toggleTabla('competencias')">
+        <h6 class="mb-0 d-flex justify-content-between align-items-center">
+            <span>Certificación de Competencias Laborales</span>
+            <i class="fas" [ngClass]="tablasExpandidas['competencias'] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </h6>
+        </div>
+        <div class="card-body p-0" *ngIf="tablasExpandidas['competencias']">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+            <thead class="table-dark sticky-header">
+                <tr>
+                <th class="text-left">Concepto</th>
+                <th class="text-right">Meta</th>
+                <th class="text-right">Ejecución</th>
+                <th class="text-right">% Ejecución</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of datosCompetenciasLaborales">
+                <td>{{ item.concepto }}</td>
+                <td class="text-right">{{ item.meta | number }}</td>
+                <td class="text-right">{{ item.ejecucion | number }}</td>
+                <td class="text-right">
+                    <span class="badge" [ngClass]="getBadgeClass(item.porcentaje)">
+                    {{ item.porcentaje | number:'1.2-2' }}%
+                    </span>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+    <!-- TABLA 6: POBLACIONES VULNERABLES (Centro) -->
+    <div class="card mb-3">
+        <div class="card-header bg-light" style="cursor: pointer;" (click)="toggleTabla('poblaciones')">
+        <h6 class="mb-0 d-flex justify-content-between align-items-center">
+            <span>POBLACIONES VULNERABLES</span>
+            <i class="fas" [ngClass]="tablasExpandidas['poblaciones'] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </h6>
+        </div>
+        <div class="card-body p-0" *ngIf="tablasExpandidas['poblaciones']">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+            <thead class="table-dark sticky-header">
+                <tr>
+                <th class="text-left">Concepto</th>
+                <th class="text-right">Meta</th>
+                <th class="text-right">Ejecución</th>
+                <th class="text-right">% Ejecución</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of datosPoblacionesVulnerables">
+                <td>{{ item.concepto }}</td>
+                <td class="text-right">{{ item.meta | number }}</td>
+                <td class="text-right">{{ item.ejecucion | number }}</td>
+                <td class="text-right">
+                    <span class="badge" [ngClass]="getBadgeClass(item.porcentaje)">
+                    {{ item.porcentaje | number:'1.2-2' }}%
+                    </span>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+    <!-- TABLA 7: Desagregación OTRAS POBLACIONES VULNERABLES (Centro) -->
+    <div class="card mb-3">
+        <div class="card-header bg-light" style="cursor: pointer;" (click)="toggleTabla('otrasPoblaciones')">
+        <h6 class="mb-0 d-flex justify-content-between align-items-center">
+            <span>Desagregación OTRAS POBLACIONES VULNERABLES</span>
+            <i class="fas" [ngClass]="tablasExpandidas['otrasPoblaciones'] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </h6>
+        </div>
+        <div class="card-body p-0" *ngIf="tablasExpandidas['otrasPoblaciones']">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+            <thead class="table-dark sticky-header">
+                <tr>
+                <th class="text-left">Concepto</th>
+                <th class="text-right">Meta</th>
+                <th class="text-right">Ejecución</th>
+                <th class="text-right">% Ejecución</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of datosOtrasPoblaciones">
+                <td>{{ item.concepto }}</td>
+                <td class="text-right">{{ item.meta | number }}</td>
+                <td class="text-right">{{ item.ejecucion | number }}</td>
+                <td class="text-right">
+                    <span class="badge" [ngClass]="getBadgeClass(item.porcentaje)">
+                    {{ item.porcentaje | number:'1.2-2' }}%
+                    </span>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+    <!-- TABLA 8: AGENCIA PUBLICA DE EMPLEO (Centro) -->
+    <div class="card mb-3">
+        <div class="card-header bg-light" style="cursor: pointer;" (click)="toggleTabla('agencia')">
+        <h6 class="mb-0 d-flex justify-content-between align-items-center">
+            <span>AGENCIA PUBLICA DE EMPLEO</span>
+            <i class="fas" [ngClass]="tablasExpandidas['agencia'] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </h6>
+        </div>
+        <div class="card-body p-0" *ngIf="tablasExpandidas['agencia']">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+            <thead class="table-dark sticky-header">
+                <tr>
+                <th class="text-left">Concepto</th>
+                <th class="text-right">Meta</th>
+                <th class="text-right">Ejecución</th>
+                <th class="text-right">% Ejecución</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of datosAgenciaEmpleo">
+                <td>{{ item.concepto }}</td>
+                <td class="text-right">{{ item.meta | number }}</td>
+                <td class="text-right">{{ item.ejecucion | number }}</td>
+                <td class="text-right">
+                    <span class="badge" [ngClass]="getBadgeClass(item.porcentaje)">
+                    {{ item.porcentaje | number:'1.2-2' }}%
+                    </span>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+    <!-- TABLA 9: EMPRENDIMIENTO Y FORTALECIMIENTO (Centro) -->
+    <div class="card mb-3">
+        <div class="card-header bg-light" style="cursor: pointer;" (click)="toggleTabla('emprendimiento')">
+        <h6 class="mb-0 d-flex justify-content-between align-items-center">
+            <span>EMPRENDIMIENTO Y FORTALECIMIENTO</span>
+            <i class="fas" [ngClass]="tablasExpandidas['emprendimiento'] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </h6>
+        </div>
+        <div class="card-body p-0" *ngIf="tablasExpandidas['emprendimiento']">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+            <thead class="table-dark sticky-header">
+                <tr>
+                <th class="text-left">Concepto</th>
+                <th class="text-right">Meta</th>
+                <th class="text-right">Ejecución</th>
+                <th class="text-right">% Ejecución</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of datosEmprendimiento">
+                <td>{{ item.concepto }}</td>
+                <td class="text-right">{{ item.meta | number }}</td>
+                <td class="text-right">{{ item.ejecucion | number }}</td>
+                <td class="text-right">
+                    <span class="badge" [ngClass]="getBadgeClass(item.porcentaje)">
+                    {{ item.porcentaje | number:'1.2-2' }}%
+                    </span>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+    <!-- TABLA 10: CONTRATOS DE APRENDIZAJE (Centro) -->
+    <div class="card mb-3">
+        <div class="card-header bg-light" style="cursor: pointer;" (click)="toggleTabla('contratos')">
+        <h6 class="mb-0 d-flex justify-content-between align-items-center">
+            <span>CONTRATOS DE APRENDIZAJE</span>
+            <i class="fas" [ngClass]="tablasExpandidas['contratos'] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </h6>
+        </div>
+        <div class="card-body p-0" *ngIf="tablasExpandidas['contratos']">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+            <thead class="table-dark sticky-header">
+                <tr>
+                <th class="text-left">Concepto</th>
+                <th class="text-right">Meta</th>
+                <th class="text-right">Ejecución</th>
+                <th class="text-right">% Ejecución</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of datosContratosAprendizaje">
+                <td>{{ item.concepto }}</td>
+                <td class="text-right">{{ item.meta | number }}</td>
+                <td class="text-right">{{ item.ejecucion | number }}</td>
+                <td class="text-right">
+                    <span class="badge" [ngClass]="getBadgeClass(item.porcentaje)">
+                    {{ item.porcentaje | number:'1.2-2' }}%
+                    </span>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+    <!-- TABLA 11: CAMPESENA (Centro) -->
+    <div class="card mb-3">
+        <div class="card-header bg-light" style="cursor: pointer;" (click)="toggleTabla('campesena')">
+        <h6 class="mb-0 d-flex justify-content-between align-items-center">
+            <span>CAMPESENA</span>
+            <i class="fas" [ngClass]="tablasExpandidas['campesena'] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </h6>
+        </div>
+        <div class="card-body p-0" *ngIf="tablasExpandidas['campesena']">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+            <thead class="table-dark sticky-header">
+                <tr>
+                <th class="text-left">Concepto</th>
+                <th class="text-right">Meta</th>
+                <th class="text-right">Ejecución</th>
+                <th class="text-right">% Ejecución</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of datosCampesena">
+                <td>{{ item.concepto }}</td>
+                <td class="text-right">{{ item.meta | number }}</td>
+                <td class="text-right">{{ item.ejecucion | number }}</td>
+                <td class="text-right">
+                    <span class="badge" [ngClass]="getBadgeClass(item.porcentaje)">
+                    {{ item.porcentaje | number:'1.2-2' }}%
+                    </span>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+    <!-- TABLA 12: FULL POPULAR (Centro) -->
+    <div class="card mb-3">
+        <div class="card-header bg-light" style="cursor: pointer;" (click)="toggleTabla('fullPopular')">
+        <h6 class="mb-0 d-flex justify-content-between align-items-center">
+            <span>FULL POPULAR</span>
+            <i class="fas" [ngClass]="tablasExpandidas['fullPopular'] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </h6>
+        </div>
+        <div class="card-body p-0" *ngIf="tablasExpandidas['fullPopular']">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+            <thead class="table-dark sticky-header">
+                <tr>
+                <th class="text-left">Concepto</th>
+                <th class="text-right">Meta</th>
+                <th class="text-right">Ejecución</th>
+                <th class="text-right">% Ejecución</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of datosFullPopular">
+                <td>{{ item.concepto }}</td>
+                <td class="text-right">{{ item.meta | number }}</td>
+                <td class="text-right">{{ item.ejecucion | number }}</td>
+                <td class="text-right">
+                    <span class="badge" [ngClass]="getBadgeClass(item.porcentaje)">
+                    {{ item.porcentaje | number:'1.2-2' }}%
+                    </span>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+    <!-- TABLA 13: Estrategia Formación Continua Especial Campesina (FEEC) (Centro) -->
+    <div class="card mb-3">
+        <div class="card-header bg-light" style="cursor: pointer;" (click)="toggleTabla('feec')">
+        <h6 class="mb-0 d-flex justify-content-between align-items-center">
+            <span>Estrategia FEEC</span>
+            <i class="fas" [ngClass]="tablasExpandidas['feec'] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </h6>
+        </div>
+        <div class="card-body p-0" *ngIf="tablasExpandidas['feec']">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+            <thead class="table-dark sticky-header">
+                <tr>
+                <th class="text-left">Concepto</th>
+                <th class="text-right">Meta</th>
+                <th class="text-right">Ejecución</th>
+                <th class="text-right">% Ejecución</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of datosFeec">
+                <td>{{ item.concepto }}</td>
+                <td class="text-right">{{ item.meta | number }}</td>
+                <td class="text-right">{{ item.ejecucion | number }}</td>
+                <td class="text-right">
+                    <span class="badge" [ngClass]="getBadgeClass(item.porcentaje)">
+                    {{ item.porcentaje | number:'1.2-2' }}%
+                    </span>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+    <!-- TABLA 14: Metas Primer Curso (Centro) -->
+    <div class="card mb-3">
+        <div class="card-header bg-light" style="cursor: pointer;" (click)="toggleTabla('primerCurso')">
+        <h6 class="mb-0 d-flex justify-content-between align-items-center">
+            <span>Metas Primer Curso</span>
+            <i class="fas" [ngClass]="tablasExpandidas['primerCurso'] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </h6>
+        </div>
+        <div class="card-body p-0" *ngIf="tablasExpandidas['primerCurso']">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+            <thead class="table-dark sticky-header">
+                <tr>
+                <th class="text-left">Concepto</th>
+                <th class="text-right">Meta</th>
+                <th class="text-right">Ejecución</th>
+                <th class="text-right">% Ejecución</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of datosPrimerCurso">
+                <td>{{ item.concepto }}</td>
+                <td class="text-right">{{ item.meta | number }}</td>
+                <td class="text-right">{{ item.ejecucion | number }}</td>
+                <td class="text-right">
+                    <span class="badge" [ngClass]="getBadgeClass(item.porcentaje)">
+                    {{ item.porcentaje | number:'1.2-2' }}%
+                    </span>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+<!-- Loading -->
+<div *ngIf="cargando" class="text-center mt-3">
+    <div class="spinner"></div>
+    <p>Cargando datos...</p>
+</div>

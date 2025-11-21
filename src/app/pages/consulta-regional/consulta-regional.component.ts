@@ -36,389 +36,8 @@ interface DatosJerarquicos {
   selector: 'app-consulta-regional',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  template: `
-    <div class="page-header">
-      <div class="page-title">Consulta Regional y Centros</div>
-      <div class="page-subtitle">Seguimiento de Metas por Regional y Centro de Formación</div>
-    </div>
-
-    <!-- Filtros -->
-    <div class="card mb-3">
-      <div class="card-body">
-        <div class="row">
-          <div class="col-6">
-            <label class="form-label"><strong>Regional:</strong></label>
-            <select class="form-select" [(ngModel)]="regionalSeleccionada" (change)="onRegionalChange()">
-              <option *ngFor="let regional of regionales" [value]="regional.codigo">
-                [{{ regional.codigo }}] {{ regional.nombre }}
-              </option>
-            </select>
-          </div>
-          <div class="col-6">
-            <label class="form-label"><strong>Centro:</strong></label>
-            <select class="form-select" [(ngModel)]="centroSeleccionado" (change)="onCentroChange()"
-                    [disabled]="!centrosDisponibles.length">
-              <option [value]="0">-- Seleccione un centro --</option>
-              <option *ngFor="let centro of centrosDisponibles" [value]="centro.codigo">
-                [{{ centro.codigo }}] {{ centro.nombre }}
-              </option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Botón de exportación -->
-    <div class="card mb-3" *ngIf="datosRegional.length > 0">
-      <div class="card-body">
-        <button 
-          class="btn btn-export" 
-          (click)="exportarAExcel()"
-          [disabled]="!datosRegional.length">
-          <i class="fas fa-download"></i>
-          Descargar Excel
-        </button>
-        <span class="export-info" *ngIf="centroSeleccionado === 0">
-          💡 Selecciona un centro para exportar sus datos específicos
-        </span>
-      </div>
-    </div>
-
-    <!-- Datos en dos columnas -->
-    <div class="row" *ngIf="datosRegional.length > 0">
-      <!-- Columna Regional -->
-      <div class="col-6">
-        <div class="card">
-          <div class="card-header bg-sena">
-            <h5 class="mb-0">
-              <i class="fas fa-map-marker-alt"></i>
-              Regional: {{ regionalActual?.nombre }}
-            </h5>
-          </div>
-          <div class="card-body p-0">
-            <div class="table-responsive">
-              <table class="table table-sm table-hover mb-0">
-                <thead class="table-dark sticky-header">
-                  <tr>
-                    <th class="text-left">Metas Formación Profesional Integral</th>
-                    <th class="text-right">Meta</th>
-                    <th class="text-right">Ejecución</th>
-                    <th class="text-right">% Ejecución</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let item of datosRegional"
-                      [class.fila-subtotal]="item.esSubtotal"
-                      [class.fila-total]="item.esTotal">
-                    <td [style.padding-left]="item.indentacion">{{ item.subcategoria }}</td>
-                    <td class="text-right">{{ item.cupos | number }}</td>
-                    <td class="text-right">{{ item.ejecucion | number }}</td>
-                    <td class="text-right">
-                      <span class="badge" [ngClass]="getBadgeClass(item.porcentaje)">
-                        {{ item.porcentaje | number:'1.2-2' }}%
-                      </span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Columna Centro -->
-      <div class="col-6">
-        <div class="card">
-          <div class="card-header bg-sena">
-            <h5 class="mb-0">
-              <i class="fas fa-building"></i>
-              Centro: {{ centroActual?.nombre || 'Seleccione un centro' }}
-            </h5>
-          </div>
-          <div class="card-body p-0">
-            <div class="table-responsive">
-              <table class="table table-sm table-hover mb-0">
-                <thead class="table-dark sticky-header">
-                  <tr>
-                    <th class="text-left">Metas Formación Profesional Integral</th>
-                    <th class="text-right">Meta</th>
-                    <th class="text-right">Ejecución</th>
-                    <th class="text-right">% Ejecución</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngIf="datosCentro.length === 0">
-                    <td colspan="4" class="text-center text-muted py-4">
-                      <i class="fas fa-info-circle"></i>
-                      Seleccione un centro para ver sus datos
-                    </td>
-                  </tr>
-                  <tr *ngFor="let item of datosCentro"
-                      [class.fila-subtotal]="item.esSubtotal"
-                      [class.fila-total]="item.esTotal">
-                    <td [style.padding-left]="item.indentacion">{{ item.subcategoria }}</td>
-                    <td class="text-right">{{ item.cupos | number }}</td>
-                    <td class="text-right">{{ item.ejecucion | number }}</td>
-                    <td class="text-right">
-                      <span class="badge" [ngClass]="getBadgeClass(item.porcentaje)">
-                        {{ item.porcentaje | number:'1.2-2' }}%
-                      </span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Loading -->
-    <div *ngIf="cargando" class="text-center mt-3">
-      <div class="spinner"></div>
-      <p>Cargando datos...</p>
-    </div>
-  `,
-  styles: [`
-    .form-label {
-      font-weight: 600;
-      color: var(--sena-negro);
-      margin-bottom: 8px;
-      display: block;
-    }
-
-    .form-select {
-      width: 100%;
-      padding: 10px;
-      border: 2px solid #e0e0e0;
-      border-radius: 6px;
-      font-size: 0.95rem;
-      transition: all 0.3s;
-      background-color: white;
-    }
-
-    .form-select:focus {
-      border-color: var(--sena-verde);
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.1);
-    }
-
-    .form-select:disabled {
-      background-color: #f5f5f5;
-      cursor: not-allowed;
-    }
-
-    .bg-sena {
-      background: linear-gradient(135deg, var(--sena-verde-institucional) 0%, #2d7a00 100%);
-      color: white;
-    }
-
-    .bg-sena h5 {
-      color: white;
-      margin: 0;
-    }
-
-    .table-responsive {
-      max-height: 70vh;
-      overflow-y: auto;
-    }
-
-    .sticky-header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background-color: #212529 !important;
-    }
-
-    .table {
-      margin-bottom: 0;
-      font-size: 0.9rem;
-    }
-
-    .table th {
-      padding: 12px 8px;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-
-    .table td {
-      padding: 8px;
-      vertical-align: middle;
-    }
-
-    .fila-subtotal {
-      background-color: #fff3e0 !important;
-      font-weight: 600;
-    }
-
-    .fila-total {
-      background-color: #e8f5e9 !important;
-      font-weight: 700;
-      font-size: 0.95rem;
-    }
-
-    .badge {
-      padding: 6px 10px;
-      border-radius: 4px;
-      font-size: 0.85rem;
-      min-width: 70px;
-      display: inline-block;
-      text-align: center;
-    }
-
-    .badge-success {
-      background-color: var(--color-exito);
-      color: white;
-    }
-
-    .badge-warning {
-      background-color: var(--color-advertencia);
-      color: var(--sena-negro);
-    }
-
-    .badge-danger {
-      background-color: var(--color-peligro);
-      color: white;
-    }
-
-    .text-muted {
-      color: #6c757d;
-    }
-
-    .py-4 {
-      padding-top: 2rem;
-      padding-bottom: 2rem;
-    }
-
-    i.fas {
-      margin-right: 8px;
-    }
-
-    /* Estilos para el botón de exportación */
-    .btn-export {
-      background: linear-gradient(135deg, #4CAF50 0%, #2d7a00 100%);
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      font-size: 1rem;
-      font-weight: 600;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn-export:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
-    }
-
-    .btn-export:active:not(:disabled) {
-      transform: translateY(0);
-    }
-
-    .btn-export:disabled {
-      background: #cccccc;
-      cursor: not-allowed;
-      opacity: 0.6;
-    }
-
-    .export-info {
-      margin-left: 15px;
-      color: #666;
-      font-size: 0.9rem;
-      vertical-align: middle;
-      display: inline-block;
-    }
-
-    .page-header {
-      background: linear-gradient(135deg, #4CAF50 0%, #2d7a00 100%);
-      color: white;
-      padding: 30px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-    }
-
-    .page-title {
-      font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 5px;
-    }
-
-    .page-subtitle {
-      font-size: 14px;
-      opacity: 0.9;
-    }
-
-    .card {
-      border: 1px solid #e0e0e0;
-      border-radius: 6px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
-    }
-
-    .card-header {
-      padding: 15px;
-      border-bottom: 1px solid #e0e0e0;
-      border-radius: 6px 6px 0 0;
-    }
-
-    .card-body {
-      padding: 15px;
-    }
-
-    .mb-3 {
-      margin-bottom: 20px;
-    }
-
-    .mb-0 {
-      margin-bottom: 0;
-    }
-
-    .row {
-      display: flex;
-      gap: 20px;
-      margin: -10px;
-    }
-
-    .col-6 {
-      flex: 1;
-      padding: 10px;
-    }
-
-    .text-center {
-      text-align: center;
-    }
-
-    .text-left {
-      text-align: left;
-    }
-
-    .text-right {
-      text-align: right;
-    }
-
-    .mt-3 {
-      margin-top: 20px;
-    }
-
-    .spinner {
-      border: 4px solid #f3f3f3;
-      border-top: 4px solid #4CAF50;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 1s linear infinite;
-      margin: 20px auto;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-  `]
+  templateUrl: './consulta-regional.component.html',
+  styleUrl: './consulta-regional.component.scss' 
 })
 export class ConsultaRegionalComponent implements OnInit {
   cargando = true;
@@ -432,6 +51,39 @@ export class ConsultaRegionalComponent implements OnInit {
 
   datosRegional: any[] = [];
   datosCentro: any[] = [];
+
+  // Datos dummy para las demás tablas
+  datosProgramasRelevantes: any[] = [];
+  datosRetencion: any[] = [];
+  datosCertificacion: any[] = [];
+  datosCompetenciasLaborales: any[] = [];
+  datosPoblacionesVulnerables: any[] = [];
+  datosOtrasPoblaciones: any[] = [];
+  datosAgenciaEmpleo: any[] = [];
+  datosEmprendimiento: any[] = [];
+  datosContratosAprendizaje: any[] = [];
+  datosCampesena: any[] = [];
+  datosFullPopular: any[] = [];
+  datosFeec: any[] = [];
+  datosPrimerCurso: any[] = [];
+
+  // Estado de expansión/colapso de las tablas
+  tablasExpandidas: { [key: string]: boolean } = {
+    'formacion': true,
+    'programas': true,
+    'retencion': true,
+    'certificacion': true,
+    'competencias': true,
+    'poblaciones': true,
+    'otrasPoblaciones': true,
+    'agencia': true,
+    'emprendimiento': true,
+    'contratos': true,
+    'campesena': true,
+    'fullPopular': true,
+    'feec': true,
+    'primerCurso': true
+  };
 
   // Orden de subcategorías según especificación
   ordenSubcategorias = [
@@ -487,6 +139,7 @@ export class ConsultaRegionalComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarDatos();
+    this.inicializarDatosDummy();
   }
 
   cargarDatos(): void {
@@ -621,6 +274,13 @@ export class ConsultaRegionalComponent implements OnInit {
   }
 
   /**
+   * Alterna el estado de expansión/colapso de una tabla
+   */
+  toggleTabla(tabla: string): void {
+    this.tablasExpandidas[tabla] = !this.tablasExpandidas[tabla];
+  }
+
+  /**
    * Exporta los datos a Excel
    */
   exportarAExcel(): void {
@@ -640,5 +300,158 @@ export class ConsultaRegionalComponent implements OnInit {
     ).catch(error => {
       console.error('Error en exportación:', error);
     });
+  }
+
+  /**
+   * Inicializa datos dummy para las tablas adicionales
+   */
+  inicializarDatosDummy(): void {
+    // Tabla 2: Programas Relevantes
+    this.datosProgramasRelevantes = [
+      { concepto: 'Total Formación Profesional CampeSENA', meta: 26651, ejecucion: 27611, porcentaje: 103.60 },
+      { concepto: 'Total Formación Profesional Full Popular', meta: 2765, ejecucion: 3936, porcentaje: 142.35 },
+      { concepto: 'Total Formación Profesional Integral - Virtual', meta: 53274, ejecucion: 39934, porcentaje: 74.96 }
+    ];
+
+    // Tabla 3: Retención
+    this.datosRetencion = [
+      { concepto: 'FORMACIÓN LABORAL - Presencial', meta: '90%', ejecucion: '94.41%', porcentaje: 104.90 },
+      { concepto: 'FORMACIÓN LABORAL - Virtual', meta: '84%', ejecucion: '88.96%', porcentaje: 105.90 },
+      { concepto: 'TOTAL FORMACIÓN LABORAL', meta: '87%', ejecucion: '94.20%', porcentaje: 108.28 },
+      { concepto: 'EDUCACION SUPERIOR - Presencial', meta: '92%', ejecucion: '91.71%', porcentaje: 99.68 },
+      { concepto: 'EDUCACION SUPERIOR - Virtual', meta: '87%', ejecucion: '89.86%', porcentaje: 103.29 },
+      { concepto: 'TOTAL EDUCACION SUPERIOR', meta: '90%', ejecucion: '91.10%', porcentaje: 101.78 },
+      { concepto: 'TOTAL TITULADA - Presencial', meta: '91%', ejecucion: '93.77%', porcentaje: 103.04 },
+      { concepto: 'TOTAL TITULADA - Virtual', meta: '86%', ejecucion: '89.68%', porcentaje: 104.89 },
+      { concepto: 'TOTAL TITULADA', meta: '88%', ejecucion: '93.24%', porcentaje: 105.66 },
+      { concepto: 'COMPLEMENTARIA - Presencial', meta: '85%', ejecucion: '88.36%', porcentaje: 103.95 },
+      { concepto: 'COMPLEMENTARIA - Virtual', meta: '28%', ejecucion: '33.07%', porcentaje: 118.09 },
+      { concepto: 'TOTAL COMPLEMENTARIA', meta: '57%', ejecucion: '77.08%', porcentaje: 136.43 }
+    ];
+
+    // Tabla 4: Certificación
+    this.datosCertificacion = [
+      { concepto: 'FORMACIÓN LABORAL', meta: 11036, ejecucion: 2379, porcentaje: 21.56 },
+      { concepto: 'EDUCACIÓN SUPERIOR', meta: 3010, ejecucion: 1349, porcentaje: 44.82 },
+      { concepto: 'TOTAL FORMACIÓN TITULADA', meta: 14046, ejecucion: 3728, porcentaje: 26.54 },
+      { concepto: 'TOTAL FORMACIÓN COMPLEMENTARIA', meta: 100223, ejecucion: 105251, porcentaje: 105.02 },
+      { concepto: 'TOTAL FORMACIÓN PROFESIONAL INTEGRAL', meta: 114269, ejecucion: 108979, porcentaje: 95.37 },
+      { concepto: 'ARTICULACION CON LA MEDIA', meta: 6971, ejecucion: 1025, porcentaje: 14.70 },
+      { concepto: 'CampeSENA', meta: 20509, ejecucion: 13581, porcentaje: 66.22 },
+      { concepto: 'Full Popular', meta: 1678, ejecucion: 3175, porcentaje: 189.21 }
+    ];
+
+    // Tabla 5: Competencias Laborales
+    this.datosCompetenciasLaborales = [
+      { concepto: 'Certificaciones CampeSENA', meta: 2113, ejecucion: 2219, porcentaje: 105.02 },
+      { concepto: 'Certificaciones Full Popular', meta: 1454, ejecucion: 1736, porcentaje: 119.39 },
+      { concepto: 'Certificaciones Regular', meta: 3169, ejecucion: 2521, porcentaje: 79.55 },
+      { concepto: 'Total Certificaciones', meta: 6736, ejecucion: 6476, porcentaje: 96.14 },
+      { concepto: 'No. de Evaluaciones', meta: 6806, ejecucion: 6953, porcentaje: 102.16 },
+      { concepto: 'Personas Evaluadas', meta: 6545, ejecucion: 6578, porcentaje: 100.50 },
+      { concepto: 'Personas Certificadas', meta: 6392, ejecucion: 6180, porcentaje: 96.68 },
+      { concepto: 'Instrumentos de evaluación construidos', meta: 27, ejecucion: 22, porcentaje: 81.48 }
+    ];
+
+    // Tabla 6: Poblaciones Vulnerables
+    this.datosPoblacionesVulnerables = [
+      { concepto: 'DESPLAZADOS POR LA VIOLENCIA', meta: 29692, ejecucion: 65305, porcentaje: 219.94 },
+      { concepto: 'HECHOS VICTIMIZANTES', meta: 1658, ejecucion: 2041, porcentaje: 123.10 },
+      { concepto: 'TOTAL VICTIMAS', meta: 31350, ejecucion: 67346, porcentaje: 214.82 },
+      { concepto: 'OTRAS POBLACIONES VULNERABLES', meta: 62917, ejecucion: 56386, porcentaje: 89.62 },
+      { concepto: 'TOTAL POBLACIONES VULNERABLES', meta: 94267, ejecucion: 123732, porcentaje: 131.26 }
+    ];
+
+    // Tabla 7: Otras Poblaciones
+    this.datosOtrasPoblaciones = [
+      { concepto: 'Personas en condición de Discapacidad', meta: 586, ejecucion: 376, porcentaje: 64.16 },
+      { concepto: 'Indígenas', meta: 1391, ejecucion: 1049, porcentaje: 75.41 },
+      { concepto: 'INPEC', meta: 812, ejecucion: 1086, porcentaje: 133.74 },
+      { concepto: 'Jóvenes Vulnerables', meta: 47327, ejecucion: 37819, porcentaje: 79.91 },
+      { concepto: 'Adolescente en Conflicto con la Ley Penal', meta: 37, ejecucion: 123, porcentaje: 332.43 },
+      { concepto: 'Mujer Cabeza de Hogar', meta: 8334, ejecucion: 9829, porcentaje: 117.94 },
+      { concepto: 'Negritudes (Negros)', meta: 900, ejecucion: 649, porcentaje: 72.11 },
+      { concepto: 'Afrocolombianos', meta: 1494, ejecucion: 1432, porcentaje: 95.85 },
+      { concepto: 'Raizales', meta: 0, ejecucion: 14, porcentaje: 0 },
+      { concepto: 'Palenqueros', meta: 0, ejecucion: 11, porcentaje: 0 },
+      { concepto: 'Proceso de Reintegración', meta: 135, ejecucion: 46, porcentaje: 34.07 },
+      { concepto: 'Tercera Edad', meta: 596, ejecucion: 899, porcentaje: 150.84 },
+      { concepto: 'Adolescente Trabajador', meta: 1305, ejecucion: 1923, porcentaje: 147.36 }
+    ];
+
+    // Tabla 8: Agencia Empleo
+    this.datosAgenciaEmpleo = [
+      { concepto: 'INSCRITOS', meta: 37736, ejecucion: 37367, porcentaje: 99.02 },
+      { concepto: 'VACANTES', meta: 15808, ejecucion: 13698, porcentaje: 86.65 },
+      { concepto: 'COLOCACIONES EGRESADOS SENA', meta: 4877, ejecucion: 5853, porcentaje: 120.01 },
+      { concepto: 'COLOCACIONES NO SENA', meta: 4142, ejecucion: 4487, porcentaje: 108.33 },
+      { concepto: 'TOTAL COLOCACIONES', meta: 9019, ejecucion: 10340, porcentaje: 114.65 },
+      { concepto: 'ORIENTADOS DESEMPLEADOS', meta: 41534, ejecucion: 42825, porcentaje: 103.11 },
+      { concepto: 'ORIENTADOS DESPLAZADOS', meta: 16752, ejecucion: 18235, porcentaje: 108.85 },
+      { concepto: 'TOTAL ORIENTADOS', meta: 58286, ejecucion: 61060, porcentaje: 104.76 },
+      { concepto: 'TASA DE COLOCACION (%)', meta: 63, ejecucion: 75.49, porcentaje: 119.82 }
+    ];
+
+    // Tabla 9: Emprendimiento
+    this.datosEmprendimiento = [
+      { concepto: 'Planes de Negocio Desplazados', meta: 183, ejecucion: 176, porcentaje: 96.17 },
+      { concepto: 'Unidades Productivas Desplazados', meta: 100, ejecucion: 101, porcentaje: 101.00 },
+      { concepto: 'Emprendimientos Asesorados', meta: 92, ejecucion: 77, porcentaje: 83.70 },
+      { concepto: 'Planes de Negocio Formulados', meta: 83, ejecucion: 30, porcentaje: 36.14 },
+      { concepto: 'Emprendedores Orientados', meta: 7711, ejecucion: 6934, porcentaje: 89.92 },
+      { concepto: 'Empresas en Fortalecimiento', meta: 52, ejecucion: 54, porcentaje: 103.85 },
+      { concepto: 'Empleos Fortalecimiento', meta: 26, ejecucion: 24, porcentaje: 92.31 },
+      { concepto: 'Campesinos atendidos en emprendimiento', meta: 2723, ejecucion: 3199, porcentaje: 117.48 },
+      { concepto: 'Full Popular en emprendimiento', meta: 102, ejecucion: 916, porcentaje: 898.04 }
+    ];
+
+    // Tabla 10: Contratos Aprendizaje
+    this.datosContratosAprendizaje = [
+      { concepto: 'Empresas con Cuotas Reguladas', meta: 295, ejecucion: 312, porcentaje: 105.76 },
+      { concepto: 'Empresas con Cuota Voluntaria', meta: 60, ejecucion: 61, porcentaje: 101.67 },
+      { concepto: 'Aprendices SENA Con Contrato', meta: 3937, ejecucion: 3485, porcentaje: 88.52 },
+      { concepto: 'Aprendices NO SENA', meta: 1308, ejecucion: 1772, porcentaje: 135.47 },
+      { concepto: 'Total Aprendices Con Contrato', meta: 5245, ejecucion: 5257, porcentaje: 100.23 },
+      { concepto: 'Contratos Voluntarios', meta: 358, ejecucion: 251, porcentaje: 70.11 }
+    ];
+
+    // Tabla 11: CampeSENA
+    this.datosCampesena = [
+      { concepto: 'Tecnólogos CampeSENA', meta: 43, ejecucion: 57, porcentaje: 132.56 },
+      { concepto: 'Operarios CampeSENA', meta: 30, ejecucion: 84, porcentaje: 280.00 },
+      { concepto: 'Auxiliares CampeSENA', meta: 15, ejecucion: 15, porcentaje: 100.00 },
+      { concepto: 'Técnico Laboral CampeSENA', meta: 897, ejecucion: 956, porcentaje: 106.58 },
+      { concepto: 'Formación Complementaria CampeSENA', meta: 25666, ejecucion: 26499, porcentaje: 103.25 },
+      { concepto: 'Total Formación Profesional CampeSENA', meta: 26651, ejecucion: 27611, porcentaje: 103.60 },
+      { concepto: 'Retención CampeSENA', meta: 92, ejecucion: 89, porcentaje: 96.22 },
+      { concepto: 'Certificación CampeSENA', meta: 20509, ejecucion: 13581, porcentaje: 66.22 },
+      { concepto: 'Unidades productivas creadas', meta: 128, ejecucion: 0, porcentaje: 0.00 },
+      { concepto: 'Unidades productivas fortalecidas', meta: 206, ejecucion: 131, porcentaje: 63.59 },
+      { concepto: 'Proyectos productivos beneficiados', meta: 45, ejecucion: 0, porcentaje: 0.00 },
+      { concepto: 'Proyectos productivos formulados', meta: 64, ejecucion: 63, porcentaje: 98.44 }
+    ];
+
+    // Tabla 12: Full Popular
+    this.datosFullPopular = [
+      { concepto: 'Tecnólogos Full Popular', meta: 0, ejecucion: 0, porcentaje: 0 },
+      { concepto: 'Operarios Full Popular', meta: 0, ejecucion: 0, porcentaje: 0 },
+      { concepto: 'Auxiliares Full Popular', meta: 15, ejecucion: 0, porcentaje: 0.00 },
+      { concepto: 'Técnico Laboral Full Popular', meta: 0, ejecucion: 0, porcentaje: 0 },
+      { concepto: 'Formación Complementaria Full Popular', meta: 2750, ejecucion: 3936, porcentaje: 143.13 },
+      { concepto: 'Total Formación Profesional Full Popular', meta: 2765, ejecucion: 3936, porcentaje: 142.35 },
+      { concepto: 'Retención Full Popular', meta: 61, ejecucion: 91, porcentaje: 148.87 },
+      { concepto: 'Certificación Full Popular', meta: 1678, ejecucion: 3175, porcentaje: 189.21 }
+    ];
+
+    // Tabla 13: FEEC
+    this.datosFeec = [
+      { concepto: 'Estrategia FEEC', meta: 1246, ejecucion: 43, porcentaje: 3.45 },
+      { concepto: 'Total Estrategia FEEC', meta: 1246, ejecucion: 43, porcentaje: 3.45 }
+    ];
+
+    // Tabla 14: Primer Curso
+    this.datosPrimerCurso = [
+      { concepto: 'Tecnólogos Primer Curso', meta: 5280, ejecucion: 2851, porcentaje: 54.00 }
+    ];
   }
 }
