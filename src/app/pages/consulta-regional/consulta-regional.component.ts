@@ -303,9 +303,9 @@ export class ConsultaRegionalComponent implements OnInit {
   }
 
   /**
-   * Exporta los datos a Excel
+   * Exporta solo la Regional
    */
-  exportarAExcel(): void {
+  exportarRegionalSolo(): void {
     if (!this.regionalActual) {
       alert('Por favor selecciona una regional');
       return;
