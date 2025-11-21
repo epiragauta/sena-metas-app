@@ -5,6 +5,7 @@ import { EstrategiasComponent } from './pages/estrategias/estrategias.component'
 import { NivelesComponent } from './pages/niveles/niveles.component';
 import { MetasRegionalesComponent } from './components/metas-regionales.component';
 import { ConsultaRegionalComponent } from './pages/consulta-regional/consulta-regional.component';
+import { ConsultaNacionalComponent } from './pages/consulta-nacional/consulta-nacional.component';
 import { MetasRegionalesYCentrosComponent } from './pages/metas-regionales-y-centros/metas-regionales-y-centros.component';
 import { ConsultaNacionalComponent } from './pages/consulta-nacional/consulta-nacional.component';
 
