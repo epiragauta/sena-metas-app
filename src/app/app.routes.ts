@@ -5,6 +5,7 @@ import { EstrategiasComponent } from './pages/estrategias/estrategias.component'
 import { NivelesComponent } from './pages/niveles/niveles.component';
 import { MetasRegionalesComponent } from './components/metas-regionales.component';
 import { ConsultaRegionalComponent } from './pages/consulta-regional/consulta-regional.component';
+import { ConsultaNacionalComponent } from './pages/consulta-nacional/consulta-nacional.component';
 import { MetasRegionalesYCentrosComponent } from './pages/metas-regionales-y-centros/metas-regionales-y-centros.component';
 
 export const routes: Routes = [
@@ -15,6 +16,7 @@ export const routes: Routes = [
   { path: 'niveles', component: NivelesComponent, title: 'Niveles de Formación - SENA' },
   { path: 'regionales', component: MetasRegionalesComponent, title: 'Metas Regionales - SENA' },
   { path: 'consulta-regional', component: ConsultaRegionalComponent, title: 'Consulta Regional y Centros - SENA' },
+  { path: 'consulta-nacional', component: ConsultaNacionalComponent, title: 'Consulta Nacional - SENA' },
   { path: 'metas-regionales-centros', component: MetasRegionalesYCentrosComponent, title: 'Metas Regionales y Centros - SENA' },
   { path: '**', redirectTo: '/dashboard' }
 ];
