@@ -1,0 +1,210 @@
+<!-- Indicador de Carga -->
+<div *ngIf="cargando" class="loading-container">
+  <div class="spinner"></div>
+  <p>Cargando datos del dashboard nacional...</p>
+</div>
+
+<!-- Contenedor Principal del Dashboard -->
+<div *ngIf="dashboardData$ | async as data" class="dashboard-container fade-in">
+  <div class="page-header">
+    <h1 class="page-title">Metas Formación Profesional Integral</h1>
+    <p class="page-subtitle">Jerarquía de metas de Formación Profesional Integral</p>
+  </div>
+
+  <!-- #################################### -->
+  <!-- ##   JERARQUÍA DE METAS FPI       ## -->
+  <!-- #################################### -->
+  
+  <div class="hierarchy-section">
+    <div class="data-section">
+      <h2 class="section-title">Metas Formación Profesional Integral</h2>
+      <div *ngFor="let node of data.nationalGoals; trackBy: trackById">
+        <ng-container *ngTemplateOutlet="nodeTpl; context: { $implicit: node }"></ng-container>
+      </div>
+    </div>    
+  </div>
+  
+
+  <!-- #################################### -->
+  <!-- ##      SECCIONES ADICIONALES     ## -->
+  <!-- #################################### -->
+  <div class="additional-sections">
+
+    <!-- Sección: Formación por Nivel -->
+    <div *ngIf="data.formacionPorNivelTree" class="data-section">
+      <h2 class="section-title">Metas por Nivel de Formación</h2>
+      <div *ngFor="let node of data.formacionPorNivelTree; trackBy: trackById">
+        <ng-container *ngTemplateOutlet="nivelNodeTpl; context: { $implicit: node }"></ng-container>
+      </div>
+    </div>
+
+    <!-- Sección: Programas Relevantes -->
+    <div *ngIf="data.programasRelevantes" class="data-section">
+      <h2 class="section-title">Programas Relevantes</h2>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Descripción</th>
+              <th>Meta</th>
+              <th>Ejecución</th>
+              <th>Cumplimiento</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of data.programasRelevantes; trackBy: trackById">
+              <td>{{ item.descripcion }}</td>
+              <td>{{ item.meta | number }}</td>
+              <td>{{ item.ejecucion | number }}</td>
+              <td [ngClass]="getClasePorcentaje(item.porcentaje / 100)">
+                {{ item.porcentaje / 100 | percent:'1.2-2' }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Sección: Métricas Adicionales -->
+    <div *ngIf="data.metricasAdicionales" class="data-section">
+      <ng-container *ngFor="let key of getMetricasKeys(data.metricasAdicionales)">
+        <h2 class="section-title">{{ key }}</h2>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Métrica</th>
+                <th>Meta</th>
+                <th>Ejecución</th>
+                <th>Cumplimiento</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let metrica of data.metricasAdicionales[key]">
+                <td>{{ metrica.nombreMetrica }}</td>
+                <td>{{ metrica.meta | number:(metrica.tipoDato === 'porcentaje' ? '1.2-2' : '1.0-0') }}</td>
+                <td>{{ metrica.ejecucion | number:(metrica.tipoDato === 'porcentaje' ? '1.2-2' : '1.0-0') }}</td>
+                <td [ngClass]="getClasePorcentaje(calcularPorcentaje(metrica.meta, metrica.ejecucion))">
+                  {{ calcularPorcentaje(metrica.meta, metrica.ejecucion) | percent:'1.2-2' }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ng-container>
+    </div>
+
+  </div>
+</div>
+
+<!-- Plantilla Recursiva para cada Nodo de Nivel -->
+<ng-template #nivelNodeTpl let-node>
+  <div class="card meta-card" [style.margin-left.rem]="node.level * 1.5">
+    <!-- Cabecera de la Tarjeta (Clickable) -->
+    <div class="card-header" (click)="toggleNivelNode(node)" [class.expandable]="node.children.length > 0">
+      <div class="header-content">
+        <!-- Icono de Expansión -->
+        <span class="toggle-icon" *ngIf="node.children.length > 0">
+          {{ node.isCollapsed ? '►' : '▼' }}
+        </span>
+        <!-- Título de la Meta -->
+        <span class="meta-title" [class.no-icon]="node.children.length === 0">
+          {{ node.nivelFormacion }}
+        </span>
+      </div>
+
+      <!-- Métricas Principales -->
+      <div class="header-metrics">
+        <div class="metric-item percentage" [ngClass]="getClasePorcentaje(calcularPorcentaje(node.totalMeta, calcularTotalEjecucion(node)))">
+          {{ calcularPorcentaje(node.totalMeta, calcularTotalEjecucion(node)) | percent:'1.2-2' }}
+        </div>
+        <div class="metric-item">
+          <span class="metric-label">Meta:</span>
+          <span class="metric-value">{{ node.totalMeta | number:'1.0-0' }}</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-label">Ejecutado:</span>
+          <span class="metric-value">{{ calcularTotalEjecucion(node) | number:'1.0-0' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contenedor de Hijos (Colapsable) -->
+    <div class="card-body" *ngIf="!node.isCollapsed && node.children.length > 0">
+      <div *ngFor="let child of node.children; trackBy: trackById">
+        <ng-container *ngTemplateOutlet="nivelNodeTpl; context: { $implicit: child }"></ng-container>
+      </div>
+    </div>
+
+    <!-- Footer con detalle para todos los nodos -->
+    <div class="card-footer">
+        <div class="row text-center">
+            <div class="col-md-4">
+              <h6 class="metric-category-title">Regular</h6>
+              <div class="percentage-detail" [ngClass]="getClasePorcentaje(calcularPorcentaje(node.regularMeta, node.regularEjecucion))">
+                {{ calcularPorcentaje(node.regularMeta, node.regularEjecucion) | percent:'1.2-2' }}
+              </div>
+              <p class="card-text"><strong>Meta:</strong> {{ node.regularMeta | number }}</p>
+              <p class="card-text"><strong>Ejecución:</strong> {{ node.regularEjecucion | number }}</p>
+            </div>
+            <div class="col-md-4">
+              <h6 class="metric-category-title">Campesena</h6>
+              <div class="percentage-detail" [ngClass]="getClasePorcentaje(calcularPorcentaje(node.campesenaMeta, node.campesenaEjecucion))">
+                {{ calcularPorcentaje(node.campesenaMeta, node.campesenaEjecucion) | percent:'1.2-2' }}
+              </div>
+              <p class="card-text"><strong>Meta:</strong> {{ node.campesenaMeta | number }}</p>
+              <p class="card-text"><strong>Ejecución:</strong> {{ node.campesenaEjecucion | number }}</p>
+            </div>
+            <div class="col-md-4">
+              <h6 class="metric-category-title">Full Popular</h6>
+              <div class="percentage-detail" [ngClass]="getClasePorcentaje(calcularPorcentaje(node.fullPopularMeta, node.fullPopularEjecucion))">
+                {{ calcularPorcentaje(node.fullPopularMeta, node.fullPopularEjecucion) | percent:'1.2-2' }}
+              </div>
+              <p class="card-text"><strong>Meta:</strong> {{ node.fullPopularMeta | number }}</p>
+              <p class="card-text"><strong>Ejecución:</strong> {{ node.fullPopularEjecucion | number }}</p>
+            </div>
+        </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Plantilla Recursiva para cada Nodo -->
+<ng-template #nodeTpl let-node>
+  <div class="card meta-card" [style.margin-left.rem]="node.level * 1.5">
+    <!-- Cabecera de la Tarjeta (Clickable) -->
+    <div class="card-header" (click)="toggleNode(node)" [class.expandable]="node.children.length > 0">
+      <div class="header-content">
+        <!-- Icono de Expansión -->
+        <span class="toggle-icon" *ngIf="node.children.length > 0">
+          {{ node.isCollapsed ? '►' : '▼' }}
+        </span>
+        <!-- Título de la Meta -->
+        <span class="meta-title" [class.no-icon]="node.children.length === 0">
+          {{ node.descripcion }}
+        </span>
+      </div>
+
+      <!-- Métricas Principales -->
+      <div class="header-metrics">
+        <div class="metric-item percentage" [ngClass]="getClasePorcentaje(node.porcentaje / 100)">
+          {{ node.porcentaje / 100 | percent:'1.2-2' }}
+        </div>
+        <div class="metric-item">
+          <span class="metric-label">Meta:</span>
+          <span class="metric-value">{{ node.meta | number:'1.0-0' }}</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-label">Ejecutado:</span>
+          <span class="metric-value">{{ node.ejecucion | number:'1.0-0' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contenedor de Hijos (Colapsable) -->
+    <div class="card-body" *ngIf="!node.isCollapsed && node.children.length > 0">
+      <div *ngFor="let child of node.children; trackBy: trackById">
+        <ng-container *ngTemplateOutlet="nodeTpl; context: { $implicit: child }"></ng-container>
+      </div>
+    </div>
+  </div>
+</ng-template>

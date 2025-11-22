@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { NationalDashboardComponent } from './pages/national-dashboard/national-dashboard.component';
 import { MetasComponent } from './pages/metas/metas.component';
 import { EstrategiasComponent } from './pages/estrategias/estrategias.component';
 import { NivelesComponent } from './pages/niveles/niveles.component';
@@ -11,6 +12,7 @@ import { MetasRegionalesYCentrosComponent } from './pages/metas-regionales-y-cen
 export const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent, title: 'Dashboard - SENA Metas' },
+  { path: 'dashboard-nacional', component: NationalDashboardComponent, title: 'Dashboard Nacional - SENA Metas' },
   { path: 'metas', component: MetasComponent, title: 'Metas FPI - SENA' },
   { path: 'estrategias', component: EstrategiasComponent, title: 'Estrategias - SENA' },
   { path: 'niveles', component: NivelesComponent, title: 'Niveles de Formación - SENA' },

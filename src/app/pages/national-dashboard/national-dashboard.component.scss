@@ -1,0 +1,337 @@
+@import '../../../styles.css'; // Importar variables globales si existen
+
+:host {
+  display: block;
+  padding: 1rem;
+}
+
+// Contenedor del spinner de carga
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+  color: var(--sena-gris-oscuro);
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border-left-color: var(--sena-naranja);
+  animation: spin 1s ease infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+// Animación de entrada
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Cabecera de la página
+.page-header {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--sena-blanco);
+}
+
+.page-subtitle {
+  font-size: 1.1rem;
+  color: var(--sena-gris-oscuro);
+}
+
+// Estilo base de la tarjeta de meta
+.meta-card {
+  margin-bottom: 0.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  overflow: hidden; // Para que los hijos no se salgan del borde redondeado
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background-color: #fff;
+  border-bottom: 1px solid #f0f0f0;
+  
+  &.expandable {
+    cursor: pointer;
+    &:hover {
+      background-color: #f9f9f9;
+    }
+  }
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.toggle-icon {
+  margin-right: 0.75rem;
+  font-size: 0.8rem;
+  color: var(--sena-naranja);
+  transition: transform 0.2s ease;
+  width: 15px; // Ancho fijo para alineación
+}
+
+.meta-title {
+  font-weight: 500;
+  color: #333;
+  &.no-icon {
+    margin-left: 15px; // Alinear con los que sí tienen ícono
+  }
+}
+
+.header-metrics {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem; // Espacio entre métricas
+  font-size: 0.9rem;
+}
+
+.metric-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.metric-label {
+  color: #666;
+  font-size: 0.85rem;
+}
+
+.metric-value {
+  font-weight: 600;
+  color: #000;
+}
+
+.percentage {
+  font-weight: bold;
+  font-size: 1.1rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  
+  &.success {
+    color: #28a745;
+    background-color: rgba(40, 167, 69, 0.1);
+  }
+  &.warning {
+    color: #ffc107;
+    background-color: rgba(255, 193, 7, 0.1);
+  }
+  &.danger {
+    color: #dc3545;
+    background-color: rgba(220, 53, 69, 0.1);
+  }
+  &.over {
+    color: #17a2b8;
+    background-color: rgba(23, 162, 184, 0.1);
+  }
+}
+
+.card-body {
+  padding: 0.5rem;
+  background-color: #fafafa;
+  border-top: 1px solid #f0f0f0;
+  // Animación para el despliegue
+  animation: slideDown 0.4s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Estilos para las secciones adicionales
+.additional-sections {
+  margin-top: 2.5rem;
+}
+
+.data-section {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.04);
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--sena-verde);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--sena-naranja);
+  display: inline-block;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+
+  th, td {
+    padding: 0.8rem;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+    vertical-align: middle;
+  }
+
+  thead th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #495057;
+    text-align: center;
+    border-top: 1px solid #dee2e6;
+    border-bottom-width: 2px;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: #fdfdfd;
+  }
+
+  tbody tr:hover {
+    background-color: #f1f3f5;
+  }
+
+  td:not(:first-child) {
+    text-align: right;
+  }
+}
+
+.table-bordered {
+  border: 1px solid #dee2e6;
+  th,
+  td {
+    border: 1px solid #dee2e6;
+  }
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0,0,0,.05);
+}
+
+.thead-dark th {
+  color: #fff;
+  background-color: #343a40;
+  border-color: #454d55;
+}
+
+.align-middle {
+  vertical-align: middle !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.total-row td {
+  font-weight: bold;
+  background-color: #f3f4f6;
+}
+
+.total-col {
+  font-weight: bold;
+}
+
+/* Estilos para la sección de Formación por Nivel con tarjetas */
+.card-deck {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Espacio entre tarjetas */
+}
+
+.card.total-card {
+  border-color: #002D72; /* Un color de borde más prominente para las tarjetas de totales */
+  border-width: 2px;
+
+  .card-header {
+    background-color: #F0F4F8; /* Un fondo ligeramente distinto para el encabezado del total */
+    font-weight: bold;
+  }
+}
+
+.metric-category-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.75rem;
+  border-bottom: 2px solid #0056b3;
+  padding-bottom: 0.25rem;
+  display: inline-block;
+}
+
+.card-text {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+
+  strong {
+    color: #555;
+  }
+}
+
+.card-footer {
+  background-color: #f8f9fa;
+  font-size: 0.9rem;
+
+  strong {
+    font-weight: 600;
+  }
+}
+
+.percentage-badge {
+  display: inline-block;
+  padding: 0.3em 0.6em;
+  font-size: 90%;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+  color: #fff;
+}
