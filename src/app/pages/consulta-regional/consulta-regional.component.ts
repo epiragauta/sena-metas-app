@@ -164,13 +164,13 @@ export class ConsultaRegionalComponent implements OnInit {
   }
 
   /**
-   * Carga metas desde la API de MongoDB
+   * Carga metas y ejecución desde la API de MongoDB
    * Si falla, hace fallback a JSON
    */
   cargarMetasDesdeAPI(): void {
-    console.log('📡 Cargando metas desde API...');
+    console.log('📡 Cargando metas y ejecución desde API...');
 
-    // Cargar metas regionales y de centros en paralelo
+    // Cargar metas regionales, metas centros, ejecución regional y ejecución centros en paralelo
     forkJoin({
       metasRegional: this.xlsbApi.getMetasRegional().pipe(
         catchError(err => {
@@ -183,24 +183,37 @@ export class ConsultaRegionalComponent implements OnInit {
           console.warn('⚠️ Error cargando metas de centros desde API:', err);
           return of([]);
         })
+      ),
+      ejecucionRegional: this.xlsbApi.getEjecucionRegional().pipe(
+        catchError(err => {
+          console.warn('⚠️ Error cargando ejecución regional desde API:', err);
+          return of([]);
+        })
+      ),
+      ejecucionCentros: this.xlsbApi.getEjecucionCentros().pipe(
+        catchError(err => {
+          console.warn('⚠️ Error cargando ejecución de centros desde API:', err);
+          return of([]);
+        })
       )
     }).subscribe({
-      next: ({ metasRegional, metasCentros }) => {
+      next: ({ metasRegional, metasCentros, ejecucionRegional, ejecucionCentros }) => {
         if (metasRegional.length === 0 && metasCentros.length === 0) {
           console.warn('⚠️ No se obtuvieron metas desde API, usando JSON');
           this.cargarDesdeJSON();
           return;
         }
 
-        console.log(`✅ Metas cargadas desde API: ${metasRegional.length} regionales, ${metasCentros.length} centros`);
+        console.log(`✅ Metas cargadas: ${metasRegional.length} regionales, ${metasCentros.length} centros`);
+        console.log(`✅ Ejecución cargada: ${ejecucionRegional.length} regionales, ${ejecucionCentros.length} centros`);
         this.metasDisponibles = true;
 
-        // Construir estructura de regionales
-        this.construirEstructuraDesdeAPI(metasRegional, metasCentros);
+        // Construir estructura de regionales combinando metas y ejecución
+        this.construirEstructuraDesdeAPI(metasRegional, metasCentros, ejecucionRegional, ejecucionCentros);
         this.cargando = false;
       },
       error: (err) => {
-        console.error('❌ Error cargando metas desde API:', err);
+        console.error('❌ Error cargando datos desde API:', err);
         console.log('🔄 Fallback a JSON...');
         this.cargarDesdeJSON();
       }
@@ -209,13 +222,23 @@ export class ConsultaRegionalComponent implements OnInit {
 
   /**
    * Construye la estructura de regionales y centros desde datos de la API
+   * Combina metas con datos de ejecución para calcular porcentajes
    */
-  construirEstructuraDesdeAPI(metasRegional: MetasData[], metasCentros: MetasData[]): void {
+  construirEstructuraDesdeAPI(
+    metasRegional: MetasData[],
+    metasCentros: MetasData[],
+    ejecucionRegional: any[],
+    ejecucionCentros: any[]
+  ): void {
     const regionalesMap = new Map<number, RegionalConSeguimiento>();
 
-    // Procesar metas regionales
+    // Procesar metas regionales combinando con ejecución
     metasRegional.forEach(metaData => {
-      const seguimiento = this.transformer.transformarMetasParaComponente(metaData);
+      // Buscar datos de ejecución correspondientes
+      const ejecucion = ejecucionRegional.find(e => e.COD_REGIONAL === metaData.COD_REGIONAL);
+
+      // Transformar combinando metas y ejecución
+      const seguimiento = this.transformer.transformarMetasParaComponente(metaData, ejecucion);
 
       const regional: RegionalConSeguimiento = {
         codigo: metaData.COD_REGIONAL,
@@ -227,11 +250,15 @@ export class ConsultaRegionalComponent implements OnInit {
       regionalesMap.set(metaData.COD_REGIONAL, regional);
     });
 
-    // Procesar metas de centros
+    // Procesar metas de centros combinando con ejecución
     metasCentros.forEach(metaData => {
       if (!metaData.COD_CENTRO) return;
 
-      const seguimiento = this.transformer.transformarMetasParaComponente(metaData);
+      // Buscar datos de ejecución correspondientes
+      const ejecucion = ejecucionCentros.find(e => e.COD_CENTRO === metaData.COD_CENTRO);
+
+      // Transformar combinando metas y ejecución
+      const seguimiento = this.transformer.transformarMetasParaComponente(metaData, ejecucion);
 
       const centro: CentroConSeguimiento = {
         codigo: metaData.COD_CENTRO,
@@ -263,7 +290,7 @@ export class ConsultaRegionalComponent implements OnInit {
       this.onRegionalChange();
     }
 
-    console.log(`✅ Estructura construida: ${this.regionales.length} regionales`);
+    console.log(`✅ Estructura construida: ${this.regionales.length} regionales con datos combinados`);
   }
 
   /**

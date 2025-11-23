@@ -204,4 +204,18 @@ export class NationalDashboardComponent implements OnInit {
   getClasePorcentaje(porcentaje: number): string {
     return this.metasService.getClasePorcentaje(porcentaje * 100);
   }
+
+  getClaseSemaforo(porcentaje: number): string {
+    const porcentajeReal = porcentaje * 100;
+
+    if (porcentajeReal > 100.59) {
+      return 'semaforo-sobreejecucion';
+    } else if (porcentajeReal >= 90) {
+      return 'semaforo-buena';
+    } else if (porcentajeReal >= 83) {
+      return 'semaforo-vulnerable';
+    } else {
+      return 'semaforo-bajo';
+    }
+  }
 }

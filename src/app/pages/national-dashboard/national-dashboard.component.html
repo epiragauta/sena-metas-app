@@ -14,14 +14,106 @@
   <!-- #################################### -->
   <!-- ##   JERARQUÍA DE METAS FPI       ## -->
   <!-- #################################### -->
-  
+
   <div class="hierarchy-section">
     <div class="data-section">
       <h2 class="section-title">Metas Formación Profesional Integral</h2>
-      <div *ngFor="let node of data.nationalGoals; trackBy: trackById">
-        <ng-container *ngTemplateOutlet="nodeTpl; context: { $implicit: node }"></ng-container>
+
+      <!-- Root Node (Parent) -->
+      <div *ngFor="let rootNode of data.nationalGoals; trackBy: trackById">
+        <ng-container *ngIf="rootNode.level === 0">
+          <!-- Parent Card -->
+          <div class="parent-card">
+            <div class="parent-header" (click)="toggleNode(rootNode)" [class.expandable]="rootNode.children.length > 0">
+              <div class="parent-title-section">
+                <span class="toggle-icon" *ngIf="rootNode.children.length > 0">
+                  {{ rootNode.isCollapsed ? '►' : '▼' }}
+                </span>
+                <h3 class="parent-title">{{ rootNode.descripcion }}</h3>
+              </div>
+              <div class="parent-metrics">
+                <div class="parent-metric">
+                  <span class="metric-label">Meta:</span>
+                  <span class="metric-value-large">{{ rootNode.meta | number:'1.0-0' }}</span>
+                </div>
+                <div class="parent-metric">
+                  <span class="metric-label">Ejecutado:</span>
+                  <span class="metric-value-large">{{ rootNode.ejecucion | number:'1.0-0' }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="parent-progress-section">
+              <div class="kpi-percentage" [ngClass]="getClaseSemaforo(rootNode.porcentaje / 100)">
+                {{ rootNode.porcentaje / 100 | percent:'1.2-2' }}
+              </div>
+              <div class="progress">
+                <div class="progress-bar" [ngClass]="getClasePorcentaje(rootNode.porcentaje / 100)"
+                     [style.width.%]="rootNode.porcentaje"></div>
+              </div>
+            </div>
+
+            <!-- Children Cards (Horizontal Layout) -->
+            <div class="children-cards-grid" *ngIf="!rootNode.isCollapsed && rootNode.children.length > 0">
+              <div class="child-card" *ngFor="let child of rootNode.children; trackBy: trackById">
+                <div class="child-card-header">
+                  <h4 class="child-title">{{ child.descripcion }}</h4>
+                </div>
+
+                <div class="child-metrics">
+                  <div class="kpi-percentage" [ngClass]="getClaseSemaforo(child.porcentaje / 100)">
+                    {{ child.porcentaje / 100 | percent:'1.2-2' }}
+                  </div>
+                  <div class="progress">
+                    <div class="progress-bar" [ngClass]="getClasePorcentaje(child.porcentaje / 100)"
+                         [style.width.%]="child.porcentaje"></div>
+                  </div>
+
+                  <div class="child-values">
+                    <div class="value-item">
+                      <span class="value-label">Meta:</span>
+                      <span class="value-number">{{ child.meta | number:'1.0-0' }}</span>
+                    </div>
+                    <div class="value-item">
+                      <span class="value-label">Ejecutado:</span>
+                      <span class="value-number">{{ child.ejecucion | number:'1.0-0' }}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Grandchildren (if any) -->
+                <div class="grandchildren-section" *ngIf="child.children && child.children.length > 0">
+                  <div class="grandchild-toggle" (click)="toggleNode(child)">
+                    <span class="toggle-icon-small">{{ child.isCollapsed ? '►' : '▼' }}</span>
+                    <span class="grandchild-toggle-text">
+                      {{ child.isCollapsed ? 'Ver detalles' : 'Ocultar detalles' }} ({{ child.children.length }})
+                    </span>
+                  </div>
+
+                  <div class="grandchildren-grid" *ngIf="!child.isCollapsed">
+                    <div class="grandchild-card" *ngFor="let grandchild of child.children; trackBy: trackById">
+                      <div class="grandchild-title">{{ grandchild.descripcion }}</div>
+                      <div class="grandchild-percentage" [ngClass]="getClaseSemaforo(grandchild.porcentaje / 100)">
+                        {{ grandchild.porcentaje / 100 | percent:'1.1-1' }}
+                      </div>
+                      <div class="mini-progress">
+                        <div class="mini-progress-bar" [ngClass]="getClasePorcentaje(grandchild.porcentaje / 100)"
+                             [style.width.%]="grandchild.porcentaje"></div>
+                      </div>
+                      <div class="grandchild-values">
+                        <div><small>Meta: {{ grandchild.meta | number:'1.0-0' }}</small></div>
+                        <div><small>Ejec: {{ grandchild.ejecucion | number:'1.0-0' }}</small></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
       </div>
-    </div>    
+    </div>
   </div>
   
 
