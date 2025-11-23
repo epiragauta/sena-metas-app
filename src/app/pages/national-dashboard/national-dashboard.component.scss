@@ -624,3 +624,133 @@
     grid-template-columns: 1fr;
   }
 }
+
+// ================================================
+// NIVEL DE FORMACIÓN - CARD LAYOUT WITH STRATEGIES
+// ================================================
+
+.nivel-parent-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+  overflow: hidden;
+
+  &.nested {
+    margin-top: 1rem;
+    margin-left: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+}
+
+.nivel-parent-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background: linear-gradient(135deg, var(--sena-verde) 0%, var(--sena-verde-oscuro) 100%);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &.expandable:hover {
+    background: linear-gradient(135deg, var(--sena-verde-oscuro) 0%, var(--sena-verde) 100%);
+  }
+}
+
+.nivel-parent-progress-section {
+  padding: 1.5rem 2rem;
+  background: white;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+// Grid de Estrategias (3 columnas)
+.strategies-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  padding: 2rem;
+  background: #f9f9f9;
+}
+
+// Tarjeta individual de estrategia
+.strategy-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.strategy-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 0.5rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--sena-verde);
+  text-align: center;
+}
+
+.strategy-percentage {
+  font-size: 1.6rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 0.5rem 0;
+}
+
+.strategy-values {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.value-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.25rem 0;
+}
+
+// Sección de Children para niveles anidados
+.children-section {
+  padding: 1rem 2rem 2rem 2rem;
+  background: white;
+}
+
+// Responsive para estrategias
+@media (max-width: 1024px) {
+  .strategies-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .nivel-parent-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .strategies-grid {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+
+  .nivel-parent-card.nested {
+    margin-left: 0;
+  }
+
+  .children-section {
+    padding: 1rem;
+  }
+}

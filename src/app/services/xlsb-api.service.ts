@@ -264,4 +264,73 @@ export class XlsbApiService {
 
     return this.http.post<UploadMetasResponse>(`${this.apiUrl}/upload-metas`, formData);
   }
+
+  // ========================================
+  // MÉTODOS PARA CONSULTAR EJECUCIÓN (MongoDB)
+  // ========================================
+
+  /**
+   * Obtiene datos de ejecución de centros desde MongoDB
+   */
+  getEjecucionCentros(limit?: number, offset?: number): Observable<any[]> {
+    let url = `${this.apiUrl}/mongodb/collections/ejecucion_fpi_centros`;
+    const params: string[] = [];
+
+    if (limit) params.push(`limit=${limit}`);
+    if (offset) params.push(`offset=${offset}`);
+
+    if (params.length > 0) {
+      url += '?' + params.join('&');
+    }
+
+    return this.http.get<MetasCollectionResponse>(url).pipe(
+      map(response => response.data)
+    );
+  }
+
+  /**
+   * Obtiene datos de ejecución regionales desde MongoDB
+   */
+  getEjecucionRegional(limit?: number, offset?: number): Observable<any[]> {
+    let url = `${this.apiUrl}/mongodb/collections/ejecucion_fpi_regional`;
+    const params: string[] = [];
+
+    if (limit) params.push(`limit=${limit}`);
+    if (offset) params.push(`offset=${offset}`);
+
+    if (params.length > 0) {
+      url += '?' + params.join('&');
+    }
+
+    return this.http.get<MetasCollectionResponse>(url).pipe(
+      map(response => response.data)
+    );
+  }
+
+  /**
+   * Obtiene datos de ejecución de un centro específico por código
+   */
+  getEjecucionPorCentro(codigoCentro: number): Observable<any | null> {
+    return this.getEjecucionCentros().pipe(
+      map(ejecucion => ejecucion.find(e => e.COD_CENTRO === codigoCentro) || null)
+    );
+  }
+
+  /**
+   * Obtiene datos de ejecución de una regional específica por código
+   */
+  getEjecucionPorRegional(codigoRegional: number): Observable<any | null> {
+    return this.getEjecucionRegional().pipe(
+      map(ejecucion => ejecucion.find(e => e.COD_REGIONAL === codigoRegional) || null)
+    );
+  }
+
+  /**
+   * Obtiene todos los datos de ejecución de centros de una regional específica
+   */
+  getEjecucionCentrosPorRegional(codigoRegional: number): Observable<any[]> {
+    return this.getEjecucionCentros().pipe(
+      map(ejecucion => ejecucion.filter(e => e.COD_REGIONAL === codigoRegional))
+    );
+  }
 }
