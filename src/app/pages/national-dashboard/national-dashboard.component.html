@@ -45,12 +45,11 @@
 
             <!-- Progress Bar -->
             <div class="parent-progress-section">
-              <div class="kpi-percentage" [ngClass]="getClaseSemaforo(rootNode.porcentaje / 100)">
-                {{ rootNode.porcentaje / 100 | percent:'1.2-2' }}
-              </div>
               <div class="progress">
                 <div class="progress-bar" [ngClass]="getClasePorcentaje(rootNode.porcentaje / 100)"
-                     [style.width.%]="rootNode.porcentaje"></div>
+                     [style.width.%]="rootNode.porcentaje">
+                  {{ rootNode.porcentaje / 100 | percent:'1.2-2' }}
+                </div>
               </div>
             </div>
 
@@ -214,12 +213,11 @@
 
     <!-- Progress Bar Total -->
     <div class="nivel-parent-progress-section">
-      <div class="kpi-percentage" [ngClass]="getClaseSemaforo(calcularPorcentaje(node.totalMeta, calcularTotalEjecucion(node)))">
-        {{ calcularPorcentaje(node.totalMeta, calcularTotalEjecucion(node)) | percent:'1.2-2' }}
-      </div>
       <div class="progress">
         <div class="progress-bar" [ngClass]="getClasePorcentaje(calcularPorcentaje(node.totalMeta, calcularTotalEjecucion(node)))"
-             [style.width.%]="calcularPorcentaje(node.totalMeta, calcularTotalEjecucion(node)) * 100"></div>
+             [style.width.%]="calcularPorcentaje(node.totalMeta, calcularTotalEjecucion(node)) * 100">
+          {{ calcularPorcentaje(node.totalMeta, calcularTotalEjecucion(node)) | percent:'1.2-2' }}
+        </div>
       </div>
     </div>
 
@@ -228,66 +226,48 @@
       <!-- Estrategia Regular -->
       <div class="strategy-card">
         <h4 class="strategy-title">Regular</h4>
-        <div class="strategy-percentage" [ngClass]="getClaseSemaforo(calcularPorcentaje(node.regularMeta, node.regularEjecucion))">
-          {{ calcularPorcentaje(node.regularMeta, node.regularEjecucion) | percent:'1.2-2' }}
-        </div>
         <div class="progress">
           <div class="progress-bar" [ngClass]="getClasePorcentaje(calcularPorcentaje(node.regularMeta, node.regularEjecucion))"
-               [style.width.%]="calcularPorcentaje(node.regularMeta, node.regularEjecucion) * 100"></div>
+               [style.width.%]="calcularPorcentaje(node.regularMeta, node.regularEjecucion) * 100">
+            {{ calcularPorcentaje(node.regularMeta, node.regularEjecucion) | percent:'1.1-1' }}
+          </div>
         </div>
-        <div class="strategy-values">
-          <div class="value-row">
-            <span class="value-label">Meta:</span>
-            <span class="value-number">{{ node.regularMeta | number:'1.0-0' }}</span>
-          </div>
-          <div class="value-row">
-            <span class="value-label">Ejecutado:</span>
-            <span class="value-number">{{ node.regularEjecucion | number:'1.0-0' }}</span>
-          </div>
+        <div class="strategy-values-compact">
+          <span><strong>Meta:</strong> {{ node.regularMeta | number:'1.0-0' }}</span>
+          <span class="separator">|</span>
+          <span><strong>Ejec:</strong> {{ node.regularEjecucion | number:'1.0-0' }}</span>
         </div>
       </div>
 
       <!-- Estrategia Campesena -->
       <div class="strategy-card">
         <h4 class="strategy-title">Campesena</h4>
-        <div class="strategy-percentage" [ngClass]="getClaseSemaforo(calcularPorcentaje(node.campesenaMeta, node.campesenaEjecucion))">
-          {{ calcularPorcentaje(node.campesenaMeta, node.campesenaEjecucion) | percent:'1.2-2' }}
-        </div>
         <div class="progress">
           <div class="progress-bar" [ngClass]="getClasePorcentaje(calcularPorcentaje(node.campesenaMeta, node.campesenaEjecucion))"
-               [style.width.%]="calcularPorcentaje(node.campesenaMeta, node.campesenaEjecucion) * 100"></div>
+               [style.width.%]="calcularPorcentaje(node.campesenaMeta, node.campesenaEjecucion) * 100">
+            {{ calcularPorcentaje(node.campesenaMeta, node.campesenaEjecucion) | percent:'1.1-1' }}
+          </div>
         </div>
-        <div class="strategy-values">
-          <div class="value-row">
-            <span class="value-label">Meta:</span>
-            <span class="value-number">{{ node.campesenaMeta | number:'1.0-0' }}</span>
-          </div>
-          <div class="value-row">
-            <span class="value-label">Ejecutado:</span>
-            <span class="value-number">{{ node.campesenaEjecucion | number:'1.0-0' }}</span>
-          </div>
+        <div class="strategy-values-compact">
+          <span><strong>Meta:</strong> {{ node.campesenaMeta | number:'1.0-0' }}</span>
+          <span class="separator">|</span>
+          <span><strong>Ejec:</strong> {{ node.campesenaEjecucion | number:'1.0-0' }}</span>
         </div>
       </div>
 
       <!-- Estrategia Full Popular -->
       <div class="strategy-card">
         <h4 class="strategy-title">Full Popular</h4>
-        <div class="strategy-percentage" [ngClass]="getClaseSemaforo(calcularPorcentaje(node.fullPopularMeta, node.fullPopularEjecucion))">
-          {{ calcularPorcentaje(node.fullPopularMeta, node.fullPopularEjecucion) | percent:'1.2-2' }}
-        </div>
         <div class="progress">
           <div class="progress-bar" [ngClass]="getClasePorcentaje(calcularPorcentaje(node.fullPopularMeta, node.fullPopularEjecucion))"
-               [style.width.%]="calcularPorcentaje(node.fullPopularMeta, node.fullPopularEjecucion) * 100"></div>
+               [style.width.%]="calcularPorcentaje(node.fullPopularMeta, node.fullPopularEjecucion) * 100">
+            {{ calcularPorcentaje(node.fullPopularMeta, node.fullPopularEjecucion) | percent:'1.1-1' }}
+          </div>
         </div>
-        <div class="strategy-values">
-          <div class="value-row">
-            <span class="value-label">Meta:</span>
-            <span class="value-number">{{ node.fullPopularMeta | number:'1.0-0' }}</span>
-          </div>
-          <div class="value-row">
-            <span class="value-label">Ejecutado:</span>
-            <span class="value-number">{{ node.fullPopularEjecucion | number:'1.0-0' }}</span>
-          </div>
+        <div class="strategy-values-compact">
+          <span><strong>Meta:</strong> {{ node.fullPopularMeta | number:'1.0-0' }}</span>
+          <span class="separator">|</span>
+          <span><strong>Ejec:</strong> {{ node.fullPopularEjecucion | number:'1.0-0' }}</span>
         </div>
       </div>
     </div>
