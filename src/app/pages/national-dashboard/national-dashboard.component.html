@@ -1,0 +1,594 @@
+<!-- Indicador de Carga -->
+<div *ngIf="cargando" class="loading-container">
+  <div class="spinner"></div>
+  <p>Cargando datos del dashboard nacional...</p>
+</div>
+
+<!-- Contenedor Principal del Dashboard -->
+<div *ngIf="dashboardData$ | async as data" class="dashboard-container fade-in">
+  <div class="page-header">
+    <h1 class="page-title">Metas Formación Profesional Integral</h1>
+    <p class="page-subtitle">Jerarquía de metas de Formación Profesional Integral</p>
+  </div>
+
+  <!-- #################################### -->
+  <!-- ##   JERARQUÍA DE METAS FPI       ## -->
+  <!-- #################################### -->
+
+  <div class="hierarchy-section">
+    <div class="data-section">
+      <h2 class="section-title">Metas Formación Profesional Integral</h2>
+
+      <!-- Root Node (Parent) -->
+      <div *ngFor="let rootNode of data.nationalGoals; trackBy: trackById">
+        <ng-container *ngIf="rootNode.level === 0">
+          <!-- Parent Card -->
+          <div class="parent-card">
+            <div class="parent-header" (click)="toggleNode(rootNode)" [class.expandable]="rootNode.children.length > 0">
+              <div class="parent-title-section">
+                <span class="toggle-icon" *ngIf="rootNode.children.length > 0">
+                  {{ rootNode.isCollapsed ? '►' : '▼' }}
+                </span>
+                <h3 class="parent-title">{{ rootNode.descripcion }}</h3>
+              </div>
+              <div class="parent-metrics">
+                <div class="parent-metric">
+                  <span class="metric-label">Meta:</span>
+                  <span class="metric-value-large">{{ rootNode.meta | number:'1.0-0' }}</span>
+                </div>
+                <div class="parent-metric">
+                  <span class="metric-label">Ejecución</span>
+                  <span class="metric-value-large">{{ rootNode.ejecucion | number:'1.0-0' }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="parent-progress-section">
+              <div class="progress" [class.has-overflow]="rootNode.porcentaje > 100">
+                <div class="progress-bar" [ngClass]="getClasePorcentaje(rootNode.porcentaje / 100)"
+                  [style.width.%]="rootNode.porcentaje > 100 ? 100 : rootNode.porcentaje">
+                  {{ rootNode.porcentaje / 100 | percent:'1.2-2' }}
+                </div>
+              </div>
+            </div>
+
+            <!-- Children Cards (Horizontal Layout) -->
+            <div class="children-cards-grid" *ngIf="!rootNode.isCollapsed && rootNode.children.length > 0">
+              <div class="child-card" *ngFor="let child of rootNode.children; trackBy: trackById">
+                <div class="child-card-header">
+                  <h4 class="child-title">{{ child.descripcion }}</h4>
+                </div>
+
+                <div class="child-metrics">
+                  <div class="progress" [class.has-overflow]="child.porcentaje > 100">
+                    <div class="progress-bar" [ngClass]="getClasePorcentaje(child.porcentaje / 100)"
+                      [style.width.%]="child.porcentaje > 100 ? 100 : child.porcentaje">
+                      {{ child.porcentaje / 100 | percent:'1.2-2' }}
+                    </div>
+                  </div>
+
+                  <div class="child-values">
+                    <div class="value-item">
+                      <span class="value-label">Meta:</span>
+                      <span class="value-number">{{ child.meta | number:'1.0-0' }}</span>
+                    </div>
+                    <div class="value-item">
+                      <span class="value-label">Ejecución</span>
+                      <span class="value-number">{{ child.ejecucion | number:'1.0-0' }}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Grandchildren (if any) -->
+                <div class="grandchildren-section" *ngIf="child.children && child.children.length > 0">
+                  <div class="grandchild-toggle" (click)="toggleNode(child)">
+                    <span class="toggle-icon-small">{{ child.isCollapsed ? '►' : '▼' }}</span>
+                    <span class="grandchild-toggle-text">
+                      {{ child.isCollapsed ? 'Ver detalles' : 'Ocultar detalles' }} ({{ child.children.length }})
+                    </span>
+                  </div>
+
+                  <div class="grandchildren-grid" *ngIf="!child.isCollapsed">
+                    <div class="grandchild-card" *ngFor="let grandchild of child.children; trackBy: trackById">
+                      <div class="grandchild-title">{{ grandchild.descripcion }}</div>
+                      <div class="mini-progress" [class.has-overflow]="grandchild.porcentaje > 100">
+                        <div class="mini-progress-bar" [ngClass]="getClasePorcentaje(grandchild.porcentaje / 100)"
+                          [style.width.%]="grandchild.porcentaje > 100 ? 100 : grandchild.porcentaje">
+                          {{ grandchild.porcentaje / 100 | percent:'1.1-1' }}
+                        </div>
+                      </div>
+                      <div class="grandchild-values">
+                        <div><small>Meta: {{ grandchild.meta | number:'1.0-0' }}</small></div>
+                        <div><small>Ejec: {{ grandchild.ejecucion | number:'1.0-0' }}</small></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- #################################### -->
+  <!-- ##      SECCIONES ADICIONALES     ## -->
+  <!-- #################################### -->
+  <div class="additional-sections">
+
+    <!-- Sección: Formación por Nivel -->
+    <div *ngIf="data.formacionPorNivelTree" class="data-section">
+      <h2 class="section-title">Metas por Nivel de Formación</h2>
+      <div *ngFor="let node of data.formacionPorNivelTree; trackBy: trackById">
+        <ng-container *ngTemplateOutlet="nivelNodeTpl; context: { $implicit: node }"></ng-container>
+      </div>
+    </div>
+
+    <!-- Sección: Metas Programas Relevantes -->
+    <div *ngIf="data.programasRelevantes && data.programasRelevantes.length > 0" class="data-section">
+      <h2 class="section-title">Metas Programas Relevantes</h2>
+
+      <!-- Grid de 3 Programas -->
+      <div class="programas-grid">
+        <div class="programa-card" *ngFor="let programa of data.programasRelevantes; trackBy: trackById">
+          <div class="programa-card-header">
+            <h4 class="programa-title">{{ programa.descripcion }}</h4>
+          </div>
+
+          <div class="programa-metrics">
+            <div class="progress" [class.has-overflow]="programa.porcentaje > 100">
+              <div class="progress-bar" [ngClass]="getClasePorcentaje(programa.porcentaje / 100)"
+                [style.width.%]="programa.porcentaje > 100 ? 100 : programa.porcentaje">
+                {{ programa.porcentaje / 100 | percent:'1.2-2' }}
+              </div>
+            </div>
+
+            <div class="programa-values">
+              <div class="value-item">
+                <span class="value-label">Meta:</span>
+                <span class="value-number">{{ programa.meta | number:'1.0-0' }}</span>
+              </div>
+              <div class="value-item">
+                <span class="value-label">Ejecutado:</span>
+                <span class="value-number">{{ programa.ejecucion | number:'1.0-0' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección: Metas Primer Curso
+    <div *ngIf="data.metasPrimerCurso" class="data-section">
+      <h2 class="section-title">Metas Primer Curso</h2>
+
+       Tarjeta única centrada 
+      <div class="primer-curso-container">
+        <div class="primer-curso-card">
+          <div class="primer-curso-header">
+            <h4 class="primer-curso-title">{{ data.metasPrimerCurso.descripcion }}</h4>
+          </div>
+
+          <div class="primer-curso-metrics">
+            <div class="progress" [class.has-overflow]="data.metasPrimerCurso.porcentaje > 100">
+              <div class="progress-bar" [ngClass]="getClasePorcentaje(data.metasPrimerCurso.porcentaje / 100)"
+                   [style.width.%]="data.metasPrimerCurso.porcentaje > 100 ? 100 : data.metasPrimerCurso.porcentaje">
+                {{ data.metasPrimerCurso.porcentaje / 100 | percent:'1.2-2' }}
+              </div>
+            </div>
+
+            <div class="primer-curso-values">
+              <div class="value-item-large">
+                <span class="value-label">Meta:</span>
+                <span class="value-number-large">{{ data.metasPrimerCurso.meta | number:'1.0-0' }}</span>
+              </div>
+              <div class="value-item-large">
+                <span class="value-label">Ejecutado:</span>
+                <span class="value-number-large">{{ data.metasPrimerCurso.ejecucion | number:'1.0-0' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- Sección: Métricas Principales -->
+    <div *ngIf="data.metricasAdicionales" class="data-section">
+      <ng-container *ngFor="let key of getMetricasKeys(data.metricasAdicionales); let first = first">
+        <ng-container *ngIf="first">
+          <h2 class="section-title">{{ key }}</h2>
+
+          <!-- Layout Principal: 3 columnas (1 compacta + 2 grandes) -->
+          <div class="metricas-principales-layout">
+
+            <!-- Columna 1: INSCRITOS + VACANTES (vertical) -->
+            <div class="metricas-basicas-columna">
+              <!-- INSCRITOS -->
+              <div class="programa-card programa-card-compacto">
+                <div class="programa-card-header">
+                  <h4 class="programa-title">{{ getMetricasPrincipales(data.metricasAdicionales[key])[0].nombreMetrica
+                    }}</h4>
+                </div>
+
+                <div class="programa-metrics">
+                  <div class="progress"
+                    [class.has-overflow]="calcularPorcentaje(getMetricasPrincipales(data.metricasAdicionales[key])[0].meta, getMetricasPrincipales(data.metricasAdicionales[key])[0].ejecucion) > 1">
+                    <div class="progress-bar"
+                      [ngClass]="getClasePorcentaje(calcularPorcentaje(getMetricasPrincipales(data.metricasAdicionales[key])[0].meta, getMetricasPrincipales(data.metricasAdicionales[key])[0].ejecucion))"
+                      [style.width.%]="calcularPorcentaje(getMetricasPrincipales(data.metricasAdicionales[key])[0].meta, getMetricasPrincipales(data.metricasAdicionales[key])[0].ejecucion) > 1 ? 100 : calcularPorcentaje(getMetricasPrincipales(data.metricasAdicionales[key])[0].meta, getMetricasPrincipales(data.metricasAdicionales[key])[0].ejecucion) * 100">
+                      {{ calcularPorcentaje(getMetricasPrincipales(data.metricasAdicionales[key])[0].meta,
+                      getMetricasPrincipales(data.metricasAdicionales[key])[0].ejecucion) | percent:'1.2-2' }}
+                    </div>
+                  </div>
+
+                  <div class="programa-values">
+                    <div class="value-item">
+                      <span class="value-label">Meta:</span>
+                      <span class="value-number">{{ getMetricasPrincipales(data.metricasAdicionales[key])[0].meta |
+                        number:(getMetricasPrincipales(data.metricasAdicionales[key])[0].tipoDato === 'porcentaje' ?
+                        '1.2-2' : '1.0-0') }}</span>
+                    </div>
+                    <div class="value-item">
+                      <span class="value-label">Ejecutado:</span>
+                      <span class="value-number">{{ getMetricasPrincipales(data.metricasAdicionales[key])[0].ejecucion |
+                        number:(getMetricasPrincipales(data.metricasAdicionales[key])[0].tipoDato === 'porcentaje' ?
+                        '1.2-2' : '1.0-0') }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- VACANTES -->
+              <div class="programa-card programa-card-compacto">
+                <div class="programa-card-header">
+                  <h4 class="programa-title">{{ getMetricasPrincipales(data.metricasAdicionales[key])[1].nombreMetrica
+                    }}</h4>
+                </div>
+
+                <div class="programa-metrics">
+                  <div class="progress"
+                    [class.has-overflow]="calcularPorcentaje(getMetricasPrincipales(data.metricasAdicionales[key])[1].meta, getMetricasPrincipales(data.metricasAdicionales[key])[1].ejecucion) > 1">
+                    <div class="progress-bar"
+                      [ngClass]="getClasePorcentaje(calcularPorcentaje(getMetricasPrincipales(data.metricasAdicionales[key])[1].meta, getMetricasPrincipales(data.metricasAdicionales[key])[1].ejecucion))"
+                      [style.width.%]="calcularPorcentaje(getMetricasPrincipales(data.metricasAdicionales[key])[1].meta, getMetricasPrincipales(data.metricasAdicionales[key])[1].ejecucion) > 1 ? 100 : calcularPorcentaje(getMetricasPrincipales(data.metricasAdicionales[key])[1].meta, getMetricasPrincipales(data.metricasAdicionales[key])[1].ejecucion) * 100">
+                      {{ calcularPorcentaje(getMetricasPrincipales(data.metricasAdicionales[key])[1].meta,
+                      getMetricasPrincipales(data.metricasAdicionales[key])[1].ejecucion) | percent:'1.2-2' }}
+                    </div>
+                  </div>
+
+                  <div class="programa-values">
+                    <div class="value-item">
+                      <span class="value-label">Meta:</span>
+                      <span class="value-number">{{ getMetricasPrincipales(data.metricasAdicionales[key])[1].meta |
+                        number:(getMetricasPrincipales(data.metricasAdicionales[key])[1].tipoDato === 'porcentaje' ?
+                        '1.2-2' : '1.0-0') }}</span>
+                    </div>
+                    <div class="value-item">
+                      <span class="value-label">Ejecutado:</span>
+                      <span class="value-number">{{ getMetricasPrincipales(data.metricasAdicionales[key])[1].ejecucion |
+                        number:(getMetricasPrincipales(data.metricasAdicionales[key])[1].tipoDato === 'porcentaje' ?
+                        '1.2-2' : '1.0-0') }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Columna 2 y 3: TOTAL COLOCACIONES y TOTAL ORIENTADOS (lado a lado) -->
+            <div class="programa-card">
+              <div class="programa-card-header">
+                <h4 class="programa-title">{{ getMetricasPrincipales(data.metricasAdicionales[key])[2].nombreMetrica }}
+                </h4>
+              </div>
+
+              <div class="programa-metrics">
+                <div class="progress"
+                  [class.has-overflow]="calcularPorcentaje(getMetricasPrincipales(data.metricasAdicionales[key])[2].meta, getMetricasPrincipales(data.metricasAdicionales[key])[2].ejecucion) > 1">
+                  <div class="progress-bar"
+                    [ngClass]="getClasePorcentaje(calcularPorcentaje(getMetricasPrincipales(data.metricasAdicionales[key])[2].meta, getMetricasPrincipales(data.metricasAdicionales[key])[2].ejecucion))"
+                    [style.width.%]="calcularPorcentaje(getMetricasPrincipales(data.metricasAdicionales[key])[2].meta, getMetricasPrincipales(data.metricasAdicionales[key])[2].ejecucion) > 1 ? 100 : calcularPorcentaje(getMetricasPrincipales(data.metricasAdicionales[key])[2].meta, getMetricasPrincipales(data.metricasAdicionales[key])[2].ejecucion) * 100">
+                    {{ calcularPorcentaje(getMetricasPrincipales(data.metricasAdicionales[key])[2].meta,
+                    getMetricasPrincipales(data.metricasAdicionales[key])[2].ejecucion) | percent:'1.2-2' }}
+                  </div>
+                </div>
+
+                <div class="programa-values">
+                  <div class="value-item">
+                    <span class="value-label">Meta:</span>
+                    <span class="value-number">{{ getMetricasPrincipales(data.metricasAdicionales[key])[2].meta |
+                      number:(getMetricasPrincipales(data.metricasAdicionales[key])[2].tipoDato === 'porcentaje' ?
+                      '1.2-2' : '1.0-0') }}</span>
+                  </div>
+                  <div class="value-item">
+                    <span class="value-label">Ejecutado:</span>
+                    <span class="value-number">{{ getMetricasPrincipales(data.metricasAdicionales[key])[2].ejecucion |
+                      number:(getMetricasPrincipales(data.metricasAdicionales[key])[2].tipoDato === 'porcentaje' ?
+                      '1.2-2' : '1.0-0') }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Detalles TOTAL COLOCACIONES - SIEMPRE VISIBLES -->
+              <div class="grandchildren-section"
+                *ngIf="getMetricasPrincipales(data.metricasAdicionales[key])[2].esTotal === 1 && getDetallesMetrica(getMetricasPrincipales(data.metricasAdicionales[key])[2].id, data.metricasAdicionales[key]).length > 0">
+                <div class="detalles-titulo">Detalles</div>
+
+                <div class="grandchildren-grid grandchildren-grid-colocaciones">
+                  <div class="grandchild-card"
+                    *ngFor="let detalle of getDetallesMetrica(getMetricasPrincipales(data.metricasAdicionales[key])[2].id, data.metricasAdicionales[key]); trackBy: trackById">
+                    <div class="grandchild-title">{{ detalle.nombreMetrica }}</div>
+
+                    <!-- Mostrar barra solo si NO es TASA -->
+                    <ng-container *ngIf="detalle.id !== 42">
+                      <div class="mini-progress"
+                        [class.has-overflow]="calcularPorcentaje(detalle.meta, detalle.ejecucion) > 1">
+                        <div class="mini-progress-bar"
+                          [ngClass]="getClasePorcentaje(calcularPorcentaje(detalle.meta, detalle.ejecucion))"
+                          [style.width.%]="calcularPorcentaje(detalle.meta, detalle.ejecucion) > 1 ? 100 : calcularPorcentaje(detalle.meta, detalle.ejecucion) * 100">
+                          {{ calcularPorcentaje(detalle.meta, detalle.ejecucion) | percent:'1.1-1' }}
+                        </div>
+                      </div>
+                    </ng-container>
+
+                    <!-- Para TASA solo mostrar porcentaje sin barra -->
+                    <div class="tasa-valor" *ngIf="detalle.id === 42">
+                      {{ calcularPorcentaje(detalle.meta, detalle.ejecucion) | percent:'1.2-2' }}
+                    </div>
+
+                    <div class="grandchild-values">
+                      <div *ngIf="detalle.id !== 42"><small>Meta: {{ detalle.meta | number:(detalle.tipoDato ===
+                          'porcentaje' ? '1.2-2' : '1.0-0') }}</small></div>
+                      <div *ngIf="detalle.id !== 42"><small>Ejec: {{ detalle.ejecucion | number:(detalle.tipoDato ===
+                          'porcentaje' ? '1.2-2' : '1.0-0') }}</small></div>
+
+                      <!-- TASA: Mostrar como porcentaje con símbolo % -->
+                      <div *ngIf="detalle.id === 42"><small>Meta: {{ detalle.meta * 100 | number:'1.2-2' }}%</small>
+                      </div>
+                      <div *ngIf="detalle.id === 42"><small>Ejec: {{ detalle.ejecucion * 100 | number:'1.2-2'
+                          }}%</small></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Columna 3: TOTAL ORIENTADOS -->
+            <div class="programa-card">
+              <div class="programa-card-header">
+                <h4 class="programa-title">{{ getMetricasPrincipales(data.metricasAdicionales[key])[3].nombreMetrica }}
+                </h4>
+              </div>
+
+              <div class="programa-metrics">
+                <div class="progress"
+                  [class.has-overflow]="calcularPorcentaje(getMetricasPrincipales(data.metricasAdicionales[key])[3].meta, getMetricasPrincipales(data.metricasAdicionales[key])[3].ejecucion) > 1">
+                  <div class="progress-bar"
+                    [ngClass]="getClasePorcentaje(calcularPorcentaje(getMetricasPrincipales(data.metricasAdicionales[key])[3].meta, getMetricasPrincipales(data.metricasAdicionales[key])[3].ejecucion))"
+                    [style.width.%]="calcularPorcentaje(getMetricasPrincipales(data.metricasAdicionales[key])[3].meta, getMetricasPrincipales(data.metricasAdicionales[key])[3].ejecucion) > 1 ? 100 : calcularPorcentaje(getMetricasPrincipales(data.metricasAdicionales[key])[3].meta, getMetricasPrincipales(data.metricasAdicionales[key])[3].ejecucion) * 100">
+                    {{ calcularPorcentaje(getMetricasPrincipales(data.metricasAdicionales[key])[3].meta,
+                    getMetricasPrincipales(data.metricasAdicionales[key])[3].ejecucion) | percent:'1.2-2' }}
+                  </div>
+                </div>
+
+                <div class="programa-values">
+                  <div class="value-item">
+                    <span class="value-label">Meta:</span>
+                    <span class="value-number">{{ getMetricasPrincipales(data.metricasAdicionales[key])[3].meta |
+                      number:(getMetricasPrincipales(data.metricasAdicionales[key])[3].tipoDato === 'porcentaje' ?
+                      '1.2-2' : '1.0-0') }}</span>
+                  </div>
+                  <div class="value-item">
+                    <span class="value-label">Ejecutado:</span>
+                    <span class="value-number">{{ getMetricasPrincipales(data.metricasAdicionales[key])[3].ejecucion |
+                      number:(getMetricasPrincipales(data.metricasAdicionales[key])[3].tipoDato === 'porcentaje' ?
+                      '1.2-2' : '1.0-0') }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Detalles TOTAL ORIENTADOS - SIEMPRE VISIBLES -->
+              <div class="grandchildren-section"
+                *ngIf="getMetricasPrincipales(data.metricasAdicionales[key])[3].esTotal === 1 && getDetallesMetrica(getMetricasPrincipales(data.metricasAdicionales[key])[3].id, data.metricasAdicionales[key]).length > 0">
+                <div class="detalles-titulo">Detalles</div>
+
+                <div class="grandchildren-grid grandchildren-grid-orientados">
+                  <div class="grandchild-card"
+                    *ngFor="let detalle of getDetallesMetrica(getMetricasPrincipales(data.metricasAdicionales[key])[3].id, data.metricasAdicionales[key]); trackBy: trackById">
+                    <div class="grandchild-title">{{ detalle.nombreMetrica }}</div>
+                    <div class="mini-progress"
+                      [class.has-overflow]="calcularPorcentaje(detalle.meta, detalle.ejecucion) > 1">
+                      <div class="mini-progress-bar"
+                        [ngClass]="getClasePorcentaje(calcularPorcentaje(detalle.meta, detalle.ejecucion))"
+                        [style.width.%]="calcularPorcentaje(detalle.meta, detalle.ejecucion) > 1 ? 100 : calcularPorcentaje(detalle.meta, detalle.ejecucion) * 100">
+                        {{ calcularPorcentaje(detalle.meta, detalle.ejecucion) | percent:'1.1-1' }}
+                      </div>
+                    </div>
+                    <div class="grandchild-values">
+                      <div><small>Meta: {{ detalle.meta | number:(detalle.tipoDato === 'porcentaje' ? '1.2-2' : '1.0-0')
+                          }}</small></div>
+                      <div><small>Ejec: {{ detalle.ejecucion | number:(detalle.tipoDato === 'porcentaje' ? '1.2-2' :
+                          '1.0-0') }}</small></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+
+    <!-- Sección: Métricas Adicionales -->
+    <div *ngIf="data.metricasAdicionales" class="data-section">
+      <ng-container *ngFor="let key of getMetricasKeys(data.metricasAdicionales)">
+        <h2 class="section-title">{{ key }}</h2>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Métrica</th>
+                <th>Meta</th>
+                <th>Ejecución</th>
+                <th>Cumplimiento</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let metrica of data.metricasAdicionales[key]">
+                <td>{{ metrica.nombreMetrica }}</td>
+                <td>{{ metrica.meta | number:(metrica.tipoDato === 'porcentaje' ? '1.2-2' : '1.0-0') }}</td>
+                <td>{{ metrica.ejecucion | number:(metrica.tipoDato === 'porcentaje' ? '1.2-2' : '1.0-0') }}</td>
+                <td [ngClass]="getClasePorcentaje(calcularPorcentaje(metrica.meta, metrica.ejecucion))">
+                  {{ calcularPorcentaje(metrica.meta, metrica.ejecucion) | percent:'1.2-2' }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ng-container>
+    </div>
+
+  </div>
+</div>
+
+<!-- Plantilla Recursiva para cada Nodo de Nivel -->
+<ng-template #nivelNodeTpl let-node>
+  <div class="nivel-parent-card" [class.nested]="node.level > 0">
+    <!-- Cabecera de la Tarjeta (Clickable) -->
+    <div class="nivel-parent-header" (click)="toggleNivelNode(node)" [class.expandable]="node.children.length > 0">
+      <div class="parent-title-section">
+        <span class="toggle-icon" *ngIf="node.children.length > 0">
+          {{ node.isCollapsed ? '►' : '▼' }}
+        </span>
+        <h3 class="parent-title">{{ node.nivelFormacion }}</h3>
+      </div>
+      <div class="parent-metrics">
+        <div class="parent-metric">
+          <span class="metric-label">Meta:</span>
+          <span class="metric-value-large">{{ node.totalMeta | number:'1.0-0' }}</span>
+        </div>
+        <div class="parent-metric">
+          <span class="metric-label">Ejecución</span>
+          <span class="metric-value-large">{{ calcularTotalEjecucion(node) | number:'1.0-0' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Progress Bar Total -->
+    <div class="nivel-parent-progress-section">
+      <div class="progress" [class.has-overflow]="calcularPorcentaje(node.totalMeta, calcularTotalEjecucion(node)) > 1">
+        <div class="progress-bar"
+          [ngClass]="getClasePorcentaje(calcularPorcentaje(node.totalMeta, calcularTotalEjecucion(node)))"
+          [style.width.%]="calcularPorcentaje(node.totalMeta, calcularTotalEjecucion(node)) > 1 ? 100 : calcularPorcentaje(node.totalMeta, calcularTotalEjecucion(node)) * 100">
+          {{ calcularPorcentaje(node.totalMeta, calcularTotalEjecucion(node)) | percent:'1.2-2' }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid de Estrategias (3 columnas) -->
+    <div class="strategies-grid">
+      <!-- Estrategia Regular -->
+      <div class="strategy-card">
+        <h4 class="strategy-title">Regular</h4>
+        <div class="progress" [class.has-overflow]="calcularPorcentaje(node.regularMeta, node.regularEjecucion) > 1">
+          <div class="progress-bar"
+            [ngClass]="getClasePorcentaje(calcularPorcentaje(node.regularMeta, node.regularEjecucion))"
+            [style.width.%]="calcularPorcentaje(node.regularMeta, node.regularEjecucion) > 1 ? 100 : calcularPorcentaje(node.regularMeta, node.regularEjecucion) * 100">
+            {{ calcularPorcentaje(node.regularMeta, node.regularEjecucion) | percent:'1.1-1' }}
+          </div>
+        </div>
+        <div class="strategy-values-compact">
+          <span><strong>Meta:</strong> {{ node.regularMeta | number:'1.0-0' }}</span>
+          <span class="separator">|</span>
+          <span><strong>Ejec:</strong> {{ node.regularEjecucion | number:'1.0-0' }}</span>
+        </div>
+      </div>
+
+      <!-- Estrategia Campesena -->
+      <div class="strategy-card">
+        <h4 class="strategy-title">Campesena</h4>
+        <div class="progress"
+          [class.has-overflow]="calcularPorcentaje(node.campesenaMeta, node.campesenaEjecucion) > 1">
+          <div class="progress-bar"
+            [ngClass]="getClasePorcentaje(calcularPorcentaje(node.campesenaMeta, node.campesenaEjecucion))"
+            [style.width.%]="calcularPorcentaje(node.campesenaMeta, node.campesenaEjecucion) > 1 ? 100 : calcularPorcentaje(node.campesenaMeta, node.campesenaEjecucion) * 100">
+            {{ calcularPorcentaje(node.campesenaMeta, node.campesenaEjecucion) | percent:'1.1-1' }}
+          </div>
+        </div>
+        <div class="strategy-values-compact">
+          <span><strong>Meta:</strong> {{ node.campesenaMeta | number:'1.0-0' }}</span>
+          <span class="separator">|</span>
+          <span><strong>Ejec:</strong> {{ node.campesenaEjecucion | number:'1.0-0' }}</span>
+        </div>
+      </div>
+
+      <!-- Estrategia Full Popular -->
+      <div class="strategy-card">
+        <h4 class="strategy-title">Full Popular</h4>
+        <div class="progress"
+          [class.has-overflow]="calcularPorcentaje(node.fullPopularMeta, node.fullPopularEjecucion) > 1">
+          <div class="progress-bar"
+            [ngClass]="getClasePorcentaje(calcularPorcentaje(node.fullPopularMeta, node.fullPopularEjecucion))"
+            [style.width.%]="calcularPorcentaje(node.fullPopularMeta, node.fullPopularEjecucion) > 1 ? 100 : calcularPorcentaje(node.fullPopularMeta, node.fullPopularEjecucion) * 100">
+            {{ calcularPorcentaje(node.fullPopularMeta, node.fullPopularEjecucion) | percent:'1.1-1' }}
+          </div>
+        </div>
+        <div class="strategy-values-compact">
+          <span><strong>Meta:</strong> {{ node.fullPopularMeta | number:'1.0-0' }}</span>
+          <span class="separator">|</span>
+          <span><strong>Ejec:</strong> {{ node.fullPopularEjecucion | number:'1.0-0' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección de Children (Recursiva) -->
+    <div class="children-section" *ngIf="!node.isCollapsed && node.children.length > 0">
+      <div *ngFor="let child of node.children; trackBy: trackById">
+        <ng-container *ngTemplateOutlet="nivelNodeTpl; context: { $implicit: child }"></ng-container>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Plantilla Recursiva para cada Nodo -->
+<ng-template #nodeTpl let-node>
+  <div class="card meta-card" [style.margin-left.rem]="node.level * 1.5">
+    <!-- Cabecera de la Tarjeta (Clickable) -->
+    <div class="card-header" (click)="toggleNode(node)" [class.expandable]="node.children.length > 0">
+      <div class="header-content">
+        <!-- Icono de Expansión -->
+        <span class="toggle-icon" *ngIf="node.children.length > 0">
+          {{ node.isCollapsed ? '►' : '▼' }}
+        </span>
+        <!-- Título de la Meta -->
+        <span class="meta-title" [class.no-icon]="node.children.length === 0">
+          {{ node.descripcion }}
+        </span>
+      </div>
+
+      <!-- Métricas Principales -->
+      <div class="header-metrics">
+        <div class="metric-item percentage" [ngClass]="getClasePorcentaje(node.porcentaje / 100)">
+          {{ node.porcentaje / 100 | percent:'1.2-2' }}
+        </div>
+        <div class="metric-item">
+          <span class="metric-label">Meta:</span>
+          <span class="metric-value">{{ node.meta | number:'1.0-0' }}</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-label">Ejecución</span>
+          <span class="metric-value">{{ node.ejecucion | number:'1.0-0' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contenedor de Hijos (Colapsable) -->
+    <div class="card-body" *ngIf="!node.isCollapsed && node.children.length > 0">
+      <div *ngFor="let child of node.children; trackBy: trackById">
+        <ng-container *ngTemplateOutlet="nodeTpl; context: { $implicit: child }"></ng-container>
+      </div>
+    </div>
+  </div>
+</ng-template>

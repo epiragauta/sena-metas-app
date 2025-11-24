@@ -1,38 +1,6 @@
 {
   "AGENCIA PUBLICA  DE EMPLEO": [
     {
-      "id": 38,
-      "nombreMetrica": "TOTAL COLOCACIONES",
-      "meta": 534288,
-      "ejecucion": 478950,
-      "tipoDato": "numero",
-      "esTotal": 1
-    },
-    {
-      "id": 41,
-      "nombreMetrica": "TOTAL ORIENTADOS",
-      "meta": 1376869,
-      "ejecucion": 1071249,
-      "tipoDato": "numero",
-      "esTotal": 1
-    },
-    {
-      "id": 36,
-      "nombreMetrica": "COLOCACIONES EGRESADOS SENA",
-      "meta": 295608,
-      "ejecucion": 252809,
-      "tipoDato": "numero",
-      "esTotal": 0
-    },
-    {
-      "id": 37,
-      "nombreMetrica": "COLOCACIONES NO SENA",
-      "meta": 238680,
-      "ejecucion": 226141,
-      "tipoDato": "numero",
-      "esTotal": 0
-    },
-    {
       "id": 34,
       "nombreMetrica": "INSCRITOS",
       "meta": 1098970,
@@ -41,6 +9,36 @@
       "esTotal": 0
     },
     {
+      "id": 35,
+      "nombreMetrica": "VACANTES",
+      "meta": 884291,
+      "ejecucion": 801661,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },{
+      "id": 36,
+      "nombreMetrica": "EGRESADOS SENA",
+      "meta": 295608,
+      "ejecucion": 252809,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 37,
+      "nombreMetrica": "NO SENA",
+      "meta": 238680,
+      "ejecucion": 226141,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 38,
+      "nombreMetrica": "TOTAL COLOCACIONES",
+      "meta": 534288,
+      "ejecucion": 478950,
+      "tipoDato": "numero",
+      "esTotal": 1
+    },{
       "id": 39,
       "nombreMetrica": "ORIENTADOS DESEMPLEADOS",
       "meta": 1064064,
@@ -57,19 +55,19 @@
       "esTotal": 0
     },
     {
+      "id": 41,
+      "nombreMetrica": "TOTAL ORIENTADOS",
+      "meta": 1376869,
+      "ejecucion": 1071249,
+      "tipoDato": "numero",
+      "esTotal": 1
+    },
+    {
       "id": 42,
-      "nombreMetrica": "TASA DE COLOCACION (%)",
+      "nombreMetrica": "TASA (%)",
       "meta": 0.63,
       "ejecucion": 0.5974,
       "tipoDato": "porcentaje",
-      "esTotal": 0
-    },
-    {
-      "id": 35,
-      "nombreMetrica": "VACANTES",
-      "meta": 884291,
-      "ejecucion": 801661,
-      "tipoDato": "numero",
       "esTotal": 0
     }
   ],
