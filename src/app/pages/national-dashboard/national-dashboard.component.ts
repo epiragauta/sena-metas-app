@@ -36,7 +36,7 @@ export interface DashboardData {
 @Component({
   selector: 'app-national-dashboard',
   standalone: true,
-  imports: [CommonModule, DecimalPipe, PercentPipe, CurrencyPipe],
+  imports: [CommonModule, DecimalPipe, PercentPipe],
   templateUrl: './national-dashboard.component.html',
   styleUrls: ['./national-dashboard.component.scss']
 })
@@ -94,7 +94,7 @@ export class NationalDashboardComponent implements OnInit {
       if (!allHijos.has(node.id)) {
         rootNodes.push(node);
       }
-      node.children.sort((a, b) => (b.meta || 0) - (a.meta || 0));
+      node.children.sort((a, b) => (a.meta || 0) - (b.meta || 0));
     });
 
     rootNodes.forEach(root => this.assignLevel(root, 0));
@@ -174,7 +174,7 @@ export class NationalDashboardComponent implements OnInit {
   private assignNivelLevel(node: NivelNode, level: number): void {
     node.level = level;
     // Ordenar hijos por totalMeta descendente
-    node.children.sort((a, b) => b.totalMeta - a.totalMeta);
+    node.children.sort((a, b) => a.totalMeta - b.totalMeta);
     node.children.forEach(child => this.assignNivelLevel(child, level + 1));
   }
 
