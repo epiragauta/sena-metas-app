@@ -65,7 +65,7 @@
 
 .page-subtitle {
   font-size: 1.1rem;
-  color: var(--sena-gris-oscuro);
+  color: var(--sena-blanco);
 }
 
 // Estilo base de la tarjeta de meta
@@ -408,6 +408,7 @@
 
   .progress {
     height: 40px;
+    position: relative;
 
     .progress-bar {
       display: flex;
@@ -419,6 +420,17 @@
       text-shadow: 0 1px 2px rgba(0,0,0,0.4);
       min-width: fit-content;
       padding: 0 16px;
+    }
+
+    // Cuando hay overflow (>100%), centrar el texto en toda la barra
+    &.has-overflow {
+      .progress-bar {
+        position: absolute;
+        left: 0;
+        right: 0;
+        justify-content: center;
+        width: 100% !important;
+      }
     }
   }
 }
@@ -465,6 +477,33 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+
+  .progress {
+    height: 32px;
+    position: relative;
+
+    .progress-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: 700;
+      color: white;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+      min-width: fit-content;
+      padding: 0 12px;
+    }
+
+    &.has-overflow {
+      .progress-bar {
+        position: absolute;
+        left: 0;
+        right: 0;
+        justify-content: center;
+        width: 100% !important;
+      }
+    }
+  }
 }
 
 .child-values {
@@ -568,29 +607,49 @@
 
 // Mini Progress Bar for Grandchildren
 .mini-progress {
-  height: 12px;
+  height: 24px;
   background-color: #e0e0e0;
   border-radius: 6px;
   overflow: hidden;
   margin-bottom: 0.5rem;
-}
+  position: relative;
 
-.mini-progress-bar {
-  height: 100%;
-  transition: width 0.4s ease;
-  border-radius: 6px;
+  .mini-progress-bar {
+    height: 100%;
+    transition: width 0.4s ease;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+    min-width: fit-content;
+    padding: 0 8px;
 
-  &.success {
-    background-color: var(--color-exito);
+    &.success {
+      background-color: var(--color-exito);
+    }
+    &.warning {
+      background-color: var(--color-advertencia);
+    }
+    &.danger {
+      background-color: var(--color-peligro);
+    }
+    &.over {
+      background-color: var(--color-sobre);
+    }
   }
-  &.warning {
-    background-color: var(--color-advertencia);
-  }
-  &.danger {
-    background-color: var(--color-peligro);
-  }
-  &.over {
-    background-color: var(--color-sobre);
+
+  &.has-overflow {
+    .mini-progress-bar {
+      position: absolute;
+      left: 0;
+      right: 0;
+      justify-content: center;
+      width: 100% !important;
+    }
   }
 }
 
@@ -681,6 +740,7 @@
 
   .progress {
     height: 40px;
+    position: relative;
 
     .progress-bar {
       display: flex;
@@ -692,6 +752,17 @@
       text-shadow: 0 1px 2px rgba(0,0,0,0.4);
       min-width: fit-content;
       padding: 0 16px;
+    }
+
+    // Cuando hay overflow (>100%), centrar el texto en toda la barra
+    &.has-overflow {
+      .progress-bar {
+        position: absolute;
+        left: 0;
+        right: 0;
+        justify-content: center;
+        width: 100% !important;
+      }
     }
   }
 }
@@ -723,6 +794,7 @@
 
   .progress {
     height: 32px;
+    position: relative;
 
     .progress-bar {
       display: flex;
@@ -734,6 +806,17 @@
       text-shadow: 0 1px 2px rgba(0,0,0,0.4);
       min-width: fit-content;
       padding: 0 12px;
+    }
+
+    // Cuando hay overflow (>100%), centrar el texto en toda la barra
+    &.has-overflow {
+      .progress-bar {
+        position: absolute;
+        left: 0;
+        right: 0;
+        justify-content: center;
+        width: 100% !important;
+      }
     }
   }
 }
@@ -800,5 +883,200 @@
 
   .children-section {
     padding: 1rem;
+  }
+}
+
+// ================================================
+// PROGRAMAS RELEVANTES - 3 CARD LAYOUT
+// ================================================
+
+.programas-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.programa-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.programa-card-header {
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--sena-verde);
+}
+
+.programa-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.programa-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  .progress {
+    height: 32px;
+    position: relative;
+
+    .progress-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: 700;
+      color: white;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+      min-width: fit-content;
+      padding: 0 12px;
+    }
+
+    &.has-overflow {
+      .progress-bar {
+        position: absolute;
+        left: 0;
+        right: 0;
+        justify-content: center;
+        width: 100% !important;
+      }
+    }
+  }
+}
+
+.programa-values {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+// ================================================
+// METAS PRIMER CURSO - SINGLE CARD CENTERED
+// ================================================
+
+.primer-curso-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.primer-curso-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  max-width: 600px;
+  width: 100%;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.primer-curso-header {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 3px solid var(--sena-verde);
+  text-align: center;
+}
+
+.primer-curso-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--sena-verde);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.primer-curso-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .progress {
+    height: 40px;
+    position: relative;
+
+    .progress-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: white;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+      min-width: fit-content;
+      padding: 0 16px;
+    }
+
+    &.has-overflow {
+      .progress-bar {
+        position: absolute;
+        left: 0;
+        right: 0;
+        justify-content: center;
+        width: 100% !important;
+      }
+    }
+  }
+}
+
+.primer-curso-values {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.value-item-large {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.value-number-large {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--sena-verde);
+}
+
+// Responsive para Programas y Primer Curso
+@media (max-width: 1024px) {
+  .programas-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .programas-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .primer-curso-card {
+    padding: 1.5rem;
+  }
+
+  .primer-curso-values {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 }
