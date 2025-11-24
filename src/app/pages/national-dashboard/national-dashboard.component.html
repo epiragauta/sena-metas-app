@@ -37,7 +37,7 @@
                   <span class="metric-value-large">{{ rootNode.meta | number:'1.0-0' }}</span>
                 </div>
                 <div class="parent-metric">
-                  <span class="metric-label">Ejecución</span>
+                  <span class="metric-label">Ejecución:</span>
                   <span class="metric-value-large">{{ rootNode.ejecucion | number:'1.0-0' }}</span>
                 </div>
               </div>
@@ -74,7 +74,7 @@
                       <span class="value-number">{{ child.meta | number:'1.0-0' }}</span>
                     </div>
                     <div class="value-item">
-                      <span class="value-label">Ejecución</span>
+                      <span class="value-label">Ejecución:</span>
                       <span class="value-number">{{ child.ejecucion | number:'1.0-0' }}</span>
                     </div>
                   </div>
@@ -147,14 +147,9 @@
             </div>
 
             <div class="programa-values">
-              <div class="value-item">
-                <span class="value-label">Meta:</span>
-                <span class="value-number">{{ programa.meta | number:'1.0-0' }}</span>
-              </div>
-              <div class="value-item">
-                <span class="value-label">Ejecutado:</span>
-                <span class="value-number">{{ programa.ejecucion | number:'1.0-0' }}</span>
-              </div>
+              <span><strong>Meta:</strong> {{ programa.meta | number:'1.0-0' }}</span>
+              <span class="separator">|</span>
+              <span><strong>Ejecución:</strong> {{ programa.ejecucion | number:'1.0-0' }}</span>
             </div>
           </div>
         </div>
@@ -181,14 +176,9 @@
             </div>
 
             <div class="primer-curso-values">
-              <div class="value-item-large">
-                <span class="value-label">Meta:</span>
-                <span class="value-number-large">{{ data.metasPrimerCurso.meta | number:'1.0-0' }}</span>
-              </div>
-              <div class="value-item-large">
-                <span class="value-label">Ejecutado:</span>
-                <span class="value-number-large">{{ data.metasPrimerCurso.ejecucion | number:'1.0-0' }}</span>
-              </div>
+              <span><strong>Meta:</strong> {{ data.metasPrimerCurso.meta | number:'1.0-0' }}</span>
+              <span class="separator">|</span>
+              <span><strong>Ejecución:</strong> {{ data.metasPrimerCurso.ejecucion | number:'1.0-0' }}</span>
             </div>
           </div>
         </div>
@@ -205,7 +195,7 @@
               <tr>
                 <th>Métrica</th>
                 <th>Meta</th>
-                <th>Ejecución</th>
+                <th>Ejecución:</th>
                 <th>Cumplimiento</th>
               </tr>
             </thead>
@@ -244,7 +234,7 @@
           <span class="metric-value-large">{{ node.totalMeta | number:'1.0-0' }}</span>
         </div>
         <div class="parent-metric">
-          <span class="metric-label">Ejecución</span>
+          <span class="metric-label">Ejecución:</span>
           <span class="metric-value-large">{{ calcularTotalEjecucion(node) | number:'1.0-0' }}</span>
         </div>
       </div>
@@ -346,7 +336,7 @@
           <span class="metric-value">{{ node.meta | number:'1.0-0' }}</span>
         </div>
         <div class="metric-item">
-          <span class="metric-label">Ejecución</span>
+          <span class="metric-label">Ejecución:</span>
           <span class="metric-value">{{ node.ejecucion | number:'1.0-0' }}</span>
         </div>
       </div>

@@ -30,6 +30,7 @@ export interface DashboardData {
   nationalGoals: MetaNode[];
   formacionPorNivelTree: NivelNode[];
   programasRelevantes: ProgramaRelevante[];
+  metasPrimerCurso: ProgramaRelevante | null;
   metricasAdicionales: MetricasPorCategoria;
 }
 
@@ -57,11 +58,22 @@ export class NationalDashboardComponent implements OnInit {
     }).pipe(
       map(results => {
         this.cargando = false;
-        
+
+        // Separar Primer Curso de Programas Relevantes
+        const primerCurso = results.programasRelevantes.find(p =>
+          p.descripcion.toLowerCase().includes('primer curso') ||
+          p.descripcion.toLowerCase().includes('tecnólogos primer curso')
+        );
+
+        const programasRelevantes = results.programasRelevantes.filter(p =>
+          !p.descripcion.toLowerCase().includes('primer curso')
+        );
+
         return {
           nationalGoals: this.buildTree(results.metas, results.jerarquias),
           formacionPorNivelTree: this.buildNivelTree(results.formacionPorNivel),
-          programasRelevantes: results.programasRelevantes,
+          programasRelevantes: programasRelevantes,
+          metasPrimerCurso: primerCurso || null,
           metricasAdicionales: results.metricasAdicionales
         };
       })
