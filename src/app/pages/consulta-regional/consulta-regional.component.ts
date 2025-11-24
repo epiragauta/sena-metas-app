@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { catchError, of, forkJoin } from 'rxjs';
 import { ExportExcelService } from '../../services/exportar-excel.service';
+import { XlsbApiService, MetasData } from '../../services/xlsb-api.service';
+import { DataTransformerService } from '../../services/data-transformer.service';
 
 interface SeguimientoItem {
   categoria: string;
@@ -132,7 +135,16 @@ export class ConsultaRegionalComponent implements OnInit {
     { nombre: 'TOTAL FORMACION PROFESIONAL INTEGRAL (O=N+F)', nivel: 2, esTotal: true }
   ];
 
-  constructor(private http: HttpClient, private exportExcelService: ExportExcelService) { }
+  // Flags para estrategia híbrida
+  usarAPI = true;  // Por defecto intentar usar API
+  metasDisponibles = false;
+
+  constructor(
+    private http: HttpClient,
+    private exportExcelService: ExportExcelService,
+    private xlsbApi: XlsbApiService,
+    private transformer: DataTransformerService
+  ) { }
 
   ngOnInit(): void {
     this.cargarDatos();
@@ -141,6 +153,153 @@ export class ConsultaRegionalComponent implements OnInit {
 
   cargarDatos(): void {
     this.cargando = true;
+
+    if (this.usarAPI) {
+      // Estrategia 1: Intentar cargar desde API
+      this.cargarMetasDesdeAPI();
+    } else {
+      // Estrategia 2: Cargar desde JSON (fallback)
+      this.cargarDesdeJSON();
+    }
+  }
+
+  /**
+   * Carga metas y ejecución desde la API de MongoDB
+   * Si falla, hace fallback a JSON
+   */
+  cargarMetasDesdeAPI(): void {
+    console.log('📡 Cargando metas y ejecución desde API...');
+
+    // Cargar metas regionales, metas centros, ejecución regional y ejecución centros en paralelo
+    forkJoin({
+      metasRegional: this.xlsbApi.getMetasRegional().pipe(
+        catchError(err => {
+          console.warn('⚠️ Error cargando metas regionales desde API:', err);
+          return of([]);
+        })
+      ),
+      metasCentros: this.xlsbApi.getMetasCentros().pipe(
+        catchError(err => {
+          console.warn('⚠️ Error cargando metas de centros desde API:', err);
+          return of([]);
+        })
+      ),
+      ejecucionRegional: this.xlsbApi.getEjecucionRegional().pipe(
+        catchError(err => {
+          console.warn('⚠️ Error cargando ejecución regional desde API:', err);
+          return of([]);
+        })
+      ),
+      ejecucionCentros: this.xlsbApi.getEjecucionCentros().pipe(
+        catchError(err => {
+          console.warn('⚠️ Error cargando ejecución de centros desde API:', err);
+          return of([]);
+        })
+      )
+    }).subscribe({
+      next: ({ metasRegional, metasCentros, ejecucionRegional, ejecucionCentros }) => {
+        if (metasRegional.length === 0 && metasCentros.length === 0) {
+          console.warn('⚠️ No se obtuvieron metas desde API, usando JSON');
+          this.cargarDesdeJSON();
+          return;
+        }
+
+        console.log(`✅ Metas cargadas: ${metasRegional.length} regionales, ${metasCentros.length} centros`);
+        console.log(`✅ Ejecución cargada: ${ejecucionRegional.length} regionales, ${ejecucionCentros.length} centros`);
+        this.metasDisponibles = true;
+
+        // Construir estructura de regionales combinando metas y ejecución
+        this.construirEstructuraDesdeAPI(metasRegional, metasCentros, ejecucionRegional, ejecucionCentros);
+        this.cargando = false;
+      },
+      error: (err) => {
+        console.error('❌ Error cargando datos desde API:', err);
+        console.log('🔄 Fallback a JSON...');
+        this.cargarDesdeJSON();
+      }
+    });
+  }
+
+  /**
+   * Construye la estructura de regionales y centros desde datos de la API
+   * Combina metas con datos de ejecución para calcular porcentajes
+   */
+  construirEstructuraDesdeAPI(
+    metasRegional: MetasData[],
+    metasCentros: MetasData[],
+    ejecucionRegional: any[],
+    ejecucionCentros: any[]
+  ): void {
+    const regionalesMap = new Map<number, RegionalConSeguimiento>();
+
+    // Procesar metas regionales combinando con ejecución
+    metasRegional.forEach(metaData => {
+      // Buscar datos de ejecución correspondientes
+      const ejecucion = ejecucionRegional.find(e => e.COD_REGIONAL === metaData.COD_REGIONAL);
+
+      // Transformar combinando metas y ejecución
+      const seguimiento = this.transformer.transformarMetasParaComponente(metaData, ejecucion);
+
+      const regional: RegionalConSeguimiento = {
+        codigo: metaData.COD_REGIONAL,
+        nombre: metaData.REGIONAL,
+        centros: [],
+        seguimiento: this.transformer.ordenarSeguimiento(seguimiento)
+      };
+
+      regionalesMap.set(metaData.COD_REGIONAL, regional);
+    });
+
+    // Procesar metas de centros combinando con ejecución
+    metasCentros.forEach(metaData => {
+      if (!metaData.COD_CENTRO) return;
+
+      // Buscar datos de ejecución correspondientes
+      const ejecucion = ejecucionCentros.find(e => e.COD_CENTRO === metaData.COD_CENTRO);
+
+      // Transformar combinando metas y ejecución
+      const seguimiento = this.transformer.transformarMetasParaComponente(metaData, ejecucion);
+
+      const centro: CentroConSeguimiento = {
+        codigo: metaData.COD_CENTRO,
+        nombre: metaData.CENTRO || `Centro ${metaData.COD_CENTRO}`,
+        seguimiento: this.transformer.ordenarSeguimiento(seguimiento)
+      };
+
+      // Añadir centro a su regional
+      const regional = regionalesMap.get(metaData.COD_REGIONAL);
+      if (regional) {
+        regional.centros.push(centro);
+      }
+    });
+
+    // Convertir map a array
+    this.regionales = Array.from(regionalesMap.values());
+
+    // Ordenar regionales por código
+    this.regionales.sort((a, b) => a.codigo - b.codigo);
+
+    // Ordenar centros dentro de cada regional
+    this.regionales.forEach(regional => {
+      regional.centros.sort((a, b) => a.codigo - b.codigo);
+    });
+
+    // Seleccionar primera regional
+    if (this.regionales.length > 0) {
+      this.regionalSeleccionada = this.regionales[0].codigo;
+      this.onRegionalChange();
+    }
+
+    console.log(`✅ Estructura construida: ${this.regionales.length} regionales con datos combinados`);
+  }
+
+  /**
+   * Carga datos desde archivo JSON (fallback)
+   */
+  cargarDesdeJSON(): void {
+    console.log('📁 Cargando desde JSON...');
+    this.cargando = true;
+
     this.http.get<DatosJerarquicos>('assets/data/seguimiento_metas_por_regional.json')
       .subscribe({
         next: (datos) => {
@@ -154,9 +313,10 @@ export class ConsultaRegionalComponent implements OnInit {
           }
 
           this.cargando = false;
+          console.log(`✅ Datos cargados desde JSON: ${this.regionales.length} regionales`);
         },
         error: (err) => {
-          console.error('Error cargando datos:', err);
+          console.error('❌ Error cargando datos desde JSON:', err);
           this.cargando = false;
         }
       });
