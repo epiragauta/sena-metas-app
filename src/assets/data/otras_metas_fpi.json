@@ -1,0 +1,105 @@
+
+[
+  {
+    "titulo": "RETENCIÓN",
+    "orden": 1,
+    "datos": [
+      {
+        "id": 100,
+        "nombreMetrica": "TOTAL RETENCIÓN",
+        "meta": 0.85,
+        "ejecucion": 0.88,
+        "tipoDato": "porcentaje",
+        "esTotal": 1,
+        "orden": 1
+      },
+      {
+        "id": 101,
+        "nombreMetrica": "Retención - Formación Titulada",
+        "meta": 0.85,
+        "ejecucion": 0.88,
+        "tipoDato": "porcentaje",
+        "esTotal": 0,
+        "orden": 2
+      },
+      {
+        "id": 75,
+        "nombreMetrica": "Retención - CampeSENA",
+        "meta": 0.8936,
+        "ejecucion": 0.9095,
+        "tipoDato": "porcentaje",
+        "esTotal": 0,
+        "orden": 3
+      },
+      {
+        "id": 86,
+        "nombreMetrica": "Retención - Full  Popular",
+        "meta": 0.6101,
+        "ejecucion": 0.8603,
+        "tipoDato": "porcentaje",
+        "esTotal": 0,
+        "orden": 4
+      }
+    ]
+  },
+  {
+    "titulo": "CERTIFICACIÓN FORMACIÓN PROFESIONAL",
+    "orden": 2,
+    "datos": [
+      {
+        "id": 4,
+        "nombreMetrica": "TOTAL FORMACIÓN COMPLEMENTARIA",
+        "meta": 3420411,
+        "ejecucion": 2646535,
+        "tipoDato": "numero",
+        "esTotal": 1,
+        "orden": 1
+      },
+      {
+        "id": 5,
+        "nombreMetrica": "TOTAL FORMACIÓN PROFESIONAL INTEGRAL",
+        "meta": 3866963,
+        "ejecucion": 2764101,
+        "tipoDato": "numero",
+        "esTotal": 1,
+        "orden": 2
+      },
+      {
+        "id": 3,
+        "nombreMetrica": "TOTAL FORMACIÓN TITULADA",
+        "meta": 446552,
+        "ejecucion": 117566,
+        "tipoDato": "numero",
+        "esTotal": 1,
+        "orden": 3
+      },
+      {
+        "id": 2,
+        "nombreMetrica": "EDUCACIÓN SUPERIOR",
+        "meta": 94127,
+        "ejecucion": 46500,
+        "tipoDato": "numero",
+        "esTotal": 0,
+        "orden": 4
+      },
+      {
+        "id": 1,
+        "nombreMetrica": "FORMACIÓN LABORAL",
+        "meta": 352425,
+        "ejecucion": 71066,
+        "tipoDato": "numero",
+        "esTotal": 0,
+        "orden": 5
+      },
+      {
+        "id": 6,
+        "nombreMetrica": "Full  Popular (Incluidas en Formación Profesional Integral)",
+        "meta": 54421,
+        "ejecucion": 87251,
+        "tipoDato": "numero",
+        "esTotal": 0,
+        "orden": 6
+      }
+    ]
+  }
+]

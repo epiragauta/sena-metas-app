@@ -1,0 +1,207 @@
+
+[
+  {
+    "titulo": "CONTRATOS DE APRENDIZAJE",
+    "orden": 1,
+    "datos": [
+      {
+        "id": 60,
+        "nombreMetrica": "Total Aprendices Con Contrato De Aprendizaje",
+        "meta": 370000,
+        "ejecucion": 338725,
+        "tipoDato": "numero",
+        "esTotal": 1,
+        "orden": 1
+      },
+      {
+        "id": 59,
+        "nombreMetrica": "Aprendices Con Contrato De Aprendizaje - NO SENA",
+        "meta": 110280,
+        "ejecucion": 136421,
+        "tipoDato": "numero",
+        "esTotal": 0,
+        "orden": 2
+      },
+      {
+        "id": 61,
+        "nombreMetrica": "Aprendices Con Contrato De Aprendizaje Voluntario",
+        "meta": 13000,
+        "ejecucion": 8850,
+        "tipoDato": "numero",
+        "esTotal": 0,
+        "orden": 3
+      },
+      {
+        "id": 58,
+        "nombreMetrica": "Aprendices SENA Con Contrato De Aprendizaje (Incluye contratos voluntarios)",
+        "meta": 259720,
+        "ejecucion": 202304,
+        "tipoDato": "numero",
+        "esTotal": 0,
+        "orden": 4
+      },
+      {
+        "id": 57,
+        "nombreMetrica": "Número de Empresas con Cuota Voluntaria",
+        "meta": 4500,
+        "ejecucion": 3209,
+        "tipoDato": "numero",
+        "esTotal": 0,
+        "orden": 5
+      },
+      {
+        "id": 56,
+        "nombreMetrica": "Número de Empresas con Cuotas Reguladas",
+        "meta": 42000,
+        "ejecucion": 42665,
+        "tipoDato": "numero",
+        "esTotal": 0,
+        "orden": 6
+      }
+    ]
+  },
+  {
+    "titulo": "Certificación de Competetencias Laborales",
+    "orden": 2,
+    "datos": [
+      {
+        "id": 10,
+        "nombreMetrica": "Total Certificaciones en Competencias laborales (D)=(A+B+C)",
+        "meta": 290430,
+        "ejecucion": 257388,
+        "tipoDato": "numero",
+        "esTotal": 1,
+        "orden": 1
+      },
+      {
+        "id": 8,
+        "nombreMetrica": "Certificaciones de competencia Laboral expedidas en Full Popular (B)",
+        "meta": 31221,
+        "ejecucion": 30412,
+        "tipoDato": "numero",
+        "esTotal": 0,
+        "orden": 2
+      },
+      {
+        "id": 7,
+        "nombreMetrica": "Certificaciones de competencias laborales expedidas para CampeSENA (A)",
+        "meta": 49870,
+        "ejecucion": 60301,
+        "tipoDato": "numero",
+        "esTotal": 0,
+        "orden": 3
+      },
+      {
+        "id": 9,
+        "nombreMetrica": "Certificaciones expedidas en Competencias Laborales - Regular (C)",
+        "meta": 209339,
+        "ejecucion": 166675,
+        "tipoDato": "numero",
+        "esTotal": 0,
+        "orden": 4
+      },
+      {
+        "id": 11,
+        "nombreMetrica": "No de Evaluaciones en Competencias Laborales",
+        "meta": 301841,
+        "ejecucion": 273464,
+        "tipoDato": "numero",
+        "esTotal": 0,
+        "orden": 5
+      },
+      {
+        "id": 13,
+        "nombreMetrica": "Personas Certificadas en Competencias Laborales",
+        "meta": 247707,
+        "ejecucion": 199371,
+        "tipoDato": "numero",
+        "esTotal": 0,
+        "orden": 6
+      },
+      {
+        "id": 12,
+        "nombreMetrica": "Personas Evaluadas en Competencias Laborales",
+        "meta": 258586,
+        "ejecucion": 210260,
+        "tipoDato": "numero",
+        "esTotal": 0,
+        "orden": 7
+      },
+      {
+        "id": 14,
+        "nombreMetrica": "Reuniones de consejos ejecutivos realizadas",
+        "meta": 340,
+        "ejecucion": 195,
+        "tipoDato": "numero",
+        "esTotal": 0,
+        "orden": 8
+      }
+    ]
+  },
+  {
+    "titulo": "Cupos autorizados FIC",
+    "orden": 3,
+    "datos": [
+      {
+        "id": 69,
+        "nombreMetrica": "TOTAL FORMACION PROFESIONAL INTEGRAL FIC (Cupos incluidos en meta regular Formación Profesional Integral)",
+        "meta": 62795,
+        "ejecucion": 57127,
+        "tipoDato": "numero",
+        "esTotal": 1,
+        "orden": 1
+      },
+      {
+        "id": 89,
+        "nombreMetrica": "Total Estrategia Formación Continua Especial Campesina (En el marco de FEEC)",
+        "meta": 30000,
+        "ejecucion": 2440,
+        "tipoDato": "numero",
+        "esTotal": 1,
+        "orden": 2
+      },
+      {
+        "id": 74,
+        "nombreMetrica": "Total Formación Profesional CampeSENA",
+        "meta": 649193,
+        "ejecucion": 589718,
+        "tipoDato": "numero",
+        "esTotal": 1,
+        "orden": 3
+      },
+      {
+        "id": 85,
+        "nombreMetrica": "Total Formación Profesional Full Popular",
+        "meta": 101354,
+        "ejecucion": 128709,
+        "tipoDato": "numero",
+        "esTotal": 1,
+        "orden": 4
+      }
+    ]
+  },
+  {
+    "titulo": "EMPRENDIMIENTO Y FORTALECIMIENTO",
+    "orden": 4,
+    "datos": [
+      {
+        "id": 45,
+        "nombreMetrica": "Emprendedores Orientados",
+        "meta": 534864,
+        "ejecucion": 449918,
+        "tipoDato": "numero",
+        "esTotal": 0,
+        "orden": 1
+      },
+      {
+        "id": 43,
+        "nombreMetrica": "Emprendimientos Asesorados",
+        "meta": 4977,
+        "ejecucion": 3388,
+        "tipoDato": "numero",
+        "esTotal": 0,
+        "orden": 2
+      }
+    ]
+  }
+]
