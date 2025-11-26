@@ -39,7 +39,7 @@ export interface DashboardData {
 @Component({
   selector: 'app-national-dashboard',
   standalone: true,
-  imports: [CommonModule, DecimalPipe, PercentPipe, CurrencyPipe],
+  imports: [CommonModule, DecimalPipe, PercentPipe],
   templateUrl: './national-dashboard.component.html',
   styleUrls: ['./national-dashboard.component.scss']
 })
@@ -62,17 +62,7 @@ export class NationalDashboardComponent implements OnInit {
     }).pipe(
       map(results => {
         this.cargando = false;
-
-        // Separar Primer Curso de Programas Relevantes
-        const primerCurso = results.programasRelevantes.find(p =>
-          p.descripcion.toLowerCase().includes('primer curso') ||
-          p.descripcion.toLowerCase().includes('tecnólogos primer curso')
-        );
-
-        const programasRelevantes = results.programasRelevantes.filter(p =>
-          !p.descripcion.toLowerCase().includes('primer curso')
-        );
-
+        
         return {
           nationalGoals: this.buildTree(results.metas, results.jerarquias),
           formacionPorNivelTree: this.buildNivelTree(results.formacionPorNivel),
@@ -112,15 +102,15 @@ export class NationalDashboardComponent implements OnInit {
       if (!allHijos.has(node.id)) {
         rootNodes.push(node);
       }
-      node.children.sort((a, b) => (b.meta || 0) - (a.meta || 0));
+      node.children.sort((a, b) => (a.meta || 0) - (b.meta || 0));
     });
 
     rootNodes.forEach(root => this.assignLevel(root, 0));
-    
+
     const granTotal = metasMap.get(33); // ID de TOTAL FORMACION PROFESIONAL INTEGRAL
     return granTotal ? [granTotal] : rootNodes;
   }
-  
+
   private assignLevel(node: MetaNode, level: number): void {
     node.level = level;
     node.children.forEach(child => this.assignLevel(child, level + 1));
@@ -135,22 +125,22 @@ export class NationalDashboardComponent implements OnInit {
     const normalize = (str: string) => str.replace(/\s+/g, ' ').trim();
 
     niveles.forEach(nivel => {
-        nivelMap.set(normalize(nivel.nivelFormacion), {
-            ...nivel,
-            children: [],
-            isCollapsed: true,
-            level: 0
-        });
+      nivelMap.set(normalize(nivel.nivelFormacion), {
+        ...nivel,
+        children: [],
+        isCollapsed: true,
+        level: 0
+      });
     });
 
     const childSet = new Set<string>();
     const addAsChild = (parentName: string, childName: string) => {
-        const parent = nivelMap.get(normalize(parentName));
-        const child = nivelMap.get(normalize(childName));
-        if (parent && child) {
-            parent.children.push(child);
-            childSet.add(normalize(childName));
-        }
+      const parent = nivelMap.get(normalize(parentName));
+      const child = nivelMap.get(normalize(childName));
+      if (parent && child) {
+        parent.children.push(child);
+        childSet.add(normalize(childName));
+      }
     };
 
     // Definir la jerarquía completa
@@ -172,32 +162,32 @@ export class NationalDashboardComponent implements OnInit {
 
     addAsChild('TOTAL FORMACIÓN PROFESIONAL INTEGRAL', 'TOTAL FORMACION COMPLEMENTARIA');
     addAsChild('TOTAL FORMACIÓN PROFESIONAL INTEGRAL', 'TOTAL FORMACION TITULADA');
-    
+
     const rootNodes: NivelNode[] = [];
     nivelMap.forEach((node, name) => {
-        if (!childSet.has(name)) {
-            rootNodes.push(node);
-        }
+      if (!childSet.has(name)) {
+        rootNodes.push(node);
+      }
     });
 
     // Asignar niveles y ordenar hijos
     rootNodes.forEach(root => {
-        this.assignNivelLevel(root, 0);
+      this.assignNivelLevel(root, 0);
     });
-    
+
     const granTotal = rootNodes.find(n => normalize(n.nivelFormacion) === 'TOTAL FORMACIÓN PROFESIONAL INTEGRAL');
     return granTotal ? [granTotal] : rootNodes;
   }
 
   private assignNivelLevel(node: NivelNode, level: number): void {
-      node.level = level;
-      // Ordenar hijos por totalMeta descendente
-      node.children.sort((a, b) => b.totalMeta - a.totalMeta);
-      node.children.forEach(child => this.assignNivelLevel(child, level + 1));
+    node.level = level;
+    // Ordenar hijos por totalMeta descendente
+    node.children.sort((a, b) => a.totalMeta - b.totalMeta);
+    node.children.forEach(child => this.assignNivelLevel(child, level + 1));
   }
 
   public toggleNivelNode(node: NivelNode): void {
-      node.isCollapsed = !node.isCollapsed;
+    node.isCollapsed = !node.isCollapsed;
   }
 
   public trackById(index: number, item: { id: number }): number {
@@ -231,5 +221,44 @@ export class NationalDashboardComponent implements OnInit {
     } else {
       return 'semaforo-bajo';
     }
+  }
+
+  public expandedMetricas: Set<number> = new Set();
+
+  public toggleMetricaDetalle(metricaId: number): void {
+    if (this.expandedMetricas.has(metricaId)) {
+      this.expandedMetricas.delete(metricaId);
+    } else {
+      this.expandedMetricas.add(metricaId);
+    }
+  }
+
+  public isMetricaExpanded(metricaId: number): boolean {
+    return this.expandedMetricas.has(metricaId);
+  }
+
+  public getDetallesMetrica(metricaTotalId: number, metricas: any[]): any[] {
+    const mapeoDetalles: { [key: number]: number[] } = {
+      38: [36, 37, 42], // TOTAL COLOCACIONES -> COLOCACIONES EGRESADOS, NO SENA, TASA
+      41: [39, 40]      // TOTAL ORIENTADOS -> ORIENTADOS DESEMPLEADOS, DESPLAZADOS
+    };
+
+    const detalleIds = mapeoDetalles[metricaTotalId];
+    if (!detalleIds) return [];
+
+    return metricas.filter(m => detalleIds.includes(m.id));
+  }
+
+  public getMetricasPrincipales(metricas: any[]): any[] {
+    // Retorna: INSCRITOS, VACANTES, TOTAL COLOCACIONES, TOTAL ORIENTADOS (en ese orden)
+    const idsOrdenados = [34, 35, 38, 41];
+    const resultado: any[] = [];
+
+    idsOrdenados.forEach(id => {
+      const metrica = metricas.find(m => m.id === id);
+      if (metrica) resultado.push(metrica);
+    });
+
+    return resultado;
   }
 }
