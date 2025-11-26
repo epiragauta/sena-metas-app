@@ -36,7 +36,7 @@ export interface DashboardData {
 @Component({
   selector: 'app-national-dashboard',
   standalone: true,
-  imports: [CommonModule, DecimalPipe, PercentPipe],
+  imports: [CommonModule, DecimalPipe, PercentPipe, CurrencyPipe],
   templateUrl: './national-dashboard.component.html',
   styleUrls: ['./national-dashboard.component.scss']
 })
@@ -94,7 +94,7 @@ export class NationalDashboardComponent implements OnInit {
       if (!allHijos.has(node.id)) {
         rootNodes.push(node);
       }
-      node.children.sort((a, b) => (a.meta || 0) - (b.meta || 0));
+      node.children.sort((a, b) => (b.meta || 0) - (a.meta || 0));
     });
 
     rootNodes.forEach(root => this.assignLevel(root, 0));
@@ -105,6 +105,20 @@ export class NationalDashboardComponent implements OnInit {
 
   private assignLevel(node: MetaNode, level: number): void {
     node.level = level;
+
+    // Ordenes independientes por nivel
+    if (level === 0) {
+      // Level 0 (children): menor a mayor
+      node.children.sort((a, b) => (a.meta || 0) - (b.meta || 0));
+    } else if (level === 1) {
+      // Level 1 (grandchildren): mayor a menor
+      node.children.sort((a, b) => (b.meta || 0) - (a.meta || 0));
+    } else if (level === 2) {
+      // Level 2: menor a mayor
+      node.children.sort((a, b) => (a.meta || 0) - (b.meta || 0));
+    }
+    // Agregar más niveles si necesitas...
+
     node.children.forEach(child => this.assignLevel(child, level + 1));
   }
 
@@ -174,7 +188,7 @@ export class NationalDashboardComponent implements OnInit {
   private assignNivelLevel(node: NivelNode, level: number): void {
     node.level = level;
     // Ordenar hijos por totalMeta descendente
-    node.children.sort((a, b) => a.totalMeta - b.totalMeta);
+    node.children.sort((a, b) => b.totalMeta - a.totalMeta);
     node.children.forEach(child => this.assignNivelLevel(child, level + 1));
   }
 
@@ -256,5 +270,14 @@ export class NationalDashboardComponent implements OnInit {
     });
 
     return resultado;
+  }
+
+  public getColumnasGrid(cantidad: number): number {
+    // Lógica: mínimo 3, máximo 4
+    if (cantidad <= 4) return cantidad;  // 1, 2, 3, 4 → mantener cantidad
+    if (cantidad <= 6) return 3;         // 5, 6 → 3 columnas
+    if (cantidad <= 8) return 4;         // 7, 8 → 4 columnas
+    if (cantidad <= 12) return 3;        // 9, 10, 11, 12 → 3 columnas
+    return 4;                             // 13+ → 4 columnas
   }
 }

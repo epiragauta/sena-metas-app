@@ -421,32 +421,46 @@
       </ng-container>
     </div>
 
-    <!-- Sección: Métricas Adicionales -->
+    <!-- Sección: Métricas Adicionales (todas excepto AGENCIA PUBLICA) -->
     <div *ngIf="data.metricasAdicionales" class="data-section">
-      <ng-container *ngFor="let key of getMetricasKeys(data.metricasAdicionales)">
-        <h2 class="section-title">{{ key }}</h2>
-        <div class="table-responsive">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Métrica</th>
-                <th>Meta</th>
-                <th>Ejecución</th>
-                <th>Cumplimiento</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let metrica of data.metricasAdicionales[key]">
-                <td>{{ metrica.nombreMetrica }}</td>
-                <td>{{ metrica.meta | number:(metrica.tipoDato === 'porcentaje' ? '1.2-2' : '1.0-0') }}</td>
-                <td>{{ metrica.ejecucion | number:(metrica.tipoDato === 'porcentaje' ? '1.2-2' : '1.0-0') }}</td>
-                <td [ngClass]="getClasePorcentaje(calcularPorcentaje(metrica.meta, metrica.ejecucion))">
-                  {{ calcularPorcentaje(metrica.meta, metrica.ejecucion) | percent:'1.2-2' }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <ng-container *ngFor="let key of getMetricasKeys(data.metricasAdicionales); let first = first">
+        <!-- Saltar AGENCIA PUBLICA (ya se muestra arriba) -->
+        <ng-container *ngIf="!first">
+          <h2 class="section-title">{{ key }}</h2>
+
+          <!-- Grid dinámico según cantidad de métricas -->
+          <div class="metricas-adicionales-grid"
+            [style.grid-template-columns]="'repeat(' + getColumnasGrid(data.metricasAdicionales[key].length) + ', 1fr)'">
+            <div class="programa-card" *ngFor="let metrica of data.metricasAdicionales[key]; trackBy: trackById">
+              <div class="programa-card-header">
+                <h4 class="programa-title">{{ metrica.nombreMetrica }}</h4>
+              </div>
+
+              <div class="programa-metrics">
+                <div class="progress" [class.has-overflow]="calcularPorcentaje(metrica.meta, metrica.ejecucion) > 1">
+                  <div class="progress-bar"
+                    [ngClass]="getClasePorcentaje(calcularPorcentaje(metrica.meta, metrica.ejecucion))"
+                    [style.width.%]="calcularPorcentaje(metrica.meta, metrica.ejecucion) > 1 ? 100 : calcularPorcentaje(metrica.meta, metrica.ejecucion) * 100">
+                    {{ calcularPorcentaje(metrica.meta, metrica.ejecucion) | percent:'1.2-2' }}
+                  </div>
+                </div>
+
+                <div class="programa-values">
+                  <div class="value-item">
+                    <span class="value-label">Meta:</span>
+                    <span class="value-number">{{ metrica.meta | number:(metrica.tipoDato === 'porcentaje' ? '1.2-2' :
+                      '1.0-0') }}</span>
+                  </div>
+                  <div class="value-item">
+                    <span class="value-label">Ejecutado:</span>
+                    <span class="value-number">{{ metrica.ejecucion | number:(metrica.tipoDato === 'porcentaje' ?
+                      '1.2-2' : '1.0-0') }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
       </ng-container>
     </div>
 

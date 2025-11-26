@@ -288,5 +288,15 @@
     "nombreHijo": "SubTotal Técnico Laboral (C)",
     "tablaHijo": "meta_formacion_profesional_integral",
     "operacion": "suma"
+  },
+  {
+    "id": 28,
+    "tablaOrigen": "meta_formacion_profesional_integral",
+    "idPadre": 32,
+    "nombrePadre": "TOTAL FORMACION COMPLEMENTARIA",
+    "idHijo": 29,
+    "nombreHijo": "SubTotal Programa de Bilingüismo",
+    "tablaHijo": "meta_formacion_profesional_integral",
+    "operacion": "suma"
   }
 ]

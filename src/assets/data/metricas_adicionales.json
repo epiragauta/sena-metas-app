@@ -40,7 +40,7 @@
       "esTotal": 1
     },{
       "id": 39,
-      "nombreMetrica": "ORIENTADOS DESEMPLEADOS",
+      "nombreMetrica": "DESEMPLEADOS",
       "meta": 1064064,
       "ejecucion": 803320,
       "tipoDato": "numero",
@@ -48,7 +48,7 @@
     },
     {
       "id": 40,
-      "nombreMetrica": "ORIENTADOS DESPLAZADOS",
+      "nombreMetrica": "DESPLAZADOS",
       "meta": 312805,
       "ejecucion": 267929,
       "tipoDato": "numero",
