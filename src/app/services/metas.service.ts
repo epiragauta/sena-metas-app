@@ -6,7 +6,7 @@ import {
   FormacionPorNivel,
   ProgramaRelevante,
   RangoSemaforo,
-  MetricasPorCategoria,
+  MetricaCategoria,
   Jerarquia,
   DashboardData,
   Referencias,
@@ -89,10 +89,24 @@ export class MetasService {
   }
 
   /**
-   * Obtiene métricas adicionales agrupadas por categoría
+   * Obtiene métricas de indicadores FPI
    */
-  getMetricasAdicionales(): Observable<MetricasPorCategoria> {
-    return this.http.get<MetricasPorCategoria>(`${this.basePath}/metricas_adicionales.json`);
+  getIndicadoresFPI(): Observable<MetricaCategoria[]> {
+    return this.http.get<MetricaCategoria[]>(`${this.basePath}/indicadores_fpi.json`);
+  }
+
+  /**
+   * Obtiene otras metas FPI
+   */
+  getOtrasMetasFPI(): Observable<MetricaCategoria[]> {
+    return this.http.get<MetricaCategoria[]>(`${this.basePath}/otras_metas_fpi.json`);
+  }
+
+  /**
+   * Obtiene métricas de APE
+   */
+  getAPE(): Observable<MetricaCategoria[]> {
+    return this.http.get<MetricaCategoria[]>(`${this.basePath}/ape.json`);
   }
 
   /**

@@ -52,17 +52,20 @@ export interface RangoSemaforo {
   sobreejecucionSuperiorA: number;
 }
 
-export interface MetricaAdicional {
+export interface MetricaItem {
+  orden: number;
   id: number;
   nombreMetrica: string;
   meta: number | null;
   ejecucion: number | null;
   tipoDato: string;
-  esTotal: boolean;
+  esTotal: number;
 }
 
-export interface MetricasPorCategoria {
-  [categoria: string]: MetricaAdicional[];
+export interface MetricaCategoria {
+  titulo: string;
+  orden: number;
+  datos: MetricaItem[];
 }
 
 export interface Jerarquia {
