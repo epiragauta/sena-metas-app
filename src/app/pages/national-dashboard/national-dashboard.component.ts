@@ -9,7 +9,7 @@ import {
   Jerarquia,
   FormacionPorNivel,
   ProgramaRelevante,
-  MetricaCategoria
+  MetricasPorCategoria
 } from '../../models/meta.model';
 
 // Interfaz para el nodo jerárquico de Metas
@@ -30,10 +30,7 @@ export interface DashboardData {
   nationalGoals: MetaNode[];
   formacionPorNivelTree: NivelNode[];
   programasRelevantes: ProgramaRelevante[];
-  metasPrimerCurso: ProgramaRelevante | null;
-  indicadoresFPI: MetricaCategoria[];
-  otrasMetasFPI: MetricaCategoria[];
-  ape: MetricaCategoria[];
+  metricasAdicionales: MetricasPorCategoria;
 }
 
 @Component({
@@ -56,21 +53,16 @@ export class NationalDashboardComponent implements OnInit {
       jerarquias: this.metasService.getJerarquias(),
       formacionPorNivel: this.metasService.getFormacionPorNivel(),
       programasRelevantes: this.metasService.getProgramasRelevantes(),
-      indicadoresFPI: this.metasService.getIndicadoresFPI(),
-      otrasMetasFPI: this.metasService.getOtrasMetasFPI(),
-      ape: this.metasService.getAPE()
+      metricasAdicionales: this.metasService.getMetricasAdicionales()
     }).pipe(
       map(results => {
         this.cargando = false;
-        
+
         return {
           nationalGoals: this.buildTree(results.metas, results.jerarquias),
           formacionPorNivelTree: this.buildNivelTree(results.formacionPorNivel),
-          programasRelevantes: programasRelevantes,
-          metasPrimerCurso: primerCurso || null,
-          indicadoresFPI: results.indicadoresFPI,
-          otrasMetasFPI: results.otrasMetasFPI,
-          ape: results.ape
+          programasRelevantes: results.programasRelevantes,
+          metricasAdicionales: results.metricasAdicionales
         };
       })
     );
@@ -192,6 +184,10 @@ export class NationalDashboardComponent implements OnInit {
 
   public trackById(index: number, item: { id: number }): number {
     return item.id;
+  }
+
+  public getMetricasKeys(metricas: MetricasPorCategoria): string[] {
+    return Object.keys(metricas);
   }
 
   public calcularPorcentaje(meta: number | null, ejecucion: number | null): number {
