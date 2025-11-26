@@ -247,66 +247,10 @@
       "esTotal": 1
     },
     {
-      "id": 89,
-      "nombreMetrica": "Total Estrategia Formación Continua Especial Campesina (En el marco de FEEC)",
-      "meta": 30000,
-      "ejecucion": 2440,
-      "tipoDato": "numero",
-      "esTotal": 1
-    },
-    {
-      "id": 74,
-      "nombreMetrica": "Total Formación Profesional CampeSENA",
-      "meta": 649193,
-      "ejecucion": 589718,
-      "tipoDato": "numero",
-      "esTotal": 1
-    },
-    {
-      "id": 85,
-      "nombreMetrica": "Total Formación Profesional Full Popular",
-      "meta": 101354,
-      "ejecucion": 128709,
-      "tipoDato": "numero",
-      "esTotal": 1
-    },
-    {
-      "id": 71,
-      "nombreMetrica": "Auxiliares CampeSENA",
-      "meta": 945,
-      "ejecucion": 848,
-      "tipoDato": "numero",
-      "esTotal": 0
-    },
-    {
-      "id": 82,
-      "nombreMetrica": "Auxiliares Full Popular",
-      "meta": 1091,
-      "ejecucion": 913,
-      "tipoDato": "numero",
-      "esTotal": 0
-    },
-    {
-      "id": 76,
-      "nombreMetrica": "Certificación - CampeSENA (Incluidas en Formación Profesional Integral)",
-      "meta": 481818,
-      "ejecucion": 333924,
-      "tipoDato": "numero",
-      "esTotal": 0
-    },
-    {
-      "id": 87,
-      "nombreMetrica": "Certificación - Full  Popular (Incluidas en Formación Profesional Integral)",
-      "meta": 54421,
-      "ejecucion": 87251,
-      "tipoDato": "numero",
-      "esTotal": 0
-    },
-    {
-      "id": 88,
-      "nombreMetrica": "Estrategia Formación Continua Especial Campesina (En el marco de FEEC)",
-      "meta": 30000,
-      "ejecucion": 2440,
+      "id": 67,
+      "nombreMetrica": "FORMACION TITULADA FIC (Cupos incluidos en meta regular Formación Titulada)",
+      "meta": 45965,
+      "ejecucion": 44107,
       "tipoDato": "numero",
       "esTotal": 0
     },
@@ -319,10 +263,52 @@
       "esTotal": 0
     },
     {
-      "id": 67,
-      "nombreMetrica": "FORMACION TITULADA FIC (Cupos incluidos en meta regular Formación Titulada)",
-      "meta": 45965,
-      "ejecucion": 44107,
+      "id": 65,
+      "nombreMetrica": "OPERARIOS FIC (Cupos incluidos en meta regular Operarios)",
+      "meta": 2525,
+      "ejecucion": 1838,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 66,
+      "nombreMetrica": "TECNICO LABORAL FIC (Cupos incluidos en meta regular Técnico Laboral)",
+      "meta": 31209,
+      "ejecucion": 32161,
+      "tipoDato": "numero",
+      "esTotal": 0
+    }
+  ],
+  "CAMPESENA": [
+    {
+      "id": 74,
+      "nombreMetrica": "Total Formación Profesional CampeSENA",
+      "meta": 649193,
+      "ejecucion": 589718,
+      "tipoDato": "numero",
+      "esTotal": 1
+    },
+    {
+      "id": 70,
+      "nombreMetrica": "Operarios CampeSENA",
+      "meta": 1920,
+      "ejecucion": 2340,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 71,
+      "nombreMetrica": "Auxiliares CampeSENA",
+      "meta": 945,
+      "ejecucion": 848,
+      "tipoDato": "numero",
+      "esTotal": 0
+    },
+    {
+      "id": 72,
+      "nombreMetrica": "Técnico Laboral CampeSENA",
+      "meta": 24795,
+      "ejecucion": 24856,
       "tipoDato": "numero",
       "esTotal": 0
     },
@@ -335,34 +321,34 @@
       "esTotal": 0
     },
     {
-      "id": 84,
-      "nombreMetrica": "Formación Complementaria Full Popular (M)",
-      "meta": 94200,
-      "ejecucion": 120795,
+      "id": 75,
+      "nombreMetrica": "Retención - CampeSENA",
+      "meta": 0.8936,
+      "ejecucion": 0.9095,
+      "tipoDato": "porcentaje",
+      "esTotal": 0
+    },
+    {
+      "id": 76,
+      "nombreMetrica": "Certificación - CampeSENA (Incluidas en Formación Profesional Integral)",
+      "meta": 481818,
+      "ejecucion": 333924,
       "tipoDato": "numero",
       "esTotal": 0
     },
     {
-      "id": 65,
-      "nombreMetrica": "OPERARIOS FIC (Cupos incluidos en meta regular Operarios)",
-      "meta": 2525,
-      "ejecucion": 1838,
+      "id": 77,
+      "nombreMetrica": "Unidades productivas creadas para la estrategia CampeSENA",
+      "meta": 3948,
+      "ejecucion": 489,
       "tipoDato": "numero",
       "esTotal": 0
     },
     {
-      "id": 70,
-      "nombreMetrica": "Operarios CampeSENA",
-      "meta": 1920,
-      "ejecucion": 2340,
-      "tipoDato": "numero",
-      "esTotal": 0
-    },
-    {
-      "id": 81,
-      "nombreMetrica": "Operarios Full Popular",
-      "meta": 1504,
-      "ejecucion": 1823,
+      "id": 78,
+      "nombreMetrica": "Unidades productivas fortalecidas para la estrategia CampeSENA",
+      "meta": 4000,
+      "ejecucion": 1717,
       "tipoDato": "numero",
       "esTotal": 0
     },
@@ -381,36 +367,30 @@
       "ejecucion": 2114,
       "tipoDato": "numero",
       "esTotal": 0
+    }
+  ],
+  "FULL POPULAR": [
+    {
+      "id": 85,
+      "nombreMetrica": "Total Formación Profesional Full Popular",
+      "meta": 101354,
+      "ejecucion": 128709,
+      "tipoDato": "numero",
+      "esTotal": 1
     },
     {
-      "id": 75,
-      "nombreMetrica": "Retención - CampeSENA",
-      "meta": 0.8936,
-      "ejecucion": 0.9095,
-      "tipoDato": "porcentaje",
-      "esTotal": 0
-    },
-    {
-      "id": 86,
-      "nombreMetrica": "Retención - Full  Popular",
-      "meta": 0.6101,
-      "ejecucion": 0.8603,
-      "tipoDato": "porcentaje",
-      "esTotal": 0
-    },
-    {
-      "id": 66,
-      "nombreMetrica": "TECNICO LABORAL FIC (Cupos incluidos en meta regular Técnico Laboral)",
-      "meta": 31209,
-      "ejecucion": 32161,
+      "id": 81,
+      "nombreMetrica": "Operarios Full Popular",
+      "meta": 1504,
+      "ejecucion": 1823,
       "tipoDato": "numero",
       "esTotal": 0
     },
     {
-      "id": 72,
-      "nombreMetrica": "Técnico Laboral CampeSENA",
-      "meta": 24795,
-      "ejecucion": 24856,
+      "id": 82,
+      "nombreMetrica": "Auxiliares Full Popular",
+      "meta": 1091,
+      "ejecucion": 913,
       "tipoDato": "numero",
       "esTotal": 0
     },
@@ -423,18 +403,44 @@
       "esTotal": 0
     },
     {
-      "id": 77,
-      "nombreMetrica": "Unidades productivas creadas para la estrategia CampeSENA",
-      "meta": 3948,
-      "ejecucion": 489,
+      "id": 84,
+      "nombreMetrica": "Formación Complementaria Full Popular (M)",
+      "meta": 94200,
+      "ejecucion": 120795,
       "tipoDato": "numero",
       "esTotal": 0
     },
     {
-      "id": 78,
-      "nombreMetrica": "Unidades productivas fortalecidas para la estrategia CampeSENA",
-      "meta": 4000,
-      "ejecucion": 1717,
+      "id": 86,
+      "nombreMetrica": "Retención - Full  Popular",
+      "meta": 0.6101,
+      "ejecucion": 0.8603,
+      "tipoDato": "porcentaje",
+      "esTotal": 0
+    },
+    {
+      "id": 87,
+      "nombreMetrica": "Certificación - Full  Popular (Incluidas en Formación Profesional Integral)",
+      "meta": 54421,
+      "ejecucion": 87251,
+      "tipoDato": "numero",
+      "esTotal": 0
+    }
+  ],
+  "Estrategia Formación Continua Especial Campesina (FEEC)": [
+    {
+      "id": 89,
+      "nombreMetrica": "Total Estrategia Formación Continua Especial Campesina (En el marco de FEEC)",
+      "meta": 30000,
+      "ejecucion": 2440,
+      "tipoDato": "numero",
+      "esTotal": 1
+    },
+    {
+      "id": 88,
+      "nombreMetrica": "Estrategia Formación Continua Especial Campesina (En el marco de FEEC)",
+      "meta": 30000,
+      "ejecucion": 2440,
       "tipoDato": "numero",
       "esTotal": 0
     }
