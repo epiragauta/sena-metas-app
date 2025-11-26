@@ -9,7 +9,7 @@ import {
   Jerarquia,
   FormacionPorNivel,
   ProgramaRelevante,
-  MetricasPorCategoria
+  MetricaCategoria
 } from '../../models/meta.model';
 
 // Interfaz para el nodo jerárquico de Metas
@@ -31,7 +31,9 @@ export interface DashboardData {
   formacionPorNivelTree: NivelNode[];
   programasRelevantes: ProgramaRelevante[];
   metasPrimerCurso: ProgramaRelevante | null;
-  metricasAdicionales: MetricasPorCategoria;
+  indicadoresFPI: MetricaCategoria[];
+  otrasMetasFPI: MetricaCategoria[];
+  ape: MetricaCategoria[];
 }
 
 @Component({
@@ -54,7 +56,9 @@ export class NationalDashboardComponent implements OnInit {
       jerarquias: this.metasService.getJerarquias(),
       formacionPorNivel: this.metasService.getFormacionPorNivel(),
       programasRelevantes: this.metasService.getProgramasRelevantes(),
-      metricasAdicionales: this.metasService.getMetricasAdicionales()
+      indicadoresFPI: this.metasService.getIndicadoresFPI(),
+      otrasMetasFPI: this.metasService.getOtrasMetasFPI(),
+      ape: this.metasService.getAPE()
     }).pipe(
       map(results => {
         this.cargando = false;
@@ -74,7 +78,9 @@ export class NationalDashboardComponent implements OnInit {
           formacionPorNivelTree: this.buildNivelTree(results.formacionPorNivel),
           programasRelevantes: programasRelevantes,
           metasPrimerCurso: primerCurso || null,
-          metricasAdicionales: results.metricasAdicionales
+          indicadoresFPI: results.indicadoresFPI,
+          otrasMetasFPI: results.otrasMetasFPI,
+          ape: results.ape
         };
       })
     );
@@ -196,10 +202,6 @@ export class NationalDashboardComponent implements OnInit {
 
   public trackById(index: number, item: { id: number }): number {
     return item.id;
-  }
-
-  public getMetricasKeys(metricas: MetricasPorCategoria): string[] {
-    return Object.keys(metricas);
   }
 
   public calcularPorcentaje(meta: number | null, ejecucion: number | null): number {

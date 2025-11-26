@@ -6,7 +6,7 @@
 
 <!-- Contenedor Principal del Dashboard -->
 <div *ngIf="dashboardData$ | async as data" class="dashboard-container fade-in">
-  <div class="page-header">
+  <div class="page-header" style="display: none;">
     <h1 class="page-title">Metas Formación Profesional Integral</h1>
     <p class="page-subtitle">Jerarquía de metas de Formación Profesional Integral</p>
   </div>
@@ -16,9 +16,7 @@
   <!-- #################################### -->
 
   <div class="hierarchy-section">
-    <div class="data-section">
-      <h2 class="section-title">Metas Formación Profesional Integral</h2>
-
+    <div class="data-section">      
       <!-- Root Node (Parent) -->
       <div *ngFor="let rootNode of data.nationalGoals; trackBy: trackById">
         <ng-container *ngIf="rootNode.level === 0">
@@ -121,7 +119,7 @@
 
     <!-- Sección: Formación por Nivel -->
     <div *ngIf="data.formacionPorNivelTree" class="data-section">
-      <h2 class="section-title">Metas por Nivel de Formación</h2>
+      <h2 class="section-title">Metas por Estrategia</h2>
       <div *ngFor="let node of data.formacionPorNivelTree; trackBy: trackById">
         <ng-container *ngTemplateOutlet="nivelNodeTpl; context: { $implicit: node }"></ng-container>
       </div>
@@ -185,22 +183,80 @@
       </div>
     </div>
 
-    <!-- Sección: Métricas Adicionales -->
-    <div *ngIf="data.metricasAdicionales" class="data-section">
-      <ng-container *ngFor="let key of getMetricasKeys(data.metricasAdicionales)">
-        <h2 class="section-title">{{ key }}</h2>
+    <!-- Sección: Indicadores de Formación Profesional Integral -->
+    <div *ngIf="data.indicadoresFPI && data.indicadoresFPI.length > 0" class="data-section">
+      <ng-container *ngFor="let categoria of data.indicadoresFPI">
+        <h2 class="section-title">{{ categoria.titulo }}</h2>
         <div class="table-responsive">
           <table class="table">
             <thead>
               <tr>
                 <th>Métrica</th>
                 <th>Meta</th>
-                <th>Ejecución:</th>
+                <th>Ejecución</th>
                 <th>Cumplimiento</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let metrica of data.metricasAdicionales[key]">
+              <tr *ngFor="let metrica of categoria.datos">
+                <td>{{ metrica.nombreMetrica }}</td>
+                <td>{{ metrica.meta | number:(metrica.tipoDato === 'porcentaje' ? '1.2-2' : '1.0-0') }}</td>
+                <td>{{ metrica.ejecucion | number:(metrica.tipoDato === 'porcentaje' ? '1.2-2' : '1.0-0') }}</td>
+                <td [ngClass]="getClasePorcentaje(calcularPorcentaje(metrica.meta, metrica.ejecucion))">
+                  {{ calcularPorcentaje(metrica.meta, metrica.ejecucion) | percent:'1.2-2' }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- Sección: Otras Metas de Formación Profesional -->
+    <div *ngIf="data.otrasMetasFPI && data.otrasMetasFPI.length > 0" class="data-section">
+      <ng-container *ngFor="let categoria of data.otrasMetasFPI">
+        <h2 class="section-title">{{ categoria.titulo }}</h2>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Métrica</th>
+                <th>Meta</th>
+                <th>Ejecución</th>
+                <th>Cumplimiento</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let metrica of categoria.datos">
+                <td>{{ metrica.nombreMetrica }}</td>
+                <td>{{ metrica.meta | number:(metrica.tipoDato === 'porcentaje' ? '1.2-2' : '1.0-0') }}</td>
+                <td>{{ metrica.ejecucion | number:(metrica.tipoDato === 'porcentaje' ? '1.2-2' : '1.0-0') }}</td>
+                <td [ngClass]="getClasePorcentaje(calcularPorcentaje(metrica.meta, metrica.ejecucion))">
+                  {{ calcularPorcentaje(metrica.meta, metrica.ejecucion) | percent:'1.2-2' }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- Sección: Agencia Pública de Empleo -->
+    <div *ngIf="data.ape && data.ape.length > 0" class="data-section">
+      <ng-container *ngFor="let categoria of data.ape">
+        <h2 class="section-title">{{ categoria.titulo }}</h2>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Métrica</th>
+                <th>Meta</th>
+                <th>Ejecución</th>
+                <th>Cumplimiento</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let metrica of categoria.datos">
                 <td>{{ metrica.nombreMetrica }}</td>
                 <td>{{ metrica.meta | number:(metrica.tipoDato === 'porcentaje' ? '1.2-2' : '1.0-0') }}</td>
                 <td>{{ metrica.ejecucion | number:(metrica.tipoDato === 'porcentaje' ? '1.2-2' : '1.0-0') }}</td>
@@ -221,12 +277,22 @@
 <ng-template #nivelNodeTpl let-node>
   <div class="nivel-parent-card" [class.nested]="node.level > 0">
     <!-- Cabecera de la Tarjeta (Clickable) -->
-    <div class="nivel-parent-header" (click)="toggleNivelNode(node)" [class.expandable]="node.children.length > 0">
+    <div class="nivel-parent-header"
+         [class.nivel-0]="node.level === 0"
+         [class.nivel-1]="node.level === 1"
+         [class.nivel-2]="node.level === 2"
+         [class.nivel-3]="node.level >= 3"
+         (click)="toggleNivelNode(node)"
+         [class.expandable]="node.children.length > 0">
       <div class="parent-title-section">
         <span class="toggle-icon" *ngIf="node.children.length > 0">
           {{ node.isCollapsed ? '►' : '▼' }}
         </span>
-        <h3 class="parent-title">{{ node.nivelFormacion }}</h3>
+        <h3 class="parent-title"
+            [class.nivel-0]="node.level === 0"
+            [class.nivel-1]="node.level === 1"
+            [class.nivel-2]="node.level === 2"
+            [class.nivel-3]="node.level >= 3">{{ node.nivelFormacion }}</h3>
       </div>
       <div class="parent-metrics">
         <div class="parent-metric">
@@ -250,8 +316,8 @@
       </div>
     </div>
 
-    <!-- Grid de Estrategias (3 columnas) -->
-    <div class="strategies-grid">
+    <!-- Grid de Estrategias (3 columnas) - Se oculta cuando hay hijos expandidos -->
+    <div class="strategies-grid" *ngIf="node.isCollapsed || node.children.length === 0">
       <!-- Estrategia Regular -->
       <div class="strategy-card">
         <h4 class="strategy-title">Regular</h4>
