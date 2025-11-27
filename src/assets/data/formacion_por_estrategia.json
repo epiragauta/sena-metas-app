@@ -1,0 +1,167 @@
+[
+  {
+    "id": "1.1.1.1",
+    "nivelFormacion": "AUXILIAR",
+    "regularMeta": 7067,
+    "regularEjecucion": 5480,
+    "campesenaMeta": 945,
+    "campesenaEjecucion": 1025,
+    "fullPopularMeta": 1091,
+    "fullPopularEjecucion": 1076,
+    "totalMeta": 9103
+  },
+  {
+    "id": "1.1.1.2",
+    "nivelFormacion": "OPERARIO",
+    "regularMeta": 18889,
+    "regularEjecucion": 17316,
+    "campesenaMeta": 1920,
+    "campesenaEjecucion": 2608,
+    "fullPopularMeta": 1504,
+    "fullPopularEjecucion": 1910,
+    "totalMeta": 22313
+  },
+  {
+    "id": "1.1.1.3",
+    "nivelFormacion": "PROFUNDIZACIÓN TÉCNICA",
+    "regularMeta": 1320,
+    "regularEjecucion": 1040,
+    "campesenaMeta": null,
+    "campesenaEjecucion": null,
+    "fullPopularMeta": null,
+    "fullPopularEjecucion": null,
+    "totalMeta": 1320
+  },
+  {
+    "id": "1.1.1.4",
+    "nivelFormacion": "ARTICULACIÓN CON LA MEDIA TECNICA",
+    "regularMeta": 475067,
+    "regularEjecucion": 478735,
+    "campesenaMeta": null,
+    "campesenaEjecucion": null,
+    "fullPopularMeta": null,
+    "fullPopularEjecucion": null,
+    "totalMeta": 475067
+  },
+  {
+    "id": "1.1.1.5",
+    "nivelFormacion": "TÉCNICO",
+    "regularMeta": 318816,
+    "regularEjecucion": 303230,
+    "campesenaMeta": 24795,
+    "campesenaEjecucion": 26175,
+    "fullPopularMeta": 3881,
+    "fullPopularEjecucion": 4671,
+    "totalMeta": 347492
+  },
+  {
+    "id": "1.1.1",
+    "nivelFormacion": "TOTAL FORMACION LABORAL",
+    "regularMeta": 821159,
+    "regularEjecucion": 805801,
+    "campesenaMeta": 27660,
+    "campesenaEjecucion": 29808,
+    "fullPopularMeta": 6476,
+    "fullPopularEjecucion": 7657,
+    "totalMeta": 855295
+  },
+  {
+    "id": "1.1.2.1",
+    "nivelFormacion": "TECNÓLOGO",
+    "regularMeta": 458542,
+    "regularEjecucion": 449698,
+    "campesenaMeta": 2399,
+    "campesenaEjecucion": 2802,
+    "fullPopularMeta": 678,
+    "fullPopularEjecucion": 709,
+    "totalMeta": 461619
+  },
+  {
+    "id": "1.1.2",
+    "nivelFormacion": "TOTAL FORMACION EDUCACION SUPERIOR",
+    "regularMeta": 458542,
+    "regularEjecucion": 449698,
+    "campesenaMeta": 2399,
+    "campesenaEjecucion": 2802,
+    "fullPopularMeta": 678,
+    "fullPopularEjecucion": 709,
+    "totalMeta": 461619
+  },
+  {
+    "id": "1.1",
+    "nivelFormacion": "TOTAL FORMACION TITULADA",
+    "regularMeta": 1279701,
+    "regularEjecucion": 1255499,
+    "campesenaMeta": 30059,
+    "campesenaEjecucion": 32610,
+    "fullPopularMeta": 7154,
+    "fullPopularEjecucion": 8366,
+    "totalMeta": 1316914
+  },
+  {
+    "id": "1.2.1",
+    "nivelFormacion": "COMPLEMENTARIA",
+    "regularMeta": 6236696,
+    "regularEjecucion": 5428656,
+    "campesenaMeta": 589134,
+    "campesenaEjecucion": 644557,
+    "fullPopularMeta": 89200,
+    "fullPopularEjecucion": 137703,
+    "totalMeta": 6915030
+  },
+  {
+    "id": "1.2.2",
+    "nivelFormacion": "Programa de Formación Continua Especializada",
+    "regularMeta": 78030,
+    "regularEjecucion": 0,
+    "campesenaMeta": null,
+    "campesenaEjecucion": null,
+    "fullPopularMeta": null,
+    "fullPopularEjecucion": null,
+    "totalMeta": 78030
+  },
+  {
+    "id": "1.2.3",
+    "nivelFormacion": "Estrategia Formación Continua Especial Campesina (En el marco de FEEC)",
+    "regularMeta": null,
+    "regularEjecucion": null,
+    "campesenaMeta": 30000,
+    "campesenaEjecucion": 10405,
+    "fullPopularMeta": null,
+    "fullPopularEjecucion": null,
+    "totalMeta": 30000
+  },
+  {
+    "id": "1.2.4",
+    "nivelFormacion": "Formación Contina Especial Popular (En el marco de FEP)",
+    "regularMeta": null,
+    "regularEjecucion": null,
+    "campesenaMeta": null,
+    "campesenaEjecucion": null,
+    "fullPopularMeta": 5000,
+    "fullPopularEjecucion": 967,
+    "totalMeta": 5000
+  },
+  {
+    "id": "1.2",
+    "nivelFormacion": "FORMACION COMPLEMENTARIA",
+    "regularMeta": 6314726,
+    "regularEjecucion": 5428656,
+    "campesenaMeta": 619134,
+    "campesenaEjecucion": 654962,
+    "fullPopularMeta": 94200,
+    "fullPopularEjecucion": 138670,
+    "totalMeta": 7028060
+  },
+  {
+    "id": "1",
+    "nivelFormacion": "FORMACIÓN PROFESIONAL INTEGRAL",
+    "regularMeta": 7594427,
+    "regularEjecucion": 6684155,
+    "campesenaMeta": 649193,
+    "campesenaEjecucion": 687572,
+    "fullPopularMeta": 101354,
+    "fullPopularEjecucion": 147036,
+    "totalMeta": 8344974
+  }
+]

@@ -52,24 +52,6 @@
   }
 }
 
-// Cabecera de la página
-.page-header {
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.page-title {
-  font-size: 2rem;
-  font-weight: 600;
-  color: var(--sena-blanco);
-}
-
-.page-subtitle {
-  font-size: 1.1rem;
-  color: var(--sena-blanco);
-}
-
 // Estilo base de la tarjeta de meta
 .meta-card {
   margin-bottom: 0.5rem;
@@ -365,7 +347,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: .25rem .5rem;
+  padding: .125rem .5rem;
   background: linear-gradient(135deg, var(--sena-verde) 0%, var(--sena-verde-oscuro) 100%);
   color: white;
   cursor: pointer;
@@ -384,7 +366,7 @@
 }
 
 .parent-title {
-  font-size: 1.75rem;
+  font-size: 1.25rem;
   font-weight: 700;
   margin: 0;
   color: white;
@@ -404,12 +386,12 @@
   .metric-label {
     font-size: 0.9rem;
     opacity: 0.9;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.1rem;
     color: #fff;
   }
 
   .metric-value-large {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: 700;
   }
 }
@@ -487,6 +469,39 @@
   border-bottom: 2px solid var(--sena-verde);
 }
 
+.child-card-header-estrategia {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--sena-verde);
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.child-totals {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+
+  .total-label {
+    color: #666;
+    font-weight: 500;
+  }
+
+  .total-value {
+    color: var(--sena-verde);
+    font-weight: 700;
+  }
+
+  .separator {
+    color: #ccc;
+    margin: 0 0.25rem;
+  }
+}
+
 .child-title {
   font-size: 1.1rem;
   font-weight: 600;
@@ -552,6 +567,46 @@
   font-size: 1rem;
   font-weight: 700;
   color: var(--sena-verde);
+}
+
+// ================================================
+// ESTRATEGIAS GRID EXPLICIT (con meta/ejecución)
+// ================================================
+
+.estrategias-grid-explicit {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.estrategia-explicit-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.estrategia-explicit-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.estrategia-explicit-values {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+// Responsive para estrategias explícitas
+@media (max-width: 768px) {
+  .estrategias-grid-explicit {
+    grid-template-columns: 1fr;
+  }
 }
 
 // Grandchildren Section
@@ -1311,11 +1366,61 @@
   &.over {
     background-color: var(--color-sobre);
   }
+
+  // Clases de semáforo
+  &.semaforo-sobreejecucion {
+    background-color: #FFC000;
+    color: #333;
+  }
+
+  &.semaforo-buena {
+    background-color: #92D050;
+    color: white;
+  }
+
+  &.semaforo-vulnerable {
+    background-color: #FFFF00;
+    color: #333;
+  }
+
+  &.semaforo-bajo {
+    background-color: #ff0000;
+    color: white;
+  }
+
+  // Estilo clickeable
+  &.clickable {
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+  }
 }
 
 .hierarchy-node-children {
   padding: 0.5rem 0 0.5rem 0;
   background: #fafafa;
+}
+
+// ================================================
+// ESTRATEGIA METRICS (para tabla de formación)
+// ================================================
+
+.estrategia-metric {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+
+  .estrategia-label {
+    font-size: 0.75rem;
+    color: #666;
+    font-weight: 500;
+    white-space: nowrap;
+  }
 }
 
 // Responsive para Hierarchy Tree
@@ -1460,5 +1565,150 @@
 
   .selected-node-tree-section {
     padding: 1rem;
+  }
+}
+
+// ================================================
+// MODAL
+// ================================================
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  min-width: 400px;
+  max-width: 500px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  animation: slideIn 0.3s ease;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--sena-verde);
+
+  h3 {
+    margin: 0;
+    color: var(--sena-verde);
+    font-size: 1.4rem;
+  }
+}
+
+.modal-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: #666;
+  cursor: pointer;
+  padding: 0;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: #f0f0f0;
+    color: #333;
+  }
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modal-metric {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+
+  .modal-label {
+    font-weight: 600;
+    color: #666;
+    font-size: 1rem;
+  }
+
+  .modal-value {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #333;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+
+    &.semaforo-sobreejecucion {
+      background-color: #FFC000;
+      color: #333;
+    }
+
+    &.semaforo-buena {
+      background-color: #92D050;
+      color: white;
+    }
+
+    &.semaforo-vulnerable {
+      background-color: #FFFF00;
+      color: #333;
+    }
+
+    &.semaforo-bajo {
+      background-color: #ff0000;
+      color: white;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+// Responsive para modal
+@media (max-width: 768px) {
+  .modal-content {
+    min-width: 300px;
+    margin: 1rem;
+  }
+
+  .modal-header h3 {
+    font-size: 1.2rem;
   }
 }

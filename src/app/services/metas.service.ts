@@ -110,6 +110,13 @@ export class MetasService {
   }
 
   /**
+   * Obtiene formación por estrategia
+   */
+  getFormacionPorEstrategia(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.basePath}/formacion_por_estrategia.json`);
+  }
+
+  /**
    * Obtiene datos para el dashboard principal
    */
   getDashboardData(): Observable<DashboardData> {

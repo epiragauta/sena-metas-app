@@ -38,6 +38,23 @@ export interface HierarchyNode {
   level: number;
 }
 
+// Interfaz para el nodo de formación por estrategia
+export interface FormacionEstrategiaNode {
+  id: string;
+  nivelFormacion: string;
+  regularMeta: number | null;
+  regularEjecucion: number | null;
+  campesenaMeta: number | null;
+  campesenaEjecucion: number | null;
+  fullPopularMeta: number | null;
+  fullPopularEjecucion: number | null;
+  totalMeta: number;
+  totalEjecucion: number;
+  children: FormacionEstrategiaNode[];
+  isCollapsed: boolean;
+  level: number;
+}
+
 export interface DashboardData {
   nationalGoals: MetaNode[];
   formacionPorNivelTree: NivelNode[];
@@ -45,6 +62,8 @@ export interface DashboardData {
   metricasAdicionales: MetricasPorCategoria;
   hierarchyTree?: HierarchyNode[];
   hierarchyRoot?: HierarchyNode;
+  formacionEstrategiaTree?: FormacionEstrategiaNode[];
+  formacionEstrategiaRoot?: FormacionEstrategiaNode;
 }
 
 @Component({
@@ -59,6 +78,9 @@ export class NationalDashboardComponent implements OnInit {
   public dashboardData$!: Observable<DashboardData>;
   public cargando = true;
   public selectedNodeForTree: HierarchyNode | null = null;
+  public selectedEstrategiaNodeForTree: FormacionEstrategiaNode | null = null;
+  public showMetaEjecucionModal = false;
+  public modalData: { estrategia: string; meta: number | null; ejecucion: number | null; porcentaje: number } | null = null;
 
   constructor(private metasService: MetasService) { }
 
@@ -69,7 +91,8 @@ export class NationalDashboardComponent implements OnInit {
       formacionPorNivel: this.metasService.getFormacionPorNivel(),
       programasRelevantes: this.metasService.getProgramasRelevantes(),
       metricasAdicionales: this.metasService.getMetricasAdicionales(),
-      metasJerarquia: this.metasService.getMetasJerarquia()
+      metasJerarquia: this.metasService.getMetasJerarquia(),
+      formacionPorEstrategia: this.metasService.getFormacionPorEstrategia()
     }).pipe(
       map(results => {
         this.cargando = false;
@@ -77,13 +100,18 @@ export class NationalDashboardComponent implements OnInit {
         const hierarchyTree = this.buildHierarchyTree(results.metasJerarquia);
         const hierarchyRoot = hierarchyTree.length > 0 ? hierarchyTree[0] : undefined;
 
+        const formacionEstrategiaTree = this.buildFormacionEstrategiaTree(results.formacionPorEstrategia);
+        const formacionEstrategiaRoot = formacionEstrategiaTree.length > 0 ? formacionEstrategiaTree[0] : undefined;
+
         return {
           nationalGoals: this.buildTree(results.metas, results.jerarquias),
           formacionPorNivelTree: this.buildNivelTree(results.formacionPorNivel),
           programasRelevantes: results.programasRelevantes,
           metricasAdicionales: results.metricasAdicionales,
           hierarchyTree: hierarchyTree,
-          hierarchyRoot: hierarchyRoot
+          hierarchyRoot: hierarchyRoot,
+          formacionEstrategiaTree: formacionEstrategiaTree,
+          formacionEstrategiaRoot: formacionEstrategiaRoot
         };
       })
     );
@@ -264,6 +292,58 @@ export class NationalDashboardComponent implements OnInit {
     node.children.forEach(child => this.assignHierarchyLevel(child, level + 1));
   }
 
+  private buildFormacionEstrategiaTree(data: any[]): FormacionEstrategiaNode[] {
+    const nodesMap = new Map<string, FormacionEstrategiaNode>();
+
+    // Crear nodos con totalEjecucion calculado
+    data.forEach(item => {
+      const totalEjecucion = (item.regularEjecucion || 0) + (item.campesenaEjecucion || 0) + (item.fullPopularEjecucion || 0);
+      nodesMap.set(item.id, {
+        id: item.id,
+        nivelFormacion: item.nivelFormacion,
+        regularMeta: item.regularMeta,
+        regularEjecucion: item.regularEjecucion,
+        campesenaMeta: item.campesenaMeta,
+        campesenaEjecucion: item.campesenaEjecucion,
+        fullPopularMeta: item.fullPopularMeta,
+        fullPopularEjecucion: item.fullPopularEjecucion,
+        totalMeta: item.totalMeta,
+        totalEjecucion: totalEjecucion,
+        children: [],
+        isCollapsed: true,
+        level: 0
+      });
+    });
+
+    // Construir jerarquía basada en los IDs
+    const rootNodes: FormacionEstrategiaNode[] = [];
+    nodesMap.forEach((node, id) => {
+      const parts = id.split('.');
+
+      if (parts.length === 1) {
+        // Es un nodo raíz
+        rootNodes.push(node);
+      } else {
+        // Encontrar el padre
+        const parentId = parts.slice(0, -1).join('.');
+        const parent = nodesMap.get(parentId);
+        if (parent) {
+          parent.children.push(node);
+        }
+      }
+    });
+
+    // Asignar niveles
+    rootNodes.forEach(root => this.assignFormacionEstrategiaLevel(root, 0));
+
+    return rootNodes;
+  }
+
+  private assignFormacionEstrategiaLevel(node: FormacionEstrategiaNode, level: number): void {
+    node.level = level;
+    node.children.forEach(child => this.assignFormacionEstrategiaLevel(child, level + 1));
+  }
+
   public toggleHierarchyNode(node: HierarchyNode): void {
     node.isCollapsed = !node.isCollapsed;
 
@@ -384,5 +464,42 @@ export class NationalDashboardComponent implements OnInit {
     // Elimina todo el texto desde el primer paréntesis de apertura
     const index = text.indexOf('(');
     return index > 0 ? text.substring(0, index).trim() : text;
+  }
+
+  public toggleFormacionEstrategiaNode(node: FormacionEstrategiaNode): void {
+    node.isCollapsed = !node.isCollapsed;
+
+    // Si se contrae el nodo raíz (nivel 0), cerrar la tabla de detalles
+    if (node.level === 0 && node.isCollapsed) {
+      this.selectedEstrategiaNodeForTree = null;
+    }
+  }
+
+  public selectEstrategiaNodeForTree(node: FormacionEstrategiaNode): void {
+    // Si ya está seleccionado, deseleccionar
+    if (this.selectedEstrategiaNodeForTree?.id === node.id) {
+      this.selectedEstrategiaNodeForTree = null;
+    } else {
+      this.selectedEstrategiaNodeForTree = node;
+    }
+  }
+
+  public isEstrategiaNodeSelectedForTree(node: FormacionEstrategiaNode): boolean {
+    return this.selectedEstrategiaNodeForTree?.id === node.id;
+  }
+
+  public showMetaEjecucionPopup(estrategia: string, meta: number | null, ejecucion: number | null): void {
+    const porcentaje = (meta && meta > 0 && ejecucion !== null) ? (ejecucion / meta) * 100 : 0;
+    this.modalData = { estrategia, meta, ejecucion, porcentaje };
+    this.showMetaEjecucionModal = true;
+  }
+
+  public closeMetaEjecucionModal(): void {
+    this.showMetaEjecucionModal = false;
+    this.modalData = null;
+  }
+
+  public trackByEstrategiaId(index: number, item: FormacionEstrategiaNode): string {
+    return item.id;
   }
 }
