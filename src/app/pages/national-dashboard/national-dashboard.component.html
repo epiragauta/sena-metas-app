@@ -224,73 +224,78 @@
       </div>
     </div>
 
-    <!-- Sección: Metas Programas Relevantes -->
-    <div *ngIf="data.programasRelevantes && data.programasRelevantes.length > 0" class="data-section">
-      <h2 class="section-title">Metas Programas Relevantes</h2>
+    <!-- Sección: Metas Programas Relevantes y Primer Curso -->
+    <div *ngIf="(data.programasRelevantes && data.programasRelevantes.length > 0) || data.metasPrimerCurso" class="data-section">
+      <h2 class="section-title">Metas Programas Relevantes y Primer Curso</h2>
 
-      <!-- Grid de 3 Programas -->
-      <div class="programas-grid">
-        <div class="programa-card" *ngFor="let programa of data.programasRelevantes; trackBy: trackById">
-          <div class="programa-card-header">
-            <h4 class="programa-title">{{ programa.descripcion }}</h4>
-          </div>
+      <div class="programas-primer-curso-layout">
+        <!-- Lado izquierdo: Programas Relevantes -->
+        <div class="programas-section" *ngIf="data.programasRelevantes && data.programasRelevantes.length > 0">
+          <h3 class="subsection-title">Programas Relevantes</h3>
 
-          <div class="programa-metrics">
-            <div class="progress" [class.has-overflow]="programa.porcentaje > 100">
-              <div class="progress-bar" [ngClass]="getClasePorcentaje(programa.porcentaje / 100)"
-                [style.width.%]="programa.porcentaje > 100 ? 100 : programa.porcentaje">
-                {{ programa.porcentaje / 100 | percent:'1.2-2' }}
+          <!-- Grid de 3 Programas -->
+          <div class="programas-grid">
+            <div class="programa-card" *ngFor="let programa of data.programasRelevantes; trackBy: trackById">
+              <div class="programa-card-header">
+                <h4 class="programa-title">{{ programa.descripcion }}</h4>
+              </div>
+
+              <div class="programa-metrics">
+                <div class="progress" [class.has-overflow]="programa.porcentaje > 100">
+                  <div class="progress-bar" [ngClass]="getClasePorcentaje(programa.porcentaje / 100)"
+                    [style.width.%]="programa.porcentaje > 100 ? 100 : programa.porcentaje">
+                    {{ programa.porcentaje / 100 | percent:'1.2-2' }}
+                  </div>
+                </div>
+
+                <div class="programa-values">
+                  <div class="value-item">
+                    <span class="value-label">Meta:</span>
+                    <span class="value-number">{{ programa.meta | number:'1.0-0' }}</span>
+                  </div>
+                  <div class="value-item">
+                    <span class="value-label">Ejecutado:</span>
+                    <span class="value-number">{{ programa.ejecucion | number:'1.0-0' }}</span>
+                  </div>
+                </div>
               </div>
             </div>
+          </div>
+        </div>
 
-            <div class="programa-values">
-              <div class="value-item">
-                <span class="value-label">Meta:</span>
-                <span class="value-number">{{ programa.meta | number:'1.0-0' }}</span>
+        <!-- Lado derecho: Primer Curso -->
+        <div class="primer-curso-section" *ngIf="data.metasPrimerCurso">
+          <h3 class="subsection-title">Primer Curso</h3>
+
+          <!-- Tarjeta de Primer Curso -->
+          <div class="primer-curso-card">
+            <div class="primer-curso-header">
+              <h4 class="primer-curso-title">{{ data.metasPrimerCurso.descripcion }}</h4>
+            </div>
+
+            <div class="primer-curso-metrics">
+              <div class="progress" [class.has-overflow]="data.metasPrimerCurso.porcentaje > 100">
+                <div class="progress-bar" [ngClass]="getClasePorcentaje(data.metasPrimerCurso.porcentaje / 100)"
+                     [style.width.%]="data.metasPrimerCurso.porcentaje > 100 ? 100 : data.metasPrimerCurso.porcentaje">
+                  {{ data.metasPrimerCurso.porcentaje / 100 | percent:'1.2-2' }}
+                </div>
               </div>
-              <div class="value-item">
-                <span class="value-label">Ejecutado:</span>
-                <span class="value-number">{{ programa.ejecucion | number:'1.0-0' }}</span>
+
+              <div class="primer-curso-values">
+                <div class="value-item-large">
+                  <span class="value-label">Meta:</span>
+                  <span class="value-number-large">{{ data.metasPrimerCurso.meta | number:'1.0-0' }}</span>
+                </div>
+                <div class="value-item-large">
+                  <span class="value-label">Ejecutado:</span>
+                  <span class="value-number-large">{{ data.metasPrimerCurso.ejecucion | number:'1.0-0' }}</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- Sección: Metas Primer Curso
-    <div *ngIf="data.metasPrimerCurso" class="data-section">
-      <h2 class="section-title">Metas Primer Curso</h2>
-
-       Tarjeta única centrada 
-      <div class="primer-curso-container">
-        <div class="primer-curso-card">
-          <div class="primer-curso-header">
-            <h4 class="primer-curso-title">{{ data.metasPrimerCurso.descripcion }}</h4>
-          </div>
-
-          <div class="primer-curso-metrics">
-            <div class="progress" [class.has-overflow]="data.metasPrimerCurso.porcentaje > 100">
-              <div class="progress-bar" [ngClass]="getClasePorcentaje(data.metasPrimerCurso.porcentaje / 100)"
-                   [style.width.%]="data.metasPrimerCurso.porcentaje > 100 ? 100 : data.metasPrimerCurso.porcentaje">
-                {{ data.metasPrimerCurso.porcentaje / 100 | percent:'1.2-2' }}
-              </div>
-            </div>
-
-            <div class="primer-curso-values">
-              <div class="value-item-large">
-                <span class="value-label">Meta:</span>
-                <span class="value-number-large">{{ data.metasPrimerCurso.meta | number:'1.0-0' }}</span>
-              </div>
-              <div class="value-item-large">
-                <span class="value-label">Ejecutado:</span>
-                <span class="value-number-large">{{ data.metasPrimerCurso.ejecucion | number:'1.0-0' }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
+    </div> 
 
     <!-- Sección: Métricas Principales -->
     <div *ngIf="data.metricasAdicionales" class="data-section">

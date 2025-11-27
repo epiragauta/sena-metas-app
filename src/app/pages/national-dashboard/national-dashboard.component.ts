@@ -9,7 +9,8 @@ import {
   Jerarquia,
   FormacionPorNivel,
   ProgramaRelevante,
-  MetricasPorCategoria
+  MetricasPorCategoria,
+  MetasPrimerCurso
 } from '../../models/meta.model';
 
 // Interfaz para el nodo jerárquico de Metas
@@ -59,6 +60,7 @@ export interface DashboardData {
   nationalGoals: MetaNode[];
   formacionPorNivelTree: NivelNode[];
   programasRelevantes: ProgramaRelevante[];
+  metasPrimerCurso: MetasPrimerCurso;
   metricasAdicionales: MetricasPorCategoria;
   hierarchyTree?: HierarchyNode[];
   hierarchyRoot?: HierarchyNode;
@@ -90,6 +92,7 @@ export class NationalDashboardComponent implements OnInit {
       jerarquias: this.metasService.getJerarquias(),
       formacionPorNivel: this.metasService.getFormacionPorNivel(),
       programasRelevantes: this.metasService.getProgramasRelevantes(),
+      metasPrimerCurso: this.metasService.getPrimerCurso(),
       metricasAdicionales: this.metasService.getMetricasAdicionales(),
       metasJerarquia: this.metasService.getMetasJerarquia(),
       formacionPorEstrategia: this.metasService.getFormacionPorEstrategia()
@@ -107,6 +110,7 @@ export class NationalDashboardComponent implements OnInit {
           nationalGoals: this.buildTree(results.metas, results.jerarquias),
           formacionPorNivelTree: this.buildNivelTree(results.formacionPorNivel),
           programasRelevantes: results.programasRelevantes,
+          metasPrimerCurso: results.metasPrimerCurso,
           metricasAdicionales: results.metricasAdicionales,
           hierarchyTree: hierarchyTree,
           hierarchyRoot: hierarchyRoot,

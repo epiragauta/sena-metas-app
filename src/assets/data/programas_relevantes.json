@@ -1,13 +1,5 @@
 [
   {
-    "id": 4,
-    "descripcion": "Tecnólogos Primer Curso",
-    "meta": 200000,
-    "ejecucion": 126645,
-    "porcentaje": 63.32,
-    "tipo": "Primer curso"
-  },
-  {
     "id": 1,
     "descripcion": "Total Formación Profesional CampeSENA",
     "meta": 649193,

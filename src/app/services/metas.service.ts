@@ -12,6 +12,7 @@ import {
   Referencias,
   EstadoSemaforo,
   CategorizacionSemaforo,
+  MetasPrimerCurso,
   FiltrosMetas
 } from '../models/meta.model';
 
@@ -79,6 +80,37 @@ export class MetasService {
    */
   getProgramasRelevantes(): Observable<ProgramaRelevante[]> {
     return this.http.get<ProgramaRelevante[]>(`${this.basePath}/programas_relevantes.json`);
+  }
+
+  /**
+   * Obtiene primer curso
+   */
+  getPrimerCurso(): Observable<MetasPrimerCurso> {
+    return this.http.get<any>(`${this.basePath}/referencias_totales.json`).pipe(
+      map(data => {
+        const primerCurso = data.programas_especiales?.find((p: any) => p.tipo === 'Primer curso');
+        if (primerCurso) {
+          const porcentaje = primerCurso.meta > 0 ? (primerCurso.ejecucion / primerCurso.meta) * 100 : 0;
+          return {
+            id: 1,
+            descripcion: primerCurso.descripcion,
+            meta: primerCurso.meta,
+            ejecucion: primerCurso.ejecucion,
+            porcentaje: porcentaje,
+            tipo: primerCurso.tipo
+          };
+        }
+        // Valor por defecto si no se encuentra
+        return {
+          id: 1,
+          descripcion: 'Tecnólogos Primer Curso',
+          meta: 0,
+          ejecucion: 0,
+          porcentaje: 0,
+          tipo: 'Primer curso'
+        };
+      })
+    );
   }
 
   /**

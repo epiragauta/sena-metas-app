@@ -38,6 +38,15 @@ export interface ProgramaRelevante {
   tipo: string;
 }
 
+export interface MetasPrimerCurso {
+  id: number;
+  descripcion: string;
+  meta: number;
+  ejecucion: number;
+  porcentaje: number;
+  tipo: string;
+}
+
 export interface RangoSemaforo {
   id: number;
   agrupador: string;
