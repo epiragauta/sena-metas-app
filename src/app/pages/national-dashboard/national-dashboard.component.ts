@@ -36,7 +36,7 @@ export interface DashboardData {
 @Component({
   selector: 'app-national-dashboard',
   standalone: true,
-  imports: [CommonModule, DecimalPipe, PercentPipe, CurrencyPipe],
+  imports: [CommonModule, DecimalPipe, PercentPipe],
   templateUrl: './national-dashboard.component.html',
   styleUrls: ['./national-dashboard.component.scss']
 })
