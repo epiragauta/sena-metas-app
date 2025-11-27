@@ -103,6 +103,20 @@ export class MetasService {
   }
 
   /**
+   * Obtiene metas con jerarquía basada en IDs
+   */
+  getMetasJerarquia(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.basePath}/metas_jerarquia.json`);
+  }
+
+  /**
+   * Obtiene formación por estrategia
+   */
+  getFormacionPorEstrategia(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.basePath}/formacion_por_estrategia.json`);
+  }
+
+  /**
    * Obtiene datos para el dashboard principal
    */
   getDashboardData(): Observable<DashboardData> {
