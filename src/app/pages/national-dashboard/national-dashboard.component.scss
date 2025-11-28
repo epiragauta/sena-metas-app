@@ -1552,6 +1552,28 @@
 }
 
 // ================================================
+// POBLACIONES VULNERABLES
+// ================================================
+
+.poblaciones-vulnerables-row-1 {
+  margin-bottom: 1.5rem;
+
+  .programa-card {
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    &.child-card-selected {
+      border: 3px solid var(--sena-verde);
+      box-shadow: 0 6px 16px rgba(0, 128, 0, 0.2);
+    }
+  }
+}
+
+// ================================================
 // MÉTRICAS ADICIONALES - GRID DINÁMICO
 // ================================================
 

@@ -669,6 +669,65 @@
           </div>
         </div>
       </div>
+
+      <!-- POBLACIONES VULNERABLES -->
+      <div *ngIf="data.poblacionesVulnerablesRoot" style="margin-top: 2rem;">
+        <h3 class="subsection-title">Poblaciones vulnerables</h3>
+
+        <!-- Fila 1: Tarjeta principal ID=1 con botón Ver detalles -->
+        <div class="poblaciones-vulnerables-row-1">
+          <div class="programa-card"
+               [class.child-card-selected]="isPoblacionesVulnerablesNodeSelected(data.poblacionesVulnerablesRoot)"
+               (click)="selectPoblacionesVulnerablesNode(data.poblacionesVulnerablesRoot)">
+            <div class="programa-card-header">
+              <h4 class="programa-title">{{ data.poblacionesVulnerablesRoot.descripcion }}</h4>
+            </div>
+
+            <div class="programa-metrics">
+              <div class="progress" [class.has-overflow]="data.poblacionesVulnerablesRoot.porcentaje > 100">
+                <div class="progress-bar" [ngClass]="getClasePorcentaje(data.poblacionesVulnerablesRoot.porcentaje / 100)"
+                  [style.width.%]="data.poblacionesVulnerablesRoot.porcentaje > 100 ? 100 : data.poblacionesVulnerablesRoot.porcentaje">
+                  {{ data.poblacionesVulnerablesRoot.porcentaje / 100 | percent:'1.2-2' }}
+                </div>
+              </div>
+
+              <div class="programa-values">
+                <div class="value-item">
+                  <span class="value-label">Meta:</span>
+                  <span class="value-number">{{ data.poblacionesVulnerablesRoot.meta | number:'1.0-0' }}</span>
+                </div>
+                <div class="value-item">
+                  <span class="value-label">Ejecutado:</span>
+                  <span class="value-number">{{ data.poblacionesVulnerablesRoot.ejecucion | number:'1.0-0' }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="child-has-details" *ngIf="data.poblacionesVulnerablesRoot.children.length > 0">
+              <span class="details-icon">📊</span>
+              <span class="details-text">Ver detalles ({{ data.poblacionesVulnerablesRoot.children.length }} ítems)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fila 2: Tree-table con detalles (visible al hacer clic) -->
+        <div *ngIf="selectedPoblacionesVulnerablesNode" class="data-section selected-node-tree-section">
+          <div class="selected-node-header">
+            <h2 class="section-title">{{ selectedPoblacionesVulnerablesNode.descripcion }}</h2>
+            <button class="close-tree-btn" (click)="selectedPoblacionesVulnerablesNode = null">✕ Cerrar</button>
+          </div>
+
+          <!-- Mostrar hijos usando el template recursivo -->
+          <div class="children-tree-container" *ngIf="selectedPoblacionesVulnerablesNode.children.length > 0">
+            <div *ngFor="let child of selectedPoblacionesVulnerablesNode.children; trackBy: trackByHierarchyId">
+              <ng-container *ngTemplateOutlet="poblacionesVulnerablesNodeTpl; context: { $implicit: child }"></ng-container>
+            </div>
+          </div>
+          <div class="no-children-message" *ngIf="selectedPoblacionesVulnerablesNode.children.length === 0">
+            <p>No hay elementos de detalle para mostrar.</p>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Sección: Métricas Principales -->
@@ -1204,6 +1263,42 @@
     <div class="hierarchy-node-children" *ngIf="!node.isCollapsed && node.children.length > 0">
       <div *ngFor="let child of node.children; trackBy: trackByEstrategiaId">
         <ng-container *ngTemplateOutlet="formacionEstrategiaNodeTpl; context: { $implicit: child }"></ng-container>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Plantilla recursiva para Poblaciones Vulnerables -->
+<ng-template #poblacionesVulnerablesNodeTpl let-node>
+  <div class="hierarchy-node-card" [style.margin-left.rem]="node.level * 2">
+    <div class="hierarchy-node-header" (click)="toggleHierarchyNode(node)"
+         [class.expandable]="node.children.length > 0">
+      <div class="hierarchy-header-content">
+        <span class="toggle-icon" *ngIf="node.children.length > 0">
+          {{ node.isCollapsed ? '►' : '▼' }}
+        </span>
+        <span class="hierarchy-node-title">{{ node.descripcion }}</span>
+      </div>
+
+      <div class="hierarchy-metrics">
+        <div class="hierarchy-metric-item hierarchy-percentage"
+             [ngClass]="getClasePorcentaje(node.porcentaje / 100)">
+          {{ node.porcentaje / 100 | percent:'1.2-2' }}
+        </div>
+        <div class="hierarchy-metric-item">
+          <span class="metric-label">Meta:</span>
+          <span class="metric-value">{{ node.meta | number:'1.0-0' }}</span>
+        </div>
+        <div class="hierarchy-metric-item">
+          <span class="metric-label">Ejecución:</span>
+          <span class="metric-value">{{ node.ejecucion | number:'1.0-0' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hierarchy-node-children" *ngIf="!node.isCollapsed && node.children.length > 0">
+      <div *ngFor="let child of node.children; trackBy: trackByHierarchyId">
+        <ng-container *ngTemplateOutlet="poblacionesVulnerablesNodeTpl; context: { $implicit: child }"></ng-container>
       </div>
     </div>
   </div>

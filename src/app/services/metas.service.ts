@@ -198,6 +198,20 @@ export class MetasService {
   }
 
   /**
+   * Obtiene metas de poblaciones vulnerables
+   */
+  getMetasPoblacionesVulnerables(): Observable<Meta[]> {
+    return this.http.get<Meta[]>(`${this.basePath}/metas_poblaciones_vulnerables.json`);
+  }
+
+  /**
+   * Obtiene jerarquías de poblaciones vulnerables
+   */
+  getJerarquiasPoblacionesVulnerables(): Observable<Jerarquia[]> {
+    return this.http.get<Jerarquia[]>(`${this.basePath}/jerarquias_poblaciones_vulnerables.json`);
+  }
+
+  /**
    * Obtiene datos para el dashboard principal
    */
   getDashboardData(): Observable<DashboardData> {

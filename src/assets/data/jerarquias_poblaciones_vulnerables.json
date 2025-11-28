@@ -1,0 +1,110 @@
+[
+  {
+    "idPadre": "1",
+    "idHijo": "1.1",
+    "nombrePadre": "TOTAL POBLACIONES VULNERABLES",
+    "nombreHijo": "TOTAL VICTIMAS"
+  },
+  {
+    "idPadre": "1",
+    "idHijo": "1.2",
+    "nombrePadre": "TOTAL POBLACIONES VULNERABLES",
+    "nombreHijo": "OTRAS POBLACIONES VULNERABLES"
+  },
+  {
+    "idPadre": "1.1",
+    "idHijo": "1.1.1",
+    "nombrePadre": "TOTAL VICTIMAS",
+    "nombreHijo": "DESPLAZADOS POR LA VIOLENCIA"
+  },
+  {
+    "idPadre": "1.1",
+    "idHijo": "1.1.2",
+    "nombrePadre": "TOTAL VICTIMAS",
+    "nombreHijo": "HECHOS VICTIMIZANTES"
+  },
+  {
+    "idPadre": "1.2",
+    "idHijo": "1.2.1",
+    "nombrePadre": "OTRAS POBLACIONES VULNERABLES",
+    "nombreHijo": "Personas en condición de Discapacidad"
+  },
+  {
+    "idPadre": "1.2",
+    "idHijo": "1.2.2",
+    "nombrePadre": "OTRAS POBLACIONES VULNERABLES",
+    "nombreHijo": "Indígenas"
+  },
+  {
+    "idPadre": "1.2",
+    "idHijo": "1.2.3",
+    "nombrePadre": "OTRAS POBLACIONES VULNERABLES",
+    "nombreHijo": "INPEC"
+  },
+  {
+    "idPadre": "1.2",
+    "idHijo": "1.2.4",
+    "nombrePadre": "OTRAS POBLACIONES VULNERABLES",
+    "nombreHijo": "Jóvenes Vulnerables"
+  },
+  {
+    "idPadre": "1.2",
+    "idHijo": "1.2.5",
+    "nombrePadre": "OTRAS POBLACIONES VULNERABLES",
+    "nombreHijo": "Adolescente en Conflicto con la Ley Penal"
+  },
+  {
+    "idPadre": "1.2",
+    "idHijo": "1.2.6",
+    "nombrePadre": "OTRAS POBLACIONES VULNERABLES",
+    "nombreHijo": "Mujer Cabeza de Hogar"
+  },
+  {
+    "idPadre": "1.2",
+    "idHijo": "1.2.7",
+    "nombrePadre": "OTRAS POBLACIONES VULNERABLES",
+    "nombreHijo": "Negritudes (Negros)"
+  },
+  {
+    "idPadre": "1.2",
+    "idHijo": "1.2.8",
+    "nombrePadre": "OTRAS POBLACIONES VULNERABLES",
+    "nombreHijo": "Afrocolombianos"
+  },
+  {
+    "idPadre": "1.2",
+    "idHijo": "1.2.9",
+    "nombrePadre": "OTRAS POBLACIONES VULNERABLES",
+    "nombreHijo": "Raizales"
+  },
+  {
+    "idPadre": "1.2",
+    "idHijo": "1.2.10",
+    "nombrePadre": "OTRAS POBLACIONES VULNERABLES",
+    "nombreHijo": "Palenqueros"
+  },
+  {
+    "idPadre": "1.2",
+    "idHijo": "1.2.11",
+    "nombrePadre": "OTRAS POBLACIONES VULNERABLES",
+    "nombreHijo": "Proceso de Reintegración y Adolescentes desvinculados de Grupos Armados Organizados al margen de la ley"
+  },
+  {
+    "idPadre": "1.2",
+    "idHijo": "1.2.12",
+    "nombrePadre": "OTRAS POBLACIONES VULNERABLES",
+    "nombreHijo": "Tercera Edad"
+  },
+  {
+    "idPadre": "1.2",
+    "idHijo": "1.2.13",
+    "nombrePadre": "OTRAS POBLACIONES VULNERABLES",
+    "nombreHijo": "Adolescente Trabajador"
+  },
+  {
+    "idPadre": "1.2",
+    "idHijo": "1.2.14",
+    "nombrePadre": "OTRAS POBLACIONES VULNERABLES",
+    "nombreHijo": "Rroom"
+  }
+]
