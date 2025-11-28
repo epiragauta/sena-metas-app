@@ -13,7 +13,7 @@
             class="tab-button"
             [class.active]="isTabActive(tab.id)"
             (click)="selectTab(tab.id)">
-      <span class="tab-icon">{{ tab.icon }}</span>
+      <mat-icon class="tab-icon">{{ tab.icon }}</mat-icon>
       <span class="tab-label">{{ tab.label }}</span>
     </button>
   </div>

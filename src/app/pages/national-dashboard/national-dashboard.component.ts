@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule, CurrencyPipe, DecimalPipe, PercentPipe } from '@angular/common';
 import { forkJoin, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { MatIconModule } from '@angular/material/icon';
 
 import { MetasService } from '../../services/metas.service';
 import {
@@ -87,7 +88,7 @@ export interface DashboardData {
 @Component({
   selector: 'app-national-dashboard',
   standalone: true,
-  imports: [CommonModule, DecimalPipe, PercentPipe, CurrencyPipe],
+  imports: [CommonModule, DecimalPipe, PercentPipe, CurrencyPipe, MatIconModule],
   templateUrl: './national-dashboard.component.html',
   styleUrls: ['./national-dashboard.component.scss']
 })
@@ -110,10 +111,10 @@ export class NationalDashboardComponent implements OnInit {
   // Tabs management
   public activeTab: TabId = 'formacion-integral';
   public tabs = [
-    { id: 'formacion-integral' as TabId, label: 'Formación Profesional Integral', icon: '📊' },
-    { id: 'certificacion-retencion' as TabId, label: 'Certificación y Retención', icon: '📜' },
-    { id: 'inclusion-social' as TabId, label: 'Programas de Inclusión Social', icon: '🌾' },
-    { id: 'servicios-empleo' as TabId, label: 'Servicios de Empleo', icon: '💼' }
+    { id: 'formacion-integral' as TabId, label: 'Formación Profesional Integral', icon: 'school' },
+    { id: 'certificacion-retencion' as TabId, label: 'Certificación y Retención', icon: 'verified' },
+    { id: 'inclusion-social' as TabId, label: 'Programas de Inclusión Social', icon: 'agriculture' },
+    { id: 'servicios-empleo' as TabId, label: 'Servicios de Empleo', icon: 'business_center' }
   ];
 
   constructor(private metasService: MetasService) { }
