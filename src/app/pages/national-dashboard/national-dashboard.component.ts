@@ -55,6 +55,9 @@ export interface FormacionEstrategiaNode {
   level: number;
 }
 
+// Type for tab IDs
+export type TabId = 'formacion-integral' | 'certificacion-retencion' | 'inclusion-social' | 'servicios-empleo';
+
 export interface DashboardData {
   nationalGoals: MetaNode[];
   formacionPorNivelTree: NivelNode[];
@@ -97,7 +100,29 @@ export class NationalDashboardComponent implements OnInit {
   public showMetaEjecucionModal = false;
   public modalData: { estrategia: string; meta: number | null; ejecucion: number | null; porcentaje: number } | null = null;
 
+  // Tabs management
+  public activeTab: TabId = 'formacion-integral';
+  public tabs = [
+    { id: 'formacion-integral' as TabId, label: 'Formación Profesional Integral', icon: '📊' },
+    { id: 'certificacion-retencion' as TabId, label: 'Certificación y Retención', icon: '📜' },
+    { id: 'inclusion-social' as TabId, label: 'Programas de Inclusión Social', icon: '🌾' },
+    { id: 'servicios-empleo' as TabId, label: 'Servicios de Empleo', icon: '💼' }
+  ];
+
   constructor(private metasService: MetasService) { }
+
+  public selectTab(tabId: TabId): void {
+    console.log('Cambiando a tab:', tabId);
+    this.activeTab = tabId;
+  }
+
+  public isTabActive(tabId: TabId): boolean {
+    const result = this.activeTab === tabId;
+    if (result) {
+      console.log('Tab activa:', tabId);
+    }
+    return result;
+  }
 
   ngOnInit(): void {
     this.dashboardData$ = forkJoin({
@@ -131,13 +156,16 @@ export class NationalDashboardComponent implements OnInit {
 
         const retencionTree = this.buildRetencionTree(results.metasRetencion, results.jerarquiasRetencion);
         const retencionPadres = retencionTree.filter(node => node.level === 0);
+        console.log('Retención - Total nodos:', retencionTree.length, 'Nivel 0:', retencionPadres.length);
 
         const certificacionTree = this.buildCertificacionTree(results.metasCertificacion, results.jerarquiasCertificacion);
         const certificacionRoot = certificacionTree.length > 0 ? certificacionTree[0] : undefined;
+        console.log('Certificación - Total nodos:', certificacionTree.length, 'Root:', certificacionRoot?.id);
 
         const competenciasLaboralesTree = this.buildCompetenciasLaboralesTree(results.metasCompetenciasLaborales, results.jerarquiasCompetenciasLaborales);
         const competenciasLaboralesRoot = competenciasLaboralesTree.find(node => node.id === '1');
         const competenciasLaboralesOtros = competenciasLaboralesTree.filter(node => ['2', '3', '4', '5', '6', '7'].includes(node.id));
+        console.log('Competencias Laborales - Total nodos:', competenciasLaboralesTree.length, 'Root:', competenciasLaboralesRoot?.id, 'Otros:', competenciasLaboralesOtros.length);
 
         const productividadCampesena = this.buildProductividadCampesenaNodes(results.metasProductividadCampesena);
 

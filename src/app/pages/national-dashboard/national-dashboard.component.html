@@ -7,11 +7,24 @@
 <!-- Contenedor Principal del Dashboard -->
 <div *ngIf="dashboardData$ | async as data" class="dashboard-container fade-in">
 
-  <!-- #################################### -->
-  <!-- ##   JERARQUÍA DE METAS FPI       ## -->
-  <!-- #################################### -->
+  <!-- Tabs Navigation -->
+  <div class="tabs-navigation">
+    <button *ngFor="let tab of tabs"
+            class="tab-button"
+            [class.active]="isTabActive(tab.id)"
+            (click)="selectTab(tab.id)">
+      <span class="tab-icon">{{ tab.icon }}</span>
+      <span class="tab-label">{{ tab.label }}</span>
+    </button>
+  </div>
 
-  <div class="hierarchy-section">
+  <!-- Tab Content: Formación Profesional Integral -->
+  <div *ngIf="isTabActive('formacion-integral')" class="tab-content fade-in">
+    <!-- #################################### -->
+    <!-- ##   JERARQUÍA DE METAS FPI       ## -->
+    <!-- #################################### -->
+
+    <div class="hierarchy-section">
     <div class="data-section">
       <h2 class="section-title">Metas Formación Profesional Integral</h2>
 
@@ -293,17 +306,32 @@
               </div>
             </div>
           </div>
-        </div>
       </div>
     </div>
+  </div>
+</div>
+  <!-- End Tab Content: Formación Profesional Integral -->
 
-    <!-- Sección: Otras metas relacionadas con Formación Profesional -->
-    <div *ngIf="data.retencionPadres || data.certificacionRoot" class="data-section">
-      <h2 class="section-title">Otras metas relacionadas con Formación Profesional</h2>
+  <!-- Tab Content: Certificación y Retención -->
+  <div *ngIf="isTabActive('certificacion-retencion')" class="tab-content fade-in">
+    <h1 style="color: red; font-size: 3rem;">TAB 2 VISIBLE</h1>
+    <!-- Debug info -->
+    <div style="padding: 1rem; background: #f0f0f0; margin-bottom: 1rem;">
+      <p>Debug Info:</p>
+      <p>retencionPadres: {{ data.retencionPadres?.length || 0 }}</p>
+      <p>certificacionRoot: {{ data.certificacionRoot ? 'existe' : 'no existe' }}</p>
+      <p>competenciasLaboralesRoot: {{ data.competenciasLaboralesRoot ? 'existe' : 'no existe' }}</p>
+      <p>competenciasLaboralesOtros: {{ data.competenciasLaboralesOtros?.length || 0 }}</p>
+    </div>
 
-      <!-- RETENCIÓN -->
-      <div *ngIf="data.retencionPadres && data.retencionPadres.length > 0">
-        <h3 class="subsection-title">Retención</h3>
+    <!-- Debug: Mostrar si no hay datos -->
+    <div *ngIf="!data.retencionPadres && !data.certificacionRoot && !data.competenciasLaboralesRoot" class="data-section">
+      <p style="text-align: center; padding: 2rem; color: #666;">No hay datos disponibles para esta sección.</p>
+    </div>
+
+    <!-- RETENCIÓN -->
+    <div *ngIf="data.retencionPadres && data.retencionPadres.length > 0" class="data-section">
+      <h2 class="section-title">Retención</h2>
 
         <div class="retencion-layout">
           <!-- Primera columna: indicadores 1-6 en grid 3 columnas -->
@@ -405,11 +433,11 @@
             </div>
           </div>
         </div>
-      </div>
+    </div>
 
-      <!-- CERTIFICACIÓN FORMACIÓN PROFESIONAL-->
-      <div *ngIf="data.certificacionRoot" style="margin-top: 2rem;">
-        <h3 class="subsection-title">Certificación Formación Profesional</h3>
+    <!-- CERTIFICACIÓN FORMACIÓN PROFESIONAL-->
+    <div *ngIf="data.certificacionRoot" class="data-section">
+      <h2 class="section-title">Certificación Formación Profesional</h2>
 
         <!-- Una sola fila con 4 elementos: ID=1, ID=2, ID=3, ID=4 -->
         <div class="certificacion-grid-4col" *ngIf="data.certificacionTree">
@@ -496,11 +524,11 @@
             <p>No hay elementos de detalle para mostrar.</p>
           </div>
         </div>
-      </div>
+    </div>
 
-      <!-- CERTIFICACIÓN DE COMPETENCIAS LABORALES -->
-      <div *ngIf="data.competenciasLaboralesRoot && data.competenciasLaboralesOtros" style="margin-top: 2rem;">
-        <h3 class="subsection-title">Certificación de competencias laborales</h3>
+    <!-- CERTIFICACIÓN DE COMPETENCIAS LABORALES -->
+    <div *ngIf="data.competenciasLaboralesRoot && data.competenciasLaboralesOtros" class="data-section">
+      <h2 class="section-title">Certificación de competencias laborales</h2>
 
         <!-- Fila 1: ID=1 con botón Ver detalles -->
         <div class="competencias-laborales-row-1">
@@ -634,10 +662,15 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+  <!-- End Tab Content: Certificación y Retención -->
 
-      <!-- PRODUCTIVIDAD CAMPESENA -->
-      <div *ngIf="data.productividadCampesena && data.productividadCampesena.length > 0" style="margin-top: 2rem;">
-        <h3 class="subsection-title">Productividad CampeSENA</h3>
+  <!-- Tab Content: Programas de Inclusión Social -->
+  <div *ngIf="isTabActive('inclusion-social')" class="tab-content fade-in">
+    <!-- PRODUCTIVIDAD CAMPESENA -->
+    <div *ngIf="data.productividadCampesena && data.productividadCampesena.length > 0" class="data-section">
+      <h2 class="section-title">Productividad CampeSENA</h2>
 
         <!-- Una fila con 4 tarjetas -->
         <div class="productividad-campesena-grid">
@@ -668,11 +701,11 @@
             </div>
           </div>
         </div>
-      </div>
+    </div>
 
-      <!-- POBLACIONES VULNERABLES -->
-      <div *ngIf="data.poblacionesVulnerablesRoot" style="margin-top: 2rem;">
-        <h3 class="subsection-title">Poblaciones vulnerables</h3>
+    <!-- POBLACIONES VULNERABLES -->
+    <div *ngIf="data.poblacionesVulnerablesRoot" class="data-section">
+      <h2 class="section-title">Poblaciones vulnerables</h2>
 
         <!-- Fila 1: Tarjeta principal ID=1 con botón Ver detalles -->
         <div class="poblaciones-vulnerables-row-1">
@@ -727,11 +760,15 @@
             <p>No hay elementos de detalle para mostrar.</p>
           </div>
         </div>
-      </div>
+    </div>
+  </div>
+  <!-- End Tab Content: Programas de Inclusión Social -->
 
-      <!-- AGENCIA PÚBLICA DE EMPLEO -->
-      <div *ngIf="data.agenciaPublicaEmpleoNivel1 && data.agenciaPublicaEmpleoNivel1.length > 0" style="margin-top: 2rem;">
-        <h3 class="subsection-title">Agencia pública de empleo</h3>
+  <!-- Tab Content: Servicios de Empleo -->
+  <div *ngIf="isTabActive('servicios-empleo')" class="tab-content fade-in">
+    <!-- AGENCIA PÚBLICA DE EMPLEO -->
+    <div *ngIf="data.agenciaPublicaEmpleoNivel1 && data.agenciaPublicaEmpleoNivel1.length > 0" class="data-section">
+      <h2 class="section-title">Agencia pública de empleo</h2>
 
         <!-- Fila 1: 5 tarjetas de nivel 1 (IDs 1, 2, 3, 4, 5) -->
         <div class="agencia-publica-empleo-grid">
@@ -803,11 +840,12 @@
             </div>
           </div>
         </div>
-      </div>
     </div>
-
   </div>
+  <!-- End Tab Content: Servicios de Empleo -->
+
 </div>
+<!-- End Dashboard Container -->
 
 <!-- Plantilla Recursiva para cada Nodo de Nivel -->
 <ng-template #nivelNodeTpl let-node>

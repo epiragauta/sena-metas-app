@@ -18,26 +18,17 @@ import { HttpClientModule } from '@angular/common/http';
         </div>
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
-          </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link" routerLink="/metas" routerLinkActive="active">Metas FPI</a>
-          </li> -->
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/estrategias" routerLinkActive="active">Estrategias</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/niveles" routerLinkActive="active">Niveles</a>
-          </li>
+            <a class="nav-link" routerLink="/dashboard-nacional" routerLinkActive="active">Dashboard</a>
+          </li>          
           <li class="nav-item">
             <a class="nav-link" routerLink="/regionales" routerLinkActive="active">Mapa</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="/consulta-regional" routerLinkActive="active">Consulta Regional</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" routerLink="/consulta-nacional" routerLinkActive="active">Consulta Nacional</a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a class="nav-link" routerLink="/metas-regionales-centros" routerLinkActive="active">API Metas</a>
           </li>
