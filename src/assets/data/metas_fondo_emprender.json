@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1",
+    "descripcion": "Iniciativas empresariales financiadas con recursos del Fondo Emprender",
+    "meta": 2665,
+    "ejecucion": 186,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "2",
+    "descripcion": "Empleos potenciales directos Fondo Emprender",
+    "meta": 5204,
+    "ejecucion": 278,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "3",
+    "descripcion": "Empresas Creadas en Full popular a través del Fondo Emprender",
+    "meta": 54,
+    "ejecucion": 0,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "4",
+    "descripcion": "Empleos potenciales directos de full popular a través del Fondo Emprender",
+    "meta": 189,
+    "ejecucion": 0,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  }
+]

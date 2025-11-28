@@ -218,6 +218,69 @@ export class MetasService {
   }
 
   /**
+   * Obtiene metas de emprendimiento y fortalecimiento (Tabla 11)
+   */
+  getMetasEmprendimiento(): Observable<Meta[]> {
+    return this.http.get<Meta[]>(`${this.basePath}/metas_emprendimiento.json`);
+  }
+
+  /**
+   * Obtiene metas del fondo emprender (Tabla 12)
+   */
+  getMetasFondoEmprender(): Observable<Meta[]> {
+    return this.http.get<Meta[]>(`${this.basePath}/metas_fondo_emprender.json`);
+  }
+
+  /**
+   * Obtiene metas de contratos de aprendizaje (Tabla 13)
+   */
+  getMetasContratosAprendizaje(): Observable<Meta[]> {
+    return this.http.get<Meta[]>(`${this.basePath}/metas_contratos_aprendizaje.json`);
+  }
+
+  /**
+   * Obtiene metas de internacionalización (Tabla 14)
+   */
+  getMetasInternacionalizacion(): Observable<Meta[]> {
+    return this.http.get<Meta[]>(`${this.basePath}/metas_internacionalizacion.json`);
+  }
+
+  /**
+   * Obtiene metas de cupos autorizados FIC (Tabla 15)
+   */
+  getMetasCuposFIC(): Observable<Meta[]> {
+    return this.http.get<Meta[]>(`${this.basePath}/metas_cupos_fic.json`);
+  }
+
+  /**
+   * Obtiene jerarquías de cupos FIC
+   */
+  getJerarquiasCuposFIC(): Observable<Jerarquia[]> {
+    return this.http.get<Jerarquia[]>(`${this.basePath}/jerarquias_cupos_fic.json`);
+  }
+
+  /**
+   * Obtiene metas completas de CampeSENA (Tabla 16)
+   */
+  getMetasCampesenaCompleto(): Observable<Meta[]> {
+    return this.http.get<Meta[]>(`${this.basePath}/metas_campesena_completo.json`);
+  }
+
+  /**
+   * Obtiene metas completas de Full Popular (Tabla 17)
+   */
+  getMetasFullPopularCompleto(): Observable<Meta[]> {
+    return this.http.get<Meta[]>(`${this.basePath}/metas_full_popular_completo.json`);
+  }
+
+  /**
+   * Obtiene metas de FEEC (Tabla 18)
+   */
+  getMetasFEEC(): Observable<Meta[]> {
+    return this.http.get<Meta[]>(`${this.basePath}/metas_feec.json`);
+  }
+
+  /**
    * Obtiene datos para el dashboard principal
    */
   getDashboardData(): Observable<DashboardData> {

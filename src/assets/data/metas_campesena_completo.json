@@ -1,0 +1,92 @@
+[
+  {
+    "id": "1",
+    "descripcion": "Total Formación Profesional CampeSENA",
+    "meta": 649193,
+    "ejecucion": 687572,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": true,
+    "esSubtotal": false
+  },
+  {
+    "id": "1.1",
+    "descripcion": "Tecnólogos CampeSENA",
+    "meta": 2399,
+    "ejecucion": 2802,
+    "esTasa": false,
+    "nivelJerarquia": 2,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "1.2",
+    "descripcion": "Operarios CampeSENA",
+    "meta": 1920,
+    "ejecucion": 2608,
+    "esTasa": false,
+    "nivelJerarquia": 2,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "1.3",
+    "descripcion": "Auxiliares CampeSENA",
+    "meta": 945,
+    "ejecucion": 1025,
+    "esTasa": false,
+    "nivelJerarquia": 2,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "1.4",
+    "descripcion": "Técnico Laboral CampeSENA",
+    "meta": 24795,
+    "ejecucion": 26175,
+    "esTasa": false,
+    "nivelJerarquia": 2,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "1.5",
+    "descripcion": "Formación Complementaria CampeSENA",
+    "meta": 619134,
+    "ejecucion": 654962,
+    "esTasa": false,
+    "nivelJerarquia": 2,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "2",
+    "descripcion": "Retención - CampeSENA",
+    "meta": 89.36,
+    "ejecucion": 90.33,
+    "esTasa": true,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "3",
+    "descripcion": "Certificación - CampeSENA (Incluidas en Formación Profesional Integral)",
+    "meta": 481818,
+    "ejecucion": 396634,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "4",
+    "descripcion": "Certificaciones de competencias laborales expedidas para CampeSENA",
+    "meta": 49870,
+    "ejecucion": 69701,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  }
+]

@@ -1,0 +1,92 @@
+[
+  {
+    "id": "1",
+    "descripcion": "Total Formación Profesional Full Popular",
+    "meta": 101354,
+    "ejecucion": 147036,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": true,
+    "esSubtotal": false
+  },
+  {
+    "id": "1.1",
+    "descripcion": "Tecnólogos Full Popular",
+    "meta": 678,
+    "ejecucion": 709,
+    "esTasa": false,
+    "nivelJerarquia": 2,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "1.2",
+    "descripcion": "Operarios Full Popular",
+    "meta": 1504,
+    "ejecucion": 1910,
+    "esTasa": false,
+    "nivelJerarquia": 2,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "1.3",
+    "descripcion": "Auxiliares Full Popular",
+    "meta": 1091,
+    "ejecucion": 1076,
+    "esTasa": false,
+    "nivelJerarquia": 2,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "1.4",
+    "descripcion": "Técnico Laboral Full Popular",
+    "meta": 3881,
+    "ejecucion": 4671,
+    "esTasa": false,
+    "nivelJerarquia": 2,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "1.5",
+    "descripcion": "Formación Complementaria Full Popular",
+    "meta": 94200,
+    "ejecucion": 138670,
+    "esTasa": false,
+    "nivelJerarquia": 2,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "2",
+    "descripcion": "Retención - Full Popular",
+    "meta": 61.01,
+    "ejecucion": 85.76,
+    "esTasa": true,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "3",
+    "descripcion": "Certificación - Full Popular (Incluidas en Formación Profesional Integral)",
+    "meta": 54421,
+    "ejecucion": 100836,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "4",
+    "descripcion": "Certificaciones de competencia Laboral expedidas en Full Popular",
+    "meta": 31221,
+    "ejecucion": 33904,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  }
+]

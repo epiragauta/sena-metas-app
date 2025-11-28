@@ -77,6 +77,11 @@ export interface DashboardData {
   poblacionesVulnerablesRoot?: HierarchyNode;  // ID=1 para tarjeta
   poblacionesVulnerablesTree?: HierarchyNode[];  // Todos los nodos para tree-table
   agenciaPublicaEmpleoNivel1?: HierarchyNode[];  // 5 tarjetas nivel 1 (IDs 1, 2, 3, 4, 5)
+  cuposFICTree?: HierarchyNode[];  // Árbol completo de Cupos FIC (Tabla 15)
+  cuposFICRoot?: HierarchyNode;  // ID=1 para tarjeta principal
+  fondoEmprender?: HierarchyNode[];  // 4 métricas planas (Tabla 12)
+  contratosAprendizaje?: HierarchyNode[];  // 6 métricas con ID=3 principal (Tabla 13)
+  contratosAprendizajePrincipal?: HierarchyNode;  // ID=3 (Total Aprendices)
 }
 
 @Component({
@@ -97,6 +102,8 @@ export class NationalDashboardComponent implements OnInit {
   public showCompetenciasLaboralesDetails = false;
   public selectedPoblacionesVulnerablesNode: HierarchyNode | null = null;
   public selectedAgenciaPublicaEmpleoNode: HierarchyNode | null = null;
+  public selectedCuposFICNode: HierarchyNode | null = null;
+  public selectedContratosAprendizajeNode: HierarchyNode | null = null;
   public showMetaEjecucionModal = false;
   public modalData: { estrategia: string; meta: number | null; ejecucion: number | null; porcentaje: number } | null = null;
 
@@ -143,7 +150,11 @@ export class NationalDashboardComponent implements OnInit {
       metasPoblacionesVulnerables: this.metasService.getMetasPoblacionesVulnerables(),
       jerarquiasPoblacionesVulnerables: this.metasService.getJerarquiasPoblacionesVulnerables(),
       metasAgenciaPublicaEmpleo: this.metasService.getMetasAgenciaPublicaEmpleo(),
-      jerarquiasAgenciaPublicaEmpleo: this.metasService.getJerarquiasAgenciaPublicaEmpleo()
+      jerarquiasAgenciaPublicaEmpleo: this.metasService.getJerarquiasAgenciaPublicaEmpleo(),
+      metasCuposFIC: this.metasService.getMetasCuposFIC(),
+      jerarquiasCuposFIC: this.metasService.getJerarquiasCuposFIC(),
+      metasFondoEmprender: this.metasService.getMetasFondoEmprender(),
+      metasContratosAprendizaje: this.metasService.getMetasContratosAprendizaje()
     }).pipe(
       map(results => {
         this.cargando = false;
@@ -175,6 +186,17 @@ export class NationalDashboardComponent implements OnInit {
         const agenciaPublicaEmpleoTree = this.buildAgenciaPublicaEmpleoTree(results.metasAgenciaPublicaEmpleo, results.jerarquiasAgenciaPublicaEmpleo);
         const agenciaPublicaEmpleoNivel1 = agenciaPublicaEmpleoTree.filter(node => node.level === 0);
 
+        const cuposFICTree = this.buildCuposFICTree(results.metasCuposFIC, results.jerarquiasCuposFIC);
+        const cuposFICRoot = cuposFICTree.find(node => node.id === '1');
+        console.log('Cupos FIC - Total nodos:', cuposFICTree.length, 'Root:', cuposFICRoot?.id);
+
+        const fondoEmprender = this.buildFondoEmprenderNodes(results.metasFondoEmprender);
+        console.log('Fondo Emprender - Total tarjetas:', fondoEmprender.length);
+
+        const contratosAprendizaje = this.buildContratosAprendizajeNodes(results.metasContratosAprendizaje);
+        const contratosAprendizajePrincipal = contratosAprendizaje.find(node => node.id === '3');
+        console.log('Contratos Aprendizaje - Total nodos:', contratosAprendizaje.length, 'Principal:', contratosAprendizajePrincipal?.id);
+
         return {
           nationalGoals: this.buildTree(results.metas, results.jerarquias),
           formacionPorNivelTree: this.buildNivelTree(results.formacionPorNivel),
@@ -193,7 +215,12 @@ export class NationalDashboardComponent implements OnInit {
           productividadCampesena: productividadCampesena,
           poblacionesVulnerablesRoot: poblacionesVulnerablesRoot,
           poblacionesVulnerablesTree: poblacionesVulnerablesTree,
-          agenciaPublicaEmpleoNivel1: agenciaPublicaEmpleoNivel1
+          agenciaPublicaEmpleoNivel1: agenciaPublicaEmpleoNivel1,
+          cuposFICTree: cuposFICTree,
+          cuposFICRoot: cuposFICRoot,
+          fondoEmprender: fondoEmprender,
+          contratosAprendizaje: contratosAprendizaje,
+          contratosAprendizajePrincipal: contratosAprendizajePrincipal
         };
       })
     );
@@ -535,6 +562,65 @@ export class NationalDashboardComponent implements OnInit {
     });
   }
 
+  private buildFondoEmprenderNodes(metas: Meta[]): HierarchyNode[] {
+    return metas.map(meta => {
+      const porcentaje = (meta.meta > 0) ? (meta.ejecucion / meta.meta) * 100 : 0;
+      return {
+        id: meta.id.toString(),
+        descripcion: meta.descripcion,
+        meta: meta.meta,
+        ejecucion: meta.ejecucion,
+        porcentaje: porcentaje,
+        children: [],
+        isCollapsed: true,
+        level: 0
+      };
+    });
+  }
+
+  private buildContratosAprendizajeNodes(metas: Meta[]): HierarchyNode[] {
+    const nodesMap = new Map<string, HierarchyNode>();
+
+    // Crear todos los nodos
+    metas.forEach(meta => {
+      const porcentaje = (meta.meta > 0) ? (meta.ejecucion / meta.meta) * 100 : 0;
+      nodesMap.set(meta.id.toString(), {
+        id: meta.id.toString(),
+        descripcion: meta.descripcion,
+        meta: meta.meta,
+        ejecucion: meta.ejecucion,
+        porcentaje: porcentaje,
+        children: [],
+        isCollapsed: true,
+        level: 0
+      });
+    });
+
+    // Construir jerarquía: ID=3 tiene hijos 3.1 y 3.2
+    const padre = nodesMap.get('3');
+    const hijo1 = nodesMap.get('3.1');
+    const hijo2 = nodesMap.get('3.2');
+
+    if (padre && hijo1) {
+      padre.children.push(hijo1);
+      hijo1.level = 1;
+    }
+    if (padre && hijo2) {
+      padre.children.push(hijo2);
+      hijo2.level = 1;
+    }
+
+    // Retornar todos los nodos de nivel 0 (1, 2, 3, 4)
+    const rootNodes: HierarchyNode[] = [];
+    nodesMap.forEach((node, id) => {
+      if (node.level === 0) {
+        rootNodes.push(node);
+      }
+    });
+
+    return rootNodes;
+  }
+
   /**
    * Construye el árbol de poblaciones vulnerables usando jerarquías explícitas
    */
@@ -782,6 +868,48 @@ export class NationalDashboardComponent implements OnInit {
   /**
    * Construye el árbol de agencia pública de empleo usando jerarquías explícitas
    */
+  private buildCuposFICTree(metas: Meta[], jerarquias: Jerarquia[]): HierarchyNode[] {
+    const nodesMap = new Map<string, HierarchyNode>();
+
+    // Crear nodos
+    metas.forEach(meta => {
+      const porcentaje = (meta.meta > 0) ? (meta.ejecucion / meta.meta) * 100 : 0;
+      nodesMap.set(meta.id.toString(), {
+        id: meta.id.toString(),
+        descripcion: meta.descripcion,
+        meta: meta.meta,
+        ejecucion: meta.ejecucion,
+        porcentaje: porcentaje,
+        children: [],
+        isCollapsed: true,
+        level: 0
+      });
+    });
+
+    // Construir jerarquía usando las relaciones
+    jerarquias.forEach(relacion => {
+      const padre = nodesMap.get(relacion.idPadre.toString());
+      const hijo = nodesMap.get(relacion.idHijo.toString());
+      if (padre && hijo) {
+        padre.children.push(hijo);
+      }
+    });
+
+    // Encontrar nodos raíz (que no son hijos de nadie)
+    const allHijos = new Set(jerarquias.map(j => j.idHijo.toString()));
+    const rootNodes: HierarchyNode[] = [];
+    nodesMap.forEach((node, id) => {
+      if (!allHijos.has(id)) {
+        rootNodes.push(node);
+      }
+    });
+
+    // Asignar niveles
+    rootNodes.forEach(root => this.assignHierarchyLevel(root, 0));
+
+    return rootNodes;
+  }
+
   private buildAgenciaPublicaEmpleoTree(metas: Meta[], jerarquias: Jerarquia[]): HierarchyNode[] {
     const nodesMap = new Map<string, HierarchyNode>();
 
@@ -834,5 +962,29 @@ export class NationalDashboardComponent implements OnInit {
 
   public isAgenciaPublicaEmpleoNodeSelected(node: HierarchyNode): boolean {
     return this.selectedAgenciaPublicaEmpleoNode?.id === node.id;
+  }
+
+  public selectCuposFICNode(node: HierarchyNode): void {
+    if (this.selectedCuposFICNode?.id === node.id) {
+      this.selectedCuposFICNode = null;
+    } else {
+      this.selectedCuposFICNode = node;
+    }
+  }
+
+  public isCuposFICNodeSelected(node: HierarchyNode): boolean {
+    return this.selectedCuposFICNode?.id === node.id;
+  }
+
+  public selectContratosAprendizajeNode(node: HierarchyNode): void {
+    if (this.selectedContratosAprendizajeNode?.id === node.id) {
+      this.selectedContratosAprendizajeNode = null;
+    } else {
+      this.selectedContratosAprendizajeNode = node;
+    }
+  }
+
+  public isContratosAprendizajeNodeSelected(node: HierarchyNode): boolean {
+    return this.selectedContratosAprendizajeNode?.id === node.id;
   }
 }

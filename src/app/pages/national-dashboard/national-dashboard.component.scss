@@ -2201,3 +2201,152 @@
     font-size: 1.2rem;
   }
 }
+
+// ====================================
+// CUPOS AUTORIZADOS FIC
+// ====================================
+
+.cupos-fic-principal {
+  margin-bottom: 1.5rem;
+}
+
+.cupos-fic-card-principal {
+  background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
+  border-left: 4px solid var(--sena-naranja);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+  }
+
+  &.child-card-selected {
+    border-left-color: var(--sena-verde);
+    box-shadow: 0 6px 20px rgba(57, 181, 74, 0.3);
+  }
+}
+
+// ====================================
+// FONDO EMPRENDER
+// ====================================
+
+.fondo-emprender-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.fondo-emprender-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border-left: 4px solid #0056b3;
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 6px 16px rgba(0, 86, 179, 0.15);
+    transform: translateY(-2px);
+    border-left-color: #004085;
+  }
+
+  .programa-title {
+    font-size: 0.95rem;
+    line-height: 1.3;
+    min-height: 2.6rem;
+  }
+}
+
+// ====================================
+// CONTRATOS DE APRENDIZAJE
+// ====================================
+
+.contratos-aprendizaje-row-1 {
+  margin-bottom: 1.5rem;
+}
+
+.contratos-aprendizaje-card-principal {
+  background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
+  border-left: 4px solid var(--sena-naranja);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+  }
+
+  &.child-card-selected {
+    border-left-color: var(--sena-verde);
+    box-shadow: 0 6px 20px rgba(57, 181, 74, 0.3);
+  }
+}
+
+.contratos-aprendizaje-detail-row {
+  margin-bottom: 1.5rem;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.contratos-aprendizaje-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contratos-aprendizaje-detail-card {
+  background: linear-gradient(135deg, #e8f5e9 0%, #ffffff 100%);
+  border-left: 4px solid var(--sena-verde);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(57, 181, 74, 0.15);
+  }
+
+  .programa-title {
+    font-size: 0.9rem;
+    line-height: 1.3;
+  }
+}
+
+.contratos-aprendizaje-row-3 {
+  margin-top: 1.5rem;
+}
+
+.contratos-aprendizaje-grid-3col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+
+  .programa-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-left: 4px solid #6c757d;
+    transition: all 0.3s ease;
+
+    &:hover {
+      box-shadow: 0 6px 16px rgba(108, 117, 125, 0.15);
+      transform: translateY(-2px);
+      border-left-color: #495057;
+    }
+
+    .programa-title {
+      font-size: 0.9rem;
+      line-height: 1.3;
+      min-height: 2.4rem;
+    }
+  }
+}

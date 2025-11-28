@@ -1,0 +1,12 @@
+[
+  {
+    "id": "1",
+    "descripcion": "Estrategia Formación Continua Especial Campesina (En el marco de FEEC)",
+    "meta": 30000,
+    "ejecucion": 10405,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  }
+]

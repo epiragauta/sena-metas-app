@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "descripcion": "Alianzas estratégicas, convenios y/o proyectos nacionales e internacionales suscritos y/o fortalecidos por el SENA",
+    "meta": 20,
+    "ejecucion": 22,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "2",
+    "descripcion": "Movilidad Internacional (Entrante y saliente)",
+    "meta": 500,
+    "ejecucion": 334,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "3",
+    "descripcion": "Personas formadas y entrenadas en el marco de alianzas con cooperantes internacionales",
+    "meta": 6000,
+    "ejecucion": 5441,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  }
+]
