@@ -177,6 +177,20 @@ export class MetasService {
   }
 
   /**
+   * Obtiene metas de competencias laborales
+   */
+  getMetasCompetenciasLaborales(): Observable<Meta[]> {
+    return this.http.get<Meta[]>(`${this.basePath}/metas_competencias_laborales.json`);
+  }
+
+  /**
+   * Obtiene jerarquías de competencias laborales
+   */
+  getJerarquiasCompetenciasLaborales(): Observable<Jerarquia[]> {
+    return this.http.get<Jerarquia[]>(`${this.basePath}/jerarquias_competencias_laborales.json`);
+  }
+
+  /**
    * Obtiene datos para el dashboard principal
    */
   getDashboardData(): Observable<DashboardData> {
