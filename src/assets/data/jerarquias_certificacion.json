@@ -1,0 +1,26 @@
+[
+  {
+    "idPadre": "1",
+    "idHijo": "1.1",
+    "nombrePadre": "TOTAL FORMACIÓN PROFESIONAL INTEGRAL",
+    "nombreHijo": "TOTAL FORMACIÓN COMPLEMENTARIA"
+  },
+  {
+    "idPadre": "1",
+    "idHijo": "1.2",
+    "nombrePadre": "TOTAL FORMACIÓN PROFESIONAL INTEGRAL",
+    "nombreHijo": "TOTAL FORMACIÓN TITULADA"
+  },
+  {
+    "idPadre": "1.2",
+    "idHijo": "1.2.1",
+    "nombrePadre": "TOTAL FORMACIÓN TITULADA",
+    "nombreHijo": "EDUCACIÓN SUPERIOR"
+  },
+  {
+    "idPadre": "1.2",
+    "idHijo": "1.2.2",
+    "nombrePadre": "TOTAL FORMACIÓN TITULADA",
+    "nombreHijo": "FORMACIÓN LABORAL"
+  }
+]

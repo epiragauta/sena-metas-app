@@ -1235,6 +1235,229 @@
 }
 
 // ================================================
+// OTRAS METAS RELACIONADAS - RETENCIÓN Y CERTIFICACIÓN
+// ================================================
+
+// RETENCIÓN LAYOUT
+.retencion-layout {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.retencion-column-1 {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.retencion-column-2 {
+  display: flex;
+  flex-direction: column;
+}
+
+.retencion-grid-3col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.retencion-grid-1col {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+// Barra de progreso gris para retención
+.progress-bar-gray {
+  background-color: #888888 !important;
+  color: white;
+}
+
+// Tarjeta de retención con borde cuando está seleccionada
+.retencion-card {
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.retencion-card-selected {
+  border: 3px solid var(--sena-verde);
+  box-shadow: 0 6px 16px rgba(0, 128, 0, 0.2);
+}
+
+// Asegurar que las tarjetas de la columna 2 tengan la misma altura que las de columna 1
+.retencion-card-col2 {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+// Tabla de detalles debajo de la tarjeta seleccionada
+.retencion-detalle-table {
+  margin-top: 1rem;
+  background: white;
+  border-radius: 8px;
+  border: 2px solid var(--sena-verde);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.detalle-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background: var(--sena-verde);
+  color: white;
+}
+
+.detalle-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.close-detalle-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0 0.5rem;
+  line-height: 1;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
+// Tabla compacta para detalles
+.table-compacta {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+
+  thead {
+    background: #f5f5f5;
+
+    th {
+      padding: 0.5rem;
+      text-align: left;
+      font-weight: 600;
+      color: #333;
+      border-bottom: 2px solid #ddd;
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid #eee;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: #f9f9f9;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    td {
+      padding: 0.4rem 0.5rem;
+      color: #555;
+
+      &:first-child {
+        font-weight: 500;
+      }
+
+      &:nth-child(2), &:nth-child(3), &:nth-child(4) {
+        text-align: right;
+      }
+    }
+  }
+}
+
+// CERTIFICACIÓN LAYOUT
+.certificacion-grid-4col {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  align-items: stretch; // Asegura que todas las tarjetas tengan la misma altura
+  margin-bottom: 1.5rem;
+}
+
+.certificacion-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%; // Asegura que ocupe toda la altura del grid
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  }
+}
+
+// Espaciador para mantener misma altura que el botón "Ver detalles"
+.certificacion-spacer {
+  min-height: 2.5rem; // Misma altura que .child-has-details
+  margin-top: auto; // Empuja este elemento al final
+}
+
+// Responsive para Retención y Certificación
+@media (max-width: 1400px) {
+  .certificacion-grid-4col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 1200px) {
+  .retencion-layout {
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .retencion-grid-3col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  .retencion-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .retencion-grid-3col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .certificacion-grid-4col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .retencion-grid-3col {
+    grid-template-columns: 1fr;
+  }
+
+  .retencion-grid-1col {
+    grid-template-columns: 1fr;
+  }
+
+  .certificacion-grid-4col {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ================================================
 // MÉTRICAS ADICIONALES - GRID DINÁMICO
 // ================================================
 

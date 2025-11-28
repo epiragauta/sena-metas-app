@@ -149,6 +149,34 @@ export class MetasService {
   }
 
   /**
+   * Obtiene metas de retención
+   */
+  getMetasRetencion(): Observable<Meta[]> {
+    return this.http.get<Meta[]>(`${this.basePath}/metas_retencion.json`);
+  }
+
+  /**
+   * Obtiene jerarquías de retención
+   */
+  getJerarquiasRetencion(): Observable<Jerarquia[]> {
+    return this.http.get<Jerarquia[]>(`${this.basePath}/jerarquias_retencion.json`);
+  }
+
+  /**
+   * Obtiene metas de certificación
+   */
+  getMetasCertificacion(): Observable<Meta[]> {
+    return this.http.get<Meta[]>(`${this.basePath}/metas_certificacion.json`);
+  }
+
+  /**
+   * Obtiene jerarquías de certificación
+   */
+  getJerarquiasCertificacion(): Observable<Jerarquia[]> {
+    return this.http.get<Jerarquia[]>(`${this.basePath}/jerarquias_certificacion.json`);
+  }
+
+  /**
    * Obtiene datos para el dashboard principal
    */
   getDashboardData(): Observable<DashboardData> {

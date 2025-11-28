@@ -66,6 +66,10 @@ export interface DashboardData {
   hierarchyRoot?: HierarchyNode;
   formacionEstrategiaTree?: FormacionEstrategiaNode[];
   formacionEstrategiaRoot?: FormacionEstrategiaNode;
+  retencionTree?: HierarchyNode[];
+  retencionPadres?: HierarchyNode[];  // Solo elementos nivel 1
+  certificacionTree?: HierarchyNode[];
+  certificacionRoot?: HierarchyNode;
 }
 
 @Component({
@@ -81,6 +85,8 @@ export class NationalDashboardComponent implements OnInit {
   public cargando = true;
   public selectedNodeForTree: HierarchyNode | null = null;
   public selectedEstrategiaNodeForTree: FormacionEstrategiaNode | null = null;
+  public selectedRetencionNode: HierarchyNode | null = null;
+  public selectedCertificacionNode: HierarchyNode | null = null;
   public showMetaEjecucionModal = false;
   public modalData: { estrategia: string; meta: number | null; ejecucion: number | null; porcentaje: number } | null = null;
 
@@ -95,7 +101,11 @@ export class NationalDashboardComponent implements OnInit {
       metasPrimerCurso: this.metasService.getPrimerCurso(),
       metricasAdicionales: this.metasService.getMetricasAdicionales(),
       metasJerarquia: this.metasService.getMetasJerarquia(),
-      formacionPorEstrategia: this.metasService.getFormacionPorEstrategia()
+      formacionPorEstrategia: this.metasService.getFormacionPorEstrategia(),
+      metasRetencion: this.metasService.getMetasRetencion(),
+      jerarquiasRetencion: this.metasService.getJerarquiasRetencion(),
+      metasCertificacion: this.metasService.getMetasCertificacion(),
+      jerarquiasCertificacion: this.metasService.getJerarquiasCertificacion()
     }).pipe(
       map(results => {
         this.cargando = false;
@@ -106,6 +116,12 @@ export class NationalDashboardComponent implements OnInit {
         const formacionEstrategiaTree = this.buildFormacionEstrategiaTree(results.formacionPorEstrategia);
         const formacionEstrategiaRoot = formacionEstrategiaTree.length > 0 ? formacionEstrategiaTree[0] : undefined;
 
+        const retencionTree = this.buildRetencionTree(results.metasRetencion, results.jerarquiasRetencion);
+        const retencionPadres = retencionTree.filter(node => node.level === 0);
+
+        const certificacionTree = this.buildCertificacionTree(results.metasCertificacion, results.jerarquiasCertificacion);
+        const certificacionRoot = certificacionTree.length > 0 ? certificacionTree[0] : undefined;
+
         return {
           nationalGoals: this.buildTree(results.metas, results.jerarquias),
           formacionPorNivelTree: this.buildNivelTree(results.formacionPorNivel),
@@ -115,7 +131,11 @@ export class NationalDashboardComponent implements OnInit {
           hierarchyTree: hierarchyTree,
           hierarchyRoot: hierarchyRoot,
           formacionEstrategiaTree: formacionEstrategiaTree,
-          formacionEstrategiaRoot: formacionEstrategiaRoot
+          formacionEstrategiaRoot: formacionEstrategiaRoot,
+          retencionTree: retencionTree,
+          retencionPadres: retencionPadres,
+          certificacionTree: certificacionTree,
+          certificacionRoot: certificacionRoot
         };
       })
     );
@@ -348,6 +368,96 @@ export class NationalDashboardComponent implements OnInit {
     node.children.forEach(child => this.assignFormacionEstrategiaLevel(child, level + 1));
   }
 
+  /**
+   * Construye el árbol de retención usando jerarquías explícitas
+   */
+  private buildRetencionTree(metas: Meta[], jerarquias: Jerarquia[]): HierarchyNode[] {
+    const nodesMap = new Map<string, HierarchyNode>();
+
+    // Crear nodos
+    metas.forEach(meta => {
+      const porcentaje = (meta.meta > 0) ? (meta.ejecucion / meta.meta) * 100 : 0;
+      nodesMap.set(meta.id.toString(), {
+        id: meta.id.toString(),
+        descripcion: meta.descripcion,
+        meta: meta.meta,
+        ejecucion: meta.ejecucion,
+        porcentaje: porcentaje,
+        children: [],
+        isCollapsed: true,
+        level: 0
+      });
+    });
+
+    // Construir jerarquía usando las relaciones
+    jerarquias.forEach(relacion => {
+      const padre = nodesMap.get(relacion.idPadre.toString());
+      const hijo = nodesMap.get(relacion.idHijo.toString());
+      if (padre && hijo) {
+        padre.children.push(hijo);
+      }
+    });
+
+    // Encontrar nodos raíz (que no son hijos de nadie)
+    const allHijos = new Set(jerarquias.map(j => j.idHijo.toString()));
+    const rootNodes: HierarchyNode[] = [];
+    nodesMap.forEach((node, id) => {
+      if (!allHijos.has(id)) {
+        rootNodes.push(node);
+      }
+    });
+
+    // Asignar niveles
+    rootNodes.forEach(root => this.assignHierarchyLevel(root, 0));
+
+    return rootNodes;
+  }
+
+  /**
+   * Construye el árbol de certificación usando jerarquías explícitas
+   */
+  private buildCertificacionTree(metas: Meta[], jerarquias: Jerarquia[]): HierarchyNode[] {
+    const nodesMap = new Map<string, HierarchyNode>();
+
+    // Crear nodos
+    metas.forEach(meta => {
+      const porcentaje = (meta.meta > 0) ? (meta.ejecucion / meta.meta) * 100 : 0;
+      nodesMap.set(meta.id.toString(), {
+        id: meta.id.toString(),
+        descripcion: meta.descripcion,
+        meta: meta.meta,
+        ejecucion: meta.ejecucion,
+        porcentaje: porcentaje,
+        children: [],
+        isCollapsed: true,
+        level: 0
+      });
+    });
+
+    // Construir jerarquía usando las relaciones
+    jerarquias.forEach(relacion => {
+      const padre = nodesMap.get(relacion.idPadre.toString());
+      const hijo = nodesMap.get(relacion.idHijo.toString());
+      if (padre && hijo) {
+        padre.children.push(hijo);
+      }
+    });
+
+    // Encontrar nodos raíz (que no son hijos de nadie)
+    const allHijos = new Set(jerarquias.map(j => j.idHijo.toString()));
+    const rootNodes: HierarchyNode[] = [];
+    nodesMap.forEach((node, id) => {
+      if (!allHijos.has(id)) {
+        rootNodes.push(node);
+      }
+    });
+
+    // Asignar niveles
+    rootNodes.forEach(root => this.assignHierarchyLevel(root, 0));
+
+    return rootNodes;
+  }
+
   public toggleHierarchyNode(node: HierarchyNode): void {
     node.isCollapsed = !node.isCollapsed;
 
@@ -505,5 +615,36 @@ export class NationalDashboardComponent implements OnInit {
 
   public trackByEstrategiaId(index: number, item: FormacionEstrategiaNode): string {
     return item.id;
+  }
+
+  // Métodos para Retención
+  public selectRetencionNode(node: HierarchyNode): void {
+    if (this.selectedRetencionNode?.id === node.id) {
+      this.selectedRetencionNode = null;
+    } else {
+      this.selectedRetencionNode = node;
+    }
+  }
+
+  public isRetencionNodeSelected(node: HierarchyNode): boolean {
+    return this.selectedRetencionNode?.id === node.id;
+  }
+
+  public getRetencionColumnIndex(node: HierarchyNode): number {
+    const id = parseInt(node.id);
+    return id <= 6 ? 0 : 1;
+  }
+
+  // Métodos para Certificación
+  public selectCertificacionNode(node: HierarchyNode): void {
+    if (this.selectedCertificacionNode?.id === node.id) {
+      this.selectedCertificacionNode = null;
+    } else {
+      this.selectedCertificacionNode = node;
+    }
+  }
+
+  public isCertificacionNodeSelected(node: HierarchyNode): boolean {
+    return this.selectedCertificacionNode?.id === node.id;
   }
 }
