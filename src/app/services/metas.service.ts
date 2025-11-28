@@ -6,7 +6,6 @@ import {
   FormacionPorNivel,
   ProgramaRelevante,
   RangoSemaforo,
-  MetricasPorCategoria,
   Jerarquia,
   DashboardData,
   Referencias,
@@ -118,13 +117,6 @@ export class MetasService {
    */
   getRangosSemaforo(): Observable<RangoSemaforo[]> {
     return this.http.get<RangoSemaforo[]>(`${this.basePath}/rangos_semaforo.json`);
-  }
-
-  /**
-   * Obtiene métricas adicionales agrupadas por categoría
-   */
-  getMetricasAdicionales(): Observable<MetricasPorCategoria> {
-    return this.http.get<MetricasPorCategoria>(`${this.basePath}/metricas_adicionales.json`);
   }
 
   /**

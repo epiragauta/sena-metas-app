@@ -9,7 +9,6 @@ import {
   Jerarquia,
   FormacionPorNivel,
   ProgramaRelevante,
-  MetricasPorCategoria,
   MetasPrimerCurso
 } from '../../models/meta.model';
 
@@ -61,7 +60,6 @@ export interface DashboardData {
   formacionPorNivelTree: NivelNode[];
   programasRelevantes: ProgramaRelevante[];
   metasPrimerCurso: MetasPrimerCurso;
-  metricasAdicionales: MetricasPorCategoria;
   hierarchyTree?: HierarchyNode[];
   hierarchyRoot?: HierarchyNode;
   formacionEstrategiaTree?: FormacionEstrategiaNode[];
@@ -108,7 +106,6 @@ export class NationalDashboardComponent implements OnInit {
       formacionPorNivel: this.metasService.getFormacionPorNivel(),
       programasRelevantes: this.metasService.getProgramasRelevantes(),
       metasPrimerCurso: this.metasService.getPrimerCurso(),
-      metricasAdicionales: this.metasService.getMetricasAdicionales(),
       metasJerarquia: this.metasService.getMetasJerarquia(),
       formacionPorEstrategia: this.metasService.getFormacionPorEstrategia(),
       metasRetencion: this.metasService.getMetasRetencion(),
@@ -155,7 +152,6 @@ export class NationalDashboardComponent implements OnInit {
           formacionPorNivelTree: this.buildNivelTree(results.formacionPorNivel),
           programasRelevantes: results.programasRelevantes,
           metasPrimerCurso: results.metasPrimerCurso,
-          metricasAdicionales: results.metricasAdicionales,
           hierarchyTree: hierarchyTree,
           hierarchyRoot: hierarchyRoot,
           formacionEstrategiaTree: formacionEstrategiaTree,
@@ -636,10 +632,6 @@ export class NationalDashboardComponent implements OnInit {
     return item.id;
   }
 
-  public getMetricasKeys(metricas: MetricasPorCategoria): string[] {
-    return Object.keys(metricas);
-  }
-
   public calcularPorcentaje(meta: number | null, ejecucion: number | null): number {
     if (meta === 0 || meta === null || ejecucion === null) {
       return 0;
@@ -669,55 +661,7 @@ export class NationalDashboardComponent implements OnInit {
     }
   }
 
-  public expandedMetricas: Set<number> = new Set();
-
-  public toggleMetricaDetalle(metricaId: number): void {
-    if (this.expandedMetricas.has(metricaId)) {
-      this.expandedMetricas.delete(metricaId);
-    } else {
-      this.expandedMetricas.add(metricaId);
-    }
-  }
-
-  public isMetricaExpanded(metricaId: number): boolean {
-    return this.expandedMetricas.has(metricaId);
-  }
-
-  public getDetallesMetrica(metricaTotalId: number, metricas: any[]): any[] {
-    const mapeoDetalles: { [key: number]: number[] } = {
-      38: [36, 37, 42], // TOTAL COLOCACIONES -> COLOCACIONES EGRESADOS, NO SENA, TASA
-      41: [39, 40]      // TOTAL ORIENTADOS -> ORIENTADOS DESEMPLEADOS, DESPLAZADOS
-    };
-
-    const detalleIds = mapeoDetalles[metricaTotalId];
-    if (!detalleIds) return [];
-
-    return metricas.filter(m => detalleIds.includes(m.id));
-  }
-
-  public getMetricasPrincipales(metricas: any[]): any[] {
-    // Retorna: INSCRITOS, VACANTES, TOTAL COLOCACIONES, TOTAL ORIENTADOS (en ese orden)
-    const idsOrdenados = [34, 35, 38, 41];
-    const resultado: any[] = [];
-
-    idsOrdenados.forEach(id => {
-      const metrica = metricas.find(m => m.id === id);
-      if (metrica) resultado.push(metrica);
-    });
-
-    return resultado;
-  }
-
-  public getColumnasGrid(cantidad: number): number {
-    // Lógica: mínimo 3, máximo 4
-    if (cantidad <= 4) return cantidad;  // 1, 2, 3, 4 → mantener cantidad
-    if (cantidad <= 6) return 3;         // 5, 6 → 3 columnas
-    if (cantidad <= 8) return 4;         // 7, 8 → 4 columnas
-    if (cantidad <= 12) return 3;        // 9, 10, 11, 12 → 3 columnas
-    return 4;                             // 13+ → 4 columnas
-  }
-
-  public removeParentheses(text: string): string {
+  public removeParentheses(text: string): string{
     // Elimina todo el texto desde el primer paréntesis de apertura
     const index = text.indexOf('(');
     return index > 0 ? text.substring(0, index).trim() : text;
