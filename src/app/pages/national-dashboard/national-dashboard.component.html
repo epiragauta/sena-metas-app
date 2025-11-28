@@ -25,305 +25,298 @@
     <!-- #################################### -->
 
     <div class="hierarchy-section">
-    <div class="data-section">
-      <h2 class="section-title">Metas Formación Profesional Integral</h2>
+      <div class="data-section">
+        <h2 class="section-title">Metas Formación Profesional Integral</h2>
 
-      <!-- Root Node (Parent) usando hierarchyRoot -->
-      <div *ngIf="data.hierarchyRoot">
-        <!-- Parent Card -->
-        <div class="parent-card">
-          <div class="parent-header" (click)="toggleHierarchyNode(data.hierarchyRoot)"
-               [class.expandable]="data.hierarchyRoot.children.length > 0">
-            <div class="parent-title-section">
-              <span class="toggle-icon" *ngIf="data.hierarchyRoot.children.length > 0">
-                {{ data.hierarchyRoot.isCollapsed ? '►' : '▼' }}
-              </span>
-              <h3 class="parent-title">{{ removeParentheses(data.hierarchyRoot.descripcion) }}</h3>
-            </div>
-            <div class="parent-metrics">
-              <div class="parent-metric">
-                <span class="metric-label">Meta:</span>
-                <span class="metric-value-large">{{ data.hierarchyRoot.meta | number:'1.0-0' }}</span>
+        <!-- Root Node (Parent) usando hierarchyRoot -->
+        <div *ngIf="data.hierarchyRoot">
+          <!-- Parent Card -->
+          <div class="parent-card">
+            <div class="parent-header" (click)="toggleHierarchyNode(data.hierarchyRoot)"
+                [class.expandable]="data.hierarchyRoot.children.length > 0">
+              <div class="parent-title-section">
+                <span class="toggle-icon" *ngIf="data.hierarchyRoot.children.length > 0">
+                  {{ data.hierarchyRoot.isCollapsed ? '►' : '▼' }}
+                </span>
+                <h3 class="parent-title">{{ removeParentheses(data.hierarchyRoot.descripcion) }}</h3>
               </div>
-              <div class="parent-metric">
-                <span class="metric-label">Ejecución:</span>
-                <span class="metric-value-large">{{ data.hierarchyRoot.ejecucion | number:'1.0-0' }}</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Progress Bar -->
-          <div class="parent-progress-section">
-            <div class="progress" [class.has-overflow]="data.hierarchyRoot.porcentaje > 100">
-              <div class="progress-bar" [ngClass]="getClasePorcentaje(data.hierarchyRoot.porcentaje / 100)"
-                [style.width.%]="data.hierarchyRoot.porcentaje > 100 ? 100 : data.hierarchyRoot.porcentaje">
-                {{ data.hierarchyRoot.porcentaje / 100 | percent:'1.2-2' }}
+              <div class="parent-metrics">
+                <div class="parent-metric">
+                  <span class="metric-label">Meta:</span>
+                  <span class="metric-value-large">{{ data.hierarchyRoot.meta | number:'1.0-0' }}</span>
+                </div>
+                <div class="parent-metric">
+                  <span class="metric-label">Ejecución:</span>
+                  <span class="metric-value-large">{{ data.hierarchyRoot.ejecucion | number:'1.0-0' }}</span>
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- Children Cards (Horizontal Layout) - Solo segundo nivel -->
-          <div class="children-cards-grid" *ngIf="!data.hierarchyRoot.isCollapsed && data.hierarchyRoot.children.length > 0">
-            <div class="child-card"
-                 *ngFor="let child of getSecondLevelChildren(data.hierarchyRoot); trackBy: trackByHierarchyId"
-                 [class.child-card-selected]="isNodeSelectedForTree(child)"
-                 (click)="selectNodeForTree(child)">
-              <div class="child-card-header">
-                <h4 class="child-title">{{ removeParentheses(child.descripcion) }}</h4>
+            <!-- Progress Bar -->
+            <div class="parent-progress-section">
+              <div class="progress" [class.has-overflow]="data.hierarchyRoot.porcentaje > 100">
+                <div class="progress-bar" [ngClass]="getClasePorcentaje(data.hierarchyRoot.porcentaje / 100)"
+                  [style.width.%]="data.hierarchyRoot.porcentaje > 100 ? 100 : data.hierarchyRoot.porcentaje">
+                  {{ data.hierarchyRoot.porcentaje / 100 | percent:'1.2-2' }}
+                </div>
               </div>
+            </div>
 
-              <div class="child-metrics">
-                <div class="progress" [class.has-overflow]="child.porcentaje > 100">
-                  <div class="progress-bar" [ngClass]="getClasePorcentaje(child.porcentaje / 100)"
-                    [style.width.%]="child.porcentaje > 100 ? 100 : child.porcentaje">
-                    {{ child.porcentaje / 100 | percent:'1.2-2' }}
+            <!-- Children Cards (Horizontal Layout) - Solo segundo nivel -->
+            <div class="children-cards-grid" *ngIf="!data.hierarchyRoot.isCollapsed && data.hierarchyRoot.children.length > 0">
+              <div class="child-card"
+                  *ngFor="let child of getSecondLevelChildren(data.hierarchyRoot); trackBy: trackByHierarchyId"
+                  [class.child-card-selected]="isNodeSelectedForTree(child)"
+                  (click)="selectNodeForTree(child)">
+                <div class="child-card-header">
+                  <h4 class="child-title">{{ removeParentheses(child.descripcion) }}</h4>
+                </div>
+
+                <div class="child-metrics">
+                  <div class="progress" [class.has-overflow]="child.porcentaje > 100">
+                    <div class="progress-bar" [ngClass]="getClasePorcentaje(child.porcentaje / 100)"
+                      [style.width.%]="child.porcentaje > 100 ? 100 : child.porcentaje">
+                      {{ child.porcentaje / 100 | percent:'1.2-2' }}
+                    </div>
+                  </div>
+
+                  <div class="child-values">
+                    <div class="value-item">
+                      <span class="value-label">Meta:</span>
+                      <span class="value-number">{{ child.meta | number:'1.0-0' }}</span>
+                    </div>
+                    <div class="value-item">
+                      <span class="value-label">Ejecución:</span>
+                      <span class="value-number">{{ child.ejecucion | number:'1.0-0' }}</span>
+                    </div>
                   </div>
                 </div>
 
-                <div class="child-values">
+                <!-- Indicador de hijos disponibles -->
+                <div class="child-has-details" *ngIf="child.children.length > 0">
+                  <span class="details-icon">📊</span>
+                  <span class="details-text">Click para ver detalles ({{ child.children.length }} ítems)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabla de Árbol para nodo seleccionado -->
+      <div *ngIf="selectedNodeForTree" class="data-section selected-node-tree-section">
+        <div class="selected-node-header">
+          <h2 class="section-title">{{ removeParentheses(selectedNodeForTree.descripcion) }}</h2>
+          <button class="close-tree-btn" (click)="selectedNodeForTree = null">✕ Cerrar</button>
+        </div>
+
+        <!-- Mostrar solo los hijos, no el nodo padre -->
+        <div class="children-tree-container" *ngIf="selectedNodeForTree.children.length > 0">
+          <div *ngFor="let child of selectedNodeForTree.children; trackBy: trackByHierarchyId">
+            <ng-container *ngTemplateOutlet="hierarchyNodeTpl; context: { $implicit: child }"></ng-container>
+          </div>
+        </div>
+        <div class="no-children-message" *ngIf="selectedNodeForTree.children.length === 0">
+          <p>No hay elementos de detalle para mostrar.</p>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- #################################### -->
+    <!-- ##      SECCIONES ADICIONALES     ## -->
+    <!-- #################################### -->
+    <div class="additional-sections">
+      <!-- Sección: Formación por Estrategia -->
+      <div *ngIf="data.formacionEstrategiaRoot" class="data-section">
+        <h2 class="section-title">Metas por Estrategias de Formación</h2>
+
+        <!-- Tarjetas Directas (sin tarjeta padre, solo las hijas) -->
+        <div class="children-cards-grid">
+          <div class="child-card estrategia-child-card"
+              *ngFor="let child of data.formacionEstrategiaRoot.children; trackBy: trackByEstrategiaId"
+              [class.child-card-selected]="isEstrategiaNodeSelectedForTree(child)"
+              (click)="selectEstrategiaNodeForTree(child)">
+            <div class="child-card-header">
+              <h4 class="child-title">{{ removeParentheses(child.nivelFormacion) }}</h4>
+            </div>
+
+            <!-- Grid de Estrategias con meta/ejecución explícita -->
+            <div class="estrategias-grid-explicit">
+              <!-- Regular -->
+              <div class="estrategia-explicit-item" *ngIf="child.regularMeta !== null">
+                <h5 class="estrategia-explicit-label">Regular</h5>
+                <div class="progress" [class.has-overflow]="calcularPorcentaje(child.regularMeta, child.regularEjecucion) > 1">
+                  <div class="progress-bar"
+                      [ngClass]="getClasePorcentaje(calcularPorcentaje(child.regularMeta, child.regularEjecucion))"
+                      [style.width.%]="calcularPorcentaje(child.regularMeta, child.regularEjecucion) > 1 ? 100 : calcularPorcentaje(child.regularMeta, child.regularEjecucion) * 100">
+                    {{ calcularPorcentaje(child.regularMeta, child.regularEjecucion) | percent:'1.2-2' }}
+                  </div>
+                </div>
+                <div class="estrategia-explicit-values">
                   <div class="value-item">
                     <span class="value-label">Meta:</span>
-                    <span class="value-number">{{ child.meta | number:'1.0-0' }}</span>
+                    <span class="value-number">{{ child.regularMeta | number:'1.0-0' }}</span>
                   </div>
                   <div class="value-item">
                     <span class="value-label">Ejecución:</span>
-                    <span class="value-number">{{ child.ejecucion | number:'1.0-0' }}</span>
+                    <span class="value-number">{{ child.regularEjecucion | number:'1.0-0' }}</span>
                   </div>
                 </div>
               </div>
 
-              <!-- Indicador de hijos disponibles -->
-              <div class="child-has-details" *ngIf="child.children.length > 0">
-                <span class="details-icon">📊</span>
-                <span class="details-text">Click para ver detalles ({{ child.children.length }} ítems)</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Tabla de Árbol para nodo seleccionado -->
-    <div *ngIf="selectedNodeForTree" class="data-section selected-node-tree-section">
-      <div class="selected-node-header">
-        <h2 class="section-title">{{ removeParentheses(selectedNodeForTree.descripcion) }}</h2>
-        <button class="close-tree-btn" (click)="selectedNodeForTree = null">✕ Cerrar</button>
-      </div>
-
-      <!-- Mostrar solo los hijos, no el nodo padre -->
-      <div class="children-tree-container" *ngIf="selectedNodeForTree.children.length > 0">
-        <div *ngFor="let child of selectedNodeForTree.children; trackBy: trackByHierarchyId">
-          <ng-container *ngTemplateOutlet="hierarchyNodeTpl; context: { $implicit: child }"></ng-container>
-        </div>
-      </div>
-      <div class="no-children-message" *ngIf="selectedNodeForTree.children.length === 0">
-        <p>No hay elementos de detalle para mostrar.</p>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- #################################### -->
-  <!-- ##      SECCIONES ADICIONALES     ## -->
-  <!-- #################################### -->
-  <div class="additional-sections">
-    <!-- Sección: Formación por Estrategia -->
-    <div *ngIf="data.formacionEstrategiaRoot" class="data-section">
-      <h2 class="section-title">Metas por Estrategias de Formación</h2>
-
-      <!-- Tarjetas Directas (sin tarjeta padre, solo las hijas) -->
-      <div class="children-cards-grid">
-        <div class="child-card estrategia-child-card"
-             *ngFor="let child of data.formacionEstrategiaRoot.children; trackBy: trackByEstrategiaId"
-             [class.child-card-selected]="isEstrategiaNodeSelectedForTree(child)"
-             (click)="selectEstrategiaNodeForTree(child)">
-          <div class="child-card-header">
-            <h4 class="child-title">{{ removeParentheses(child.nivelFormacion) }}</h4>
-          </div>
-
-          <!-- Grid de Estrategias con meta/ejecución explícita -->
-          <div class="estrategias-grid-explicit">
-            <!-- Regular -->
-            <div class="estrategia-explicit-item" *ngIf="child.regularMeta !== null">
-              <h5 class="estrategia-explicit-label">Regular</h5>
-              <div class="progress" [class.has-overflow]="calcularPorcentaje(child.regularMeta, child.regularEjecucion) > 1">
-                <div class="progress-bar"
-                     [ngClass]="getClasePorcentaje(calcularPorcentaje(child.regularMeta, child.regularEjecucion))"
-                     [style.width.%]="calcularPorcentaje(child.regularMeta, child.regularEjecucion) > 1 ? 100 : calcularPorcentaje(child.regularMeta, child.regularEjecucion) * 100">
-                  {{ calcularPorcentaje(child.regularMeta, child.regularEjecucion) | percent:'1.2-2' }}
-                </div>
-              </div>
-              <div class="estrategia-explicit-values">
-                <div class="value-item">
-                  <span class="value-label">Meta:</span>
-                  <span class="value-number">{{ child.regularMeta | number:'1.0-0' }}</span>
-                </div>
-                <div class="value-item">
-                  <span class="value-label">Ejecución:</span>
-                  <span class="value-number">{{ child.regularEjecucion | number:'1.0-0' }}</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- CampeSENA -->
-            <div class="estrategia-explicit-item" *ngIf="child.campesenaMeta !== null">
-              <h5 class="estrategia-explicit-label">CampeSENA</h5>
-              <div class="progress" [class.has-overflow]="calcularPorcentaje(child.campesenaMeta, child.campesenaEjecucion) > 1">
-                <div class="progress-bar"
-                     [ngClass]="getClasePorcentaje(calcularPorcentaje(child.campesenaMeta, child.campesenaEjecucion))"
-                     [style.width.%]="calcularPorcentaje(child.campesenaMeta, child.campesenaEjecucion) > 1 ? 100 : calcularPorcentaje(child.campesenaMeta, child.campesenaEjecucion) * 100">
-                  {{ calcularPorcentaje(child.campesenaMeta, child.campesenaEjecucion) | percent:'1.2-2' }}
-                </div>
-              </div>
-              <div class="estrategia-explicit-values">
-                <div class="value-item">
-                  <span class="value-label">Meta:</span>
-                  <span class="value-number">{{ child.campesenaMeta | number:'1.0-0' }}</span>
-                </div>
-                <div class="value-item">
-                  <span class="value-label">Ejecución:</span>
-                  <span class="value-number">{{ child.campesenaEjecucion | number:'1.0-0' }}</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Full Popular -->
-            <div class="estrategia-explicit-item" *ngIf="child.fullPopularMeta !== null">
-              <h5 class="estrategia-explicit-label">Full Popular</h5>
-              <div class="progress" [class.has-overflow]="calcularPorcentaje(child.fullPopularMeta, child.fullPopularEjecucion) > 1">
-                <div class="progress-bar"
-                     [ngClass]="getClasePorcentaje(calcularPorcentaje(child.fullPopularMeta, child.fullPopularEjecucion))"
-                     [style.width.%]="calcularPorcentaje(child.fullPopularMeta, child.fullPopularEjecucion) > 1 ? 100 : calcularPorcentaje(child.fullPopularMeta, child.fullPopularEjecucion) * 100">
-                  {{ calcularPorcentaje(child.fullPopularMeta, child.fullPopularEjecucion) | percent:'1.2-2' }}
-                </div>
-              </div>
-              <div class="estrategia-explicit-values">
-                <div class="value-item">
-                  <span class="value-label">Meta:</span>
-                  <span class="value-number">{{ child.fullPopularMeta | number:'1.0-0' }}</span>
-                </div>
-                <div class="value-item">
-                  <span class="value-label">Ejecución:</span>
-                  <span class="value-number">{{ child.fullPopularEjecucion | number:'1.0-0' }}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Indicador de hijos disponibles -->
-          <div class="child-has-details" *ngIf="child.children.length > 0">
-            <span class="details-icon">📊</span>
-            <span class="details-text">Click para ver detalles ({{ child.children.length }} ítems)</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Tabla de Estrategias para nodo seleccionado -->
-    <div *ngIf="selectedEstrategiaNodeForTree" class="data-section selected-node-tree-section">
-      <div class="selected-node-header">
-        <h2 class="section-title">{{ removeParentheses(selectedEstrategiaNodeForTree.nivelFormacion) }}</h2>
-        <button class="close-tree-btn" (click)="selectedEstrategiaNodeForTree = null">✕ Cerrar</button>
-      </div>
-
-      <!-- Mostrar solo los hijos, no el nodo padre -->
-      <div class="children-tree-container" *ngIf="selectedEstrategiaNodeForTree.children.length > 0">
-        <div *ngFor="let child of selectedEstrategiaNodeForTree.children; trackBy: trackByEstrategiaId">
-          <ng-container *ngTemplateOutlet="formacionEstrategiaNodeTpl; context: { $implicit: child }"></ng-container>
-        </div>
-      </div>
-      <div class="no-children-message" *ngIf="selectedEstrategiaNodeForTree.children.length === 0">
-        <p>No hay elementos de detalle para mostrar.</p>
-      </div>
-    </div>
-
-    <!-- Sección: Metas Programas Relevantes y Primer Curso -->
-    <div *ngIf="(data.programasRelevantes && data.programasRelevantes.length > 0) || data.metasPrimerCurso" class="data-section">
-      <h2 class="section-title">Metas Programas Relevantes y Primer Curso</h2>
-
-      <div class="programas-primer-curso-layout">
-        <!-- Lado izquierdo: Programas Relevantes -->
-        <div class="programas-section" *ngIf="data.programasRelevantes && data.programasRelevantes.length > 0">
-          <h3 class="subsection-title">Programas Relevantes</h3>
-
-          <!-- Grid de 3 Programas -->
-          <div class="programas-grid">
-            <div class="programa-card" *ngFor="let programa of data.programasRelevantes; trackBy: trackById">
-              <div class="programa-card-header">
-                <h4 class="programa-title">{{ programa.descripcion }}</h4>
-              </div>
-
-              <div class="programa-metrics">
-                <div class="progress" [class.has-overflow]="programa.porcentaje > 100">
-                  <div class="progress-bar" [ngClass]="getClasePorcentaje(programa.porcentaje / 100)"
-                    [style.width.%]="programa.porcentaje > 100 ? 100 : programa.porcentaje">
-                    {{ programa.porcentaje / 100 | percent:'1.2-2' }}
+              <!-- CampeSENA -->
+              <div class="estrategia-explicit-item" *ngIf="child.campesenaMeta !== null">
+                <h5 class="estrategia-explicit-label">CampeSENA</h5>
+                <div class="progress" [class.has-overflow]="calcularPorcentaje(child.campesenaMeta, child.campesenaEjecucion) > 1">
+                  <div class="progress-bar"
+                      [ngClass]="getClasePorcentaje(calcularPorcentaje(child.campesenaMeta, child.campesenaEjecucion))"
+                      [style.width.%]="calcularPorcentaje(child.campesenaMeta, child.campesenaEjecucion) > 1 ? 100 : calcularPorcentaje(child.campesenaMeta, child.campesenaEjecucion) * 100">
+                    {{ calcularPorcentaje(child.campesenaMeta, child.campesenaEjecucion) | percent:'1.2-2' }}
                   </div>
                 </div>
-
-                <div class="programa-values">
+                <div class="estrategia-explicit-values">
                   <div class="value-item">
                     <span class="value-label">Meta:</span>
-                    <span class="value-number">{{ programa.meta | number:'1.0-0' }}</span>
+                    <span class="value-number">{{ child.campesenaMeta | number:'1.0-0' }}</span>
                   </div>
                   <div class="value-item">
-                    <span class="value-label">Ejecutado:</span>
-                    <span class="value-number">{{ programa.ejecucion | number:'1.0-0' }}</span>
+                    <span class="value-label">Ejecución:</span>
+                    <span class="value-number">{{ child.campesenaEjecucion | number:'1.0-0' }}</span>
                   </div>
                 </div>
               </div>
+
+              <!-- Full Popular -->
+              <div class="estrategia-explicit-item" *ngIf="child.fullPopularMeta !== null">
+                <h5 class="estrategia-explicit-label">Full Popular</h5>
+                <div class="progress" [class.has-overflow]="calcularPorcentaje(child.fullPopularMeta, child.fullPopularEjecucion) > 1">
+                  <div class="progress-bar"
+                      [ngClass]="getClasePorcentaje(calcularPorcentaje(child.fullPopularMeta, child.fullPopularEjecucion))"
+                      [style.width.%]="calcularPorcentaje(child.fullPopularMeta, child.fullPopularEjecucion) > 1 ? 100 : calcularPorcentaje(child.fullPopularMeta, child.fullPopularEjecucion) * 100">
+                    {{ calcularPorcentaje(child.fullPopularMeta, child.fullPopularEjecucion) | percent:'1.2-2' }}
+                  </div>
+                </div>
+                <div class="estrategia-explicit-values">
+                  <div class="value-item">
+                    <span class="value-label">Meta:</span>
+                    <span class="value-number">{{ child.fullPopularMeta | number:'1.0-0' }}</span>
+                  </div>
+                  <div class="value-item">
+                    <span class="value-label">Ejecución:</span>
+                    <span class="value-number">{{ child.fullPopularEjecucion | number:'1.0-0' }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Indicador de hijos disponibles -->
+            <div class="child-has-details" *ngIf="child.children.length > 0">
+              <span class="details-icon">📊</span>
+              <span class="details-text">Click para ver detalles ({{ child.children.length }} ítems)</span>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- Lado derecho: Primer Curso -->
-        <div class="primer-curso-section" *ngIf="data.metasPrimerCurso">
-          <h3 class="subsection-title">Primer Curso</h3>
+      <!-- Tabla de Estrategias para nodo seleccionado -->
+      <div *ngIf="selectedEstrategiaNodeForTree" class="data-section selected-node-tree-section">
+        <div class="selected-node-header">
+          <h2 class="section-title">{{ removeParentheses(selectedEstrategiaNodeForTree.nivelFormacion) }}</h2>
+          <button class="close-tree-btn" (click)="selectedEstrategiaNodeForTree = null">✕ Cerrar</button>
+        </div>
 
-          <!-- Tarjeta de Primer Curso -->
-          <div class="primer-curso-card">
-            <div class="primer-curso-header">
-              <h4 class="primer-curso-title">{{ data.metasPrimerCurso.descripcion }}</h4>
-            </div>
+        <!-- Mostrar solo los hijos, no el nodo padre -->
+        <div class="children-tree-container" *ngIf="selectedEstrategiaNodeForTree.children.length > 0">
+          <div *ngFor="let child of selectedEstrategiaNodeForTree.children; trackBy: trackByEstrategiaId">
+            <ng-container *ngTemplateOutlet="formacionEstrategiaNodeTpl; context: { $implicit: child }"></ng-container>
+          </div>
+        </div>
+        <div class="no-children-message" *ngIf="selectedEstrategiaNodeForTree.children.length === 0">
+          <p>No hay elementos de detalle para mostrar.</p>
+        </div>
+      </div>
 
-            <div class="primer-curso-metrics">
-              <div class="progress" [class.has-overflow]="data.metasPrimerCurso.porcentaje > 100">
-                <div class="progress-bar" [ngClass]="getClasePorcentaje(data.metasPrimerCurso.porcentaje / 100)"
-                     [style.width.%]="data.metasPrimerCurso.porcentaje > 100 ? 100 : data.metasPrimerCurso.porcentaje">
-                  {{ data.metasPrimerCurso.porcentaje / 100 | percent:'1.2-2' }}
+      <!-- Sección: Metas Programas Relevantes y Primer Curso -->
+      <div *ngIf="(data.programasRelevantes && data.programasRelevantes.length > 0) || data.metasPrimerCurso" class="data-section">
+        <h2 class="section-title">Metas Programas Relevantes y Primer Curso</h2>
+
+        <div class="programas-primer-curso-layout">
+          <!-- Lado izquierdo: Programas Relevantes -->
+          <div class="programas-section" *ngIf="data.programasRelevantes && data.programasRelevantes.length > 0">
+            <h3 class="subsection-title">Programas Relevantes</h3>
+
+            <!-- Grid de 3 Programas -->
+            <div class="programas-grid">
+              <div class="programa-card" *ngFor="let programa of data.programasRelevantes; trackBy: trackById">
+                <div class="programa-card-header">
+                  <h4 class="programa-title">{{ programa.descripcion }}</h4>
                 </div>
-              </div>
 
-              <div class="primer-curso-values">
-                <div class="value-item-large">
-                  <span class="value-label">Meta:</span>
-                  <span class="value-number-large">{{ data.metasPrimerCurso.meta | number:'1.0-0' }}</span>
-                </div>
-                <div class="value-item-large">
-                  <span class="value-label">Ejecutado:</span>
-                  <span class="value-number-large">{{ data.metasPrimerCurso.ejecucion | number:'1.0-0' }}</span>
+                <div class="programa-metrics">
+                  <div class="progress" [class.has-overflow]="programa.porcentaje > 100">
+                    <div class="progress-bar" [ngClass]="getClasePorcentaje(programa.porcentaje / 100)"
+                      [style.width.%]="programa.porcentaje > 100 ? 100 : programa.porcentaje">
+                      {{ programa.porcentaje / 100 | percent:'1.2-2' }}
+                    </div>
+                  </div>
+
+                  <div class="programa-values">
+                    <div class="value-item">
+                      <span class="value-label">Meta:</span>
+                      <span class="value-number">{{ programa.meta | number:'1.0-0' }}</span>
+                    </div>
+                    <div class="value-item">
+                      <span class="value-label">Ejecutado:</span>
+                      <span class="value-number">{{ programa.ejecucion | number:'1.0-0' }}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
+          <!-- Lado derecho: Primer Curso -->
+          <div class="primer-curso-section" *ngIf="data.metasPrimerCurso">
+            <h3 class="subsection-title">Primer Curso</h3>
+
+            <!-- Tarjeta de Primer Curso -->
+            <div class="primer-curso-card">
+              <div class="primer-curso-header">
+                <h4 class="primer-curso-title">{{ data.metasPrimerCurso.descripcion }}</h4>
+              </div>
+
+              <div class="primer-curso-metrics">
+                <div class="progress" [class.has-overflow]="data.metasPrimerCurso.porcentaje > 100">
+                  <div class="progress-bar" [ngClass]="getClasePorcentaje(data.metasPrimerCurso.porcentaje / 100)"
+                      [style.width.%]="data.metasPrimerCurso.porcentaje > 100 ? 100 : data.metasPrimerCurso.porcentaje">
+                    {{ data.metasPrimerCurso.porcentaje / 100 | percent:'1.2-2' }}
+                  </div>
+                </div>
+
+                <div class="primer-curso-values">
+                  <div class="value-item-large">
+                    <span class="value-label">Meta:</span>
+                    <span class="value-number-large">{{ data.metasPrimerCurso.meta | number:'1.0-0' }}</span>
+                  </div>
+                  <div class="value-item-large">
+                    <span class="value-label">Ejecutado:</span>
+                    <span class="value-number-large">{{ data.metasPrimerCurso.ejecucion | number:'1.0-0' }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
       </div>
     </div>
+
+    <!-- End Tab Content: Formación Profesional Integral -->
   </div>
-</div>
-  <!-- End Tab Content: Formación Profesional Integral -->
 
   <!-- Tab Content: Certificación y Retención -->
   <div *ngIf="isTabActive('certificacion-retencion')" class="tab-content fade-in">
-    <h1 style="color: red; font-size: 3rem;">TAB 2 VISIBLE</h1>
-    <!-- Debug info -->
-    <div style="padding: 1rem; background: #f0f0f0; margin-bottom: 1rem;">
-      <p>Debug Info:</p>
-      <p>retencionPadres: {{ data.retencionPadres?.length || 0 }}</p>
-      <p>certificacionRoot: {{ data.certificacionRoot ? 'existe' : 'no existe' }}</p>
-      <p>competenciasLaboralesRoot: {{ data.competenciasLaboralesRoot ? 'existe' : 'no existe' }}</p>
-      <p>competenciasLaboralesOtros: {{ data.competenciasLaboralesOtros?.length || 0 }}</p>
-    </div>
-
+    
     <!-- Debug: Mostrar si no hay datos -->
     <div *ngIf="!data.retencionPadres && !data.certificacionRoot && !data.competenciasLaboralesRoot" class="data-section">
       <p style="text-align: center; padding: 2rem; color: #666;">No hay datos disponibles para esta sección.</p>
@@ -662,8 +655,8 @@
           </div>
         </div>
       </div>
-    </div>
   </div>
+  
   <!-- End Tab Content: Certificación y Retención -->
 
   <!-- Tab Content: Programas de Inclusión Social -->
