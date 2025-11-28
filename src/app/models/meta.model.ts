@@ -11,6 +11,7 @@ export interface Meta {
   esSubtotal: boolean;
   esTotal: boolean;
   nivelJerarquia: number;
+  esTasa?: boolean;
 }
 
 export interface FormacionPorNivel {

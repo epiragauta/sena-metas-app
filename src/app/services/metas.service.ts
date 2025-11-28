@@ -212,6 +212,20 @@ export class MetasService {
   }
 
   /**
+   * Obtiene metas de agencia pública de empleo
+   */
+  getMetasAgenciaPublicaEmpleo(): Observable<Meta[]> {
+    return this.http.get<Meta[]>(`${this.basePath}/metas_agencia_publica_empleo.json`);
+  }
+
+  /**
+   * Obtiene jerarquías de agencia pública de empleo
+   */
+  getJerarquiasAgenciaPublicaEmpleo(): Observable<Jerarquia[]> {
+    return this.http.get<Jerarquia[]>(`${this.basePath}/jerarquias_agencia_publica_empleo.json`);
+  }
+
+  /**
    * Obtiene datos para el dashboard principal
    */
   getDashboardData(): Observable<DashboardData> {

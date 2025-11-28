@@ -1,0 +1,83 @@
+[
+  {
+    "id": "1",
+    "descripcion": "INSCRITOS",
+    "meta": 1098970,
+    "ejecucion": 1048013,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false
+  },
+  {
+    "id": "2",
+    "descripcion": "VACANTES",
+    "meta": 884291,
+    "ejecucion": 883018,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false
+  },
+  {
+    "id": "3",
+    "descripcion": "TOTAL COLOCACIONES",
+    "meta": 534288,
+    "ejecucion": 520685,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": true
+  },
+  {
+    "id": "3.1",
+    "descripcion": "COLOCACIONES EGRESADOS SENA",
+    "meta": 295608,
+    "ejecucion": 274496,
+    "esTasa": false,
+    "nivelJerarquia": 2,
+    "esTotal": false
+  },
+  {
+    "id": "3.2",
+    "descripcion": "COLOCACIONES NO SENA",
+    "meta": 238680,
+    "ejecucion": 246189,
+    "esTasa": false,
+    "nivelJerarquia": 2,
+    "esTotal": false
+  },
+  {
+    "id": "4",
+    "descripcion": "TOTAL ORIENTADOS",
+    "meta": 1376869,
+    "ejecucion": 1242890,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": true
+  },
+  {
+    "id": "4.1",
+    "descripcion": "ORIENTADOS DESEMPLEADOS",
+    "meta": 1064064,
+    "ejecucion": 936410,
+    "esTasa": false,
+    "nivelJerarquia": 2,
+    "esTotal": false
+  },
+  {
+    "id": "4.2",
+    "descripcion": "ORIENTADOS DESPLAZADOS",
+    "meta": 312805,
+    "ejecucion": 306480,
+    "esTasa": false,
+    "nivelJerarquia": 2,
+    "esTotal": false
+  },
+  {
+    "id": "5",
+    "descripcion": "TASA DE COLOCACION (%)",
+    "meta": 63,
+    "ejecucion": 58.97,
+    "esTasa": true,
+    "nivelJerarquia": 1,
+    "esTotal": false
+  }
+]

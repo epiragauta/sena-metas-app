@@ -412,7 +412,7 @@
       font-size: 1.1rem;
       font-weight: 700;
       color: white;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+      text-shadow: 1px 1px 2px rgba(0, 0, 0);
       min-width: fit-content;
       padding: 0 16px;
     }
@@ -1570,6 +1570,84 @@
       border: 3px solid var(--sena-verde);
       box-shadow: 0 6px 16px rgba(0, 128, 0, 0.2);
     }
+  }
+}
+
+// ================================================
+// AGENCIA PÚBLICA DE EMPLEO
+// ================================================
+
+.agencia-publica-empleo-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+
+  .programa-card {
+    &.clickable {
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+      }
+    }
+
+    &.child-card-selected {
+      border: 3px solid var(--sena-verde);
+      box-shadow: 0 6px 16px rgba(0, 128, 0, 0.2);
+    }
+  }
+}
+
+.agencia-publica-empleo-children-row {
+  margin-top: 1.5rem;
+}
+
+.agencia-publica-empleo-children-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+
+  .programa-card.child-card {
+    background: linear-gradient(135deg, #f8fdf9 0%, #ffffff 100%);
+    border-left: 4px solid var(--sena-verde);
+    box-shadow: 0 2px 8px rgba(0, 128, 0, 0.08);
+
+    .programa-card-header {
+      background: rgba(57, 169, 73, 0.05);
+      padding: 1rem;
+      margin: -1rem -1rem 1rem -1rem;
+      border-radius: 8px 8px 0 0;
+
+      .programa-title {
+        color: var(--sena-verde);
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 1400px) {
+  .agencia-publica-empleo-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  .agencia-publica-empleo-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .agencia-publica-empleo-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .agencia-publica-empleo-children-grid {
+    grid-template-columns: 1fr;
   }
 }
 

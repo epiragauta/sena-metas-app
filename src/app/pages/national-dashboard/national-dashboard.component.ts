@@ -75,6 +75,7 @@ export interface DashboardData {
   productividadCampesena?: HierarchyNode[];  // 4 elementos sin jerarquía
   poblacionesVulnerablesRoot?: HierarchyNode;  // ID=1 para tarjeta
   poblacionesVulnerablesTree?: HierarchyNode[];  // Todos los nodos para tree-table
+  agenciaPublicaEmpleoNivel1?: HierarchyNode[];  // 5 tarjetas nivel 1 (IDs 1, 2, 3, 4, 5)
 }
 
 @Component({
@@ -94,6 +95,7 @@ export class NationalDashboardComponent implements OnInit {
   public selectedCertificacionNode: HierarchyNode | null = null;
   public showCompetenciasLaboralesDetails = false;
   public selectedPoblacionesVulnerablesNode: HierarchyNode | null = null;
+  public selectedAgenciaPublicaEmpleoNode: HierarchyNode | null = null;
   public showMetaEjecucionModal = false;
   public modalData: { estrategia: string; meta: number | null; ejecucion: number | null; porcentaje: number } | null = null;
 
@@ -117,7 +119,9 @@ export class NationalDashboardComponent implements OnInit {
       jerarquiasCompetenciasLaborales: this.metasService.getJerarquiasCompetenciasLaborales(),
       metasProductividadCampesena: this.metasService.getMetasProductividadCampesena(),
       metasPoblacionesVulnerables: this.metasService.getMetasPoblacionesVulnerables(),
-      jerarquiasPoblacionesVulnerables: this.metasService.getJerarquiasPoblacionesVulnerables()
+      jerarquiasPoblacionesVulnerables: this.metasService.getJerarquiasPoblacionesVulnerables(),
+      metasAgenciaPublicaEmpleo: this.metasService.getMetasAgenciaPublicaEmpleo(),
+      jerarquiasAgenciaPublicaEmpleo: this.metasService.getJerarquiasAgenciaPublicaEmpleo()
     }).pipe(
       map(results => {
         this.cargando = false;
@@ -143,6 +147,9 @@ export class NationalDashboardComponent implements OnInit {
         const poblacionesVulnerablesTree = this.buildPoblacionesVulnerablesTree(results.metasPoblacionesVulnerables, results.jerarquiasPoblacionesVulnerables);
         const poblacionesVulnerablesRoot = poblacionesVulnerablesTree.find(node => node.id === '1');
 
+        const agenciaPublicaEmpleoTree = this.buildAgenciaPublicaEmpleoTree(results.metasAgenciaPublicaEmpleo, results.jerarquiasAgenciaPublicaEmpleo);
+        const agenciaPublicaEmpleoNivel1 = agenciaPublicaEmpleoTree.filter(node => node.level === 0);
+
         return {
           nationalGoals: this.buildTree(results.metas, results.jerarquias),
           formacionPorNivelTree: this.buildNivelTree(results.formacionPorNivel),
@@ -161,7 +168,8 @@ export class NationalDashboardComponent implements OnInit {
           competenciasLaboralesOtros: competenciasLaboralesOtros,
           productividadCampesena: productividadCampesena,
           poblacionesVulnerablesRoot: poblacionesVulnerablesRoot,
-          poblacionesVulnerablesTree: poblacionesVulnerablesTree
+          poblacionesVulnerablesTree: poblacionesVulnerablesTree,
+          agenciaPublicaEmpleoNivel1: agenciaPublicaEmpleoNivel1
         };
       })
     );
@@ -797,5 +805,62 @@ export class NationalDashboardComponent implements OnInit {
 
   public isPoblacionesVulnerablesNodeSelected(node: HierarchyNode): boolean {
     return this.selectedPoblacionesVulnerablesNode?.id === node.id;
+  }
+
+  /**
+   * Construye el árbol de agencia pública de empleo usando jerarquías explícitas
+   */
+  private buildAgenciaPublicaEmpleoTree(metas: Meta[], jerarquias: Jerarquia[]): HierarchyNode[] {
+    const nodesMap = new Map<string, HierarchyNode>();
+
+    // Crear nodos
+    metas.forEach(meta => {
+      const porcentaje = meta.esTasa ? meta.ejecucion : (meta.meta > 0) ? (meta.ejecucion / meta.meta) * 100 : 0;
+      nodesMap.set(meta.id.toString(), {
+        id: meta.id.toString(),
+        descripcion: meta.descripcion,
+        meta: meta.meta,
+        ejecucion: meta.ejecucion,
+        porcentaje: porcentaje,
+        children: [],
+        isCollapsed: true,
+        level: 0
+      });
+    });
+
+    // Construir jerarquía usando las relaciones
+    jerarquias.forEach(relacion => {
+      const padre = nodesMap.get(relacion.idPadre.toString());
+      const hijo = nodesMap.get(relacion.idHijo.toString());
+      if (padre && hijo) {
+        padre.children.push(hijo);
+      }
+    });
+
+    // Encontrar nodos raíz (que no son hijos de nadie)
+    const allHijos = new Set(jerarquias.map(j => j.idHijo.toString()));
+    const rootNodes: HierarchyNode[] = [];
+    nodesMap.forEach((node, id) => {
+      if (!allHijos.has(id)) {
+        rootNodes.push(node);
+      }
+    });
+
+    // Asignar niveles
+    rootNodes.forEach(root => this.assignHierarchyLevel(root, 0));
+
+    return rootNodes;
+  }
+
+  public selectAgenciaPublicaEmpleoNode(node: HierarchyNode): void {
+    if (this.selectedAgenciaPublicaEmpleoNode?.id === node.id) {
+      this.selectedAgenciaPublicaEmpleoNode = null;
+    } else {
+      this.selectedAgenciaPublicaEmpleoNode = node;
+    }
+  }
+
+  public isAgenciaPublicaEmpleoNodeSelected(node: HierarchyNode): boolean {
+    return this.selectedAgenciaPublicaEmpleoNode?.id === node.id;
   }
 }

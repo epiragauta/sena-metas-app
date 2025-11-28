@@ -728,6 +728,82 @@
           </div>
         </div>
       </div>
+
+      <!-- AGENCIA PÚBLICA DE EMPLEO -->
+      <div *ngIf="data.agenciaPublicaEmpleoNivel1 && data.agenciaPublicaEmpleoNivel1.length > 0" style="margin-top: 2rem;">
+        <h3 class="subsection-title">Agencia pública de empleo</h3>
+
+        <!-- Fila 1: 5 tarjetas de nivel 1 (IDs 1, 2, 3, 4, 5) -->
+        <div class="agencia-publica-empleo-grid">
+          <div *ngFor="let node of data.agenciaPublicaEmpleoNivel1; trackBy: trackByHierarchyId"
+               class="programa-card"
+               [class.child-card-selected]="isAgenciaPublicaEmpleoNodeSelected(node) && node.children.length > 0"
+               [class.clickable]="node.children.length > 0"
+               (click)="node.children.length > 0 ? selectAgenciaPublicaEmpleoNode(node) : null">
+            <div class="programa-card-header">
+              <h4 class="programa-title">{{ node.descripcion }}</h4>
+            </div>
+
+            <div class="programa-metrics">
+              <div class="progress" [class.has-overflow]="node.porcentaje > 100">
+                <div class="progress-bar" [ngClass]="getClasePorcentaje(node.porcentaje / 100)"
+                  [style.width.%]="node.porcentaje > 100 ? 100 : node.porcentaje">
+                  {{ node.id === '5' ? (node.ejecucion / 100 | percent:'1.2-2') : (node.porcentaje / 100 | percent:'1.2-2') }}
+                </div>
+              </div>
+
+              <div class="programa-values">
+                <div class="value-item">
+                  <span class="value-label">Meta:</span>
+                  <span class="value-number">{{ node.id === '5' ? (node.meta / 100 | percent:'1.0-0') : (node.meta | number:'1.0-0') }}</span>
+                </div>
+                <div class="value-item">
+                  <span class="value-label">Ejecutado:</span>
+                  <span class="value-number">{{ node.id === '5' ? (node.ejecucion / 100 | percent:'1.2-2') : (node.ejecucion | number:'1.0-0') }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="child-has-details" *ngIf="node.children.length > 0">
+              <span class="details-icon">📊</span>
+              <span class="details-text">Ver detalles ({{ node.children.length }} ítems)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fila 2: Tarjetas hijas (visible al hacer clic) -->
+        <div *ngIf="selectedAgenciaPublicaEmpleoNode && selectedAgenciaPublicaEmpleoNode.children.length > 0"
+             class="agencia-publica-empleo-children-row">
+          <div class="agencia-publica-empleo-children-grid">
+            <div *ngFor="let child of selectedAgenciaPublicaEmpleoNode.children; trackBy: trackByHierarchyId"
+                 class="programa-card child-card">
+              <div class="programa-card-header">
+                <h4 class="programa-title">{{ child.descripcion }}</h4>
+              </div>
+
+              <div class="programa-metrics">
+                <div class="progress" [class.has-overflow]="child.porcentaje > 100">
+                  <div class="progress-bar" [ngClass]="getClasePorcentaje(child.porcentaje / 100)"
+                    [style.width.%]="child.porcentaje > 100 ? 100 : child.porcentaje">
+                    {{ child.porcentaje / 100 | percent:'1.2-2' }}
+                  </div>
+                </div>
+
+                <div class="programa-values">
+                  <div class="value-item">
+                    <span class="value-label">Meta:</span>
+                    <span class="value-number">{{ child.meta | number:'1.0-0' }}</span>
+                  </div>
+                  <div class="value-item">
+                    <span class="value-label">Ejecutado:</span>
+                    <span class="value-number">{{ child.ejecucion | number:'1.0-0' }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Sección: Métricas Principales -->
