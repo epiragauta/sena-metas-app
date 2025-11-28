@@ -191,6 +191,13 @@ export class MetasService {
   }
 
   /**
+   * Obtiene metas de productividad CampeSENA
+   */
+  getMetasProductividadCampesena(): Observable<Meta[]> {
+    return this.http.get<Meta[]>(`${this.basePath}/metas_productividad_campesena.json`);
+  }
+
+  /**
    * Obtiene datos para el dashboard principal
    */
   getDashboardData(): Observable<DashboardData> {

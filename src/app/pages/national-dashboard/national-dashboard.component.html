@@ -634,6 +634,41 @@
           </div>
         </div>
       </div>
+
+      <!-- PRODUCTIVIDAD CAMPESENA -->
+      <div *ngIf="data.productividadCampesena && data.productividadCampesena.length > 0" style="margin-top: 2rem;">
+        <h3 class="subsection-title">Productividad CampeSENA</h3>
+
+        <!-- Una fila con 4 tarjetas -->
+        <div class="productividad-campesena-grid">
+          <div class="programa-card"
+               *ngFor="let node of data.productividadCampesena; trackBy: trackByHierarchyId">
+            <div class="programa-card-header">
+              <h4 class="programa-title">{{ node.descripcion }}</h4>
+            </div>
+
+            <div class="programa-metrics">
+              <div class="progress" [class.has-overflow]="node.porcentaje > 100">
+                <div class="progress-bar" [ngClass]="getClasePorcentaje(node.porcentaje / 100)"
+                  [style.width.%]="node.porcentaje > 100 ? 100 : node.porcentaje">
+                  {{ node.porcentaje / 100 | percent:'1.2-2' }}
+                </div>
+              </div>
+
+              <div class="programa-values">
+                <div class="value-item">
+                  <span class="value-label">Meta:</span>
+                  <span class="value-number">{{ node.meta | number:'1.0-0' }}</span>
+                </div>
+                <div class="value-item">
+                  <span class="value-label">Ejecutado:</span>
+                  <span class="value-number">{{ node.ejecucion | number:'1.0-0' }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Sección: Métricas Principales -->

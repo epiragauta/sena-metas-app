@@ -1,0 +1,38 @@
+[
+  {
+    "id": "1",
+    "descripcion": "Unidades productivas creadas",
+    "meta": 3948,
+    "ejecucion": 975,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false
+  },
+  {
+    "id": "2",
+    "descripcion": "Unidades productivas fortalecidas",
+    "meta": 4000,
+    "ejecucion": 2104,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false
+  },
+  {
+    "id": "3",
+    "descripcion": "Proyectos productivos beneficiados",
+    "meta": 1492,
+    "ejecucion": 0,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false
+  },
+  {
+    "id": "4",
+    "descripcion": "Proyectos productivos formulados",
+    "meta": 2120,
+    "ejecucion": 2114,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false
+  }
+]

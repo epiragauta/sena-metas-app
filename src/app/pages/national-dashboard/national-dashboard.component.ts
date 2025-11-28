@@ -72,6 +72,7 @@ export interface DashboardData {
   certificacionRoot?: HierarchyNode;
   competenciasLaboralesRoot?: HierarchyNode;
   competenciasLaboralesOtros?: HierarchyNode[];  // IDs 2-7
+  productividadCampesena?: HierarchyNode[];  // 4 elementos sin jerarquía
 }
 
 @Component({
@@ -110,7 +111,8 @@ export class NationalDashboardComponent implements OnInit {
       metasCertificacion: this.metasService.getMetasCertificacion(),
       jerarquiasCertificacion: this.metasService.getJerarquiasCertificacion(),
       metasCompetenciasLaborales: this.metasService.getMetasCompetenciasLaborales(),
-      jerarquiasCompetenciasLaborales: this.metasService.getJerarquiasCompetenciasLaborales()
+      jerarquiasCompetenciasLaborales: this.metasService.getJerarquiasCompetenciasLaborales(),
+      metasProductividadCampesena: this.metasService.getMetasProductividadCampesena()
     }).pipe(
       map(results => {
         this.cargando = false;
@@ -131,6 +133,8 @@ export class NationalDashboardComponent implements OnInit {
         const competenciasLaboralesRoot = competenciasLaboralesTree.find(node => node.id === '1');
         const competenciasLaboralesOtros = competenciasLaboralesTree.filter(node => ['2', '3', '4', '5', '6', '7'].includes(node.id));
 
+        const productividadCampesena = this.buildProductividadCampesenaNodes(results.metasProductividadCampesena);
+
         return {
           nationalGoals: this.buildTree(results.metas, results.jerarquias),
           formacionPorNivelTree: this.buildNivelTree(results.formacionPorNivel),
@@ -146,7 +150,8 @@ export class NationalDashboardComponent implements OnInit {
           certificacionTree: certificacionTree,
           certificacionRoot: certificacionRoot,
           competenciasLaboralesRoot: competenciasLaboralesRoot,
-          competenciasLaboralesOtros: competenciasLaboralesOtros
+          competenciasLaboralesOtros: competenciasLaboralesOtros,
+          productividadCampesena: productividadCampesena
         };
       })
     );
@@ -467,6 +472,25 @@ export class NationalDashboardComponent implements OnInit {
     rootNodes.forEach(root => this.assignHierarchyLevel(root, 0));
 
     return rootNodes;
+  }
+
+  /**
+   * Construye nodos de productividad CampeSENA (sin jerarquía)
+   */
+  private buildProductividadCampesenaNodes(metas: Meta[]): HierarchyNode[] {
+    return metas.map(meta => {
+      const porcentaje = (meta.meta > 0) ? (meta.ejecucion / meta.meta) * 100 : 0;
+      return {
+        id: meta.id.toString(),
+        descripcion: meta.descripcion,
+        meta: meta.meta,
+        ejecucion: meta.ejecucion,
+        porcentaje: porcentaje,
+        children: [],
+        isCollapsed: true,
+        level: 0
+      };
+    });
   }
 
   /**
