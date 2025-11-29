@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule, CurrencyPipe, DecimalPipe, PercentPipe } from '@angular/common';
 import { forkJoin, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 import { MetasService } from '../../services/metas.service';
@@ -88,7 +89,7 @@ export interface DashboardData {
 @Component({
   selector: 'app-national-dashboard',
   standalone: true,
-  imports: [CommonModule, DecimalPipe, PercentPipe, CurrencyPipe, MatIconModule],
+  imports: [CommonModule, DecimalPipe, PercentPipe, CurrencyPipe, MatIconModule, MatButtonModule],
   templateUrl: './national-dashboard.component.html',
   styleUrls: ['./national-dashboard.component.scss']
 })

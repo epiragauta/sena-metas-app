@@ -26,7 +26,12 @@
 
     <div class="hierarchy-section">
       <div class="data-section">
-        <h2 class="section-title">Metas Formación Profesional Integral</h2>
+        <h2 class="section-title">
+          <span>Metas Formación Profesional Integral</span>
+          <button mat-icon-button class="info-button" aria-label="Más información sobre Metas Formación Profesional Integral">
+            <mat-icon>info_outline</mat-icon>
+          </button>
+        </h2>
 
         <!-- Root Node (Parent) usando hierarchyRoot -->
         <div *ngIf="data.hierarchyRoot">
@@ -106,7 +111,12 @@
       <!-- Tabla de Árbol para nodo seleccionado -->
       <div *ngIf="selectedNodeForTree" class="data-section selected-node-tree-section">
         <div class="selected-node-header">
-          <h2 class="section-title">{{ removeParentheses(selectedNodeForTree.descripcion) }}</h2>
+          <h2 class="section-title">
+            <span>{{ removeParentheses(selectedNodeForTree.descripcion) }}</span>
+            <button mat-icon-button class="info-button" aria-label="Más información">
+              <mat-icon>info_outline</mat-icon>
+            </button>
+          </h2>
           <button class="close-tree-btn" (click)="selectedNodeForTree = null">✕ Cerrar</button>
         </div>
 
@@ -129,7 +139,12 @@
     <div class="additional-sections">
       <!-- Sección: Formación por Estrategia -->
       <div *ngIf="data.formacionEstrategiaRoot" class="data-section">
-        <h2 class="section-title">Metas por Estrategias de Formación</h2>
+        <h2 class="section-title">
+          <span>Metas por Estrategias de Formación</span>
+          <button mat-icon-button class="info-button" aria-label="Más información sobre Metas por Estrategias de Formación">
+            <mat-icon>info_outline</mat-icon>
+          </button>
+        </h2>
 
         <!-- Tarjetas Directas (sin tarjeta padre, solo las hijas) -->
         <div class="children-cards-grid">
@@ -222,7 +237,12 @@
       <!-- Tabla de Estrategias para nodo seleccionado -->
       <div *ngIf="selectedEstrategiaNodeForTree" class="data-section selected-node-tree-section">
         <div class="selected-node-header">
-          <h2 class="section-title">{{ removeParentheses(selectedEstrategiaNodeForTree.nivelFormacion) }}</h2>
+          <h2 class="section-title">
+            <span>{{ removeParentheses(selectedEstrategiaNodeForTree.nivelFormacion) }}</span>
+            <button mat-icon-button class="info-button" aria-label="Más información">
+              <mat-icon>info_outline</mat-icon>
+            </button>
+          </h2>
           <button class="close-tree-btn" (click)="selectedEstrategiaNodeForTree = null">✕ Cerrar</button>
         </div>
 
@@ -239,7 +259,12 @@
 
       <!-- Sección: Metas Programas Relevantes y Primer Curso -->
       <div *ngIf="(data.programasRelevantes && data.programasRelevantes.length > 0) || data.metasPrimerCurso" class="data-section">
-        <h2 class="section-title">Metas Programas Relevantes y Primer Curso</h2>
+        <h2 class="section-title">
+          <span>Metas Programas Relevantes y Primer Curso</span>
+          <button mat-icon-button class="info-button" aria-label="Más información sobre Metas Programas Relevantes y Primer Curso">
+            <mat-icon>info_outline</mat-icon>
+          </button>
+        </h2>
 
         <div class="programas-primer-curso-layout">
           <!-- Lado izquierdo: Programas Relevantes -->
@@ -313,7 +338,12 @@
 
     <!-- Sección: Cupos Autorizados FIC -->
     <div *ngIf="data.cuposFICRoot" class="data-section">
-      <h2 class="section-title">Cupos Autorizados FIC</h2>
+      <h2 class="section-title">
+        <span>Cupos Autorizados FIC</span>
+        <button mat-icon-button class="info-button" aria-label="Más información sobre Cupos Autorizados FIC">
+          <mat-icon>info_outline</mat-icon>
+        </button>
+      </h2>
 
         <!-- Tarjeta Principal (ID=1) -->
         <div class="cupos-fic-principal">
@@ -353,11 +383,15 @@
 
         <!-- Tabla de detalles para Cupos FIC (tree-table) -->
         <div *ngIf="selectedCuposFICNode" class="data-section selected-node-tree-section">
-          <div class="selected-node-header">
-            <h2 class="section-title">{{ selectedCuposFICNode.descripcion }}</h2>
-            <button class="close-tree-btn" (click)="selectedCuposFICNode = null">✕ Cerrar</button>
-          </div>
-
+                  <div class="selected-node-header">
+                    <h2 class="section-title">
+                      <span>{{ selectedCuposFICNode.descripcion }}</span>
+                      <button mat-icon-button class="info-button" aria-label="Más información">
+                        <mat-icon>info_outline</mat-icon>
+                      </button>
+                    </h2>
+                    <button class="close-tree-btn" (click)="selectedCuposFICNode = null">✕ Cerrar</button>
+                  </div>
           <!-- Mostrar hijos usando el template recursivo -->
           <div class="children-tree-container" *ngIf="selectedCuposFICNode.children.length > 0">
             <div *ngFor="let child of selectedCuposFICNode.children; trackBy: trackByHierarchyId">
@@ -383,7 +417,12 @@
 
     <!-- RETENCIÓN -->
     <div *ngIf="data.retencionPadres && data.retencionPadres.length > 0" class="data-section">
-      <h2 class="section-title">Retención</h2>
+      <h2 class="section-title">
+        <span>Retención</span>
+        <button mat-icon-button class="info-button" aria-label="Más información sobre Retención">
+          <mat-icon>info_outline</mat-icon>
+        </button>
+      </h2>
 
         <div class="retencion-layout">
           <!-- Primera columna: indicadores 1-6 en grid 3 columnas -->
@@ -489,7 +528,12 @@
 
     <!-- CERTIFICACIÓN FORMACIÓN PROFESIONAL-->
     <div *ngIf="data.certificacionRoot" class="data-section">
-      <h2 class="section-title">Certificación Formación Profesional</h2>
+      <h2 class="section-title">
+        <span>Certificación Formación Profesional</span>
+        <button mat-icon-button class="info-button" aria-label="Más información sobre Certificación Formación Profesional">
+          <mat-icon>info_outline</mat-icon>
+        </button>
+      </h2>
 
         <!-- Una sola fila con 4 elementos: ID=1, ID=2, ID=3, ID=4 -->
         <div class="certificacion-grid-4col" *ngIf="data.certificacionTree">
@@ -562,7 +606,12 @@
         <!-- Tabla de detalles para certificación con 3 niveles (estilo tree-table) -->
         <div *ngIf="selectedCertificacionNode" class="data-section selected-node-tree-section">
           <div class="selected-node-header">
-            <h2 class="section-title">{{ selectedCertificacionNode.descripcion }}</h2>
+            <h2 class="section-title">
+              <span>{{ selectedCertificacionNode.descripcion }}</span>
+              <button mat-icon-button class="info-button" aria-label="Más información">
+                <mat-icon>info_outline</mat-icon>
+              </button>
+            </h2>
             <button class="close-tree-btn" (click)="selectedCertificacionNode = null">✕ Cerrar</button>
           </div>
 
@@ -580,7 +629,12 @@
 
     <!-- CERTIFICACIÓN DE COMPETENCIAS LABORALES -->
     <div *ngIf="data.competenciasLaboralesRoot && data.competenciasLaboralesOtros" class="data-section">
-      <h2 class="section-title">Certificación de competencias laborales</h2>
+      <h2 class="section-title">
+        <span>Certificación de competencias laborales</span>
+        <button mat-icon-button class="info-button" aria-label="Más información sobre Certificación de competencias laborales">
+          <mat-icon>info_outline</mat-icon>
+        </button>
+      </h2>
 
         <!-- Fila 1: ID=1 con botón Ver detalles -->
         <div class="competencias-laborales-row-1">
@@ -717,7 +771,12 @@
 
     <!-- CONTRATOS DE APRENDIZAJE -->
     <div *ngIf="data.contratosAprendizajePrincipal && data.contratosAprendizaje" class="data-section">
-      <h2 class="section-title">Contratos de Aprendizaje</h2>
+      <h2 class="section-title">
+        <span>Contratos de Aprendizaje</span>
+        <button mat-icon-button class="info-button" aria-label="Más información sobre Contratos de Aprendizaje">
+          <mat-icon>info_outline</mat-icon>
+        </button>
+      </h2>
 
         <!-- Fila 1: Tarjeta Principal ID=3 con botón Ver detalles -->
         <div class="contratos-aprendizaje-row-1">
@@ -857,7 +916,12 @@
   <div *ngIf="isTabActive('inclusion-social')" class="tab-content fade-in">
     <!-- PRODUCTIVIDAD CAMPESENA -->
     <div *ngIf="data.productividadCampesena && data.productividadCampesena.length > 0" class="data-section">
-      <h2 class="section-title">Productividad CampeSENA</h2>
+      <h2 class="section-title">
+        <span>Productividad CampeSENA</span>
+        <button mat-icon-button class="info-button" aria-label="Más información sobre Productividad CampeSENA">
+          <mat-icon>info_outline</mat-icon>
+        </button>
+      </h2>
 
         <!-- Una fila con 4 tarjetas -->
         <div class="productividad-campesena-grid">
@@ -892,7 +956,12 @@
 
     <!-- POBLACIONES VULNERABLES -->
     <div *ngIf="data.poblacionesVulnerablesRoot" class="data-section">
-      <h2 class="section-title">Poblaciones vulnerables</h2>
+      <h2 class="section-title">
+        <span>Poblaciones vulnerables</span>
+        <button mat-icon-button class="info-button" aria-label="Más información sobre Poblaciones vulnerables">
+          <mat-icon>info_outline</mat-icon>
+        </button>
+      </h2>
 
         <!-- Fila 1: Tarjeta principal ID=1 con botón Ver detalles -->
         <div class="poblaciones-vulnerables-row-1">
@@ -932,11 +1001,15 @@
 
         <!-- Fila 2: Tree-table con detalles (visible al hacer clic) -->
         <div *ngIf="selectedPoblacionesVulnerablesNode" class="data-section selected-node-tree-section">
-          <div class="selected-node-header">
-            <h2 class="section-title">{{ selectedPoblacionesVulnerablesNode.descripcion }}</h2>
-            <button class="close-tree-btn" (click)="selectedPoblacionesVulnerablesNode = null">✕ Cerrar</button>
-          </div>
-
+                  <div class="selected-node-header">
+                    <h2 class="section-title">
+                      <span>{{ selectedPoblacionesVulnerablesNode.descripcion }}</span>
+                      <button mat-icon-button class="info-button" aria-label="Más información">
+                        <mat-icon>info_outline</mat-icon>
+                      </button>
+                    </h2>
+                    <button class="close-tree-btn" (click)="selectedPoblacionesVulnerablesNode = null">✕ Cerrar</button>
+                  </div>
           <!-- Mostrar hijos usando el template recursivo -->
           <div class="children-tree-container" *ngIf="selectedPoblacionesVulnerablesNode.children.length > 0">
             <div *ngFor="let child of selectedPoblacionesVulnerablesNode.children; trackBy: trackByHierarchyId">
@@ -955,7 +1028,12 @@
   <div *ngIf="isTabActive('servicios-empleo')" class="tab-content fade-in">
     <!-- AGENCIA PÚBLICA DE EMPLEO -->
     <div *ngIf="data.agenciaPublicaEmpleoNivel1 && data.agenciaPublicaEmpleoNivel1.length > 0" class="data-section">
-      <h2 class="section-title">Agencia pública de empleo</h2>
+      <h2 class="section-title">
+        <span>Agencia pública de empleo</span>
+        <button mat-icon-button class="info-button" aria-label="Más información sobre Agencia pública de empleo">
+          <mat-icon>info_outline</mat-icon>
+        </button>
+      </h2>
 
         <!-- Fila 1: 5 tarjetas de nivel 1 (IDs 1, 2, 3, 4, 5) -->
         <div class="agencia-publica-empleo-grid">
@@ -1031,7 +1109,12 @@
 
     <!-- Sección: Fondo Emprender -->
     <div *ngIf="data.fondoEmprender && data.fondoEmprender.length > 0" class="data-section">
-      <h2 class="section-title">Fondo Emprender</h2>
+      <h2 class="section-title">
+        <span>Fondo Emprender</span>
+        <button mat-icon-button class="info-button" aria-label="Más información sobre Fondo Emprender">
+          <mat-icon>info_outline</mat-icon>
+        </button>
+      </h2>
 
         <!-- Grid 2x2 de tarjetas -->
         <div class="fondo-emprender-grid">
