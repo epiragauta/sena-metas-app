@@ -1,0 +1,82 @@
+[
+  {
+    "id": "1",
+    "descripcion": "TOTAL FORMACIÓN PROFESIONAL INTEGRAL",
+    "meta": 3866963,
+    "ejecucion": 3261422,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": true,
+    "esSubtotal": false
+  },
+  {
+    "id": "1.1",
+    "descripcion": "TOTAL FORMACIÓN COMPLEMENTARIA",
+    "meta": 3420411,
+    "ejecucion": 3110346,
+    "esTasa": false,
+    "nivelJerarquia": 2,
+    "esTotal": false,
+    "esSubtotal": true
+  },
+  {
+    "id": "1.2",
+    "descripcion": "TOTAL FORMACIÓN TITULADA",
+    "meta": 446552,
+    "ejecucion": 151076,
+    "esTasa": false,
+    "nivelJerarquia": 2,
+    "esTotal": false,
+    "esSubtotal": true
+  },
+  {
+    "id": "1.2.1",
+    "descripcion": "EDUCACIÓN SUPERIOR",
+    "meta": 94127,
+    "ejecucion": 51477,
+    "esTasa": false,
+    "nivelJerarquia": 3,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "1.2.2",
+    "descripcion": "FORMACIÓN LABORAL",
+    "meta": 352425,
+    "ejecucion": 99599,
+    "esTasa": false,
+    "nivelJerarquia": 3,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "2",
+    "descripcion": "ARTICULACION CON LA MEDIA - (Incluidas en Formación laboral)",
+    "meta": 184643,
+    "ejecucion": 27912,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "3",
+    "descripcion": "CampeSENA - (Incluidas en Formación Profesional Integral)",
+    "meta": 481818,
+    "ejecucion": 396634,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "4",
+    "descripcion": "Full Popular - (Incluidas en Formación Profesional Integral)",
+    "meta": 54421,
+    "ejecucion": 100836,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  }
+]

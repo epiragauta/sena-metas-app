@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "tablaOrigen": "metas_cupos_fic",
+    "idPadre": "1",
+    "nombrePadre": "TOTAL FORMACION PROFESIONAL INTEGRAL FIC",
+    "idHijo": "1.1",
+    "nombreHijo": "FORMACION TITULADA FIC",
+    "tablaHijo": "metas_cupos_fic",
+    "operacion": "suma"
+  },
+  {
+    "id": 2,
+    "tablaOrigen": "metas_cupos_fic",
+    "idPadre": "1",
+    "nombrePadre": "TOTAL FORMACION PROFESIONAL INTEGRAL FIC",
+    "idHijo": "1.2",
+    "nombreHijo": "FORMACION COMPLEMENTARIA FIC",
+    "tablaHijo": "metas_cupos_fic",
+    "operacion": "suma"
+  },
+  {
+    "id": 3,
+    "tablaOrigen": "metas_cupos_fic",
+    "idPadre": "1.1",
+    "nombrePadre": "FORMACION TITULADA FIC",
+    "idHijo": "1.1.1",
+    "nombreHijo": "TECNOLOGOS FIC",
+    "tablaHijo": "metas_cupos_fic",
+    "operacion": "suma"
+  },
+  {
+    "id": 4,
+    "tablaOrigen": "metas_cupos_fic",
+    "idPadre": "1.1",
+    "nombrePadre": "FORMACION TITULADA FIC",
+    "idHijo": "1.1.2",
+    "nombreHijo": "OPERARIOS FIC",
+    "tablaHijo": "metas_cupos_fic",
+    "operacion": "suma"
+  },
+  {
+    "id": 5,
+    "tablaOrigen": "metas_cupos_fic",
+    "idPadre": "1.1",
+    "nombrePadre": "FORMACION TITULADA FIC",
+    "idHijo": "1.1.3",
+    "nombreHijo": "TECNICO LABORAL FIC",
+    "tablaHijo": "metas_cupos_fic",
+    "operacion": "suma"
+  }
+]

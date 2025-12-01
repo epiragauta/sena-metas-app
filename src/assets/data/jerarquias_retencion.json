@@ -1,0 +1,74 @@
+[
+  {
+    "idPadre": "1",
+    "idHijo": "1.1",
+    "nombrePadre": "TOTAL FORMACIÓN LABORAL",
+    "nombreHijo": "FORMACIÓN LABORAL - Presencial"
+  },
+  {
+    "idPadre": "1",
+    "idHijo": "1.2",
+    "nombrePadre": "TOTAL FORMACIÓN LABORAL",
+    "nombreHijo": "FORMACIÓN LABORAL - Virtual"
+  },
+  {
+    "idPadre": "2",
+    "idHijo": "2.1",
+    "nombrePadre": "TOTAL EDUCACION SUPERIOR",
+    "nombreHijo": "EDUCACION SUPERIOR - Presencial"
+  },
+  {
+    "idPadre": "2",
+    "idHijo": "2.2",
+    "nombrePadre": "TOTAL EDUCACION SUPERIOR",
+    "nombreHijo": "EDUCACION SUPERIOR - Virtual"
+  },
+  {
+    "idPadre": "3",
+    "idHijo": "3.1",
+    "nombrePadre": "TOTAL TITULADA",
+    "nombreHijo": "TOTAL TITULADA - Presencial"
+  },
+  {
+    "idPadre": "3",
+    "idHijo": "3.2",
+    "nombrePadre": "TOTAL TITULADA",
+    "nombreHijo": "TOTAL TITULADA - Virtual"
+  },
+  {
+    "idPadre": "4",
+    "idHijo": "4.1",
+    "nombrePadre": "TOTAL COMPLEMENTARIA",
+    "nombreHijo": "COMPLEMENTARIA - Presencial"
+  },
+  {
+    "idPadre": "4",
+    "idHijo": "4.2",
+    "nombrePadre": "TOTAL COMPLEMENTARIA",
+    "nombreHijo": "COMPLEMENTARIA - Virtual"
+  },
+  {
+    "idPadre": "5",
+    "idHijo": "5.1",
+    "nombrePadre": "TOTAL FORMACIÓN PROFESIONAL",
+    "nombreHijo": "TOTAL FORMACIÓN PROFESIONAL - Presencial"
+  },
+  {
+    "idPadre": "5",
+    "idHijo": "5.2",
+    "nombrePadre": "TOTAL FORMACIÓN PROFESIONAL",
+    "nombreHijo": "TOTAL FORMACIÓN PROFESIONAL - Virtual"
+  },
+  {
+    "idPadre": "6",
+    "idHijo": "6.1",
+    "nombrePadre": "PROGRAMA DE BILINGÜISMO",
+    "nombreHijo": "PROGRAMA DE BILINGÜISMO - Presencial"
+  },
+  {
+    "idPadre": "6",
+    "idHijo": "6.2",
+    "nombrePadre": "PROGRAMA DE BILINGÜISMO",
+    "nombreHijo": "PROGRAMA DE BILINGÜISMO - Virtual"
+  }
+]

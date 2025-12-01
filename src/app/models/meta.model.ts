@@ -11,6 +11,7 @@ export interface Meta {
   esSubtotal: boolean;
   esTotal: boolean;
   nivelJerarquia: number;
+  esTasa?: boolean;
 }
 
 export interface FormacionPorNivel {
@@ -30,6 +31,15 @@ export interface FormacionPorNivel {
 }
 
 export interface ProgramaRelevante {
+  id: number;
+  descripcion: string;
+  meta: number;
+  ejecucion: number;
+  porcentaje: number;
+  tipo: string;
+}
+
+export interface MetasPrimerCurso {
   id: number;
   descripcion: string;
   meta: number;

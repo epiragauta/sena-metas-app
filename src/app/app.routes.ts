@@ -10,7 +10,7 @@ import { ConsultaNacionalComponent } from './pages/consulta-nacional/consulta-na
 import { MetasRegionalesYCentrosComponent } from './pages/metas-regionales-y-centros/metas-regionales-y-centros.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/dashboard-nacional', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent, title: 'Dashboard - SENA Metas' },
   { path: 'dashboard-nacional', component: NationalDashboardComponent, title: 'Dashboard Nacional - SENA Metas' },
   { path: 'metas', component: MetasComponent, title: 'Metas FPI - SENA' },

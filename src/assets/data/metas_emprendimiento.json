@@ -1,0 +1,122 @@
+[
+  {
+    "id": "1",
+    "descripcion": "Emprendimientos Asesorados",
+    "meta": 4977,
+    "ejecucion": 3815,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "2",
+    "descripcion": "Planes de Negocio Formulados",
+    "meta": 4885,
+    "ejecucion": 2386,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "3",
+    "descripcion": "Emprendedores Orientados",
+    "meta": 534864,
+    "ejecucion": 494763,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "4",
+    "descripcion": "Empresas en Fortalecimiento",
+    "meta": 4025,
+    "ejecucion": 3629,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "5",
+    "descripcion": "Empleos Fortalecimiento",
+    "meta": 2003,
+    "ejecucion": 1757,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "6",
+    "descripcion": "Empresas Fortalecidas Poblaciones NARP (Incluidas en Empresas en Fortalecimiento)",
+    "meta": 100,
+    "ejecucion": 207,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "7",
+    "descripcion": "Empresas Creadas Poblaciones NARP (Incluidas en Empresas creadas a partir del asesoramiento)",
+    "meta": 125,
+    "ejecucion": 128,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "8",
+    "descripcion": "Planes de negocios formulados de Full Popular",
+    "meta": 171,
+    "ejecucion": 0,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "9",
+    "descripcion": "Número de Campesinos atendidos en el programa de emprendimiento",
+    "meta": 100229,
+    "ejecucion": 95997,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "10",
+    "descripcion": "Número de personas de Full Popular atendidos en el programa de emprendimiento",
+    "meta": 7000,
+    "ejecucion": 32813,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "11",
+    "descripcion": "No. Planes de Negocio Desplazados por la Violencia",
+    "meta": 3096,
+    "ejecucion": 3026,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "12",
+    "descripcion": "No. Unidades Productivas Desplazados por la Violencia",
+    "meta": 1703,
+    "ejecucion": 1761,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  }
+]

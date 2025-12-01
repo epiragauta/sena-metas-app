@@ -1,0 +1,173 @@
+[
+  {
+    "id": "1",
+    "descripcion": "TOTAL POBLACIONES VULNERABLES",
+    "meta": 2263000,
+    "ejecucion": 2960780,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": true
+  },
+  {
+    "id": "1.1",
+    "descripcion": "TOTAL VICTIMAS",
+    "meta": 684554,
+    "ejecucion": 1399451,
+    "esTasa": false,
+    "nivelJerarquia": 2,
+    "esTotal": true
+  },
+  {
+    "id": "1.1.1",
+    "descripcion": "DESPLAZADOS POR LA VIOLENCIA",
+    "meta": 628935,
+    "ejecucion": 1340560,
+    "esTasa": false,
+    "nivelJerarquia": 3,
+    "esTotal": false
+  },
+  {
+    "id": "1.1.2",
+    "descripcion": "HECHOS VICTIMIZANTES",
+    "meta": 55619,
+    "ejecucion": 58891,
+    "esTasa": false,
+    "nivelJerarquia": 3,
+    "esTotal": false
+  },
+  {
+    "id": "1.2",
+    "descripcion": "OTRAS POBLACIONES VULNERABLES",
+    "meta": 1578446,
+    "ejecucion": 1561329,
+    "esTasa": false,
+    "nivelJerarquia": 2,
+    "esTotal": false
+  },
+  {
+    "id": "1.2.1",
+    "descripcion": "Personas en condición de Discapacidad",
+    "meta": 41719,
+    "ejecucion": 36348,
+    "esTasa": false,
+    "nivelJerarquia": 3,
+    "esTotal": false
+  },
+  {
+    "id": "1.2.2",
+    "descripcion": "Indígenas",
+    "meta": 55932,
+    "ejecucion": 55385,
+    "esTasa": false,
+    "nivelJerarquia": 3,
+    "esTotal": false
+  },
+  {
+    "id": "1.2.3",
+    "descripcion": "INPEC",
+    "meta": 21240,
+    "ejecucion": 32302,
+    "esTasa": false,
+    "nivelJerarquia": 3,
+    "esTotal": false
+  },
+  {
+    "id": "1.2.4",
+    "descripcion": "Jóvenes Vulnerables",
+    "meta": 874647,
+    "ejecucion": 801306,
+    "esTasa": false,
+    "nivelJerarquia": 3,
+    "esTotal": false
+  },
+  {
+    "id": "1.2.5",
+    "descripcion": "Adolescente en Conflicto con la Ley Penal",
+    "meta": 3852,
+    "ejecucion": 5569,
+    "esTasa": false,
+    "nivelJerarquia": 3,
+    "esTotal": false
+  },
+  {
+    "id": "1.2.6",
+    "descripcion": "Mujer Cabeza de Hogar",
+    "meta": 346123,
+    "ejecucion": 346455,
+    "esTasa": false,
+    "nivelJerarquia": 3,
+    "esTotal": false
+  },
+  {
+    "id": "1.2.7",
+    "descripcion": "Negritudes (Negros)",
+    "meta": 18842,
+    "ejecucion": 13161,
+    "esTasa": false,
+    "nivelJerarquia": 3,
+    "esTotal": false
+  },
+  {
+    "id": "1.2.8",
+    "descripcion": "Afrocolombianos",
+    "meta": 57615,
+    "ejecucion": 72858,
+    "esTasa": false,
+    "nivelJerarquia": 3,
+    "esTotal": false
+  },
+  {
+    "id": "1.2.9",
+    "descripcion": "Raizales",
+    "meta": 3000,
+    "ejecucion": 1841,
+    "esTasa": false,
+    "nivelJerarquia": 3,
+    "esTotal": false
+  },
+  {
+    "id": "1.2.10",
+    "descripcion": "Palenqueros",
+    "meta": 510,
+    "ejecucion": 3339,
+    "esTasa": false,
+    "nivelJerarquia": 3,
+    "esTotal": false
+  },
+  {
+    "id": "1.2.11",
+    "descripcion": "Proceso de Reintegración y Adolescentes desvinculados de Grupos Armados Organizados al margen de la ley",
+    "meta": 2938,
+    "ejecucion": 4043,
+    "esTasa": false,
+    "nivelJerarquia": 3,
+    "esTotal": false
+  },
+  {
+    "id": "1.2.12",
+    "descripcion": "Tercera Edad",
+    "meta": 36139,
+    "ejecucion": 62042,
+    "esTasa": false,
+    "nivelJerarquia": 3,
+    "esTotal": false
+  },
+  {
+    "id": "1.2.13",
+    "descripcion": "Adolescente Trabajador",
+    "meta": 115783,
+    "ejecucion": 111773,
+    "esTasa": false,
+    "nivelJerarquia": 3,
+    "esTotal": false
+  },
+  {
+    "id": "1.2.14",
+    "descripcion": "Rroom",
+    "meta": 106,
+    "ejecucion": 102,
+    "esTasa": false,
+    "nivelJerarquia": 3,
+    "esTotal": false
+  }
+]

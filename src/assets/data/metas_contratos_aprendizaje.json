@@ -1,0 +1,62 @@
+[
+  {
+    "id": "3",
+    "descripcion": "Total Aprendices Con Contrato De Aprendizaje",
+    "meta": 370000,
+    "ejecucion": 352812,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": true,
+    "esSubtotal": false
+  },
+  {
+    "id": "3.1",
+    "descripcion": "Aprendices SENA Con Contrato De Aprendizaje (Incluye contratos voluntarios)",
+    "meta": 259720,
+    "ejecucion": 211120,
+    "esTasa": false,
+    "nivelJerarquia": 2,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "3.2",
+    "descripcion": "Aprendices Con Contrato De Aprendizaje - NO SENA",
+    "meta": 110280,
+    "ejecucion": 141692,
+    "esTasa": false,
+    "nivelJerarquia": 2,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "4",
+    "descripcion": "Aprendices Con Contrato De Aprendizaje Voluntario",
+    "meta": 13000,
+    "ejecucion": 9477,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "1",
+    "descripcion": "Número de Empresas con Cuotas Reguladas",
+    "meta": 42000,
+    "ejecucion": 43031,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "2",
+    "descripcion": "Número de Empresas con Cuota Voluntaria",
+    "meta": 4500,
+    "ejecucion": 3438,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  }
+]

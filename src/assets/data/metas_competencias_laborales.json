@@ -1,0 +1,92 @@
+[
+  {
+    "id": "1",
+    "descripcion": "Total Certificaciones en Competencias laborales",
+    "meta": 290430,
+    "ejecucion": 298691,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": true
+  },
+  {
+    "id": "1.1",
+    "descripcion": "Certificaciones expedidas para CampeSENA",
+    "meta": 49870,
+    "ejecucion": 69701,
+    "esTasa": false,
+    "nivelJerarquia": 2,
+    "esTotal": false
+  },
+  {
+    "id": "1.2",
+    "descripcion": "Certificaciones expedidas en Full Popular",
+    "meta": 31221,
+    "ejecucion": 33904,
+    "esTasa": false,
+    "nivelJerarquia": 2,
+    "esTotal": false
+  },
+  {
+    "id": "1.3",
+    "descripcion": "Certificaciones expedidas en Regular",
+    "meta": 209339,
+    "ejecucion": 195086,
+    "esTasa": false,
+    "nivelJerarquia": 2,
+    "esTotal": false
+  },
+  {
+    "id": "2",
+    "descripcion": "No. de Evaluaciones",
+    "meta": 301841,
+    "ejecucion": 313560,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false
+  },
+  {
+    "id": "3",
+    "descripcion": "Personas Evaluadas",
+    "meta": 258586,
+    "ejecucion": 239432,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false
+  },
+  {
+    "id": "4",
+    "descripcion": "Personas Certificadas",
+    "meta": 247707,
+    "ejecucion": 230163,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false
+  },
+  {
+    "id": "5",
+    "descripcion": "No. Instrumentos de evaluación construidos",
+    "meta": 1141,
+    "ejecucion": 1008,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false
+  },
+  {
+    "id": "6",
+    "descripcion": "Estándares para el desempeño laboral elaborados y/o actualizados",
+    "meta": 447,
+    "ejecucion": 117,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false
+  },
+  {
+    "id": "7",
+    "descripcion": "Reuniones de consejos ejecutivos realizadas",
+    "meta": 340,
+    "ejecucion": 221,
+    "esTasa": false,
+    "nivelJerarquia": 1,
+    "esTotal": false
+  }
+]

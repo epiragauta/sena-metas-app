@@ -1,0 +1,202 @@
+[
+  {
+    "id": "1",
+    "descripcion": "TOTAL FORMACIÓN LABORAL",
+    "meta": 85.05,
+    "ejecucion": 90.58,
+    "esTasa": true,
+    "nivelJerarquia": 1,
+    "esTotal": true,
+    "esSubtotal": false
+  },
+  {
+    "id": "1.1",
+    "descripcion": "FORMACIÓN LABORAL - Presencial",
+    "meta": 89.18,
+    "ejecucion": 91.29,
+    "esTasa": true,
+    "nivelJerarquia": 2,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "1.2",
+    "descripcion": "FORMACIÓN LABORAL - Virtual",
+    "meta": 78.96,
+    "ejecucion": 80.76,
+    "esTasa": true,
+    "nivelJerarquia": 2,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "2",
+    "descripcion": "TOTAL EDUCACION SUPERIOR",
+    "meta": 84.58,
+    "ejecucion": 85.85,
+    "esTasa": true,
+    "nivelJerarquia": 1,
+    "esTotal": true,
+    "esSubtotal": false
+  },
+  {
+    "id": "2.1",
+    "descripcion": "EDUCACION SUPERIOR - Presencial",
+    "meta": 87.42,
+    "ejecucion": 90.43,
+    "esTasa": true,
+    "nivelJerarquia": 2,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "2.2",
+    "descripcion": "EDUCACION SUPERIOR - Virtual",
+    "meta": 80.64,
+    "ejecucion": 78.74,
+    "esTasa": true,
+    "nivelJerarquia": 2,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "3",
+    "descripcion": "TOTAL TITULADA",
+    "meta": 84.01,
+    "ejecucion": 88.93,
+    "esTasa": true,
+    "nivelJerarquia": 1,
+    "esTotal": true,
+    "esSubtotal": false
+  },
+  {
+    "id": "3.1",
+    "descripcion": "TOTAL TITULADA - Presencial",
+    "meta": 88.30,
+    "ejecucion": 91.07,
+    "esTasa": true,
+    "nivelJerarquia": 2,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "3.2",
+    "descripcion": "TOTAL TITULADA - Virtual",
+    "meta": 78.53,
+    "ejecucion": 79.23,
+    "esTasa": true,
+    "nivelJerarquia": 2,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "4",
+    "descripcion": "TOTAL COMPLEMENTARIA",
+    "meta": 55.21,
+    "ejecucion": 63.99,
+    "esTasa": true,
+    "nivelJerarquia": 1,
+    "esTotal": true,
+    "esSubtotal": false
+  },
+  {
+    "id": "4.1",
+    "descripcion": "COMPLEMENTARIA - Presencial",
+    "meta": 83.48,
+    "ejecucion": 86.83,
+    "esTasa": true,
+    "nivelJerarquia": 2,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "4.2",
+    "descripcion": "COMPLEMENTARIA - Virtual",
+    "meta": 26.94,
+    "ejecucion": 33.25,
+    "esTasa": true,
+    "nivelJerarquia": 2,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "5",
+    "descripcion": "TOTAL FORMACIÓN PROFESIONAL",
+    "meta": 67.72,
+    "ejecucion": 68.29,
+    "esTasa": true,
+    "nivelJerarquia": 1,
+    "esTotal": true,
+    "esSubtotal": false
+  },
+  {
+    "id": "5.1",
+    "descripcion": "TOTAL FORMACIÓN PROFESIONAL - Presencial",
+    "meta": 85.89,
+    "ejecucion": 87.80,
+    "esTasa": true,
+    "nivelJerarquia": 2,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "5.2",
+    "descripcion": "TOTAL FORMACIÓN PROFESIONAL - Virtual",
+    "meta": 49.55,
+    "ejecucion": 36.98,
+    "esTasa": true,
+    "nivelJerarquia": 2,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "6",
+    "descripcion": "PROGRAMA DE BILINGÜISMO",
+    "meta": 52.67,
+    "ejecucion": 43.77,
+    "esTasa": true,
+    "nivelJerarquia": 1,
+    "esTotal": true,
+    "esSubtotal": false
+  },
+  {
+    "id": "6.1",
+    "descripcion": "PROGRAMA DE BILINGÜISMO - Presencial",
+    "meta": 81.41,
+    "ejecucion": 76.18,
+    "esTasa": true,
+    "nivelJerarquia": 2,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "6.2",
+    "descripcion": "PROGRAMA DE BILINGÜISMO - Virtual",
+    "meta": 31.78,
+    "ejecucion": 39.07,
+    "esTasa": true,
+    "nivelJerarquia": 2,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "7",
+    "descripcion": "CampeSENA",
+    "meta": 89.36,
+    "ejecucion": 90.33,
+    "esTasa": true,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  },
+  {
+    "id": "8",
+    "descripcion": "Full Popular",
+    "meta": 61.01,
+    "ejecucion": 85.76,
+    "esTasa": true,
+    "nivelJerarquia": 1,
+    "esTotal": false,
+    "esSubtotal": false
+  }
+]

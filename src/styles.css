@@ -17,11 +17,12 @@
   --sena-gris-claro: #BDBDBD;
   --sena-blanco: #FFFFFF;
   --sena-verde-institucional: #39A900;
+  --sena-naranja: #FFC000;
 
   /* Colores de estado */
   --color-sobre: #FFC000;
   --color-exito: #4CAF50;
-  --color-advertencia: #ffff75;
+  --color-advertencia: #eded1b;
   --color-peligro: #F44336;
   --color-info: #000;
 

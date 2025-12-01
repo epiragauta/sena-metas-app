@@ -1,0 +1,26 @@
+[
+  {
+    "idPadre": "3",
+    "idHijo": "3.1",
+    "nombrePadre": "TOTAL COLOCACIONES",
+    "nombreHijo": "COLOCACIONES EGRESADOS SENA"
+  },
+  {
+    "idPadre": "3",
+    "idHijo": "3.2",
+    "nombrePadre": "TOTAL COLOCACIONES",
+    "nombreHijo": "COLOCACIONES NO SENA"
+  },
+  {
+    "idPadre": "4",
+    "idHijo": "4.1",
+    "nombrePadre": "TOTAL ORIENTADOS",
+    "nombreHijo": "ORIENTADOS DESEMPLEADOS"
+  },
+  {
+    "idPadre": "4",
+    "idHijo": "4.2",
+    "nombrePadre": "TOTAL ORIENTADOS",
+    "nombreHijo": "ORIENTADOS DESPLAZADOS"
+  }
+]

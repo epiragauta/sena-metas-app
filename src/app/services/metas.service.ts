@@ -6,12 +6,12 @@ import {
   FormacionPorNivel,
   ProgramaRelevante,
   RangoSemaforo,
-  MetricasPorCategoria,
   Jerarquia,
   DashboardData,
   Referencias,
   EstadoSemaforo,
   CategorizacionSemaforo,
+  MetasPrimerCurso,
   FiltrosMetas
 } from '../models/meta.model';
 
@@ -82,17 +82,41 @@ export class MetasService {
   }
 
   /**
+   * Obtiene primer curso
+   */
+  getPrimerCurso(): Observable<MetasPrimerCurso> {
+    return this.http.get<any>(`${this.basePath}/referencias_totales.json`).pipe(
+      map(data => {
+        const primerCurso = data.programas_especiales?.find((p: any) => p.tipo === 'Primer curso');
+        if (primerCurso) {
+          const porcentaje = primerCurso.meta > 0 ? (primerCurso.ejecucion / primerCurso.meta) * 100 : 0;
+          return {
+            id: 1,
+            descripcion: primerCurso.descripcion,
+            meta: primerCurso.meta,
+            ejecucion: primerCurso.ejecucion,
+            porcentaje: porcentaje,
+            tipo: primerCurso.tipo
+          };
+        }
+        // Valor por defecto si no se encuentra
+        return {
+          id: 1,
+          descripcion: 'Tecnólogos Primer Curso',
+          meta: 0,
+          ejecucion: 0,
+          porcentaje: 0,
+          tipo: 'Primer curso'
+        };
+      })
+    );
+  }
+
+  /**
    * Obtiene rangos de semáforo
    */
   getRangosSemaforo(): Observable<RangoSemaforo[]> {
     return this.http.get<RangoSemaforo[]>(`${this.basePath}/rangos_semaforo.json`);
-  }
-
-  /**
-   * Obtiene métricas adicionales agrupadas por categoría
-   */
-  getMetricasAdicionales(): Observable<MetricasPorCategoria> {
-    return this.http.get<MetricasPorCategoria>(`${this.basePath}/metricas_adicionales.json`);
   }
 
   /**
@@ -114,6 +138,146 @@ export class MetasService {
    */
   getFormacionPorEstrategia(): Observable<any[]> {
     return this.http.get<any[]>(`${this.basePath}/formacion_por_estrategia.json`);
+  }
+
+  /**
+   * Obtiene metas de retención
+   */
+  getMetasRetencion(): Observable<Meta[]> {
+    return this.http.get<Meta[]>(`${this.basePath}/metas_retencion.json`);
+  }
+
+  /**
+   * Obtiene jerarquías de retención
+   */
+  getJerarquiasRetencion(): Observable<Jerarquia[]> {
+    return this.http.get<Jerarquia[]>(`${this.basePath}/jerarquias_retencion.json`);
+  }
+
+  /**
+   * Obtiene metas de certificación
+   */
+  getMetasCertificacion(): Observable<Meta[]> {
+    return this.http.get<Meta[]>(`${this.basePath}/metas_certificacion.json`);
+  }
+
+  /**
+   * Obtiene jerarquías de certificación
+   */
+  getJerarquiasCertificacion(): Observable<Jerarquia[]> {
+    return this.http.get<Jerarquia[]>(`${this.basePath}/jerarquias_certificacion.json`);
+  }
+
+  /**
+   * Obtiene metas de competencias laborales
+   */
+  getMetasCompetenciasLaborales(): Observable<Meta[]> {
+    return this.http.get<Meta[]>(`${this.basePath}/metas_competencias_laborales.json`);
+  }
+
+  /**
+   * Obtiene jerarquías de competencias laborales
+   */
+  getJerarquiasCompetenciasLaborales(): Observable<Jerarquia[]> {
+    return this.http.get<Jerarquia[]>(`${this.basePath}/jerarquias_competencias_laborales.json`);
+  }
+
+  /**
+   * Obtiene metas de productividad CampeSENA
+   */
+  getMetasProductividadCampesena(): Observable<Meta[]> {
+    return this.http.get<Meta[]>(`${this.basePath}/metas_productividad_campesena.json`);
+  }
+
+  /**
+   * Obtiene metas de poblaciones vulnerables
+   */
+  getMetasPoblacionesVulnerables(): Observable<Meta[]> {
+    return this.http.get<Meta[]>(`${this.basePath}/metas_poblaciones_vulnerables.json`);
+  }
+
+  /**
+   * Obtiene jerarquías de poblaciones vulnerables
+   */
+  getJerarquiasPoblacionesVulnerables(): Observable<Jerarquia[]> {
+    return this.http.get<Jerarquia[]>(`${this.basePath}/jerarquias_poblaciones_vulnerables.json`);
+  }
+
+  /**
+   * Obtiene metas de agencia pública de empleo
+   */
+  getMetasAgenciaPublicaEmpleo(): Observable<Meta[]> {
+    return this.http.get<Meta[]>(`${this.basePath}/metas_agencia_publica_empleo.json`);
+  }
+
+  /**
+   * Obtiene jerarquías de agencia pública de empleo
+   */
+  getJerarquiasAgenciaPublicaEmpleo(): Observable<Jerarquia[]> {
+    return this.http.get<Jerarquia[]>(`${this.basePath}/jerarquias_agencia_publica_empleo.json`);
+  }
+
+  /**
+   * Obtiene metas de emprendimiento y fortalecimiento (Tabla 11)
+   */
+  getMetasEmprendimiento(): Observable<Meta[]> {
+    return this.http.get<Meta[]>(`${this.basePath}/metas_emprendimiento.json`);
+  }
+
+  /**
+   * Obtiene metas del fondo emprender (Tabla 12)
+   */
+  getMetasFondoEmprender(): Observable<Meta[]> {
+    return this.http.get<Meta[]>(`${this.basePath}/metas_fondo_emprender.json`);
+  }
+
+  /**
+   * Obtiene metas de contratos de aprendizaje (Tabla 13)
+   */
+  getMetasContratosAprendizaje(): Observable<Meta[]> {
+    return this.http.get<Meta[]>(`${this.basePath}/metas_contratos_aprendizaje.json`);
+  }
+
+  /**
+   * Obtiene metas de internacionalización (Tabla 14)
+   */
+  getMetasInternacionalizacion(): Observable<Meta[]> {
+    return this.http.get<Meta[]>(`${this.basePath}/metas_internacionalizacion.json`);
+  }
+
+  /**
+   * Obtiene metas de cupos autorizados FIC (Tabla 15)
+   */
+  getMetasCuposFIC(): Observable<Meta[]> {
+    return this.http.get<Meta[]>(`${this.basePath}/metas_cupos_fic.json`);
+  }
+
+  /**
+   * Obtiene jerarquías de cupos FIC
+   */
+  getJerarquiasCuposFIC(): Observable<Jerarquia[]> {
+    return this.http.get<Jerarquia[]>(`${this.basePath}/jerarquias_cupos_fic.json`);
+  }
+
+  /**
+   * Obtiene metas completas de CampeSENA (Tabla 16)
+   */
+  getMetasCampesenaCompleto(): Observable<Meta[]> {
+    return this.http.get<Meta[]>(`${this.basePath}/metas_campesena_completo.json`);
+  }
+
+  /**
+   * Obtiene metas completas de Full Popular (Tabla 17)
+   */
+  getMetasFullPopularCompleto(): Observable<Meta[]> {
+    return this.http.get<Meta[]>(`${this.basePath}/metas_full_popular_completo.json`);
+  }
+
+  /**
+   * Obtiene metas de FEEC (Tabla 18)
+   */
+  getMetasFEEC(): Observable<Meta[]> {
+    return this.http.get<Meta[]>(`${this.basePath}/metas_feec.json`);
   }
 
   /**
