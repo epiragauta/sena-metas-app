@@ -6,6 +6,9 @@
 /* Importar estilos de ol-layerswitcher */
 @import 'ol-layerswitcher/dist/ol-layerswitcher.css';
 
+/* Importar estilos de Angular Material */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
 /* Colores institucionales SENA */
 :root {
   --sena-verde: #007832;

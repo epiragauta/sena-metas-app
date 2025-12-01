@@ -18,6 +18,31 @@
     </button>
   </div>
 
+  <!-- Search Bar -->
+  <div class="search-container">
+    <div class="search-input-wrapper">
+      <mat-icon class="search-icon">search</mat-icon>
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Buscar indicadores por nombre..."
+        [(ngModel)]="searchTerm"
+        (input)="searchTerm = $any($event.target).value"
+      />
+      <button
+        *ngIf="hasActiveSearch"
+        class="clear-search-btn"
+        (click)="clearSearch()"
+        title="Limpiar búsqueda">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div *ngIf="hasActiveSearch" class="search-info">
+      <mat-icon class="info-icon">info</mat-icon>
+      <span>Mostrando resultados para: <strong>"{{ searchTerm }}"</strong></span>
+    </div>
+  </div>
+
   <!-- Tab Content: Formación Profesional Integral -->
   <div *ngIf="isTabActive('formacion-integral')" class="tab-content fade-in">
     <!-- #################################### -->
@@ -28,7 +53,7 @@
       <div class="data-section">
         <h2 class="section-title">
           <span>Metas Formación Profesional Integral</span>
-          <button mat-icon-button class="info-button" aria-label="Más información sobre Metas Formación Profesional Integral">
+          <button mat-icon-button class="info-button" (click)="openSeccionInfo('metas-formacion-profesional-integral')" aria-label="Más información sobre Metas Formación Profesional Integral">
             <mat-icon>info_outline</mat-icon>
           </button>
         </h2>
@@ -141,7 +166,7 @@
       <div *ngIf="data.formacionEstrategiaRoot" class="data-section">
         <h2 class="section-title">
           <span>Metas por Estrategias de Formación</span>
-          <button mat-icon-button class="info-button" aria-label="Más información sobre Metas por Estrategias de Formación">
+          <button mat-icon-button class="info-button" (click)="openSeccionInfo('metas-estrategias-formacion')" aria-label="Más información sobre Metas por Estrategias de Formación">
             <mat-icon>info_outline</mat-icon>
           </button>
         </h2>
@@ -149,7 +174,7 @@
         <!-- Tarjetas Directas (sin tarjeta padre, solo las hijas) -->
         <div class="children-cards-grid">
           <div class="child-card estrategia-child-card"
-              *ngFor="let child of data.formacionEstrategiaRoot.children; trackBy: trackByEstrategiaId"
+              *ngFor="let child of filterFormacionEstrategiaNodes(data.formacionEstrategiaRoot?.children); trackBy: trackByEstrategiaId"
               [class.child-card-selected]="isEstrategiaNodeSelectedForTree(child)"
               (click)="selectEstrategiaNodeForTree(child)">
             <div class="child-card-header">
@@ -261,7 +286,7 @@
       <div *ngIf="(data.programasRelevantes && data.programasRelevantes.length > 0) || data.metasPrimerCurso" class="data-section">
         <h2 class="section-title">
           <span>Metas Programas Relevantes y Primer Curso</span>
-          <button mat-icon-button class="info-button" aria-label="Más información sobre Metas Programas Relevantes y Primer Curso">
+          <button mat-icon-button class="info-button" (click)="openSeccionInfo('metas-programas-relevantes-primer-curso')" aria-label="Más información sobre Metas Programas Relevantes y Primer Curso">
             <mat-icon>info_outline</mat-icon>
           </button>
         </h2>
@@ -273,7 +298,7 @@
 
             <!-- Grid de 3 Programas -->
             <div class="programas-grid">
-              <div class="programa-card" *ngFor="let programa of data.programasRelevantes; trackBy: trackById">
+              <div class="programa-card" *ngFor="let programa of filterProgramasRelevantes(data.programasRelevantes); trackBy: trackById">
                 <div class="programa-card-header">
                   <h4 class="programa-title">{{ programa.descripcion }}</h4>
                 </div>
@@ -340,7 +365,7 @@
     <div *ngIf="data.cuposFICRoot" class="data-section">
       <h2 class="section-title">
         <span>Cupos Autorizados FIC</span>
-        <button mat-icon-button class="info-button" aria-label="Más información sobre Cupos Autorizados FIC">
+        <button mat-icon-button class="info-button" (click)="openSeccionInfo('cupos-autorizados-fic')" aria-label="Más información sobre Cupos Autorizados FIC">
           <mat-icon>info_outline</mat-icon>
         </button>
       </h2>
@@ -419,7 +444,7 @@
     <div *ngIf="data.retencionPadres && data.retencionPadres.length > 0" class="data-section">
       <h2 class="section-title">
         <span>Retención</span>
-        <button mat-icon-button class="info-button" aria-label="Más información sobre Retención">
+        <button mat-icon-button class="info-button" (click)="openSeccionInfo('retencion')" aria-label="Más información sobre Retención">
           <mat-icon>info_outline</mat-icon>
         </button>
       </h2>
@@ -429,7 +454,7 @@
           <div class="retencion-column-1">
             <div class="retencion-grid-3col">
               <div class="programa-card retencion-card"
-                   *ngFor="let node of data.retencionPadres.slice(0, 6); trackBy: trackByHierarchyId"
+                   *ngFor="let node of filterHierarchyNodes(data.retencionPadres)?.slice(0, 6); trackBy: trackByHierarchyId"
                    [class.retencion-card-selected]="isRetencionNodeSelected(node)"
                    (click)="selectRetencionNode(node)">
                 <div class="programa-card-header">
@@ -496,7 +521,7 @@
           <div class="retencion-column-2">
             <div class="retencion-grid-1col">
               <div class="programa-card retencion-card retencion-card-col2"
-                   *ngFor="let node of data.retencionPadres.slice(6, 8); trackBy: trackByHierarchyId">
+                   *ngFor="let node of filterHierarchyNodes(data.retencionPadres)?.slice(6, 8); trackBy: trackByHierarchyId">
                 <div class="programa-card-header">
                   <h4 class="programa-title">{{ node.descripcion }}</h4>
                 </div>
@@ -530,7 +555,7 @@
     <div *ngIf="data.certificacionRoot" class="data-section">
       <h2 class="section-title">
         <span>Certificación Formación Profesional</span>
-        <button mat-icon-button class="info-button" aria-label="Más información sobre Certificación Formación Profesional">
+        <button mat-icon-button class="info-button" (click)="openSeccionInfo('certificacion-formacion-profesional')" aria-label="Más información sobre Certificación Formación Profesional">
           <mat-icon>info_outline</mat-icon>
         </button>
       </h2>
@@ -631,7 +656,7 @@
     <div *ngIf="data.competenciasLaboralesRoot && data.competenciasLaboralesOtros" class="data-section">
       <h2 class="section-title">
         <span>Certificación de competencias laborales</span>
-        <button mat-icon-button class="info-button" aria-label="Más información sobre Certificación de competencias laborales">
+        <button mat-icon-button class="info-button" (click)="openSeccionInfo('certificacion-competencias-laborales')" aria-label="Más información sobre Certificación de competencias laborales">
           <mat-icon>info_outline</mat-icon>
         </button>
       </h2>
@@ -773,7 +798,7 @@
     <div *ngIf="data.contratosAprendizajePrincipal && data.contratosAprendizaje" class="data-section">
       <h2 class="section-title">
         <span>Contratos de Aprendizaje</span>
-        <button mat-icon-button class="info-button" aria-label="Más información sobre Contratos de Aprendizaje">
+        <button mat-icon-button class="info-button" (click)="openSeccionInfo('contratos-aprendizaje')" aria-label="Más información sobre Contratos de Aprendizaje">
           <mat-icon>info_outline</mat-icon>
         </button>
       </h2>
@@ -918,7 +943,7 @@
     <div *ngIf="data.productividadCampesena && data.productividadCampesena.length > 0" class="data-section">
       <h2 class="section-title">
         <span>Productividad CampeSENA</span>
-        <button mat-icon-button class="info-button" aria-label="Más información sobre Productividad CampeSENA">
+        <button mat-icon-button class="info-button" (click)="openSeccionInfo('productividad-campesena')" aria-label="Más información sobre Productividad CampeSENA">
           <mat-icon>info_outline</mat-icon>
         </button>
       </h2>
@@ -958,7 +983,7 @@
     <div *ngIf="data.poblacionesVulnerablesRoot" class="data-section">
       <h2 class="section-title">
         <span>Poblaciones vulnerables</span>
-        <button mat-icon-button class="info-button" aria-label="Más información sobre Poblaciones vulnerables">
+        <button mat-icon-button class="info-button" (click)="openSeccionInfo('poblaciones-vulnerables')" aria-label="Más información sobre Poblaciones vulnerables">
           <mat-icon>info_outline</mat-icon>
         </button>
       </h2>
@@ -1030,7 +1055,7 @@
     <div *ngIf="data.agenciaPublicaEmpleoNivel1 && data.agenciaPublicaEmpleoNivel1.length > 0" class="data-section">
       <h2 class="section-title">
         <span>Agencia pública de empleo</span>
-        <button mat-icon-button class="info-button" aria-label="Más información sobre Agencia pública de empleo">
+        <button mat-icon-button class="info-button" (click)="openSeccionInfo('agencia-publica-empleo')" aria-label="Más información sobre Agencia pública de empleo">
           <mat-icon>info_outline</mat-icon>
         </button>
       </h2>
@@ -1111,7 +1136,7 @@
     <div *ngIf="data.fondoEmprender && data.fondoEmprender.length > 0" class="data-section">
       <h2 class="section-title">
         <span>Fondo Emprender</span>
-        <button mat-icon-button class="info-button" aria-label="Más información sobre Fondo Emprender">
+        <button mat-icon-button class="info-button" (click)="openSeccionInfo('fondo-emprender')" aria-label="Más información sobre Fondo Emprender">
           <mat-icon>info_outline</mat-icon>
         </button>
       </h2>
