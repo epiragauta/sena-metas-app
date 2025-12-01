@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, CurrencyPipe, DecimalPipe, PercentPipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { forkJoin, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 import { MetasService } from '../../services/metas.service';
+import { SeccionesInfoService } from '../../services/secciones-info.service';
+import { SeccionInfoDialogComponent } from '../../components/seccion-info-dialog.component';
 import {
   Meta,
   Jerarquia,
@@ -89,7 +93,7 @@ export interface DashboardData {
 @Component({
   selector: 'app-national-dashboard',
   standalone: true,
-  imports: [CommonModule, DecimalPipe, PercentPipe, CurrencyPipe, MatIconModule, MatButtonModule],
+  imports: [CommonModule, DecimalPipe, PercentPipe, CurrencyPipe, MatIconModule, MatButtonModule, FormsModule, MatDialogModule],
   templateUrl: './national-dashboard.component.html',
   styleUrls: ['./national-dashboard.component.scss']
 })
@@ -109,6 +113,9 @@ export class NationalDashboardComponent implements OnInit {
   public showMetaEjecucionModal = false;
   public modalData: { estrategia: string; meta: number | null; ejecucion: number | null; porcentaje: number } | null = null;
 
+  // Search functionality
+  public searchTerm: string = '';
+
   // Tabs management
   public activeTab: TabId = 'formacion-integral';
   public tabs = [
@@ -118,7 +125,11 @@ export class NationalDashboardComponent implements OnInit {
     { id: 'servicios-empleo' as TabId, label: 'Servicios de Empleo', icon: 'business_center' }
   ];
 
-  constructor(private metasService: MetasService) { }
+  constructor(
+    private metasService: MetasService,
+    private seccionesInfoService: SeccionesInfoService,
+    private dialog: MatDialog
+  ) { }
 
   public selectTab(tabId: TabId): void {
     console.log('Cambiando a tab:', tabId);
@@ -737,7 +748,7 @@ export class NationalDashboardComponent implements OnInit {
 
   public getSecondLevelChildren(root: HierarchyNode | undefined): HierarchyNode[] {
     if (!root) return [];
-    return root.children;
+    return this.filterHierarchyNodes(root.children);
   }
 
   public trackById(index: number, item: { id: number }): number {
@@ -988,5 +999,156 @@ export class NationalDashboardComponent implements OnInit {
 
   public isContratosAprendizajeNodeSelected(node: HierarchyNode): boolean {
     return this.selectedContratosAprendizajeNode?.id === node.id;
+  }
+
+  // ====================================
+  // SEARCH FUNCTIONALITY
+  // ====================================
+
+  /**
+   * Filtra nodos jerárquicos (HierarchyNode) basándose en el término de búsqueda
+   * Busca recursivamente en todos los niveles de la jerarquía
+   */
+  public filterHierarchyNodes(nodes: HierarchyNode[] | undefined): HierarchyNode[] {
+    if (!nodes || !this.searchTerm) {
+      return nodes || [];
+    }
+
+    const term = this.searchTerm.toLowerCase().trim();
+    if (!term) {
+      return nodes;
+    }
+
+    return nodes.filter(node => this.matchesSearchRecursive(node, term)).map(node => {
+      const filteredChildren = this.filterHierarchyNodes(node.children);
+      return { ...node, children: filteredChildren };
+    });
+  }
+
+  /**
+   * Verifica si un nodo o sus hijos coinciden con el término de búsqueda
+   */
+  private matchesSearchRecursive(node: HierarchyNode, term: string): boolean {
+    // Verificar si la descripción del nodo actual coincide
+    if (node.descripcion.toLowerCase().includes(term)) {
+      return true;
+    }
+
+    // Verificar recursivamente en los hijos
+    if (node.children && node.children.length > 0) {
+      return node.children.some(child => this.matchesSearchRecursive(child, term));
+    }
+
+    return false;
+  }
+
+  /**
+   * Filtra nodos de formación por estrategia
+   */
+  public filterFormacionEstrategiaNodes(nodes: FormacionEstrategiaNode[] | undefined): FormacionEstrategiaNode[] {
+    if (!nodes || !this.searchTerm) {
+      return nodes || [];
+    }
+
+    const term = this.searchTerm.toLowerCase().trim();
+    if (!term) {
+      return nodes;
+    }
+
+    return nodes.filter(node => this.matchesFormacionEstrategiaSearchRecursive(node, term)).map(node => {
+      const filteredChildren = this.filterFormacionEstrategiaNodes(node.children);
+      return { ...node, children: filteredChildren };
+    });
+  }
+
+  private matchesFormacionEstrategiaSearchRecursive(node: FormacionEstrategiaNode, term: string): boolean {
+    if (node.nivelFormacion.toLowerCase().includes(term)) {
+      return true;
+    }
+
+    if (node.children && node.children.length > 0) {
+      return node.children.some(child => this.matchesFormacionEstrategiaSearchRecursive(child, term));
+    }
+
+    return false;
+  }
+
+  /**
+   * Filtra array simple de programas relevantes
+   */
+  public filterProgramasRelevantes(programas: ProgramaRelevante[] | undefined): ProgramaRelevante[] {
+    if (!programas || !this.searchTerm) {
+      return programas || [];
+    }
+
+    const term = this.searchTerm.toLowerCase().trim();
+    if (!term) {
+      return programas;
+    }
+
+    return programas.filter(programa =>
+      programa.descripcion.toLowerCase().includes(term)
+    );
+  }
+
+  /**
+   * Verifica si un nodo individual coincide con la búsqueda
+   */
+  public matchesSearch(descripcion: string): boolean {
+    if (!this.searchTerm) {
+      return true;
+    }
+
+    const term = this.searchTerm.toLowerCase().trim();
+    if (!term) {
+      return true;
+    }
+
+    return descripcion.toLowerCase().includes(term);
+  }
+
+  /**
+   * Limpia el término de búsqueda
+   */
+  public clearSearch(): void {
+    this.searchTerm = '';
+  }
+
+  /**
+   * Verifica si hay una búsqueda activa
+   */
+  public get hasActiveSearch(): boolean {
+    return !!(this.searchTerm && this.searchTerm.trim().length > 0);
+  }
+
+  // ====================================
+  // INFO DIALOG
+  // ====================================
+
+  /**
+   * Abre el diálogo de información para una sección específica
+   */
+  public openSeccionInfo(seccionId: string): void {
+    this.seccionesInfoService.getSeccionInfoById(seccionId).pipe(
+      take(1)
+    ).subscribe({
+      next: (seccionInfo) => {
+        if (seccionInfo) {
+          this.dialog.open(SeccionInfoDialogComponent, {
+            width: '600px',
+            maxWidth: '95vw',
+            maxHeight: '90vh',
+            data: seccionInfo,
+            autoFocus: true,
+            restoreFocus: true
+          });
+        } else {
+          console.warn(`No se encontró información para la sección: ${seccionId}`);
+        }
+      },
+      error: (error) => {
+        console.error('Error al cargar información de la sección:', error);
+      }
+    });
   }
 }
