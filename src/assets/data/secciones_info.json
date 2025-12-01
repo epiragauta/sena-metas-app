@@ -122,6 +122,19 @@
     ]
   },
   {
+    "id": "productividad-full-popular",
+    "titulo": "Productividad Full Popular",
+    "tab": "inclusion-social",
+    "fechaCorte": "2025-11-11",
+    "descripcion": "Presenta los resultados de la estrategia Full Popular, una modalidad de formación complementaria de corta duración diseñada para atender rápidamente las necesidades de capacitación de la población en competencias específicas y de alta demanda. Esta estrategia permite ampliar la cobertura del SENA con programas ágiles y focalizados que facilitan la inserción laboral y el mejoramiento de competencias técnicas en diversos sectores económicos.",
+    "indicadores": [
+      "Personas Formadas Full Popular",
+      "Programas de Formación Complementaria Ofertados",
+      "Cobertura Territorial de la Estrategia",
+      "Sectores Económicos Atendidos"
+    ]
+  },
+  {
     "id": "poblaciones-vulnerables",
     "titulo": "Poblaciones Vulnerables",
     "tab": "inclusion-social",

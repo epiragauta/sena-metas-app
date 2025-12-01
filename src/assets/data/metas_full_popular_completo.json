@@ -60,7 +60,7 @@
     "esSubtotal": false
   },
   {
-    "id": "2",
+    "id": "4",
     "descripcion": "Retención - Full Popular",
     "meta": 61.01,
     "ejecucion": 85.76,
@@ -70,7 +70,7 @@
     "esSubtotal": false
   },
   {
-    "id": "3",
+    "id": "2",
     "descripcion": "Certificación - Full Popular (Incluidas en Formación Profesional Integral)",
     "meta": 54421,
     "ejecucion": 100836,
@@ -80,7 +80,7 @@
     "esSubtotal": false
   },
   {
-    "id": "4",
+    "id": "3",
     "descripcion": "Certificaciones de competencia Laboral expedidas en Full Popular",
     "meta": 31221,
     "ejecucion": 33904,

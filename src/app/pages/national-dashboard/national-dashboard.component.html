@@ -124,7 +124,7 @@
 
                 <!-- Indicador de hijos disponibles -->
                 <div class="child-has-details" *ngIf="child.children.length > 0">
-                  <span class="details-icon">📊</span>
+                  <mat-icon class="details-icon">assessment</mat-icon>
                   <span class="details-text">Click para ver detalles ({{ child.children.length }} ítems)</span>
                 </div>
               </div>
@@ -252,7 +252,7 @@
 
             <!-- Indicador de hijos disponibles -->
             <div class="child-has-details" *ngIf="child.children.length > 0">
-              <span class="details-icon">📊</span>
+              <mat-icon class="details-icon">assessment</mat-icon>
               <span class="details-text">Click para ver detalles ({{ child.children.length }} ítems)</span>
             </div>
           </div>
@@ -400,7 +400,7 @@
             </div>
 
             <div class="child-has-details" *ngIf="data.cuposFICRoot.children.length > 0">
-              <span class="details-icon">📊</span>
+              <mat-icon class="details-icon">assessment</mat-icon>
               <span class="details-text">Ver detalles ({{ data.cuposFICRoot.children.length }} ítems)</span>
             </div>
           </div>
@@ -482,7 +482,7 @@
                 </div>
 
                 <div class="child-has-details" *ngIf="node.children.length > 0">
-                  <span class="details-icon">📊</span>
+                  <mat-icon class="details-icon">assessment</mat-icon>
                   <span class="details-text">Ver detalles ({{ node.children.length }} ítems)</span>
                 </div>
               </div>
@@ -591,7 +591,7 @@
             </div>
 
             <div class="child-has-details" *ngIf="data.certificacionRoot.children.length > 0">
-              <span class="details-icon">📊</span>
+              <mat-icon class="details-icon">assessment</mat-icon>
               <span class="details-text">Ver detalles ({{ data.certificacionRoot.children.length }} ítems)</span>
             </div>
           </div>
@@ -691,7 +691,7 @@
             </div>
 
             <div class="child-has-details" *ngIf="data.competenciasLaboralesRoot.children.length > 0">
-              <span class="details-icon">📊</span>
+              <mat-icon class="details-icon">assessment</mat-icon>
               <span class="details-text">Ver detalles ({{ data.competenciasLaboralesRoot.children.length }} ítems)</span>
             </div>
           </div>
@@ -833,7 +833,7 @@
             </div>
 
             <div class="child-has-details" *ngIf="data.contratosAprendizajePrincipal.children.length > 0">
-              <span class="details-icon">📊</span>
+              <mat-icon class="details-icon">assessment</mat-icon>
               <span class="details-text">Ver detalles ({{ data.contratosAprendizajePrincipal.children.length }} ítems)</span>
             </div>
           </div>
@@ -979,6 +979,106 @@
         </div>
     </div>
 
+    <!-- PRODUCTIVIDAD FULL POPULAR -->
+    <div *ngIf="data.productividadFullPopularRoot" class="data-section">
+      <h2 class="section-title">
+        <span>Productividad Full Popular</span>
+        <button mat-icon-button class="info-button" (click)="openSeccionInfo('productividad-full-popular')" aria-label="Más información sobre Productividad Full Popular">
+          <mat-icon>info_outline</mat-icon>
+        </button>
+      </h2>
+
+        <!-- Una fila con 4 tarjetas: ID=1, ID=2, ID=3, ID=4 -->
+        <div class="certificacion-grid-4col" *ngIf="data.productividadFullPopular">
+          <!-- Tarjeta 1: ID=1 (Total Formación Profesional Full Popular) con botón de detalles -->
+          <div class="programa-card certificacion-card"
+               [class.child-card-selected]="isFullPopularNodeSelected(data.productividadFullPopularRoot)"
+               (click)="selectFullPopularNode(data.productividadFullPopularRoot)">
+            <div class="programa-card-header">
+              <h4 class="programa-title">{{ data.productividadFullPopularRoot.descripcion }}</h4>
+            </div>
+
+            <div class="programa-metrics">
+              <div class="progress" [class.has-overflow]="data.productividadFullPopularRoot.porcentaje > 100">
+                <div class="progress-bar" [ngClass]="getClasePorcentaje(data.productividadFullPopularRoot.porcentaje / 100)"
+                  [style.width.%]="data.productividadFullPopularRoot.porcentaje > 100 ? 100 : data.productividadFullPopularRoot.porcentaje">
+                  {{ data.productividadFullPopularRoot.porcentaje / 100 | percent:'1.2-2' }}
+                </div>
+              </div>
+
+              <div class="programa-values">
+                <div class="value-item">
+                  <span class="value-label">Meta:</span>
+                  <span class="value-number">{{ data.productividadFullPopularRoot.meta | number:'1.0-0' }}</span>
+                </div>
+                <div class="value-item">
+                  <span class="value-label">Ejecución:</span>
+                  <span class="value-number">{{ data.productividadFullPopularRoot.ejecucion | number:'1.0-0' }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="child-has-details" *ngIf="data.productividadFullPopularRoot.children.length > 0">
+              <mat-icon class="details-icon">assessment</mat-icon>
+              <span class="details-text">Ver detalles ({{ data.productividadFullPopularRoot.children.length }} ítems)</span>
+            </div>
+          </div>
+
+          <!-- Tarjetas 2, 3, 4: IDs restantes sin botón de detalles -->
+          <div class="programa-card certificacion-card"
+               *ngFor="let node of data.productividadFullPopular.slice(1); trackBy: trackByHierarchyId">
+            <div class="programa-card-header">
+              <h4 class="programa-title">{{ node.descripcion }}</h4>
+            </div>
+
+            <div class="programa-metrics">
+              <div class="progress" [class.has-overflow]="node.porcentaje > 100">
+                <div class="progress-bar" [ngClass]="getClasePorcentaje(node.porcentaje / 100)"
+                  [style.width.%]="node.porcentaje > 100 ? 100 : node.porcentaje">
+                  {{ node.porcentaje / 100 | percent:'1.2-2' }}
+                </div>
+              </div>
+
+              <div class="programa-values">
+                <div class="value-item">
+                  <span class="value-label">Meta:</span>
+                  <span class="value-number">{{ node.meta | number:'1.0-0' }}</span>
+                </div>
+                <div class="value-item">
+                  <span class="value-label">Ejecución:</span>
+                  <span class="value-number">{{ node.ejecucion | number:'1.0-0' }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Espaciador para mantener misma altura que tarjeta con botón -->
+            <div class="certificacion-spacer"></div>
+          </div>
+        </div>
+
+        <!-- Tabla de detalles para Full Popular (tree-table expandible) -->
+        <div *ngIf="selectedFullPopularNode" class="data-section selected-node-tree-section">
+          <div class="selected-node-header">
+            <h2 class="section-title">
+              <span>{{ selectedFullPopularNode.descripcion }}</span>
+              <button mat-icon-button class="info-button" aria-label="Más información">
+                <mat-icon>info_outline</mat-icon>
+              </button>
+            </h2>
+            <button class="close-tree-btn" (click)="selectedFullPopularNode = null">✕ Cerrar</button>
+          </div>
+          <!-- Mostrar hijos usando el template recursivo -->
+          <div class="children-tree-container" *ngIf="selectedFullPopularNode.children.length > 0">
+            <div *ngFor="let child of selectedFullPopularNode.children; trackBy: trackByHierarchyId">
+              <ng-container *ngTemplateOutlet="hierarchyNodeTpl; context: { $implicit: child }"></ng-container>
+            </div>
+          </div>
+          <div class="no-children-message" *ngIf="selectedFullPopularNode.children.length === 0">
+            <p>No hay elementos de detalle para mostrar.</p>
+          </div>
+        </div>
+    </div>
+
     <!-- POBLACIONES VULNERABLES -->
     <div *ngIf="data.poblacionesVulnerablesRoot" class="data-section">
       <h2 class="section-title">
@@ -1018,7 +1118,7 @@
             </div>
 
             <div class="child-has-details" *ngIf="data.poblacionesVulnerablesRoot.children.length > 0">
-              <span class="details-icon">📊</span>
+              <mat-icon class="details-icon">assessment</mat-icon>
               <span class="details-text">Ver detalles ({{ data.poblacionesVulnerablesRoot.children.length }} ítems)</span>
             </div>
           </div>
@@ -1092,7 +1192,7 @@
             </div>
 
             <div class="child-has-details" *ngIf="node.children.length > 0">
-              <span class="details-icon">📊</span>
+              <mat-icon class="details-icon">assessment</mat-icon>
               <span class="details-text">Ver detalles ({{ node.children.length }} ítems)</span>
             </div>
           </div>
