@@ -80,6 +80,8 @@ export interface DashboardData {
   competenciasLaboralesRoot?: HierarchyNode;
   competenciasLaboralesOtros?: HierarchyNode[];  // IDs 2-7
   productividadCampesena?: HierarchyNode[];  // 4 elementos sin jerarquía
+  productividadFullPopular?: HierarchyNode[];  // Árbol completo Full Popular (IDs 1, 2, 3, 4)
+  productividadFullPopularRoot?: HierarchyNode;  // ID=1 para tarjeta principal con detalles
   poblacionesVulnerablesRoot?: HierarchyNode;  // ID=1 para tarjeta
   poblacionesVulnerablesTree?: HierarchyNode[];  // Todos los nodos para tree-table
   agenciaPublicaEmpleoNivel1?: HierarchyNode[];  // 5 tarjetas nivel 1 (IDs 1, 2, 3, 4, 5)
@@ -106,6 +108,7 @@ export class NationalDashboardComponent implements OnInit {
   public selectedRetencionNode: HierarchyNode | null = null;
   public selectedCertificacionNode: HierarchyNode | null = null;
   public showCompetenciasLaboralesDetails = false;
+  public selectedFullPopularNode: HierarchyNode | null = null;
   public selectedPoblacionesVulnerablesNode: HierarchyNode | null = null;
   public selectedAgenciaPublicaEmpleoNode: HierarchyNode | null = null;
   public selectedCuposFICNode: HierarchyNode | null = null;
@@ -160,6 +163,7 @@ export class NationalDashboardComponent implements OnInit {
       metasCompetenciasLaborales: this.metasService.getMetasCompetenciasLaborales(),
       jerarquiasCompetenciasLaborales: this.metasService.getJerarquiasCompetenciasLaborales(),
       metasProductividadCampesena: this.metasService.getMetasProductividadCampesena(),
+      metasFullPopularCompleto: this.metasService.getMetasFullPopularCompleto(),
       metasPoblacionesVulnerables: this.metasService.getMetasPoblacionesVulnerables(),
       jerarquiasPoblacionesVulnerables: this.metasService.getJerarquiasPoblacionesVulnerables(),
       metasAgenciaPublicaEmpleo: this.metasService.getMetasAgenciaPublicaEmpleo(),
@@ -192,6 +196,9 @@ export class NationalDashboardComponent implements OnInit {
         console.log('Competencias Laborales - Total nodos:', competenciasLaboralesTree.length, 'Root:', competenciasLaboralesRoot?.id, 'Otros:', competenciasLaboralesOtros.length);
 
         const productividadCampesena = this.buildProductividadCampesenaNodes(results.metasProductividadCampesena);
+        const productividadFullPopular = this.buildProductividadFullPopularNodes(results.metasFullPopularCompleto);
+        const productividadFullPopularRoot = productividadFullPopular.find(node => node.id === '1');
+        console.log('Full Popular - Total nodos:', productividadFullPopular.length, 'Root:', productividadFullPopularRoot?.id);
 
         const poblacionesVulnerablesTree = this.buildPoblacionesVulnerablesTree(results.metasPoblacionesVulnerables, results.jerarquiasPoblacionesVulnerables);
         const poblacionesVulnerablesRoot = poblacionesVulnerablesTree.find(node => node.id === '1');
@@ -226,6 +233,8 @@ export class NationalDashboardComponent implements OnInit {
           competenciasLaboralesRoot: competenciasLaboralesRoot,
           competenciasLaboralesOtros: competenciasLaboralesOtros,
           productividadCampesena: productividadCampesena,
+          productividadFullPopular: productividadFullPopular,
+          productividadFullPopularRoot: productividadFullPopularRoot,
           poblacionesVulnerablesRoot: poblacionesVulnerablesRoot,
           poblacionesVulnerablesTree: poblacionesVulnerablesTree,
           agenciaPublicaEmpleoNivel1: agenciaPublicaEmpleoNivel1,
@@ -575,6 +584,52 @@ export class NationalDashboardComponent implements OnInit {
     });
   }
 
+  /**
+   * Construye árbol jerárquico de Full Popular basado en IDs con patrón de punto
+   */
+  private buildProductividadFullPopularNodes(metas: Meta[]): HierarchyNode[] {
+    // Crear mapa de nodos
+    const nodesMap = new Map<string, HierarchyNode>();
+
+    metas.forEach(meta => {
+      const porcentaje = (meta.meta > 0) ? (meta.ejecucion / meta.meta) * 100 : 0;
+      nodesMap.set(meta.id.toString(), {
+        id: meta.id.toString(),
+        descripcion: meta.descripcion,
+        meta: meta.meta,
+        ejecucion: meta.ejecucion,
+        porcentaje: porcentaje,
+        children: [],
+        isCollapsed: true,
+        level: 0
+      });
+    });
+
+    // Construir jerarquía basada en patrón de IDs (1, 1.1, 1.2, etc.)
+    const rootNodes: HierarchyNode[] = [];
+
+    nodesMap.forEach((node, id) => {
+      // Si el ID contiene un punto, buscar el padre
+      if (id.includes('.')) {
+        const parentId = id.substring(0, id.lastIndexOf('.'));
+        const parent = nodesMap.get(parentId);
+        if (parent) {
+          parent.children.push(node);
+        } else {
+          rootNodes.push(node);
+        }
+      } else {
+        // IDs sin punto son nodos raíz
+        rootNodes.push(node);
+      }
+    });
+
+    // Asignar niveles jerárquicos
+    rootNodes.forEach(root => this.assignHierarchyLevel(root, 0));
+
+    return rootNodes;
+  }
+
   private buildFondoEmprenderNodes(metas: Meta[]): HierarchyNode[] {
     return metas.map(meta => {
       const porcentaje = (meta.meta > 0) ? (meta.ejecucion / meta.meta) * 100 : 0;
@@ -860,6 +915,19 @@ export class NationalDashboardComponent implements OnInit {
 
   public isCertificacionNodeSelected(node: HierarchyNode): boolean {
     return this.selectedCertificacionNode?.id === node.id;
+  }
+
+  // Métodos para Full Popular
+  public selectFullPopularNode(node: HierarchyNode): void {
+    if (this.selectedFullPopularNode?.id === node.id) {
+      this.selectedFullPopularNode = null;
+    } else {
+      this.selectedFullPopularNode = node;
+    }
+  }
+
+  public isFullPopularNodeSelected(node: HierarchyNode): boolean {
+    return this.selectedFullPopularNode?.id === node.id;
   }
 
   public toggleCompetenciasLaboralesDetails(): void {
