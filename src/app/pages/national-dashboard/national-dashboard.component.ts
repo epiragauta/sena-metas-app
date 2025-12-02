@@ -8,7 +8,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 import { MongoDBService } from '../../services/mongodb.service';
-
 import { MetasService } from '../../services/metas.service';
 import { SeccionesInfoService } from '../../services/secciones-info.service';
 import { SeccionInfoDialogComponent } from '../../components/seccion-info-dialog.component';
@@ -75,10 +74,10 @@ export interface DashboardData {
   hierarchyRoot?: HierarchyNode | any;
   formacionEstrategiaTree?: FormacionEstrategiaNode[];
   formacionEstrategiaRoot?: FormacionEstrategiaNode;
-  retencionTree?: HierarchyNode[];
-  retencionPadres?: HierarchyNode[];  // Solo elementos nivel 1
-  certificacionTree?: HierarchyNode[];
-  certificacionRoot?: HierarchyNode;
+  retencionTree?: any[];
+  retencionPadres?: any[];
+  certificacionTree?: any[];
+  certificacionRoot?: any;
   competenciasLaboralesRoot?: HierarchyNode;
   competenciasLaboralesOtros?: HierarchyNode[];  // IDs 2-7
   productividadCampesena?: HierarchyNode[];  // 4 elementos sin jerarquía
@@ -93,6 +92,8 @@ export interface DashboardData {
   contratosAprendizaje?: HierarchyNode[];  // 6 métricas con ID=3 principal (Tabla 13)
   contratosAprendizajePrincipal?: HierarchyNode;  // ID=3 (Total Aprendices)
   formacionProfesionalIntegral?: any;  // Datos FPI desde MongoDB
+  arbolRetencion?: any;  // Datos Retención desde MongoDB
+  arbolCertificacion?: any;  // Datos Certificación desde MongoDB
 }
 
 @Component({
@@ -160,10 +161,8 @@ export class NationalDashboardComponent implements OnInit {
       metasPrimerCurso: this.metasService.getPrimerCurso(),
       metasJerarquia: this.metasService.getMetasJerarquia(),
       formacionPorEstrategia: this.metasService.getFormacionPorEstrategia(),
-      metasRetencion: this.metasService.getMetasRetencion(),
-      jerarquiasRetencion: this.metasService.getJerarquiasRetencion(),
-      metasCertificacion: this.metasService.getMetasCertificacion(),
-      jerarquiasCertificacion: this.metasService.getJerarquiasCertificacion(),
+      arbolRetencion: this.mongoDBService.getArbolRetencionConEjecuciones(),
+      arbolCertificacion: this.mongoDBService.getArbolCertificacionConEjecuciones(),
       metasCompetenciasLaborales: this.metasService.getMetasCompetenciasLaborales(),
       jerarquiasCompetenciasLaborales: this.metasService.getJerarquiasCompetenciasLaborales(),
       metasProductividadCampesena: this.metasService.getMetasProductividadCampesena(),
@@ -187,12 +186,12 @@ export class NationalDashboardComponent implements OnInit {
         const formacionEstrategiaTree = this.buildFormacionEstrategiaTree(results.formacionPorEstrategia);
         const formacionEstrategiaRoot = formacionEstrategiaTree.length > 0 ? formacionEstrategiaTree[0] : undefined;
 
-        const retencionTree = this.buildRetencionTree(results.metasRetencion, results.jerarquiasRetencion);
+        const retencionTree = results.arbolRetencion.children || [];
         const retencionPadres = retencionTree.filter(node => node.level === 0);
         console.log('Retención - Total nodos:', retencionTree.length, 'Nivel 0:', retencionPadres.length);
 
-        const certificacionTree = this.buildCertificacionTree(results.metasCertificacion, results.jerarquiasCertificacion);
-        const certificacionRoot = certificacionTree.length > 0 ? certificacionTree[0] : undefined;
+        const certificacionTree = results.arbolCertificacion.children || [];
+        const certificacionRoot = results.arbolCertificacion;
         console.log('Certificación - Total nodos:', certificacionTree.length, 'Root:', certificacionRoot?.id);
 
         const competenciasLaboralesTree = this.buildCompetenciasLaboralesTree(results.metasCompetenciasLaborales, results.jerarquiasCompetenciasLaborales);
@@ -248,7 +247,9 @@ export class NationalDashboardComponent implements OnInit {
           fondoEmprender: fondoEmprender,
           contratosAprendizaje: contratosAprendizaje,
           contratosAprendizajePrincipal: contratosAprendizajePrincipal,
-          formacionProfesionalIntegral: results.formacionProfesionalIntegral
+          formacionProfesionalIntegral: results.formacionProfesionalIntegral,
+          arbolRetencion: results.arbolRetencion,
+          arbolCertificacion: results.arbolCertificacion
         };
       })
     );

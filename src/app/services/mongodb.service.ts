@@ -135,6 +135,22 @@ export class MongoDBService {
         }, 0);
     }
 
+    private promediarCampo(datos: EjecucionRegional[], campo: string): number {
+        if (datos.length === 0) return 0;
+        const suma = datos.reduce((total, regional) => {
+            const valor = regional[campo];
+            return total + (typeof valor === 'number' ? valor : 0);
+        }, 0);
+        // (suma / cantidad de regionales) * 100 = porcentaje, redondeado a 2 decimales
+        const porcentaje = (suma / datos.length) * 100;
+        return Math.round(porcentaje * 100) / 100;
+    }
+
+    private redondear(valor: number, decimales: number = 2): number {
+        const factor = Math.pow(10, decimales);
+        return Math.round(valor * factor) / factor;
+    }
+
     public getArbolFPIConEjecuciones(): Observable<FPINode> {
         if (!this.arbolFPICache$) {
             this.arbolFPICache$ = this.getEjecucionesRegionales().pipe(
@@ -178,7 +194,7 @@ export class MongoDBService {
                 id: id,
                 descripcion: info.descripcion,
                 meta: info.meta,
-                ejecucion: ejecucion
+                ejecucion: this.redondear(ejecucion, 2)
             });
         }
 
@@ -247,5 +263,184 @@ export class MongoDBService {
 
     public getEjecucionesRegionalesData(): Observable<EjecucionRegional[]> {
         return this.getEjecucionesRegionales();
+    }
+
+    // ==================== RETENCIÓN ====================
+
+    private arbolRetencionCache$?: Observable<FPINode>;
+
+    private readonly datosRetencion: { [id: string]: { descripcion: string; meta: number } } = {
+        '1': { descripcion: 'TOTAL FORMACIÓN LABORAL', meta: 85.05 },
+        '1.1': { descripcion: 'FORMACIÓN LABORAL - Presencial', meta: 89.18 },
+        '1.2': { descripcion: 'FORMACIÓN LABORAL - Virtual', meta: 78.96 },
+        '2': { descripcion: 'TOTAL EDUCACION SUPERIOR', meta: 84.58 },
+        '2.1': { descripcion: 'EDUCACION SUPERIOR - Presencial', meta: 87.42 },
+        '2.2': { descripcion: 'EDUCACION SUPERIOR - Virtual', meta: 80.64 },
+        '3': { descripcion: 'TOTAL TITULADA', meta: 84.01 },
+        '3.1': { descripcion: 'TOTAL TITULADA - Presencial', meta: 88.30 },
+        '3.2': { descripcion: 'TOTAL TITULADA - Virtual', meta: 78.53 },
+        '4': { descripcion: 'TOTAL COMPLEMENTARIA', meta: 55.21 },
+        '4.1': { descripcion: 'COMPLEMENTARIA - Presencial', meta: 83.48 },
+        '4.2': { descripcion: 'COMPLEMENTARIA - Virtual', meta: 26.94 },
+        '5': { descripcion: 'TOTAL FORMACIÓN PROFESIONAL', meta: 67.72 },
+        '5.1': { descripcion: 'TOTAL FORMACIÓN PROFESIONAL - Presencial', meta: 85.89 },
+        '5.2': { descripcion: 'TOTAL FORMACIÓN PROFESIONAL - Virtual', meta: 49.55 },
+        '6': { descripcion: 'PROGRAMA DE BILINGÜISMO', meta: 52.67 },
+        '6.1': { descripcion: 'PROGRAMA DE BILINGÜISMO - Presencial', meta: 81.41 },
+        '6.2': { descripcion: 'PROGRAMA DE BILINGÜISMO - Virtual', meta: 31.78 },
+        '7': { descripcion: 'CampeSENA', meta: 89.36 },
+        '8': { descripcion: 'Full Popular', meta: 61.01 }
+    };
+
+    private readonly camposMongoDBRetencion: { [mongoField: string]: string } = {
+        'R_FOR_LAB_P': '1.1',
+        'R_FOR_LAB_V': '1.2',
+        'R_FOR_LABOR': '1',
+        'R_EDU_SUP_P': '2.1',
+        'R_EDU_SUP_V': '2.2',
+        'R_TOT_E_SUP': '2',
+        'R_TOT_TIT_P': '3.1',
+        'R_TOT_TIT_V': '3.2',
+        'R_TOT_TITUL': '3',
+        'R_COMPLEM_P': '4.1',
+        'R_COMPLEM_V': '4.2',
+        'R_COMPLEM_T': '4',
+        'R_FRM_PRO_P': '5.1',
+        'R_FRM_PRO_V': '5.2',
+        'R_FRM_PRO_T': '5',
+        'R_PRG_BIL_P': '6.1',
+        'R_PRG_BIL_V': '6.2',
+        'R_PRG_BIL_T': '6',
+        'R_CAMPESENA': '7',
+        'R_FULL': '8'
+    };
+
+    public getArbolRetencionConEjecuciones(): Observable<FPINode> {
+        if (!this.arbolRetencionCache$) {
+            this.arbolRetencionCache$ = this.getEjecucionesRegionales().pipe(
+                map(datos => {
+                    const datosParaArbol = this.construirDatosRetencion(datos);
+                    const arbol = this.buildHierarchyTree(datosParaArbol);
+                    return arbol.length > 0 ? this.encontrarRaizRetencion(arbol) : this.nodoVacio();
+                }),
+                catchError(error => {
+                    console.error('Error al construir árbol Retención:', error);
+                    return of(this.nodoVacio());
+                }),
+                shareReplay(1)
+            );
+        }
+
+        return this.arbolRetencionCache$;
+    }
+
+    private construirDatosRetencion(datos: EjecucionRegional[]): any[] {
+        const resultado: any[] = [];
+
+        for (const [id, info] of Object.entries(this.datosRetencion)) {
+            let ejecucion = 0;
+
+            for (const [mongoField, idMapeado] of Object.entries(this.camposMongoDBRetencion)) {
+                if (idMapeado === id) {
+                    // Retención son tasas/porcentajes, se promedian
+                    ejecucion = this.promediarCampo(datos, mongoField);
+                    break;
+                }
+            }
+
+            resultado.push({
+                id: id,
+                descripcion: info.descripcion,
+                meta: info.meta,
+                ejecucion: this.redondear(ejecucion, 2)
+            });
+        }
+
+        return resultado;
+    }
+
+    private encontrarRaizRetencion(arbol: FPINode[]): FPINode {
+        // Retención tiene múltiples raíces (1, 2, 3, 4, 5, 6, 7, 8)
+        // Retornamos un nodo contenedor artificial
+        const contenedor: FPINode = {
+            id: '0',
+            descripcion: 'RETENCIÓN',
+            meta: 0,
+            ejecucion: 0,
+            porcentaje: 0,
+            children: arbol,
+            isCollapsed: true,
+            level: 0
+        };
+        return contenedor;
+    }
+
+    // ==================== CERTIFICACIÓN ====================
+
+    private arbolCertificacionCache$?: Observable<FPINode>;
+
+    private readonly datosCertificacion: { [id: string]: { descripcion: string; meta: number } } = {
+        '1': { descripcion: 'TOTAL FORMACIÓN PROFESIONAL INTEGRAL', meta: 3866963 },
+        '1.1': { descripcion: 'TOTAL FORMACIÓN COMPLEMENTARIA', meta: 3420411 },
+        '1.2': { descripcion: 'TOTAL FORMACIÓN TITULADA', meta: 446552 },
+        '1.2.1': { descripcion: 'EDUCACIÓN SUPERIOR', meta: 94127 },
+        '1.2.2': { descripcion: 'FORMACIÓN LABORAL', meta: 352425 },
+        '2': { descripcion: 'ARTICULACION CON LA MEDIA - (Incluidas en Formación laboral)', meta: 184643 },
+        '3': { descripcion: 'CampeSENA - (Incluidas en Formación Profesional Integral)', meta: 481818 },
+        '4': { descripcion: 'Full Popular - (Incluidas en Formación Profesional Integral)', meta: 54421 }
+    };
+
+    private readonly camposMongoDBCertificacion: { [mongoField: string]: string } = {
+        'C_FORMA_LAB': '1.2.2',
+        'C_EDU_SUPER': '1.2.1',
+        'C_FRM_TITUL': '1.2',
+        'C_FRM_COMP': '1.1',
+        'C_FRM_PR_IN': '1',
+        'C_TCO_ARMED': '2',
+        'C_CAMPESENA': '3',
+        'C_FULL': '4'
+    };
+
+    public getArbolCertificacionConEjecuciones(): Observable<FPINode> {
+        if (!this.arbolCertificacionCache$) {
+            this.arbolCertificacionCache$ = this.getEjecucionesRegionales().pipe(
+                map(datos => {
+                    const datosParaArbol = this.construirDatosCertificacion(datos);
+                    const arbol = this.buildHierarchyTree(datosParaArbol);
+                    return arbol.length > 0 ? arbol[0] : this.nodoVacio();
+                }),
+                catchError(error => {
+                    console.error('Error al construir árbol Certificación:', error);
+                    return of(this.nodoVacio());
+                }),
+                shareReplay(1)
+            );
+        }
+
+        return this.arbolCertificacionCache$;
+    }
+
+    private construirDatosCertificacion(datos: EjecucionRegional[]): any[] {
+        const resultado: any[] = [];
+
+        for (const [id, info] of Object.entries(this.datosCertificacion)) {
+            let ejecucion = 0;
+
+            for (const [mongoField, idMapeado] of Object.entries(this.camposMongoDBCertificacion)) {
+                if (idMapeado === id) {
+                    ejecucion = this.sumarizarCampo(datos, mongoField);
+                    break;
+                }
+            }
+
+            resultado.push({
+                id: id,
+                descripcion: info.descripcion,
+                meta: info.meta,
+                ejecucion: this.redondear(ejecucion, 2)
+            });
+        }
+
+        return resultado;
     }
 }
