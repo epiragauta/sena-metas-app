@@ -7,6 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
+import { MongoDBService } from '../../services/mongodb.service';
+
 import { MetasService } from '../../services/metas.service';
 import { SeccionesInfoService } from '../../services/secciones-info.service';
 import { SeccionInfoDialogComponent } from '../../components/seccion-info-dialog.component';
@@ -70,7 +72,7 @@ export interface DashboardData {
   programasRelevantes: ProgramaRelevante[];
   metasPrimerCurso: MetasPrimerCurso;
   hierarchyTree?: HierarchyNode[];
-  hierarchyRoot?: HierarchyNode;
+  hierarchyRoot?: HierarchyNode | any;
   formacionEstrategiaTree?: FormacionEstrategiaNode[];
   formacionEstrategiaRoot?: FormacionEstrategiaNode;
   retencionTree?: HierarchyNode[];
@@ -90,6 +92,7 @@ export interface DashboardData {
   fondoEmprender?: HierarchyNode[];  // 4 métricas planas (Tabla 12)
   contratosAprendizaje?: HierarchyNode[];  // 6 métricas con ID=3 principal (Tabla 13)
   contratosAprendizajePrincipal?: HierarchyNode;  // ID=3 (Total Aprendices)
+  formacionProfesionalIntegral?: any;  // Datos FPI desde MongoDB
 }
 
 @Component({
@@ -130,6 +133,7 @@ export class NationalDashboardComponent implements OnInit {
 
   constructor(
     private metasService: MetasService,
+    private mongoDBService: MongoDBService,
     private seccionesInfoService: SeccionesInfoService,
     private dialog: MatDialog
   ) { }
@@ -171,13 +175,14 @@ export class NationalDashboardComponent implements OnInit {
       metasCuposFIC: this.metasService.getMetasCuposFIC(),
       jerarquiasCuposFIC: this.metasService.getJerarquiasCuposFIC(),
       metasFondoEmprender: this.metasService.getMetasFondoEmprender(),
-      metasContratosAprendizaje: this.metasService.getMetasContratosAprendizaje()
+      metasContratosAprendizaje: this.metasService.getMetasContratosAprendizaje(),
+      formacionProfesionalIntegral: this.mongoDBService.getArbolFPIConEjecuciones()
     }).pipe(
       map(results => {
         this.cargando = false;
 
         const hierarchyTree = this.buildHierarchyTree(results.metasJerarquia);
-        const hierarchyRoot = hierarchyTree.length > 0 ? hierarchyTree[0] : undefined;
+        const hierarchyRoot = results.formacionProfesionalIntegral;
 
         const formacionEstrategiaTree = this.buildFormacionEstrategiaTree(results.formacionPorEstrategia);
         const formacionEstrategiaRoot = formacionEstrategiaTree.length > 0 ? formacionEstrategiaTree[0] : undefined;
@@ -242,7 +247,8 @@ export class NationalDashboardComponent implements OnInit {
           cuposFICRoot: cuposFICRoot,
           fondoEmprender: fondoEmprender,
           contratosAprendizaje: contratosAprendizaje,
-          contratosAprendizajePrincipal: contratosAprendizajePrincipal
+          contratosAprendizajePrincipal: contratosAprendizajePrincipal,
+          formacionProfesionalIntegral: results.formacionProfesionalIntegral
         };
       })
     );
@@ -779,7 +785,7 @@ export class NationalDashboardComponent implements OnInit {
     return rootNodes;
   }
 
-  public toggleHierarchyNode(node: HierarchyNode): void {
+  public toggleHierarchyNode(node: HierarchyNode | any): void {
     node.isCollapsed = !node.isCollapsed;
 
     // Si se contrae el nodo raíz (nivel 0), cerrar la tabla de detalles
@@ -801,7 +807,7 @@ export class NationalDashboardComponent implements OnInit {
     return this.selectedNodeForTree?.id === node.id;
   }
 
-  public getSecondLevelChildren(root: HierarchyNode | undefined): HierarchyNode[] {
+  public getSecondLevelChildren(root: HierarchyNode | any | undefined): (HierarchyNode | any)[] {
     if (!root) return [];
     return this.filterHierarchyNodes(root.children);
   }
@@ -843,7 +849,7 @@ export class NationalDashboardComponent implements OnInit {
     }
   }
 
-  public removeParentheses(text: string): string{
+  public removeParentheses(text: string): string {
     // Elimina todo el texto desde el primer paréntesis de apertura
     const index = text.indexOf('(');
     return index > 0 ? text.substring(0, index).trim() : text;
@@ -1077,7 +1083,11 @@ export class NationalDashboardComponent implements OnInit {
    * Filtra nodos jerárquicos (HierarchyNode) basándose en el término de búsqueda
    * Busca recursivamente en todos los niveles de la jerarquía
    */
-  public filterHierarchyNodes(nodes: HierarchyNode[] | undefined): HierarchyNode[] {
+  /**
+   * Filtra nodos jerárquicos (HierarchyNode | any) basándose en el término de búsqueda
+   * Busca recursivamente en todos los niveles de la jerarquía
+   */
+  public filterHierarchyNodes(nodes: (HierarchyNode | any)[] | undefined): (HierarchyNode | any)[] {
     if (!nodes || !this.searchTerm) {
       return nodes || [];
     }
@@ -1096,7 +1106,7 @@ export class NationalDashboardComponent implements OnInit {
   /**
    * Verifica si un nodo o sus hijos coinciden con el término de búsqueda
    */
-  private matchesSearchRecursive(node: HierarchyNode, term: string): boolean {
+  private matchesSearchRecursive(node: HierarchyNode | any, term: string): boolean {
     // Verificar si la descripción del nodo actual coincide
     if (node.descripcion.toLowerCase().includes(term)) {
       return true;
@@ -1104,7 +1114,7 @@ export class NationalDashboardComponent implements OnInit {
 
     // Verificar recursivamente en los hijos
     if (node.children && node.children.length > 0) {
-      return node.children.some(child => this.matchesSearchRecursive(child, term));
+      return node.children.some((child: any) => this.matchesSearchRecursive(child, term));
     }
 
     return false;
