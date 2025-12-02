@@ -13,7 +13,6 @@ import { SeccionInfo } from '../models/seccion-info.model';
     <div class="seccion-info-dialog">
       <div class="dialog-header">
         <h2 mat-dialog-title>
-          <mat-icon class="header-icon">info</mat-icon>
           {{ data.titulo }}
         </h2>
         <button mat-icon-button class="close-button" (click)="onClose()">
@@ -60,7 +59,7 @@ import { SeccionInfo } from '../models/seccion-info.model';
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      padding: .5rem;
+      padding: .25rem;
       background: linear-gradient(135deg, #39b54a 0%, #2e9a3d 100%);
       color: white;
       margin: -2px -2px 0 -2px;
@@ -71,14 +70,8 @@ import { SeccionInfo } from '../models/seccion-info.model';
         align-items: center;
         gap: 0.15rem;
         margin: 0;
-        font-size: 1.25rem;
+        font-size: 1.15rem;
         font-weight: 600;
-      }
-
-      .header-icon {
-        font-size: 1.8rem;
-        width: 1.8rem;
-        height: 1.8rem;
       }
 
       .close-button {
@@ -210,7 +203,14 @@ import { SeccionInfo } from '../models/seccion-info.model';
       }
 
       .dialog-header h2 {
-        font-size: 1.25rem;
+        font-size: .95rem;
+      }
+
+      .dialog-content {
+        padding: .75rem;
+        p {
+          font-size: .9rem;
+        }
       }
     }
   `]

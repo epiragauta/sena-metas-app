@@ -383,11 +383,15 @@
 }
 
 .data-section {
-  background-color: #f3faed;
+  background-color: #e9f7dc;
   padding: .1rem 1rem .1rem 1rem;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
   margin-bottom: 1rem;
+}
+
+.section-odd {
+  background-color: #fff !important;
 }
 
 .section-title {

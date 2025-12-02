@@ -134,7 +134,7 @@
       </div>
 
       <!-- Tabla de Árbol para nodo seleccionado -->
-      <div *ngIf="selectedNodeForTree" class="data-section selected-node-tree-section">
+      <div *ngIf="selectedNodeForTree" class="data-section section-odd selected-node-tree-section">
         <div class="selected-node-header">
           <h2 class="section-title">
             <span>{{ removeParentheses(selectedNodeForTree.descripcion) }}</span>
@@ -163,7 +163,7 @@
     <!-- #################################### -->
     <div class="additional-sections">
       <!-- Sección: Formación por Estrategia -->
-      <div *ngIf="data.formacionEstrategiaRoot" class="data-section">
+      <div *ngIf="data.formacionEstrategiaRoot" class="data-section section-odd">
         <h2 class="section-title">
           <span>Metas por Estrategias de Formación</span>
           <button mat-icon-button class="info-button" (click)="openSeccionInfo('metas-estrategias-formacion')" aria-label="Más información sobre Metas por Estrategias de Formación">
@@ -260,7 +260,7 @@
       </div>
 
       <!-- Tabla de Estrategias para nodo seleccionado -->
-      <div *ngIf="selectedEstrategiaNodeForTree" class="data-section selected-node-tree-section">
+      <div *ngIf="selectedEstrategiaNodeForTree" class="data-section section-odd selected-node-tree-section">
         <div class="selected-node-header">
           <h2 class="section-title">
             <span>{{ removeParentheses(selectedEstrategiaNodeForTree.nivelFormacion) }}</span>
@@ -362,7 +362,7 @@
     </div>
 
     <!-- Sección: Cupos Autorizados FIC -->
-    <div *ngIf="data.cuposFICRoot" class="data-section">
+    <div *ngIf="data.cuposFICRoot" class="data-section section-odd ">
       <h2 class="section-title">
         <span>Cupos Autorizados FIC</span>
         <button mat-icon-button class="info-button" (click)="openSeccionInfo('cupos-autorizados-fic')" aria-label="Más información sobre Cupos Autorizados FIC">
@@ -552,7 +552,7 @@
     </div>
 
     <!-- CERTIFICACIÓN FORMACIÓN PROFESIONAL-->
-    <div *ngIf="data.certificacionRoot" class="data-section">
+    <div *ngIf="data.certificacionRoot" class="data-section section-odd">
       <h2 class="section-title">
         <span>Certificación Formación Profesional</span>
         <button mat-icon-button class="info-button" (click)="openSeccionInfo('certificacion-formacion-profesional')" aria-label="Más información sobre Certificación Formación Profesional">
@@ -795,7 +795,7 @@
       </div>
 
     <!-- CONTRATOS DE APRENDIZAJE -->
-    <div *ngIf="data.contratosAprendizajePrincipal && data.contratosAprendizaje" class="data-section">
+    <div *ngIf="data.contratosAprendizajePrincipal && data.contratosAprendizaje" class="data-section section-odd">
       <h2 class="section-title">
         <span>Contratos de Aprendizaje</span>
         <button mat-icon-button class="info-button" (click)="openSeccionInfo('contratos-aprendizaje')" aria-label="Más información sobre Contratos de Aprendizaje">
@@ -980,7 +980,7 @@
     </div>
 
     <!-- PRODUCTIVIDAD FULL POPULAR -->
-    <div *ngIf="data.productividadFullPopularRoot" class="data-section">
+    <div *ngIf="data.productividadFullPopularRoot" class="data-section section-odd">
       <h2 class="section-title">
         <span>Productividad Full Popular</span>
         <button mat-icon-button class="info-button" (click)="openSeccionInfo('productividad-full-popular')" aria-label="Más información sobre Productividad Full Popular">
@@ -1233,7 +1233,7 @@
     </div>
 
     <!-- Sección: Fondo Emprender -->
-    <div *ngIf="data.fondoEmprender && data.fondoEmprender.length > 0" class="data-section">
+    <div *ngIf="data.fondoEmprender && data.fondoEmprender.length > 0" class="data-section section-odd">
       <h2 class="section-title">
         <span>Fondo Emprender</span>
         <button mat-icon-button class="info-button" (click)="openSeccionInfo('fondo-emprender')" aria-label="Más información sobre Fondo Emprender">
