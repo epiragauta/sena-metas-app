@@ -35,7 +35,7 @@ export interface MongoDBResponse {
     providedIn: 'root'
 })
 export class MongoDBService {
-    private readonly mongoURL = 'http://127.0.0.1:8000/mongodb/collections/ejecucion_fpi_regional';
+    private readonly mongoURL = 'https://sena-metas-procesador.vercel.app/mongodb/collections/ejecucion_fpi_regional';
     private arbolFPICache$?: Observable<FPINode>;
 
     // MAPEO EXACTO: campos MongoDB → IDs de jerarquía
