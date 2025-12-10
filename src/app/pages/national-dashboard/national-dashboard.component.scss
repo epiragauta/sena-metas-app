@@ -399,7 +399,7 @@
   font-weight: 600;
   color: var(--sena-verde);
   margin-bottom: .5rem;
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.25rem;
   border-bottom: 2px solid var(--sena-naranja);
   display: inline-block;
 }
@@ -787,13 +787,13 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: .25rem;
 }
 
 .estrategia-explicit-item {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.25rem;
 }
 
 .estrategia-explicit-label {
@@ -1226,7 +1226,7 @@
   font-size: 1.1rem;
   font-weight: 600;
   color: var(--sena-verde);
-  margin-bottom: 1rem;
+  margin-bottom: .5rem;
   padding-bottom: 0.5rem;
   border-bottom: 2px solid var(--sena-verde);
 }
@@ -1247,7 +1247,7 @@
 
 .programas-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
 }
 
@@ -1269,7 +1269,7 @@
 }
 
 .programa-card-header {
-  margin-bottom: 1rem;
+  margin-bottom: .25rem;
   padding-bottom: 0.75rem;
   border-bottom: 2px solid var(--sena-verde);
 }
@@ -1454,7 +1454,7 @@
   display: grid;
   grid-template-columns: 3fr 1fr;
   gap: 2rem;
-  margin-bottom: 2rem;
+  margin-bottom: .25rem;
 }
 
 .retencion-column-1 {
@@ -1942,7 +1942,7 @@
 }
 
 .hierarchy-percentage {
-  padding: 0.4rem 0.8rem;
+  padding: 0.2rem 0.4rem;
   border-radius: 6px;
   font-weight: 700;
   font-size: 0.95rem;
@@ -2057,8 +2057,8 @@
 // ================================================
 
 .child-has-details {
-  margin-top: 0.75rem;
-  padding: 0.5rem 0.75rem;
+  margin-top: 0.25rem;
+  padding: 0.15rem 0.75rem;
   background: linear-gradient(135deg, #f0f9f4 0%, #e8f5e9 100%);
   border-radius: 6px;
   display: flex;

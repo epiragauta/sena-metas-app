@@ -19,7 +19,7 @@
   </div>
 
   <!-- Search Bar -->
-  <div class="search-container">
+  <div class="search-container" style="display: none;">
     <div class="search-input-wrapper">
       <mat-icon class="search-icon">search</mat-icon>
       <input
@@ -429,17 +429,6 @@
         </div>
     </div>
 
-    <!-- End Tab Content: Formación Profesional Integral -->
-  </div>
-
-  <!-- Tab Content: Certificación y Retención -->
-  <div *ngIf="isTabActive('certificacion-retencion')" class="tab-content fade-in">
-    
-    <!-- Debug: Mostrar si no hay datos -->
-    <div *ngIf="!data.retencionPadres && !data.certificacionRoot && !data.competenciasLaboralesRoot" class="data-section">
-      <p style="text-align: center; padding: 2rem; color: #666;">No hay datos disponibles para esta sección.</p>
-    </div>
-
     <!-- RETENCIÓN -->
     <div *ngIf="data.retencionPadres && data.retencionPadres.length > 0" class="data-section">
       <h2 class="section-title">
@@ -652,6 +641,17 @@
         </div>
     </div>
 
+    <!-- End Tab Content: Formación Profesional Integral -->
+  </div>
+
+  <!-- Tab Content: Sistema Nacional de Formación para el Trabajo -->
+  <div *ngIf="isTabActive('sistema-nacional-formacion-para-el-trabajo')" class="tab-content fade-in">
+    
+    <!-- Debug: Mostrar si no hay datos -->
+    <div *ngIf="!data.retencionPadres && !data.certificacionRoot && !data.competenciasLaboralesRoot" class="data-section">
+      <p style="text-align: center; padding: 2rem; color: #666;">No hay datos disponibles para esta sección.</p>
+    </div>
+    
     <!-- CERTIFICACIÓN DE COMPETENCIAS LABORALES -->
     <div *ngIf="data.competenciasLaboralesRoot && data.competenciasLaboralesOtros" class="data-section">
       <h2 class="section-title">
@@ -792,7 +792,47 @@
             </div>
           </div>
         </div>
-      </div>
+    </div>
+
+    <!-- PRODUCTIVIDAD CAMPESENA -->
+    <div *ngIf="data.productividadCampesena && data.productividadCampesena.length > 0" class="data-section">
+      <h2 class="section-title">
+        <span>Productividad CampeSENA</span>
+        <button mat-icon-button class="info-button" (click)="openSeccionInfo('productividad-campesena')" aria-label="Más información sobre Productividad CampeSENA">
+          <mat-icon>info_outline</mat-icon>
+        </button>
+      </h2>
+
+        <!-- Una fila con 4 tarjetas -->
+        <div class="productividad-campesena-grid">
+          <div class="programa-card"
+               *ngFor="let node of data.productividadCampesena; trackBy: trackByHierarchyId">
+            <div class="programa-card-header">
+              <h4 class="programa-title">{{ node.descripcion }}</h4>
+            </div>
+
+            <div class="programa-metrics">
+              <div class="progress" [class.has-overflow]="node.porcentaje > 100">
+                <div class="progress-bar" [ngClass]="getClasePorcentaje(node.porcentaje / 100)"
+                  [style.width.%]="node.porcentaje > 100 ? 100 : node.porcentaje">
+                  {{ node.porcentaje / 100 | percent:'1.2-2' }}
+                </div>
+              </div>
+
+              <div class="programa-values">
+                <div class="value-item">
+                  <span class="value-label">Meta:</span>
+                  <span class="value-number">{{ node.meta | number:'1.0-0' }}</span>
+                </div>
+                <div class="value-item">
+                  <span class="value-label">Ejecución:</span>
+                  <span class="value-number">{{ node.ejecucion | number:'1.0-0' }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
 
     <!-- CONTRATOS DE APRENDIZAJE -->
     <div *ngIf="data.contratosAprendizajePrincipal && data.contratosAprendizaje" class="data-section section-odd">
@@ -935,54 +975,15 @@
     </div>
   </div>
 
-  <!-- End Tab Content: Certificación y Retención -->
+  <!-- End Tab Content: Sistema Nacional de Formación para el Trabajo -->
 
-  <!-- Tab Content: Programas de Inclusión Social -->
-  <div *ngIf="isTabActive('inclusion-social')" class="tab-content fade-in">
-    <!-- PRODUCTIVIDAD CAMPESENA -->
-    <div *ngIf="data.productividadCampesena && data.productividadCampesena.length > 0" class="data-section">
-      <h2 class="section-title">
-        <span>Productividad CampeSENA</span>
-        <button mat-icon-button class="info-button" (click)="openSeccionInfo('productividad-campesena')" aria-label="Más información sobre Productividad CampeSENA">
-          <mat-icon>info_outline</mat-icon>
-        </button>
-      </h2>
-
-        <!-- Una fila con 4 tarjetas -->
-        <div class="productividad-campesena-grid">
-          <div class="programa-card"
-               *ngFor="let node of data.productividadCampesena; trackBy: trackByHierarchyId">
-            <div class="programa-card-header">
-              <h4 class="programa-title">{{ node.descripcion }}</h4>
-            </div>
-
-            <div class="programa-metrics">
-              <div class="progress" [class.has-overflow]="node.porcentaje > 100">
-                <div class="progress-bar" [ngClass]="getClasePorcentaje(node.porcentaje / 100)"
-                  [style.width.%]="node.porcentaje > 100 ? 100 : node.porcentaje">
-                  {{ node.porcentaje / 100 | percent:'1.2-2' }}
-                </div>
-              </div>
-
-              <div class="programa-values">
-                <div class="value-item">
-                  <span class="value-label">Meta:</span>
-                  <span class="value-number">{{ node.meta | number:'1.0-0' }}</span>
-                </div>
-                <div class="value-item">
-                  <span class="value-label">Ejecución:</span>
-                  <span class="value-number">{{ node.ejecucion | number:'1.0-0' }}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-    </div>
-
-    <!-- PRODUCTIVIDAD FULL POPULAR -->
+  <!-- Tab Content: CampeSENA y Full Popular -->
+  <div *ngIf="isTabActive('campesena-y-full-popular')" class="tab-content fade-in">
+    
+    <!-- FULL POPULAR -->
     <div *ngIf="data.productividadFullPopularRoot" class="data-section section-odd">
       <h2 class="section-title">
-        <span>Productividad Full Popular</span>
+        <span>Full Popular</span>
         <button mat-icon-button class="info-button" (click)="openSeccionInfo('productividad-full-popular')" aria-label="Más información sobre Productividad Full Popular">
           <mat-icon>info_outline</mat-icon>
         </button>
@@ -1078,79 +1079,12 @@
           </div>
         </div>
     </div>
-
-    <!-- POBLACIONES VULNERABLES -->
-    <div *ngIf="data.poblacionesVulnerablesRoot" class="data-section">
-      <h2 class="section-title">
-        <span>Poblaciones vulnerables</span>
-        <button mat-icon-button class="info-button" (click)="openSeccionInfo('poblaciones-vulnerables')" aria-label="Más información sobre Poblaciones vulnerables">
-          <mat-icon>info_outline</mat-icon>
-        </button>
-      </h2>
-
-        <!-- Fila 1: Tarjeta principal ID=1 con botón Ver detalles -->
-        <div class="poblaciones-vulnerables-row-1">
-          <div class="programa-card"
-               [class.child-card-selected]="isPoblacionesVulnerablesNodeSelected(data.poblacionesVulnerablesRoot)"
-               (click)="selectPoblacionesVulnerablesNode(data.poblacionesVulnerablesRoot)">
-            <div class="programa-card-header">
-              <h4 class="programa-title">{{ data.poblacionesVulnerablesRoot.descripcion }}</h4>
-            </div>
-
-            <div class="programa-metrics">
-              <div class="progress" [class.has-overflow]="data.poblacionesVulnerablesRoot.porcentaje > 100">
-                <div class="progress-bar" [ngClass]="getClasePorcentaje(data.poblacionesVulnerablesRoot.porcentaje / 100)"
-                  [style.width.%]="data.poblacionesVulnerablesRoot.porcentaje > 100 ? 100 : data.poblacionesVulnerablesRoot.porcentaje">
-                  {{ data.poblacionesVulnerablesRoot.porcentaje / 100 | percent:'1.2-2' }}
-                </div>
-              </div>
-
-              <div class="programa-values">
-                <div class="value-item">
-                  <span class="value-label">Meta:</span>
-                  <span class="value-number">{{ data.poblacionesVulnerablesRoot.meta | number:'1.0-0' }}</span>
-                </div>
-                <div class="value-item">
-                  <span class="value-label">Ejecución:</span>
-                  <span class="value-number">{{ data.poblacionesVulnerablesRoot.ejecucion | number:'1.0-0' }}</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="child-has-details" *ngIf="data.poblacionesVulnerablesRoot.children.length > 0">
-              <mat-icon class="details-icon">assessment</mat-icon>
-              <span class="details-text">Ver detalles ({{ data.poblacionesVulnerablesRoot.children.length }} ítems)</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Fila 2: Tree-table con detalles (visible al hacer clic) -->
-        <div *ngIf="selectedPoblacionesVulnerablesNode" class="data-section selected-node-tree-section">
-                  <div class="selected-node-header">
-                    <h2 class="section-title">
-                      <span>{{ selectedPoblacionesVulnerablesNode.descripcion }}</span>
-                      <button mat-icon-button class="info-button" aria-label="Más información">
-                        <mat-icon>info_outline</mat-icon>
-                      </button>
-                    </h2>
-                    <button class="close-tree-btn" (click)="selectedPoblacionesVulnerablesNode = null">✕ Cerrar</button>
-                  </div>
-          <!-- Mostrar hijos usando el template recursivo -->
-          <div class="children-tree-container" *ngIf="selectedPoblacionesVulnerablesNode.children.length > 0">
-            <div *ngFor="let child of selectedPoblacionesVulnerablesNode.children; trackBy: trackByHierarchyId">
-              <ng-container *ngTemplateOutlet="poblacionesVulnerablesNodeTpl; context: { $implicit: child }"></ng-container>
-            </div>
-          </div>
-          <div class="no-children-message" *ngIf="selectedPoblacionesVulnerablesNode.children.length === 0">
-            <p>No hay elementos de detalle para mostrar.</p>
-          </div>
-        </div>
-    </div>
+    
   </div>
-  <!-- End Tab Content: Programas de Inclusión Social -->
+  <!-- End Tab Content: CampeSENA y Full Popular -->
 
-  <!-- Tab Content: Servicios de Empleo -->
-  <div *ngIf="isTabActive('servicios-empleo')" class="tab-content fade-in">
+  <!-- Tab Content: Dirección de Empleo y Trabajo -->
+  <div *ngIf="isTabActive('direccion-empleo-y-trabajo')" class="tab-content fade-in">
     <!-- AGENCIA PÚBLICA DE EMPLEO -->
     <div *ngIf="data.agenciaPublicaEmpleoNivel1 && data.agenciaPublicaEmpleoNivel1.length > 0" class="data-section">
       <h2 class="section-title">
@@ -1271,8 +1205,76 @@
           </div>
         </div>
     </div>
+
+    <!-- POBLACIONES VULNERABLES -->
+    <div *ngIf="data.poblacionesVulnerablesRoot" class="data-section">
+      <h2 class="section-title">
+        <span>Poblaciones vulnerables</span>
+        <button mat-icon-button class="info-button" (click)="openSeccionInfo('poblaciones-vulnerables')" aria-label="Más información sobre Poblaciones vulnerables">
+          <mat-icon>info_outline</mat-icon>
+        </button>
+      </h2>
+
+        <!-- Fila 1: Tarjeta principal ID=1 con botón Ver detalles -->
+        <div class="poblaciones-vulnerables-row-1">
+          <div class="programa-card"
+               [class.child-card-selected]="isPoblacionesVulnerablesNodeSelected(data.poblacionesVulnerablesRoot)"
+               (click)="selectPoblacionesVulnerablesNode(data.poblacionesVulnerablesRoot)">
+            <div class="programa-card-header">
+              <h4 class="programa-title">{{ data.poblacionesVulnerablesRoot.descripcion }}</h4>
+            </div>
+
+            <div class="programa-metrics">
+              <div class="progress" [class.has-overflow]="data.poblacionesVulnerablesRoot.porcentaje > 100">
+                <div class="progress-bar" [ngClass]="getClasePorcentaje(data.poblacionesVulnerablesRoot.porcentaje / 100)"
+                  [style.width.%]="data.poblacionesVulnerablesRoot.porcentaje > 100 ? 100 : data.poblacionesVulnerablesRoot.porcentaje">
+                  {{ data.poblacionesVulnerablesRoot.porcentaje / 100 | percent:'1.2-2' }}
+                </div>
+              </div>
+
+              <div class="programa-values">
+                <div class="value-item">
+                  <span class="value-label">Meta:</span>
+                  <span class="value-number">{{ data.poblacionesVulnerablesRoot.meta | number:'1.0-0' }}</span>
+                </div>
+                <div class="value-item">
+                  <span class="value-label">Ejecución:</span>
+                  <span class="value-number">{{ data.poblacionesVulnerablesRoot.ejecucion | number:'1.0-0' }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="child-has-details" *ngIf="data.poblacionesVulnerablesRoot.children.length > 0">
+              <mat-icon class="details-icon">assessment</mat-icon>
+              <span class="details-text">Ver detalles ({{ data.poblacionesVulnerablesRoot.children.length }} ítems)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fila 2: Tree-table con detalles (visible al hacer clic) -->
+        <div *ngIf="selectedPoblacionesVulnerablesNode" class="data-section selected-node-tree-section">
+                  <div class="selected-node-header">
+                    <h2 class="section-title">
+                      <span>{{ selectedPoblacionesVulnerablesNode.descripcion }}</span>
+                      <button mat-icon-button class="info-button" aria-label="Más información">
+                        <mat-icon>info_outline</mat-icon>
+                      </button>
+                    </h2>
+                    <button class="close-tree-btn" (click)="selectedPoblacionesVulnerablesNode = null">✕ Cerrar</button>
+                  </div>
+          <!-- Mostrar hijos usando el template recursivo -->
+          <div class="children-tree-container" *ngIf="selectedPoblacionesVulnerablesNode.children.length > 0">
+            <div *ngFor="let child of selectedPoblacionesVulnerablesNode.children; trackBy: trackByHierarchyId">
+              <ng-container *ngTemplateOutlet="poblacionesVulnerablesNodeTpl; context: { $implicit: child }"></ng-container>
+            </div>
+          </div>
+          <div class="no-children-message" *ngIf="selectedPoblacionesVulnerablesNode.children.length === 0">
+            <p>No hay elementos de detalle para mostrar.</p>
+          </div>
+        </div>
+    </div>
   </div>
-  <!-- End Tab Content: Servicios de Empleo -->
+  <!-- End Tab Content: Dirección de Empleo y Trabajo -->
 
 </div>
 <!-- End Dashboard Container -->

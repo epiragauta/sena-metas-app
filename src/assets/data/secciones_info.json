@@ -3,7 +3,7 @@
     "id": "metas-formacion-profesional-integral",
     "titulo": "Metas Formación Profesional Integral",
     "tab": "formacion-integral",
-    "fechaCorte": "2025-11-11",
+    "fechaCorte": "2025-12-09",
     "descripcion": "Esta sección presenta las metas de Formación Profesional Integral del SENA, organizadas jerárquicamente por niveles de formación. Incluye los cupos totales programados y ejecutados, distribuidos en formación Titulada (Técnico, Tecnólogo y Especialización Tecnológica) y Complementaria. Los datos reflejan el cumplimiento de la meta institucional de cobertura en todos los programas de formación ofertados por el SENA a nivel nacional.",
     "indicadores": [
       "Total Formación Profesional Integral",
@@ -18,7 +18,7 @@
     "id": "metas-estrategias-formacion",
     "titulo": "Metas por Estrategias de Formación",
     "tab": "formacion-integral",
-    "fechaCorte": "2025-11-11",
+    "fechaCorte": "2025-12-09",
     "descripcion": "Presenta la distribución de cupos de formación según las estrategias de implementación: Regular (formación presencial tradicional), CampeSENA (formación orientada al sector rural y agropecuario) y Full Popular (formación complementaria de corta duración). Permite visualizar cómo se distribuyen los esfuerzos formativos del SENA según cada estrategia, facilitando el seguimiento diferenciado de metas por tipo de programa.",
     "indicadores": [
       "Formación por Nivel (Titulada, Complementaria, Técnico, Tecnólogo, Especialización)",
@@ -30,7 +30,7 @@
     "id": "metas-programas-relevantes-primer-curso",
     "titulo": "Metas Programas Relevantes y Primer Curso",
     "tab": "formacion-integral",
-    "fechaCorte": "2025-11-11",
+    "fechaCorte": "2025-12-09",
     "descripcion": "Agrupa los indicadores de programas estratégicos de alto impacto para el país. Incluye Programas Relevantes (formación en áreas prioritarias para el desarrollo económico) y el programa Primer Curso (orientado a jóvenes que buscan su primera experiencia laboral). Estos programas representan apuestas institucionales para sectores clave de la economía colombiana.",
     "indicadores": [
       "Programas Relevantes",
@@ -42,7 +42,7 @@
     "id": "cupos-autorizados-fic",
     "titulo": "Cupos Autorizados FIC",
     "tab": "formacion-integral",
-    "fechaCorte": "2025-11-11",
+    "fechaCorte": "2025-12-09",
     "descripcion": "Detalla los cupos de Formación Profesional Integral financiados con recursos del Fondo de Industria y Comercio (FIC). Presenta la estructura jerárquica de distribución de estos cupos especiales, diferenciándolos de los cupos regulares de formación. Incluye desagregación por niveles de formación y tipos de programa dentro de esta modalidad de financiación.",
     "indicadores": [
       "Total Formación Profesional Integral FIC",
@@ -54,8 +54,8 @@
   {
     "id": "retencion",
     "titulo": "Retención",
-    "tab": "certificacion-retencion",
-    "fechaCorte": "2025-11-11",
+    "tab": "formacion-integral",
+    "fechaCorte": "2025-12-09",
     "descripcion": "Mide el porcentaje de aprendices que completan exitosamente su proceso formativo en relación con los inscritos inicialmente. Los indicadores de retención son fundamentales para evaluar la calidad del proceso educativo y la efectividad de las estrategias de acompañamiento institucional. Se presentan tasas de retención diferenciadas por nivel de formación y estrategia.",
     "indicadores": [
       "Tasa de Retención Total",
@@ -67,8 +67,8 @@
   {
     "id": "certificacion-formacion-profesional",
     "titulo": "Certificación Formación Profesional",
-    "tab": "certificacion-retencion",
-    "fechaCorte": "2025-11-11",
+    "tab": "formacion-integral",
+    "fechaCorte": "2025-12-09",
     "descripcion": "Registra el número de aprendices certificados al completar satisfactoriamente su proceso formativo. La certificación es el resultado final del proceso educativo y representa la adquisición formal de competencias laborales. Los datos se organizan jerárquicamente por nivel de formación y permiten evaluar la productividad institucional en términos de formación completada.",
     "indicadores": [
       "Total Formación Profesional Integral Certificados",
@@ -81,8 +81,8 @@
   {
     "id": "certificacion-competencias-laborales",
     "titulo": "Certificación de Competencias Laborales",
-    "tab": "certificacion-retencion",
-    "fechaCorte": "2025-11-11",
+    "tab": "sistema-nacional-formacion-trabajo",
+    "fechaCorte": "2025-12-09",
     "descripcion": "Presenta el reconocimiento formal de competencias laborales adquiridas por experiencia, sin necesariamente haber cursado un programa de formación completo. Incluye certificación de normas de competencia laboral, evaluación y certificación de competencias específicas, y reconocimiento de saberes previos. Es un mecanismo de reconocimiento de la formación no formal y la experiencia laboral.",
     "indicadores": [
       "Total Certificación Competencias Laborales",
@@ -96,8 +96,8 @@
   {
     "id": "contratos-aprendizaje",
     "titulo": "Contratos de Aprendizaje",
-    "tab": "certificacion-retencion",
-    "fechaCorte": "2025-11-11",
+    "tab": "sistema-nacional-formacion-trabajo",
+    "fechaCorte": "2025-12-09",
     "descripcion": "Monitorea el cumplimiento de la cuota de aprendices por parte de las empresas obligadas según la Ley 789 de 2002. Diferencia entre contratos de aprendizaje SENA (patrocinados por empresas para aprendices en programas SENA) y contratos NO SENA (para aprendices en otras instituciones). Incluye también los contratos voluntarios y el registro de empresas cumpliendo con sus cuotas de formación.",
     "indicadores": [
       "Total Aprendices Con Contrato de Aprendizaje",
@@ -111,8 +111,8 @@
   {
     "id": "productividad-campesena",
     "titulo": "Productividad CampeSENA",
-    "tab": "inclusion-social",
-    "fechaCorte": "2025-11-11",
+    "tab": "sistema-nacional-formacion-trabajo",
+    "fechaCorte": "2025-12-09",
     "descripcion": "Mide los resultados de la estrategia CampeSENA orientada al sector rural y agropecuario. Incluye indicadores de productividad, transferencia de tecnología, y desarrollo de proyectos productivos en zonas rurales. La estrategia busca fortalecer las capacidades técnicas y empresariales de la población campesina colombiana, contribuyendo al desarrollo rural sostenible.",
     "indicadores": [
       "Personas Formadas CampeSENA",
@@ -124,8 +124,8 @@
   {
     "id": "productividad-full-popular",
     "titulo": "Productividad Full Popular",
-    "tab": "inclusion-social",
-    "fechaCorte": "2025-11-11",
+    "tab": "direccion-empleo-y-trabajo",
+    "fechaCorte": "2025-12-09",
     "descripcion": "Presenta los resultados de la estrategia Full Popular, una modalidad de formación complementaria de corta duración diseñada para atender rápidamente las necesidades de capacitación de la población en competencias específicas y de alta demanda. Esta estrategia permite ampliar la cobertura del SENA con programas ágiles y focalizados que facilitan la inserción laboral y el mejoramiento de competencias técnicas en diversos sectores económicos.",
     "indicadores": [
       "Personas Formadas Full Popular",
@@ -137,8 +137,8 @@
   {
     "id": "poblaciones-vulnerables",
     "titulo": "Poblaciones Vulnerables",
-    "tab": "inclusion-social",
-    "fechaCorte": "2025-11-11",
+    "tab": "direccion-empleo-y-trabajo",
+    "fechaCorte": "2025-12-09",
     "descripcion": "Registra la atención en formación de grupos poblacionales en situación de vulnerabilidad o con necesidades especiales. Incluye personas en proceso de reintegración, población desplazada, personas con discapacidad, víctimas del conflicto, población carcelaria, entre otros. Refleja el compromiso institucional con la inclusión social y la reducción de brechas de acceso a la formación profesional.",
     "indicadores": [
       "Total Población Vulnerable Atendida",
@@ -155,9 +155,9 @@
   },
   {
     "id": "agencia-publica-empleo",
-    "titulo": "Agencia Pública de Empleo",
-    "tab": "servicios-empleo",
-    "fechaCorte": "2025-11-11",
+    "titulo": "Dirección de Empleo y Trabajo",
+    "tab": "direccion-empleo-y-trabajo",
+    "fechaCorte": "2025-12-09",
     "descripcion": "Presenta los resultados de la Agencia Pública de Empleo del SENA en la intermediación laboral y servicios de orientación ocupacional. Incluye personas registradas, vacantes publicadas, colocaciones exitosas, y servicios de orientación profesional. La APE es un servicio gratuito que conecta oferta y demanda laboral, facilitando la inserción laboral de la población colombiana.",
     "indicadores": [
       "Personas Registradas en APE",
@@ -170,8 +170,8 @@
   {
     "id": "fondo-emprender",
     "titulo": "Fondo Emprender",
-    "tab": "servicios-empleo",
-    "fechaCorte": "2025-11-11",
+    "tab": "direccion-empleo-y-trabajo",
+    "fechaCorte": "2025-12-09",
     "descripcion": "Monitorea las iniciativas empresariales financiadas por el Fondo Emprender, un capital semilla que apoya proyectos de negocio de aprendices o egresados SENA. Incluye planes de negocio aprobados, recursos desembolsados, empresas creadas, y seguimiento a la sostenibilidad de los emprendimientos. El Fondo Emprender es una de las principales herramientas del SENA para promover el emprendimiento y la generación de empleo.",
     "indicadores": [
       "Iniciativas Empresariales Financiadas",
