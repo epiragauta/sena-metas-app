@@ -63,7 +63,7 @@ export interface FormacionEstrategiaNode {
 }
 
 // Type for tab IDs
-export type TabId = 'formacion-integral' | 'certificacion-retencion' | 'inclusion-social' | 'servicios-empleo';
+export type TabId = 'formacion-integral' | 'sistema-nacional-formacion-para-el-trabajo' | 'campesena-y-full-popular' | 'direccion-empleo-y-trabajo';
 
 export interface DashboardData {
   nationalGoals: MetaNode[];
@@ -127,9 +127,9 @@ export class NationalDashboardComponent implements OnInit {
   public activeTab: TabId = 'formacion-integral';
   public tabs = [
     { id: 'formacion-integral' as TabId, label: 'Formación Profesional Integral', icon: 'school' },
-    { id: 'certificacion-retencion' as TabId, label: 'Certificación y Retención', icon: 'verified' },
-    { id: 'inclusion-social' as TabId, label: 'Programas de Inclusión Social', icon: 'agriculture' },
-    { id: 'servicios-empleo' as TabId, label: 'Servicios de Empleo', icon: 'business_center' }
+    { id: 'sistema-nacional-formacion-para-el-trabajo' as TabId, label: 'Sistema Nacional de Formación para el Trabajo', icon: 'verified' },
+    { id: 'campesena-y-full-popular' as TabId, label: 'CampeSENA y Full Popular', icon: 'agriculture' },
+    { id: 'direccion-empleo-y-trabajo' as TabId, label: 'Dirección de Empleo y Trabajo', icon: 'business_center' }
   ];
 
   constructor(
