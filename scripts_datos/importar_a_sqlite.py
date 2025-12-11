@@ -282,7 +282,8 @@ def importar_formacion_regional(conn, df):
         for indice_cupos, descripcion in descripciones:
             try:
                 meta_val = row.iloc[indice_cupos]
-                ejec_val = row.iloc[indice_cupos + 1]
+                # Se ajusta para tomar la columna de ejecución correcta (saltando una columna)
+                ejec_val = row.iloc[indice_cupos + 2]
 
                 meta = None
                 ejecucion = None
@@ -296,10 +297,11 @@ def importar_formacion_regional(conn, df):
                     ejecucion = int(float(ejec_val)) if pd.notna(ejec_val) else 0
                 except:
                     ejecucion = 0
+                
+                es_subtotal, es_total = identificar_tipo_registro(descripcion)
 
-                if meta > 0 or ejecucion > 0:
-                    es_subtotal, es_total = identificar_tipo_registro(descripcion)
-
+                # Se ajusta la condición para incluir siempre subtotales y totales
+                if meta > 0 or ejecucion > 0 or es_subtotal or es_total:
                     nivel = 0
                     if es_total:
                         nivel = 3

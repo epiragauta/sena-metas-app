@@ -204,8 +204,8 @@ export class ConsultaRegionalComponent implements OnInit {
           return;
         }
 
-        console.log(`✅ Metas cargadas: ${metasRegional.length} regionales, ${metasCentros.length} centros`);
-        console.log(`✅ Ejecución cargada: ${ejecucionRegional.length} regionales, ${ejecucionCentros.length} centros`);
+        console.log(`Metas cargadas: ${metasRegional.length} regionales, ${metasCentros.length} centros`);
+        console.log(`Ejecución cargada: ${ejecucionRegional.length} regionales, ${ejecucionCentros.length} centros`);
         this.metasDisponibles = true;
 
         // Construir estructura de regionales combinando metas y ejecución
@@ -214,7 +214,7 @@ export class ConsultaRegionalComponent implements OnInit {
       },
       error: (err) => {
         console.error('❌ Error cargando datos desde API:', err);
-        console.log('🔄 Fallback a JSON...');
+        console.log('Fallback a JSON...');
         this.cargarDesdeJSON();
       }
     });
@@ -290,7 +290,7 @@ export class ConsultaRegionalComponent implements OnInit {
       this.onRegionalChange();
     }
 
-    console.log(`✅ Estructura construida: ${this.regionales.length} regionales con datos combinados`);
+    console.log(`Estructura construida: ${this.regionales.length} regionales con datos combinados`);
   }
 
   /**
@@ -313,7 +313,7 @@ export class ConsultaRegionalComponent implements OnInit {
           }
 
           this.cargando = false;
-          console.log(`✅ Datos cargados desde JSON: ${this.regionales.length} regionales`);
+          console.log(`Datos cargados desde JSON: ${this.regionales.length} regionales`);
         },
         error: (err) => {
           console.error('❌ Error cargando datos desde JSON:', err);

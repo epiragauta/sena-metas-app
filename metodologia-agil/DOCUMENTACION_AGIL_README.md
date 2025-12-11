@@ -23,16 +23,16 @@ La documentación está organizada jerárquicamente desde objetivos estratégico
 La documentación sigue una jerarquía de 3 niveles:
 
 ```
-📋 INICIATIVA (Estrategia y Objetivos de Negocio)
-  └── 📦 ÉPICAS (Agrupaciones de Funcionalidades)
-       └── 📝 HISTORIAS DE USUARIO (Requisitos Detallados)
+INICIATIVA (Estrategia y Objetivos de Negocio)
+  └── ÉPICAS (Agrupaciones de Funcionalidades)
+       └── HISTORIAS DE USUARIO (Requisitos Detallados)
 ```
 
 ---
 
 ## Documentos Principales
 
-### 0. 🌐 Contexto del SIIES
+### 0. Contexto del SIIES
 **Archivo:** [`CONTEXTO_SIIES.md`](./CONTEXTO_SIIES.md)
 
 **Propósito:** Describe el ecosistema del Sistema Integrado de Información Estadística (SIIES) y posiciona este módulo como la primera victoria temprana.
@@ -53,7 +53,7 @@ La documentación sigue una jerarquía de 3 niveles:
 
 ---
 
-### 1. 📘 Metodología Ágil - Estructura
+### 1. Metodología Ágil - Estructura
 **Archivo:** [`METODOLOGIA_AGIL_ESTRUCTURA.md`](./METODOLOGIA_AGIL_ESTRUCTURA.md)
 
 **Propósito:** Describe la organización general de la documentación ágil, convenciones utilizadas y estructura jerárquica.
@@ -71,7 +71,7 @@ La documentación sigue una jerarquía de 3 niveles:
 
 ---
 
-### 2. 🎯 Iniciativa del Proyecto
+### 2. Iniciativa del Proyecto
 **Archivo:** [`INICIATIVA.md`](./INICIATIVA.md)
 
 **Propósito:** Define el objetivo estratégico del proyecto, problema de negocio, beneficios esperados y visión de alto nivel.
@@ -94,7 +94,7 @@ La documentación sigue una jerarquía de 3 niveles:
 
 ---
 
-### 3. 📦 Épicas
+### 3. Épicas
 **Archivo:** [`EPICAS.md`](./EPICAS.md)
 
 **Propósito:** Describe las 5 épicas principales que agrupan funcionalidades del sistema.
@@ -133,7 +133,7 @@ La documentación sigue una jerarquía de 3 niveles:
 
 ---
 
-### 4. 📝 Historias de Usuario
+### 4. Historias de Usuario
 **Archivo:** [`HISTORIAS_USUARIO.md`](./HISTORIAS_USUARIO.md)
 
 **Propósito:** Detalla las 20 historias de usuario con criterios de aceptación en formato Given-When-Then.
@@ -190,14 +190,14 @@ La documentación sigue una jerarquía de 3 niveles:
 
 Esta versión de la documentación cubre únicamente los componentes en **estado de liberación**:
 
-### ✅ Dashboard Nacional
+### Dashboard Nacional
 - **Componente:** `national-dashboard.component.ts`
 - **Ruta:** `/dashboard-nacional`
 - **Descripción:** Visualización ejecutiva de todas las metas a nivel nacional
 - **Épica:** EP-001
 - **Historias:** HU-001, HU-002, HU-003, HU-004, HU-005, HU-006
 
-### ✅ Consulta Regional
+### Consulta Regional
 - **Componente:** `consulta-regional.component.ts`
 - **Ruta:** `/consulta-regional`
 - **Descripción:** Consulta de métricas por regional y centro de formación
@@ -316,14 +316,14 @@ Esta versión de la documentación cubre únicamente los componentes en **estado
 
 Una historia de usuario se considera **COMPLETADA** cuando:
 
-- ✅ Código implementado y funcional
-- ✅ Criterios de aceptación validados
-- ✅ Code review completado
-- ✅ Pruebas unitarias ejecutadas (si aplica)
-- ✅ Pruebas de integración pasadas
-- ✅ Documentación técnica actualizada
-- ✅ Demo exitosa al Product Owner
-- ✅ Deploy a ambiente de pruebas
+- Código implementado y funcional
+- Criterios de aceptación validados
+- Code review completado
+- Pruebas unitarias ejecutadas (si aplica)
+- Pruebas de integración pasadas
+- Documentación técnica actualizada
+- Demo exitosa al Product Owner
+- Deploy a ambiente de pruebas
 
 ---
 
@@ -343,11 +343,11 @@ Estos se documentarán en futuras iteraciones del proyecto.
 
 | ID | Nombre | Prioridad | Estado |
 |----|--------|-----------|--------|
-| EP-006 | Visualización Geográfica con Mapas | Media | 📋 Planificado |
-| EP-007 | Gestión de Usuarios y Permisos | Baja | 📋 Planificado |
-| EP-008 | Alertas y Notificaciones | Media | 💭 Ideación |
-| EP-009 | Análisis Predictivo | Baja | 💭 Ideación |
-| EP-010 | Módulo de Configuración de Metas | Media | 📋 Planificado |
+| EP-006 | Visualización Geográfica con Mapas | Media | Planificado |
+| EP-007 | Gestión de Usuarios y Permisos | Baja | Planificado |
+| EP-008 | Alertas y Notificaciones | Media | Ideación |
+| EP-009 | Análisis Predictivo | Baja | Ideación |
+| EP-010 | Módulo de Configuración de Metas | Media | Planificado |
 
 ---
 
@@ -404,9 +404,3 @@ Esta documentación representa el estado del proyecto al **2025-12-10**.
 
 Los componentes **Dashboard Nacional** y **Consulta Regional** están en **estado de liberación** y listos para producción.
 
-Para información sobre otros componentes del sistema, consultar documentación futura o contactar al equipo de desarrollo.
-
----
-
-**Última actualización:** 2025-12-10
-**Mantenido por:** Equipo de Desarrollo SENA

@@ -2,7 +2,7 @@
 
 Normalización y gestión de datos para el seguimiento de metas de formación profesional integral del SENA.
 
-## 📋 Contenido
+## Contenido
 
 - [Descripción](#descripción)
 - [Estructura de Archivos](#estructura-de-archivos)

@@ -40,7 +40,7 @@ Las épicas documentadas representan funcionalidades que serán **reutilizadas y
 | **ID** | EP-001 |
 | **Nombre** | Dashboard Nacional de Seguimiento |
 | **Iniciativa** | INIT-SENA-METAS-001 |
-| **Estado** | ✅ Completado |
+| **Estado** | Completado |
 | **Prioridad** | Alta |
 | **Componente** | national-dashboard |
 | **Estimación** | 40 puntos de historia |
@@ -138,7 +138,7 @@ Implementar un dashboard ejecutivo a nivel nacional que permita visualizar de fo
 | **ID** | EP-002 |
 | **Nombre** | Consulta Regional y por Centros |
 | **Iniciativa** | INIT-SENA-METAS-001 |
-| **Estado** | ✅ Completado |
+| **Estado** | Completado |
 | **Prioridad** | Alta |
 | **Componente** | consulta-regional |
 | **Estimación** | 30 puntos de historia |
@@ -237,7 +237,7 @@ Desarrollar un módulo de consulta que permita seleccionar una regional y opcion
 | **ID** | EP-003 |
 | **Nombre** | Integración con Fuentes de Datos |
 | **Iniciativa** | INIT-SENA-METAS-001 |
-| **Estado** | ✅ Completado |
+| **Estado** | Completado |
 | **Prioridad** | Crítica |
 | **Componente** | Servicios (services/) |
 | **Estimación** | 25 puntos de historia |
@@ -337,7 +337,7 @@ Implementar la capa de servicios que integre todas las fuentes de datos (API RES
 | **ID** | EP-004 |
 | **Nombre** | Exportación y Reportería |
 | **Iniciativa** | INIT-SENA-METAS-001 |
-| **Estado** | ✅ Completado |
+| **Estado** | Completado |
 | **Prioridad** | Media-Alta |
 | **Componente** | Servicios (exportar-excel.service.ts) |
 | **Estimación** | 15 puntos de historia |
@@ -432,7 +432,7 @@ Implementar funcionalidad de exportación de datos a formato Excel con formato e
 | **ID** | EP-005 |
 | **Nombre** | Gestión de Información Contextual |
 | **Iniciativa** | INIT-SENA-METAS-001 |
-| **Estado** | ✅ Completado |
+| **Estado** | Completado |
 | **Prioridad** | Media |
 | **Componente** | Servicios + Componente de diálogo |
 | **Estimación** | 10 puntos de historia |
@@ -518,11 +518,11 @@ Cada sección contiene:
 
 | ID | Nombre | Prioridad | Estado | Puntos |
 |----|--------|-----------|--------|--------|
-| EP-001 | Dashboard Nacional de Seguimiento | Alta | ✅ Completado | 40 |
-| EP-002 | Consulta Regional y por Centros | Alta | ✅ Completado | 30 |
-| EP-003 | Integración con Fuentes de Datos | Crítica | ✅ Completado | 25 |
-| EP-004 | Exportación y Reportería | Media-Alta | ✅ Completado | 15 |
-| EP-005 | Gestión de Información Contextual | Media | ✅ Completado | 10 |
+| EP-001 | Dashboard Nacional de Seguimiento | Alta | Completado | 40 |
+| EP-002 | Consulta Regional y por Centros | Alta | Completado | 30 |
+| EP-003 | Integración con Fuentes de Datos | Crítica | Completado | 25 |
+| EP-004 | Exportación y Reportería | Media-Alta | Completado | 15 |
+| EP-005 | Gestión de Información Contextual | Media | Completado | 10 |
 | **TOTAL** | | | | **120 puntos** |
 
 ---
@@ -548,11 +548,11 @@ Fase 3: Visualización Regional
 
 | ID | Nombre | Prioridad | Estado |
 |----|--------|-----------|--------|
-| EP-006 | Visualización Geográfica con Mapas | Media | 📋 Planificado |
-| EP-007 | Gestión de Usuarios y Permisos | Baja | 📋 Planificado |
-| EP-008 | Alertas y Notificaciones | Media | 💭 Ideación |
-| EP-009 | Análisis Predictivo | Baja | 💭 Ideación |
-| EP-010 | Módulo de Configuración de Metas | Media | 📋 Planificado |
+| EP-006 | Visualización Geográfica con Mapas | Media | Planificado |
+| EP-007 | Gestión de Usuarios y Permisos | Baja | Planificado |
+| EP-008 | Alertas y Notificaciones | Media | Ideación |
+| EP-009 | Análisis Predictivo | Baja | Ideación |
+| EP-010 | Módulo de Configuración de Metas | Media | Planificado |
 
 ---
 

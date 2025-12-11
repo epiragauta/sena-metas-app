@@ -57,7 +57,7 @@
 | **Épica** | EP-001 |
 | **Prioridad** | Alta |
 | **Estimación** | 13 puntos |
-| **Estado** | ✅ Completado |
+| **Estado** | Completado |
 | **Sprint** | Sprint 2 |
 
 ### Historia
@@ -151,7 +151,7 @@ And el árbol debe mostrar jerarquía completa con niveles
 | **Épica** | EP-001 |
 | **Prioridad** | Alta |
 | **Estimación** | 8 puntos |
-| **Estado** | ✅ Completado |
+| **Estado** | Completado |
 | **Sprint** | Sprint 2 |
 
 ### Historia
@@ -225,7 +225,7 @@ And los semáforos deben ser visibles
 | **Épica** | EP-001 |
 | **Prioridad** | Alta |
 | **Estimación** | 10 puntos |
-| **Estado** | ✅ Completado |
+| **Estado** | Completado |
 | **Sprint** | Sprint 2 |
 
 ### Historia
@@ -299,7 +299,7 @@ And la tabla debe mostrar todas las categorías de poblaciones
 | **Épica** | EP-001 |
 | **Prioridad** | Alta |
 | **Estimación** | 9 puntos |
-| **Estado** | ✅ Completado |
+| **Estado** | Completado |
 | **Sprint** | Sprint 2 |
 
 ### Historia
@@ -383,7 +383,7 @@ And al expandir debo ver hijos (Aprendices SENA, Aprendices NO SENA)
 | **Épica** | EP-001 |
 | **Prioridad** | Media |
 | **Estimación** | 5 puntos |
-| **Estado** | ✅ Completado |
+| **Estado** | Completado |
 | **Sprint** | Sprint 3 |
 
 ### Historia
@@ -469,7 +469,7 @@ And debo ver algún indicador de que hay filtros activos
 | **Épica** | EP-001 / EP-005 |
 | **Prioridad** | Media |
 | **Estimación** | 3 puntos |
-| **Estado** | ✅ Completado |
+| **Estado** | Completado |
 | **Sprint** | Sprint 3 |
 
 ### Historia
@@ -552,7 +552,7 @@ And vuelvo a la vista del dashboard
 | **Épica** | EP-002 |
 | **Prioridad** | Alta |
 | **Estimación** | 8 puntos |
-| **Estado** | ✅ Completado |
+| **Estado** | Completado |
 | **Sprint** | Sprint 4 |
 
 ### Historia
@@ -645,7 +645,7 @@ And el indicador debe desaparecer cuando la carga finaliza
 | **Épica** | EP-002 |
 | **Prioridad** | Alta |
 | **Estimación** | 8 puntos |
-| **Estado** | ✅ Completado |
+| **Estado** | Completado |
 | **Sprint** | Sprint 4 |
 
 ### Historia
@@ -725,7 +725,7 @@ And solo quedan visibles los datos de la regional
 | **Épica** | EP-002 |
 | **Prioridad** | Media-Alta |
 | **Estimación** | 5 puntos |
-| **Estado** | ✅ Completado |
+| **Estado** | Completado |
 | **Sprint** | Sprint 4 |
 
 ### Historia
@@ -803,7 +803,7 @@ And debo poder diferenciarlos fácilmente
 | **Épica** | EP-002 |
 | **Prioridad** | Media |
 | **Estimación** | 3 puntos |
-| **Estado** | ✅ Completado |
+| **Estado** | Completado |
 | **Sprint** | Sprint 4 |
 
 ### Historia
@@ -878,7 +878,7 @@ And puedo colapsar las que no me interesan
 | **Épica** | EP-002 |
 | **Prioridad** | Media-Alta |
 | **Estimación** | 3 puntos |
-| **Estado** | ✅ Completado |
+| **Estado** | Completado |
 | **Sprint** | Sprint 4 |
 
 ### Historia
@@ -952,7 +952,7 @@ And las filas con buen desempeño (verdes)
 | **Épica** | EP-003 |
 | **Prioridad** | Crítica |
 | **Estimación** | 8 puntos |
-| **Estado** | ✅ Completado |
+| **Estado** | Completado |
 | **Sprint** | Sprint 3 |
 
 ### Historia
@@ -1019,7 +1019,7 @@ And debo ver logs de éxito con cantidad de registros
 | **Épica** | EP-003 |
 | **Prioridad** | Crítica |
 | **Estimación** | 5 puntos |
-| **Estado** | ✅ Completado |
+| **Estado** | Completado |
 | **Sprint** | Sprint 3 |
 
 ### Historia
@@ -1097,7 +1097,7 @@ And la experiencia es idéntica a usar API
 | **Épica** | EP-003 |
 | **Prioridad** | Alta |
 | **Estimación** | 5 puntos |
-| **Estado** | ✅ Completado |
+| **Estado** | Completado |
 | **Sprint** | Sprint 3 |
 
 ### Historia
@@ -1165,7 +1165,7 @@ And los totales al final de sus secciones
 | **Épica** | EP-003 |
 | **Prioridad** | Media |
 | **Estimación** | 4 puntos |
-| **Estado** | ✅ Completado |
+| **Estado** | Completado |
 | **Sprint** | Sprint 3 |
 
 ### Historia
@@ -1234,7 +1234,7 @@ And ayuda a debugging
 | **Épica** | EP-004 |
 | **Prioridad** | Alta |
 | **Estimación** | 5 puntos |
-| **Estado** | ✅ Completado |
+| **Estado** | Completado |
 | **Sprint** | Sprint 5 |
 
 ### Historia
@@ -1313,7 +1313,7 @@ And totales destacados con fondo gris oscuro
 | **Épica** | EP-004 |
 | **Prioridad** | Alta |
 | **Estimación** | 5 puntos |
-| **Estado** | ✅ Completado |
+| **Estado** | Completado |
 | **Sprint** | Sprint 5 |
 
 ### Historia
@@ -1381,7 +1381,7 @@ And me indica que debo seleccionar un centro
 | **Épica** | EP-004 |
 | **Prioridad** | Media |
 | **Estimación** | 5 puntos |
-| **Estado** | ✅ Completado |
+| **Estado** | Completado |
 | **Sprint** | Sprint 5 |
 
 ### Historia
@@ -1457,7 +1457,7 @@ Then tiene formato de porcentaje con 2 decimales
 | **Épica** | EP-005 |
 | **Prioridad** | Media |
 | **Estimación** | 3 puntos |
-| **Estado** | ✅ Completado |
+| **Estado** | Completado |
 | **Sprint** | Sprint 3 |
 
 **Ver detalles en HU-006** (duplicada conceptualmente, documentada en EP-001 y EP-005)
@@ -1474,7 +1474,7 @@ Then tiene formato de porcentaje con 2 decimales
 | **Épica** | EP-005 |
 | **Prioridad** | Baja |
 | **Estimación** | 1 punto |
-| **Estado** | ✅ Completado |
+| **Estado** | Completado |
 | **Sprint** | Sprint 3 |
 
 ### Historia
@@ -1535,11 +1535,11 @@ Then el diálogo se cierra
 
 | Épica | Cantidad HU | Puntos Totales | Estado |
 |-------|-------------|----------------|--------|
-| EP-001 | 6 | 48 | ✅ Completado |
-| EP-002 | 5 | 27 | ✅ Completado |
-| EP-003 | 4 | 22 | ✅ Completado |
-| EP-004 | 3 | 15 | ✅ Completado |
-| EP-005 | 2 | 4 | ✅ Completado |
+| EP-001 | 6 | 48 | Completado |
+| EP-002 | 5 | 27 | Completado |
+| EP-003 | 4 | 22 | Completado |
+| EP-004 | 3 | 15 | Completado |
+| EP-005 | 2 | 4 | Completado |
 | **TOTAL** | **20** | **116** | |
 
 ### Por Prioridad
@@ -1556,9 +1556,9 @@ Then el diálogo se cierra
 
 | Estado | Cantidad |
 |--------|----------|
-| ✅ Completado | 20 |
-| 🔄 En Progreso | 0 |
-| 📋 Por Hacer | 0 |
+| Completado | 20 |
+| En Progreso | 0 |
+| Por Hacer | 0 |
 
 ---
 

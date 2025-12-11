@@ -169,12 +169,12 @@ El SIIES se implementará progresivamente durante 2025-2027 mediante módulos es
 
 | Módulo | Estado | Descripción |
 |--------|--------|-------------|
-| **Seguimiento de Metas** | ✅ V1.0 Liberación | Visualización de metas e indicadores FPI (ESTE MÓDULO) |
-| Estadísticas SOFIA Plus | 📋 Planificado | Análisis académico y cobertura |
-| Estadísticas APE | 📋 Planificado | Agencia Pública de Empleo |
-| Estadísticas SNFT | 📋 Planificado | Sistema Nacional de Formación para el Trabajo |
-| Tablero de Control Directivo | 📋 Planificado | KPIs ejecutivos consolidados |
-| Repositorio de Metadatos | 📋 Planificado | Documentación de procesos estadísticos |
+| **Seguimiento de Metas** | V1.0 Liberación | Visualización de metas e indicadores FPI (ESTE MÓDULO) |
+| Estadísticas SOFIA Plus | Planificado | Análisis académico y cobertura |
+| Estadísticas APE | Planificado | Agencia Pública de Empleo |
+| Estadísticas SNFT | Planificado | Sistema Nacional de Formación para el Trabajo |
+| Tablero de Control Directivo | Planificado | KPIs ejecutivos consolidados |
+| Repositorio de Metadatos | Planificado | Documentación de procesos estadísticos |
 
 ### Rol del Módulo de Seguimiento de Metas en el SIIES
 
@@ -382,11 +382,11 @@ Este módulo es la **primera victoria temprana** del SIIES y establece:
 
 ### Hitos Clave
 
-- ✅ **H1:** Aprobación de diseño (Completado)
-- ✅ **H2:** Dashboard Nacional funcional (Completado)
-- ✅ **H3:** Consulta Regional funcional (Completado)
-- ✅ **H4:** Integración con API completada (Completado)
-- 🔄 **H5:** Testing completo (En Progreso)
+- **H1:** Aprobación de diseño (Completado)
+- **H2:** Dashboard Nacional funcional (Completado)
+- **H3:** Consulta Regional funcional (Completado)
+- **H4:** Integración con API completada (Completado)
+- **H5:** Testing completo (En Progreso)
 - ⏳ **H6:** Go-Live Producción (Pendiente)
 
 ---

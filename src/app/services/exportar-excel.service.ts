@@ -297,7 +297,7 @@ export class ExportExcelService {
             // Descargar archivo
             const tipoExporte = soloRegional ? 'Regional' : 'Completo';
             const nombreArchivo = `Seguimiento_Metas_${tipoExporte}_${regionalNombre}_${new Date().toISOString().slice(0, 10)}.xlsx`;
-            console.log('✅ Generando archivo:', nombreArchivo);
+            console.log('Generando archivo:', nombreArchivo);
 
             // Si es soloRegional, limpiar las columnas vacías (E-I)
             if (soloRegional) {
@@ -326,8 +326,8 @@ export class ExportExcelService {
                 link.download = nombreArchivo;
                 link.click();
                 URL.revokeObjectURL(link.href);
-                console.log('✅ Excel descargado correctamente');
-                alert('✅ Excel descargado correctamente');
+                console.log('Excel descargado correctamente');
+                alert('Excel descargado correctamente');
             });
 
         } catch (error) {

@@ -105,22 +105,22 @@ El SIIES se implementará mediante **módulos especializados** durante 2025-2027
 #### Fase 1: Victorias Tempranas (2025)
 | Módulo | Prioridad | Estado | Impacto |
 |--------|-----------|--------|---------|
-| **Seguimiento de Metas** | ALTA | ✅ V1.0 | Automatización GGIER |
-| Tablero Ejecutivo FPI | ALTA | 📋 Planificado | Decisiones directivas |
+| **Seguimiento de Metas** | ALTA | V1.0 | Automatización GGIER |
+| Tablero Ejecutivo FPI | ALTA | Planificado | Decisiones directivas |
 
 #### Fase 2: Expansión (2026)
 | Módulo | Prioridad | Estado | Impacto |
 |--------|-----------|--------|---------|
-| Estadísticas SOFIA Plus | MEDIA | 📋 Planificado | Análisis académico |
-| Estadísticas APE | MEDIA | 📋 Planificado | Gestión de empleo |
-| Estadísticas SNFT | MEDIA | 📋 Planificado | Competencias laborales |
+| Estadísticas SOFIA Plus | MEDIA | Planificado | Análisis académico |
+| Estadísticas APE | MEDIA | Planificado | Gestión de empleo |
+| Estadísticas SNFT | MEDIA | Planificado | Competencias laborales |
 
 #### Fase 3: Consolidación (2027)
 | Módulo | Prioridad | Estado | Impacto |
 |--------|-----------|--------|---------|
-| Repositorio de Metadatos | ALTA | 💭 Ideación | Gobierno de datos |
-| Portal de Datos Abiertos | MEDIA | 💭 Ideación | Transparencia |
-| Sistema de Calidad Estadística | ALTA | 💭 Ideación | Certificación DANE |
+| Repositorio de Metadatos | ALTA | Ideación | Gobierno de datos |
+| Portal de Datos Abiertos | MEDIA | Ideación | Transparencia |
+| Sistema de Calidad Estadística | ALTA | Ideación | Certificación DANE |
 
 ---
 
