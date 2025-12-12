@@ -63,7 +63,7 @@ export interface FormacionEstrategiaNode {
 }
 
 // Type for tab IDs
-export type TabId = 'formacion-integral' | 'sistema-nacional-formacion-para-el-trabajo' | 'campesena-y-full-popular' | 'direccion-empleo-y-trabajo';
+export type TabId = 'formacion-integral' | 'sistema-nacional-formacion-para-el-trabajo' | 'campesena-y-full-popular' | 'direccion-empleo-y-trabajo' | 'relaciones-corporativas';
 
 export interface DashboardData {
   nationalGoals: MetaNode[];
@@ -130,6 +130,7 @@ export class NationalDashboardComponent implements OnInit {
     { id: 'sistema-nacional-formacion-para-el-trabajo' as TabId, label: 'Sistema Nacional de Formación para el Trabajo', icon: 'verified' },
     { id: 'direccion-empleo-y-trabajo' as TabId, label: 'Dirección de Empleo y Trabajo', icon: 'business_center' },
     { id: 'campesena-y-full-popular' as TabId, label: 'CampeSENA y Full Popular', icon: 'agriculture' },    
+    { id: 'relaciones-corporativas' as TabId, label: 'Relaciones Corporativas', icon: 'handshake' }
   ];
 
   constructor(
