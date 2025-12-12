@@ -1172,7 +1172,47 @@
 
   <!-- Tab Content: CampeSENA y Full Popular -->
   <div *ngIf="isTabActive('campesena-y-full-popular')" class="tab-content fade-in">
-    
+
+    <!-- PRODUCTIVIDAD CAMPESENA -->
+    <div *ngIf="data.productividadCampesena && data.productividadCampesena.length > 0" class="data-section">
+      <h2 class="section-title">
+        <span>Productividad CampeSENA</span>
+        <button mat-icon-button class="info-button" (click)="openSeccionInfo('productividad-campesena')" aria-label="Más información sobre Productividad CampeSENA">
+          <mat-icon>info_outline</mat-icon>
+        </button>
+      </h2>
+
+        <!-- Una fila con 4 tarjetas -->
+        <div class="productividad-campesena-grid">
+          <div class="programa-card"
+               *ngFor="let node of data.productividadCampesena; trackBy: trackByHierarchyId">
+            <div class="programa-card-header">
+              <h4 class="programa-title">{{ node.descripcion }}</h4>
+            </div>
+
+            <div class="programa-metrics">
+              <div class="progress" [class.has-overflow]="node.porcentaje > 100">
+                <div class="progress-bar" [ngClass]="getClasePorcentaje(node.porcentaje / 100)"
+                  [style.width.%]="node.porcentaje > 100 ? 100 : node.porcentaje">
+                  {{ node.porcentaje / 100 | percent:'1.2-2' }}
+                </div>
+              </div>
+
+              <div class="programa-values">
+                <div class="value-item">
+                  <span class="value-label">Meta:</span>
+                  <span class="value-number">{{ node.meta | number:'1.0-0' }}</span>
+                </div>
+                <div class="value-item">
+                  <span class="value-label">Ejecución:</span>
+                  <span class="value-number">{{ node.ejecucion | number:'1.0-0' }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
     <!-- FULL POPULAR -->
     <div *ngIf="data.productividadFullPopularRoot" class="data-section section-odd">
       <h2 class="section-title">
