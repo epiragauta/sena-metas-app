@@ -128,8 +128,8 @@ export class NationalDashboardComponent implements OnInit {
   public tabs = [
     { id: 'formacion-integral' as TabId, label: 'Formación Profesional Integral', icon: 'school' },
     { id: 'sistema-nacional-formacion-para-el-trabajo' as TabId, label: 'Sistema Nacional de Formación para el Trabajo', icon: 'verified' },
-    { id: 'campesena-y-full-popular' as TabId, label: 'CampeSENA y Full Popular', icon: 'agriculture' },
-    { id: 'direccion-empleo-y-trabajo' as TabId, label: 'Dirección de Empleo y Trabajo', icon: 'business_center' }
+    { id: 'direccion-empleo-y-trabajo' as TabId, label: 'Dirección de Empleo y Trabajo', icon: 'business_center' },
+    { id: 'campesena-y-full-popular' as TabId, label: 'CampeSENA y Full Popular', icon: 'agriculture' },    
   ];
 
   constructor(
