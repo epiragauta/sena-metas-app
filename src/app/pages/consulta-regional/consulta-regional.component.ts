@@ -426,8 +426,9 @@ export class ConsultaRegionalComponent implements OnInit {
   }
 
   getBadgeClass(porcentaje: number): string {
+    if (porcentaje > 100.59) return 'badge-over';
     if (porcentaje >= 90) return 'badge-success';
-    if (porcentaje >= 70) return 'badge-warning';
+    if (porcentaje >= 83) return 'badge-warning';
     return 'badge-danger';
   }
 
