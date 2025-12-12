@@ -407,22 +407,35 @@ export class ConsultaRegionalComponent implements OnInit {
     this.ordenSubcategorias.forEach(orden => {
       let dato = mapaSubcategorias.get(orden.nombre);
 
-      // Si no existe y es "SubTotal Tecnólogos (E)", usar el calculado
       if (!dato && orden.nombre === 'SubTotal Tecnólogos (E)' && subtotalTecnologos) {
         dato = subtotalTecnologos;
       }
 
       if (dato) {
+        if (dato.cupos === 0 && dato.ejecucion === 0) {
+          return;
+        }
+
+        const tieneError = dato.cupos === 0 && dato.ejecucion > 0;
+        if (tieneError) {
+          console.error(`Error de datos: "${dato.subcategoria}" tiene ejecución (${dato.ejecucion}) pero sin meta (cupos=0)`, dato);
+        }
+
         resultado.push({
           ...dato,
           esSubtotal: orden.esSubtotal || false,
           esTotal: orden.esTotal || false,
-          indentacion: `${orden.nivel * 20}px`
+          indentacion: `${orden.nivel * 20}px`,
+          tieneError: tieneError
         });
       }
     });
 
     return resultado;
+  }
+
+  tieneErrorDummy(item: any): boolean {
+    return item.meta === 0 && item.ejecucion > 0;
   }
 
   getBadgeClass(porcentaje: number): string {
