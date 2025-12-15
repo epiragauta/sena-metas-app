@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, CurrencyPipe, DecimalPipe, PercentPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { forkJoin, Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { forkJoin, Observable, of } from 'rxjs';
+import { map, take, catchError } from 'rxjs/operators';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 import { MongoDBService } from '../../services/mongodb.service';
 import { MetasService } from '../../services/metas.service';
+import { XlsbApiService } from '../../services/xlsb-api.service';
 import { SeccionesInfoService } from '../../services/secciones-info.service';
 import { SeccionInfoDialogComponent } from '../../components/seccion-info-dialog.component';
 import {
@@ -66,10 +67,10 @@ export interface FormacionEstrategiaNode {
 export type TabId = 'formacion-integral' | 'sistema-nacional-formacion-para-el-trabajo' | 'campesena-y-full-popular' | 'direccion-empleo-y-trabajo' | 'relaciones-corporativas';
 
 export interface DashboardData {
-  nationalGoals: MetaNode[];
-  formacionPorNivelTree: NivelNode[];
-  programasRelevantes: ProgramaRelevante[];
-  metasPrimerCurso: MetasPrimerCurso;
+  nationalGoals?: MetaNode[];
+  formacionPorNivelTree?: NivelNode[];
+  programasRelevantes?: ProgramaRelevante[];
+  metasPrimerCurso?: MetasPrimerCurso;
   hierarchyTree?: HierarchyNode[];
   hierarchyRoot?: HierarchyNode | any;
   formacionEstrategiaTree?: FormacionEstrategiaNode[];
@@ -136,6 +137,7 @@ export class NationalDashboardComponent implements OnInit {
   constructor(
     private metasService: MetasService,
     private mongoDBService: MongoDBService,
+    private xlsbApi: XlsbApiService,
     private seccionesInfoService: SeccionesInfoService,
     private dialog: MatDialog
   ) { }
@@ -155,11 +157,30 @@ export class NationalDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.dashboardData$ = forkJoin({
-      metas: this.metasService.getMetas(),
-      jerarquias: this.metasService.getJerarquias(),
-      formacionPorNivel: this.metasService.getFormacionPorNivel(),
-      programasRelevantes: this.metasService.getProgramasRelevantes(),
-      metasPrimerCurso: this.metasService.getPrimerCurso(),
+      metasRegional: this.xlsbApi.getMetasRegional().pipe(
+        catchError(err => {
+          console.warn('⚠️ Error cargando metas regionales desde API:', err);
+          return of([]);
+        })
+      ),
+      metasCentros: this.xlsbApi.getMetasCentros().pipe(
+        catchError(err => {
+          console.warn('⚠️ Error cargando metas de centros desde API:', err);
+          return of([]);
+        })
+      ),
+      ejecucionRegional: this.xlsbApi.getEjecucionRegional().pipe(
+        catchError(err => {
+          console.warn('⚠️ Error cargando ejecución regional desde API:', err);
+          return of([]);
+        })
+      ),
+      ejecucionCentros: this.xlsbApi.getEjecucionCentros().pipe(
+        catchError(err => {
+          console.warn('⚠️ Error cargando ejecución de centros desde API:', err);
+          return of([]);
+        })
+      ),
       metasJerarquia: this.metasService.getMetasJerarquia(),
       formacionPorEstrategia: this.metasService.getFormacionPorEstrategia(),
       arbolRetencion: this.mongoDBService.getArbolRetencionConEjecuciones(),
@@ -180,6 +201,9 @@ export class NationalDashboardComponent implements OnInit {
     }).pipe(
       map(results => {
         this.cargando = false;
+        console.log('✅ Datos cargados desde APIs');
+        console.log('Metas regionales:', results.metasRegional.length);
+        console.log('Metas centros:', results.metasCentros.length);
 
         const hierarchyTree = this.buildHierarchyTree(results.metasJerarquia);
         const hierarchyRoot = results.formacionProfesionalIntegral;
@@ -223,10 +247,10 @@ export class NationalDashboardComponent implements OnInit {
         console.log('Contratos Aprendizaje - Total nodos:', contratosAprendizaje.length, 'Principal:', contratosAprendizajePrincipal?.id);
 
         return {
-          nationalGoals: this.buildTree(results.metas, results.jerarquias),
-          formacionPorNivelTree: this.buildNivelTree(results.formacionPorNivel),
-          programasRelevantes: results.programasRelevantes,
-          metasPrimerCurso: results.metasPrimerCurso,
+          nationalGoals: [],
+          formacionPorNivelTree: [],
+          programasRelevantes: [],
+          metasPrimerCurso: undefined,
           hierarchyTree: hierarchyTree,
           hierarchyRoot: hierarchyRoot,
           formacionEstrategiaTree: formacionEstrategiaTree,
@@ -251,7 +275,7 @@ export class NationalDashboardComponent implements OnInit {
           formacionProfesionalIntegral: results.formacionProfesionalIntegral,
           arbolRetencion: results.arbolRetencion,
           arbolCertificacion: results.arbolCertificacion
-        };
+        } as DashboardData;
       })
     );
   }
