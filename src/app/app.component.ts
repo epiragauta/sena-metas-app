@@ -13,6 +13,6 @@ import { FooterComponent } from './components/footer/footer.component';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'SENA - Seguimiento de Metas';
+  title = 'SENA - SIIES - Seguimiento de Metas';
 }
 
