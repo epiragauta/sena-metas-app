@@ -791,8 +791,8 @@
 }
 
 .child-values {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  justify-content: space-between;
   gap: 0.6rem;
   margin-top: 0.15rem;
   padding: 0;
@@ -803,7 +803,18 @@
   flex-direction: row;
   align-items: center;
   font-size: 0.75rem;
-  gap: 0;
+  gap: 0.25rem;
+  flex-shrink: 1;
+  min-width: 0;
+
+  &:first-child {
+    justify-content: flex-start;
+  }
+
+  &:last-child {
+    justify-content: flex-end;
+    margin-left: auto;
+  }
 }
 
 .value-label {
@@ -819,9 +830,9 @@
   font-weight: 700;
   color: var(--sena-verde);
   white-space: nowrap;
-  margin-left: auto;
-  text-align: right;
-  padding-left: 0.4rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 
 // ================================================
@@ -1583,14 +1594,16 @@
   flex-direction: column;
 }
 
-// Tabla de detalles debajo de la tarjeta seleccionada
+// Tabla de detalles - ahora al nivel del grid, ocupa todo el ancho
 .retencion-detalle-table {
+  grid-column: 1 / -1; // Ocupa todas las columnas del grid
   margin-top: 1rem;
   background: white;
   border-radius: 8px;
   border: 2px solid var(--sena-verde);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  width: 100%;
 }
 
 .detalle-header {
@@ -2012,10 +2025,10 @@
   flex-direction: row;
   align-items: center;
   gap: 0.5rem;
-  min-width: 130px;
-  width: 130px;
+  min-width: 180px; // Aumentado de 130px para que quepa label + badge
+  width: auto; // Flexible en lugar de fijo
   flex-shrink: 0;
-  justify-content: space-between;
+  justify-content: flex-start; // Alineación al inicio
 
   .metric-label {
     font-size: 0.75rem;
@@ -2119,12 +2132,14 @@
   flex-direction: row;
   align-items: center;
   gap: 0.5rem;
+  min-width: 180px; // Asegura espacio para label + badge
 
   .estrategia-label {
     font-size: 0.75rem;
     color: #666;
     font-weight: 500;
     white-space: nowrap;
+    flex-shrink: 0; // Evita que el label se comprima
   }
 }
 
