@@ -2007,17 +2007,12 @@
 }
 
 .hierarchy-metrics {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(180px, 1fr));
+  gap: 1rem;
   align-items: center;
-  gap: 1.5rem;
-}
-
-.hierarchy-metrics {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  overflow: hidden;
-  flex-wrap: nowrap;
+  width: 100%;
+  max-width: 600px;
 }
 
 .hierarchy-metric-item {
@@ -2025,10 +2020,7 @@
   flex-direction: row;
   align-items: center;
   gap: 0.5rem;
-  min-width: 180px; // Aumentado de 130px para que quepa label + badge
-  width: auto; // Flexible en lugar de fijo
-  flex-shrink: 0;
-  justify-content: flex-start; // Alineación al inicio
+  justify-content: flex-start;
 
   .metric-label {
     font-size: 0.75rem;
@@ -2144,6 +2136,13 @@
 }
 
 // Responsive para Hierarchy Tree
+@media (max-width: 1024px) {
+  .hierarchy-metrics {
+    grid-template-columns: repeat(2, minmax(160px, 1fr));
+    max-width: 100%;
+  }
+}
+
 @media (max-width: 768px) {
   .hierarchy-node-header {
     flex-direction: column;
@@ -2158,8 +2157,8 @@
   }
 
   .hierarchy-metrics {
+    grid-template-columns: 1fr;
     width: 100%;
-    flex-wrap: wrap;
     gap: 0.75rem;
   }
 

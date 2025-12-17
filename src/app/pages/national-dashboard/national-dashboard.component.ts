@@ -197,7 +197,20 @@ export class NationalDashboardComponent implements OnInit {
       jerarquiasCuposFIC: this.metasService.getJerarquiasCuposFIC(),
       metasFondoEmprender: this.metasService.getMetasFondoEmprender(),
       metasContratosAprendizaje: this.metasService.getMetasContratosAprendizaje(),
-      formacionProfesionalIntegral: this.mongoDBService.getArbolFPIConEjecuciones()
+      formacionProfesionalIntegral: this.mongoDBService.getArbolFPIConEjecuciones(),
+      // Nuevas llamadas para programas relevantes y primer curso
+      programasRelevantes: this.metasService.getProgramasRelevantes().pipe(
+        catchError(err => {
+          console.warn('⚠️ Error cargando programas relevantes:', err);
+          return of([]);
+        })
+      ),
+      metasPrimerCurso: this.metasService.getMetasPrimerCurso().pipe(
+        catchError(err => {
+          console.warn('⚠️ Error cargando metas primer curso:', err);
+          return of(undefined);
+        })
+      )
     }).pipe(
       map(results => {
         this.cargando = false;
@@ -246,11 +259,19 @@ export class NationalDashboardComponent implements OnInit {
         const contratosAprendizajePrincipal = contratosAprendizaje.find(node => node.id === '3');
         console.log('Contratos Aprendizaje - Total nodos:', contratosAprendizaje.length, 'Principal:', contratosAprendizajePrincipal?.id);
 
+        // DEBUG: Log de programas relevantes y metas primer curso
+        console.group('🔍 DEBUG - Construcción de DashboardData');
+        console.log('📊 programasRelevantes asignado:', results.programasRelevantes);
+        console.log('   - Length:', results.programasRelevantes?.length || 0);
+        console.log('📈 metasPrimerCurso asignado:', results.metasPrimerCurso);
+        console.log('   - Existe:', !!results.metasPrimerCurso);
+        console.groupEnd();
+
         return {
           nationalGoals: [],
           formacionPorNivelTree: [],
-          programasRelevantes: [],
-          metasPrimerCurso: undefined,
+          programasRelevantes: results.programasRelevantes,
+          metasPrimerCurso: results.metasPrimerCurso,
           hierarchyTree: hierarchyTree,
           hierarchyRoot: hierarchyRoot,
           formacionEstrategiaTree: formacionEstrategiaTree,
@@ -1228,6 +1249,23 @@ export class NationalDashboardComponent implements OnInit {
   // ====================================
   // INFO DIALOG
   // ====================================
+
+  /**
+   * Método para debug: Loggea información sobre programas relevantes y metas primer curso
+   */
+  public logProgramasData(data: DashboardData): string {
+    console.group('🔍 DEBUG - Metas Programas Relevantes y Primer Curso');
+    console.log('📊 programasRelevantes:', data.programasRelevantes);
+    console.log('   - Existe:', !!data.programasRelevantes);
+    console.log('   - Length:', data.programasRelevantes?.length || 0);
+    console.log('   - Datos:', data.programasRelevantes);
+    console.log('📈 metasPrimerCurso:', data.metasPrimerCurso);
+    console.log('   - Existe:', !!data.metasPrimerCurso);
+    console.log('   - Datos:', data.metasPrimerCurso);
+    console.log('✅ Condición *ngIf evaluada:', (data.programasRelevantes && data.programasRelevantes.length > 0) || data.metasPrimerCurso);
+    console.groupEnd();
+    return ''; // Retorna string vacío para no mostrar nada en el template
+  }
 
   /**
    * Abre el diálogo de información para una sección específica

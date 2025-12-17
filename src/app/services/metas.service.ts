@@ -82,7 +82,7 @@ export class MetasService {
   }
 
   /**
-   * Obtiene primer curso
+   * Obtiene primer curso desde referencias_totales.json (DEPRECATED)
    */
   getPrimerCurso(): Observable<MetasPrimerCurso> {
     return this.http.get<any>(`${this.basePath}/referencias_totales.json`).pipe(
@@ -110,6 +110,13 @@ export class MetasService {
         };
       })
     );
+  }
+
+  /**
+   * Obtiene metas primer curso desde archivo JSON dedicado
+   */
+  getMetasPrimerCurso(): Observable<MetasPrimerCurso> {
+    return this.http.get<MetasPrimerCurso>('../assets/metas_primer_curso.json');
   }
 
   /**
