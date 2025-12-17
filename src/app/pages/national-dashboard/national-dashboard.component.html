@@ -9,10 +9,8 @@
 
   <!-- Tabs Navigation -->
   <div class="tabs-navigation">
-    <button *ngFor="let tab of tabs"
-            class="tab-button"
-            [class.active]="isTabActive(tab.id)"
-            (click)="selectTab(tab.id)">
+    <button *ngFor="let tab of tabs" class="tab-button" [class.active]="isTabActive(tab.id)"
+      (click)="selectTab(tab.id)">
       <mat-icon class="tab-icon">{{ tab.icon }}</mat-icon>
       <span class="tab-label">{{ tab.label }}</span>
     </button>
@@ -22,18 +20,9 @@
   <div class="search-container" style="display: none;">
     <div class="search-input-wrapper">
       <mat-icon class="search-icon">search</mat-icon>
-      <input
-        type="text"
-        class="search-input"
-        placeholder="Buscar indicadores por nombre..."
-        [(ngModel)]="searchTerm"
-        (input)="searchTerm = $any($event.target).value"
-      />
-      <button
-        *ngIf="hasActiveSearch"
-        class="clear-search-btn"
-        (click)="clearSearch()"
-        title="Limpiar búsqueda">
+      <input type="text" class="search-input" placeholder="Buscar indicadores por nombre..." [(ngModel)]="searchTerm"
+        (input)="searchTerm = $any($event.target).value" />
+      <button *ngIf="hasActiveSearch" class="clear-search-btn" (click)="clearSearch()" title="Limpiar búsqueda">
         <mat-icon>close</mat-icon>
       </button>
     </div>
@@ -53,7 +42,8 @@
       <div class="data-section">
         <h2 class="section-title">
           <span>Metas Formación Profesional Integral</span>
-          <button mat-icon-button class="info-button" (click)="openSeccionInfo('metas-formacion-profesional-integral')" aria-label="Más información sobre Metas Formación Profesional Integral">
+          <button mat-icon-button class="info-button" (click)="openSeccionInfo('metas-formacion-profesional-integral')"
+            aria-label="Más información sobre Metas Formación Profesional Integral">
             <mat-icon>info_outline</mat-icon>
           </button>
         </h2>
@@ -63,7 +53,7 @@
           <!-- Parent Card -->
           <div class="parent-card">
             <div class="parent-header" (click)="toggleHierarchyNode(data.hierarchyRoot)"
-                [class.expandable]="data.hierarchyRoot.children.length > 0">
+              [class.expandable]="data.hierarchyRoot.children.length > 0">
               <div class="parent-title-section">
                 <span class="toggle-icon" *ngIf="data.hierarchyRoot.children.length > 0">
                   {{ data.hierarchyRoot.isCollapsed ? '►' : '▼' }}
@@ -93,11 +83,11 @@
             </div>
 
             <!-- Children Cards (Horizontal Layout) - Solo segundo nivel -->
-            <div class="children-cards-grid" *ngIf="!data.hierarchyRoot.isCollapsed && data.hierarchyRoot.children.length > 0">
+            <div class="children-cards-grid"
+              *ngIf="!data.hierarchyRoot.isCollapsed && data.hierarchyRoot.children.length > 0">
               <div class="child-card"
-                  *ngFor="let child of getSecondLevelChildren(data.hierarchyRoot); trackBy: trackByHierarchyId"
-                  [class.child-card-selected]="isNodeSelectedForTree(child)"
-                  (click)="selectNodeForTree(child)">
+                *ngFor="let child of getSecondLevelChildren(data.hierarchyRoot); trackBy: trackByHierarchyId"
+                [class.child-card-selected]="isNodeSelectedForTree(child)" (click)="selectNodeForTree(child)">
                 <div class="child-card-header">
                   <h4 class="child-title">{{ removeParentheses(child.descripcion) }}</h4>
                 </div>
@@ -166,7 +156,8 @@
       <div *ngIf="data.formacionEstrategiaRoot" class="data-section section-odd">
         <h2 class="section-title">
           <span>Metas por Estrategias de Formación</span>
-          <button mat-icon-button class="info-button" (click)="openSeccionInfo('metas-estrategias-formacion')" aria-label="Más información sobre Metas por Estrategias de Formación">
+          <button mat-icon-button class="info-button" (click)="openSeccionInfo('metas-estrategias-formacion')"
+            aria-label="Más información sobre Metas por Estrategias de Formación">
             <mat-icon>info_outline</mat-icon>
           </button>
         </h2>
@@ -174,9 +165,9 @@
         <!-- Tarjetas Directas (sin tarjeta padre, solo las hijas) -->
         <div class="children-cards-grid">
           <div class="child-card estrategia-child-card"
-              *ngFor="let child of filterFormacionEstrategiaNodes(data.formacionEstrategiaRoot?.children); trackBy: trackByEstrategiaId"
-              [class.child-card-selected]="isEstrategiaNodeSelectedForTree(child)"
-              (click)="selectEstrategiaNodeForTree(child)">
+            *ngFor="let child of filterFormacionEstrategiaNodes(data.formacionEstrategiaRoot?.children); trackBy: trackByEstrategiaId"
+            [class.child-card-selected]="isEstrategiaNodeSelectedForTree(child)"
+            (click)="selectEstrategiaNodeForTree(child)">
             <div class="child-card-header">
               <h4 class="child-title">{{ removeParentheses(child.nivelFormacion) }}</h4>
             </div>
@@ -186,10 +177,11 @@
               <!-- Regular -->
               <div class="estrategia-explicit-item" *ngIf="child.regularMeta !== null">
                 <h5 class="estrategia-explicit-label">Regular</h5>
-                <div class="progress" [class.has-overflow]="calcularPorcentaje(child.regularMeta, child.regularEjecucion) > 1">
+                <div class="progress"
+                  [class.has-overflow]="calcularPorcentaje(child.regularMeta, child.regularEjecucion) > 1">
                   <div class="progress-bar"
-                      [ngClass]="getClasePorcentaje(calcularPorcentaje(child.regularMeta, child.regularEjecucion))"
-                      [style.width.%]="calcularPorcentaje(child.regularMeta, child.regularEjecucion) > 1 ? 100 : calcularPorcentaje(child.regularMeta, child.regularEjecucion) * 100">
+                    [ngClass]="getClasePorcentaje(calcularPorcentaje(child.regularMeta, child.regularEjecucion))"
+                    [style.width.%]="calcularPorcentaje(child.regularMeta, child.regularEjecucion) > 1 ? 100 : calcularPorcentaje(child.regularMeta, child.regularEjecucion) * 100">
                     {{ calcularPorcentaje(child.regularMeta, child.regularEjecucion) | percent:'1.2-2' }}
                   </div>
                 </div>
@@ -208,10 +200,11 @@
               <!-- CampeSENA -->
               <div class="estrategia-explicit-item" *ngIf="child.campesenaMeta !== null">
                 <h5 class="estrategia-explicit-label">CampeSENA</h5>
-                <div class="progress" [class.has-overflow]="calcularPorcentaje(child.campesenaMeta, child.campesenaEjecucion) > 1">
+                <div class="progress"
+                  [class.has-overflow]="calcularPorcentaje(child.campesenaMeta, child.campesenaEjecucion) > 1">
                   <div class="progress-bar"
-                      [ngClass]="getClasePorcentaje(calcularPorcentaje(child.campesenaMeta, child.campesenaEjecucion))"
-                      [style.width.%]="calcularPorcentaje(child.campesenaMeta, child.campesenaEjecucion) > 1 ? 100 : calcularPorcentaje(child.campesenaMeta, child.campesenaEjecucion) * 100">
+                    [ngClass]="getClasePorcentaje(calcularPorcentaje(child.campesenaMeta, child.campesenaEjecucion))"
+                    [style.width.%]="calcularPorcentaje(child.campesenaMeta, child.campesenaEjecucion) > 1 ? 100 : calcularPorcentaje(child.campesenaMeta, child.campesenaEjecucion) * 100">
                     {{ calcularPorcentaje(child.campesenaMeta, child.campesenaEjecucion) | percent:'1.2-2' }}
                   </div>
                 </div>
@@ -230,10 +223,11 @@
               <!-- Full Popular -->
               <div class="estrategia-explicit-item" *ngIf="child.fullPopularMeta !== null">
                 <h5 class="estrategia-explicit-label">Full Popular</h5>
-                <div class="progress" [class.has-overflow]="calcularPorcentaje(child.fullPopularMeta, child.fullPopularEjecucion) > 1">
+                <div class="progress"
+                  [class.has-overflow]="calcularPorcentaje(child.fullPopularMeta, child.fullPopularEjecucion) > 1">
                   <div class="progress-bar"
-                      [ngClass]="getClasePorcentaje(calcularPorcentaje(child.fullPopularMeta, child.fullPopularEjecucion))"
-                      [style.width.%]="calcularPorcentaje(child.fullPopularMeta, child.fullPopularEjecucion) > 1 ? 100 : calcularPorcentaje(child.fullPopularMeta, child.fullPopularEjecucion) * 100">
+                    [ngClass]="getClasePorcentaje(calcularPorcentaje(child.fullPopularMeta, child.fullPopularEjecucion))"
+                    [style.width.%]="calcularPorcentaje(child.fullPopularMeta, child.fullPopularEjecucion) > 1 ? 100 : calcularPorcentaje(child.fullPopularMeta, child.fullPopularEjecucion) * 100">
                     {{ calcularPorcentaje(child.fullPopularMeta, child.fullPopularEjecucion) | percent:'1.2-2' }}
                   </div>
                 </div>
@@ -283,10 +277,14 @@
       </div>
 
       <!-- Sección: Metas Programas Relevantes y Primer Curso -->
-      <div *ngIf="(data.programasRelevantes && data.programasRelevantes.length > 0) || data.metasPrimerCurso" class="data-section">
+      <!-- DEBUG: {{ logProgramasData(data) }} -->
+      <div *ngIf="(data.programasRelevantes && data.programasRelevantes.length > 0) || data.metasPrimerCurso"
+        class="data-section">
         <h2 class="section-title">
           <span>Metas Programas Relevantes y Primer Curso</span>
-          <button mat-icon-button class="info-button" (click)="openSeccionInfo('metas-programas-relevantes-primer-curso')" aria-label="Más información sobre Metas Programas Relevantes y Primer Curso">
+          <button mat-icon-button class="info-button"
+            (click)="openSeccionInfo('metas-programas-relevantes-primer-curso')"
+            aria-label="Más información sobre Metas Programas Relevantes y Primer Curso">
             <mat-icon>info_outline</mat-icon>
           </button>
         </h2>
@@ -298,7 +296,8 @@
 
             <!-- Grid de 3 Programas -->
             <div class="programas-grid">
-              <div class="programa-card" *ngFor="let programa of filterProgramasRelevantes(data.programasRelevantes); trackBy: trackById">
+              <div class="programa-card"
+                *ngFor="let programa of filterProgramasRelevantes(data.programasRelevantes); trackBy: trackById">
                 <div class="programa-card-header">
                   <h4 class="programa-title">{{ programa.descripcion }}</h4>
                 </div>
@@ -339,7 +338,7 @@
               <div class="primer-curso-metrics">
                 <div class="progress" [class.has-overflow]="data.metasPrimerCurso.porcentaje > 100">
                   <div class="progress-bar" [ngClass]="getClasePorcentaje(data.metasPrimerCurso.porcentaje / 100)"
-                      [style.width.%]="data.metasPrimerCurso.porcentaje > 100 ? 100 : data.metasPrimerCurso.porcentaje">
+                    [style.width.%]="data.metasPrimerCurso.porcentaje > 100 ? 100 : data.metasPrimerCurso.porcentaje">
                     {{ data.metasPrimerCurso.porcentaje / 100 | percent:'1.2-2' }}
                   </div>
                 </div>
@@ -356,8 +355,8 @@
                 </div>
               </div>
             </div>
+          </div>
         </div>
-      </div>
       </div>
     </div>
 
@@ -365,280 +364,281 @@
     <div *ngIf="data.cuposFICRoot" class="data-section section-odd ">
       <h2 class="section-title">
         <span>Cupos Autorizados FIC</span>
-        <button mat-icon-button class="info-button" (click)="openSeccionInfo('cupos-autorizados-fic')" aria-label="Más información sobre Cupos Autorizados FIC">
+        <button mat-icon-button class="info-button" (click)="openSeccionInfo('cupos-autorizados-fic')"
+          aria-label="Más información sobre Cupos Autorizados FIC">
           <mat-icon>info_outline</mat-icon>
         </button>
       </h2>
 
-        <!-- Tarjeta Principal (ID=1) -->
-        <div class="cupos-fic-principal">
-          <div class="programa-card cupos-fic-card-principal"
-               [class.child-card-selected]="isCuposFICNodeSelected(data.cuposFICRoot)"
-               (click)="selectCuposFICNode(data.cuposFICRoot)">
-            <div class="programa-card-header">
-              <h4 class="programa-title">{{ data.cuposFICRoot.descripcion }}</h4>
-            </div>
+      <!-- Tarjeta Principal (ID=1) -->
+      <div class="cupos-fic-principal">
+        <div class="programa-card cupos-fic-card-principal"
+          [class.child-card-selected]="isCuposFICNodeSelected(data.cuposFICRoot)"
+          (click)="selectCuposFICNode(data.cuposFICRoot)">
+          <div class="programa-card-header">
+            <h4 class="programa-title">{{ data.cuposFICRoot.descripcion }}</h4>
+          </div>
 
-            <div class="programa-metrics">
-              <div class="progress" [class.has-overflow]="data.cuposFICRoot.porcentaje > 100">
-                <div class="progress-bar" [ngClass]="getClasePorcentaje(data.cuposFICRoot.porcentaje / 100)"
-                  [style.width.%]="data.cuposFICRoot.porcentaje > 100 ? 100 : data.cuposFICRoot.porcentaje">
-                  {{ data.cuposFICRoot.porcentaje / 100 | percent:'1.2-2' }}
-                </div>
-              </div>
-
-              <div class="programa-values">
-                <div class="value-item">
-                  <span class="value-label">Meta:</span>
-                  <span class="value-number">{{ data.cuposFICRoot.meta | number:'1.0-0' }}</span>
-                </div>
-                <div class="value-item">
-                  <span class="value-label">Ejecución:</span>
-                  <span class="value-number">{{ data.cuposFICRoot.ejecucion | number:'1.0-0' }}</span>
-                </div>
+          <div class="programa-metrics">
+            <div class="progress" [class.has-overflow]="data.cuposFICRoot.porcentaje > 100">
+              <div class="progress-bar" [ngClass]="getClasePorcentaje(data.cuposFICRoot.porcentaje / 100)"
+                [style.width.%]="data.cuposFICRoot.porcentaje > 100 ? 100 : data.cuposFICRoot.porcentaje">
+                {{ data.cuposFICRoot.porcentaje / 100 | percent:'1.2-2' }}
               </div>
             </div>
 
-            <div class="child-has-details" *ngIf="data.cuposFICRoot.children.length > 0">
-              <mat-icon class="details-icon">assessment</mat-icon>
-              <span class="details-text">Ver detalles ({{ data.cuposFICRoot.children.length }} ítems)</span>
+            <div class="programa-values">
+              <div class="value-item">
+                <span class="value-label">Meta:</span>
+                <span class="value-number">{{ data.cuposFICRoot.meta | number:'1.0-0' }}</span>
+              </div>
+              <div class="value-item">
+                <span class="value-label">Ejecución:</span>
+                <span class="value-number">{{ data.cuposFICRoot.ejecucion | number:'1.0-0' }}</span>
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- Tabla de detalles para Cupos FIC (tree-table) -->
-        <div *ngIf="selectedCuposFICNode" class="data-section selected-node-tree-section">
-                  <div class="selected-node-header">
-                    <h2 class="section-title">
-                      <span>{{ selectedCuposFICNode.descripcion }}</span>
-                      <button mat-icon-button class="info-button" aria-label="Más información">
-                        <mat-icon>info_outline</mat-icon>
-                      </button>
-                    </h2>
-                    <button class="close-tree-btn" (click)="selectedCuposFICNode = null">✕ Cerrar</button>
-                  </div>
-          <!-- Mostrar hijos usando el template recursivo -->
-          <div class="children-tree-container" *ngIf="selectedCuposFICNode.children.length > 0">
-            <div *ngFor="let child of selectedCuposFICNode.children; trackBy: trackByHierarchyId">
-              <ng-container *ngTemplateOutlet="hierarchyNodeTpl; context: { $implicit: child }"></ng-container>
-            </div>
-          </div>
-          <div class="no-children-message" *ngIf="selectedCuposFICNode.children.length === 0">
-            <p>No hay elementos de detalle para mostrar.</p>
+          <div class="child-has-details" *ngIf="data.cuposFICRoot.children.length > 0">
+            <mat-icon class="details-icon">assessment</mat-icon>
+            <span class="details-text">Ver detalles ({{ data.cuposFICRoot.children.length }} ítems)</span>
           </div>
         </div>
+      </div>
+
+      <!-- Tabla de detalles para Cupos FIC (tree-table) -->
+      <div *ngIf="selectedCuposFICNode" class="data-section selected-node-tree-section">
+        <div class="selected-node-header">
+          <h2 class="section-title">
+            <span>{{ selectedCuposFICNode.descripcion }}</span>
+            <button mat-icon-button class="info-button" aria-label="Más información">
+              <mat-icon>info_outline</mat-icon>
+            </button>
+          </h2>
+          <button class="close-tree-btn" (click)="selectedCuposFICNode = null">✕ Cerrar</button>
+        </div>
+        <!-- Mostrar hijos usando el template recursivo -->
+        <div class="children-tree-container" *ngIf="selectedCuposFICNode.children.length > 0">
+          <div *ngFor="let child of selectedCuposFICNode.children; trackBy: trackByHierarchyId">
+            <ng-container *ngTemplateOutlet="hierarchyNodeTpl; context: { $implicit: child }"></ng-container>
+          </div>
+        </div>
+        <div class="no-children-message" *ngIf="selectedCuposFICNode.children.length === 0">
+          <p>No hay elementos de detalle para mostrar.</p>
+        </div>
+      </div>
     </div>
 
     <!-- RETENCIÓN -->
     <div *ngIf="data.retencionPadres && data.retencionPadres.length > 0" class="data-section">
       <h2 class="section-title">
         <span>Retención</span>
-        <button mat-icon-button class="info-button" (click)="openSeccionInfo('retencion')" aria-label="Más información sobre Retención">
+        <button mat-icon-button class="info-button" (click)="openSeccionInfo('retencion')"
+          aria-label="Más información sobre Retención">
           <mat-icon>info_outline</mat-icon>
         </button>
       </h2>
 
-        <div class="retencion-layout">
-          <!-- Primera columna: indicadores 1-6 en grid 3 columnas -->
-          <div class="retencion-column-1">
-            <div class="retencion-grid-3col">
-              <div class="programa-card retencion-card"
-                   *ngFor="let node of filterHierarchyNodes(data.retencionPadres)?.slice(0, 6); trackBy: trackByHierarchyId"
-                   [class.retencion-card-selected]="isRetencionNodeSelected(node)"
-                   (click)="selectRetencionNode(node)">
-                <div class="programa-card-header">
-                  <h4 class="programa-title">{{ node.descripcion }}</h4>
-                </div>
+      <div class="retencion-layout">
+        <!-- Primera columna: indicadores 1-6 en grid 3 columnas -->
+        <div class="retencion-column-1">
+          <div class="retencion-grid-3col">
+            <div class="programa-card retencion-card"
+              *ngFor="let node of filterHierarchyNodes(data.retencionPadres)?.slice(0, 6); trackBy: trackByHierarchyId"
+              [class.retencion-card-selected]="isRetencionNodeSelected(node)" (click)="selectRetencionNode(node)">
+              <div class="programa-card-header">
+                <h4 class="programa-title">{{ node.descripcion }}</h4>
+              </div>
 
-                <div class="programa-metrics">
-                  <div class="progress" [class.has-overflow]="node.porcentaje > 100">
-                    <div class="progress-bar progress-bar-gray"
-                      [style.width.%]="node.porcentaje > 100 ? 100 : node.porcentaje">
-                      {{ node.porcentaje / 100 | percent:'1.2-2' }}
-                    </div>
-                  </div>
-
-                  <div class="programa-values">
-                    <div class="value-item">
-                      <span class="value-label">Meta:</span>
-                      <span class="value-number">{{ node.meta }}%</span>
-                    </div>
-                    <div class="value-item">
-                      <span class="value-label">Ejecución:</span>
-                      <span class="value-number">{{ node.ejecucion }}%</span>
-                    </div>
+              <div class="programa-metrics">
+                <div class="progress" [class.has-overflow]="node.porcentaje > 100">
+                  <div class="progress-bar progress-bar-gray"
+                    [style.width.%]="node.porcentaje > 100 ? 100 : node.porcentaje">
+                    {{ node.porcentaje / 100 | percent:'1.2-2' }}
                   </div>
                 </div>
 
-                <div class="child-has-details" *ngIf="node.children.length > 0">
-                  <mat-icon class="details-icon">assessment</mat-icon>
-                  <span class="details-text">Ver detalles ({{ node.children.length }} ítems)</span>
+                <div class="programa-values">
+                  <div class="value-item">
+                    <span class="value-label">Meta:</span>
+                    <span class="value-number">{{ node.meta }}%</span>
+                  </div>
+                  <div class="value-item">
+                    <span class="value-label">Ejecución:</span>
+                    <span class="value-number">{{ node.ejecucion }}%</span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <!-- Tabla de detalles debajo de la tarjeta seleccionada (columna 1) -->
-            <div *ngIf="selectedRetencionNode && getRetencionColumnIndex(selectedRetencionNode) === 0"
-                 class="retencion-detalle-table">
-              <div class="detalle-header">
-                <h4 class="detalle-title">{{ selectedRetencionNode.descripcion }}</h4>
-                <button class="close-detalle-btn" (click)="selectedRetencionNode = null">✕</button>
+              <div class="child-has-details" *ngIf="node.children.length > 0">
+                <mat-icon class="details-icon">assessment</mat-icon>
+                <span class="details-text">Ver detalles ({{ node.children.length }} ítems)</span>
               </div>
-
-              <table class="table-compacta" *ngIf="selectedRetencionNode.children.length > 0">
-                <thead>
-                  <tr>
-                    <th>Descripción</th>
-                    <th>Meta</th>
-                    <th>Ejecución</th>
-                    <th>% Ejecución</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let child of selectedRetencionNode.children; trackBy: trackByHierarchyId">
-                    <td>{{ child.descripcion }}</td>
-                    <td>{{ child.meta }}%</td>
-                    <td>{{ child.ejecucion }}%</td>
-                    <td>{{ child.porcentaje / 100 | percent:'1.2-2' }}</td>
-                  </tr>
-                </tbody>
-              </table>
             </div>
           </div>
+        </div>
 
-          <!-- Segunda columna: indicadores 7-8 en grid 1 columna -->
-          <div class="retencion-column-2">
-            <div class="retencion-grid-1col">
-              <div class="programa-card retencion-card retencion-card-col2"
-                   *ngFor="let node of filterHierarchyNodes(data.retencionPadres)?.slice(6, 8); trackBy: trackByHierarchyId">
-                <div class="programa-card-header">
-                  <h4 class="programa-title">{{ node.descripcion }}</h4>
+        <!-- Segunda columna: indicadores 7-8 en grid 1 columna -->
+        <div class="retencion-column-2">
+          <div class="retencion-grid-1col">
+            <div class="programa-card retencion-card retencion-card-col2"
+              *ngFor="let node of filterHierarchyNodes(data.retencionPadres)?.slice(6, 8); trackBy: trackByHierarchyId">
+              <div class="programa-card-header">
+                <h4 class="programa-title">{{ node.descripcion }}</h4>
+              </div>
+
+              <div class="programa-metrics">
+                <div class="progress" [class.has-overflow]="node.porcentaje > 100">
+                  <div class="progress-bar progress-bar-gray"
+                    [style.width.%]="node.porcentaje > 100 ? 100 : node.porcentaje">
+                    {{ node.porcentaje / 100 | percent:'1.2-2' }}
+                  </div>
                 </div>
 
-                <div class="programa-metrics">
-                  <div class="progress" [class.has-overflow]="node.porcentaje > 100">
-                    <div class="progress-bar progress-bar-gray"
-                      [style.width.%]="node.porcentaje > 100 ? 100 : node.porcentaje">
-                      {{ node.porcentaje / 100 | percent:'1.2-2' }}
-                    </div>
+                <div class="programa-values">
+                  <div class="value-item">
+                    <span class="value-label">Meta:</span>
+                    <span class="value-number">{{ node.meta }}%</span>
                   </div>
-
-                  <div class="programa-values">
-                    <div class="value-item">
-                      <span class="value-label">Meta:</span>
-                      <span class="value-number">{{ node.meta }}%</span>
-                    </div>
-                    <div class="value-item">
-                      <span class="value-label">Ejecución:</span>
-                      <span class="value-number">{{ node.ejecucion }}%</span>
-                    </div>
+                  <div class="value-item">
+                    <span class="value-label">Ejecución:</span>
+                    <span class="value-number">{{ node.ejecucion }}%</span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+        <!-- Tabla de detalles AL NIVEL DEL GRID - ocupa todo el ancho -->
+        <div *ngIf="selectedRetencionNode" class="retencion-detalle-table">
+          <div class="detalle-header">
+            <h4 class="detalle-title">{{ selectedRetencionNode.descripcion }}</h4>
+            <button class="close-detalle-btn" (click)="selectedRetencionNode = null">✕</button>
+          </div>
+
+          <table class="table-compacta" *ngIf="selectedRetencionNode.children.length > 0">
+            <thead>
+              <tr>
+                <th>Descripción</th>
+                <th>Meta</th>
+                <th>Ejecución</th>
+                <th>% Ejecución</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let child of selectedRetencionNode.children; trackBy: trackByHierarchyId">
+                <td>{{ child.descripcion }}</td>
+                <td>{{ child.meta }}%</td>
+                <td>{{ child.ejecucion }}%</td>
+                <td>{{ child.porcentaje / 100 | percent:'1.2-2' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
 
     <!-- CERTIFICACIÓN FORMACIÓN PROFESIONAL-->
     <div *ngIf="data.certificacionRoot" class="data-section section-odd">
       <h2 class="section-title">
         <span>Certificación Formación Profesional</span>
-        <button mat-icon-button class="info-button" (click)="openSeccionInfo('certificacion-formacion-profesional')" aria-label="Más información sobre Certificación Formación Profesional">
+        <button mat-icon-button class="info-button" (click)="openSeccionInfo('certificacion-formacion-profesional')"
+          aria-label="Más información sobre Certificación Formación Profesional">
           <mat-icon>info_outline</mat-icon>
         </button>
       </h2>
 
-        <!-- Una sola fila con 4 elementos: ID=1, ID=2, ID=3, ID=4 -->
-        <div class="certificacion-grid-4col" *ngIf="data.certificacionTree">
-          <!-- Tarjeta 1: ID=1 (TOTAL FORMACIÓN PROFESIONAL INTEGRAL) con botón de detalles -->
-          <div class="programa-card certificacion-card"
-               [class.child-card-selected]="isCertificacionNodeSelected(data.certificacionRoot)"
-               (click)="selectCertificacionNode(data.certificacionRoot)">
-            <div class="programa-card-header">
-              <h4 class="programa-title">{{ data.certificacionRoot.descripcion }}</h4>
-            </div>
+      <!-- Una sola fila con 4 elementos: ID=1, ID=2, ID=3, ID=4 -->
+      <div class="certificacion-grid-4col" *ngIf="data.certificacionTree">
+        <!-- Tarjeta 1: ID=1 (TOTAL FORMACIÓN PROFESIONAL INTEGRAL) con botón de detalles -->
+        <div class="programa-card certificacion-card"
+          [class.child-card-selected]="isCertificacionNodeSelected(data.certificacionRoot)"
+          (click)="selectCertificacionNode(data.certificacionRoot)">
+          <div class="programa-card-header">
+            <h4 class="programa-title">{{ data.certificacionRoot.descripcion }}</h4>
+          </div>
 
-            <div class="programa-metrics">
-              <div class="progress" [class.has-overflow]="data.certificacionRoot.porcentaje > 100">
-                <div class="progress-bar" [ngClass]="getClasePorcentaje(data.certificacionRoot.porcentaje / 100)"
-                  [style.width.%]="data.certificacionRoot.porcentaje > 100 ? 100 : data.certificacionRoot.porcentaje">
-                  {{ data.certificacionRoot.porcentaje / 100 | percent:'1.2-2' }}
-                </div>
-              </div>
-
-              <div class="programa-values">
-                <div class="value-item">
-                  <span class="value-label">Meta:</span>
-                  <span class="value-number">{{ data.certificacionRoot.meta | number:'1.0-0' }}</span>
-                </div>
-                <div class="value-item">
-                  <span class="value-label">Ejecución:</span>
-                  <span class="value-number">{{ data.certificacionRoot.ejecucion | number:'1.0-0' }}</span>
-                </div>
+          <div class="programa-metrics">
+            <div class="progress" [class.has-overflow]="data.certificacionRoot.porcentaje > 100">
+              <div class="progress-bar" [ngClass]="getClasePorcentaje(data.certificacionRoot.porcentaje / 100)"
+                [style.width.%]="data.certificacionRoot.porcentaje > 100 ? 100 : data.certificacionRoot.porcentaje">
+                {{ data.certificacionRoot.porcentaje / 100 | percent:'1.2-2' }}
               </div>
             </div>
 
-            <div class="child-has-details" *ngIf="data.certificacionRoot.children.length > 0">
-              <mat-icon class="details-icon">assessment</mat-icon>
-              <span class="details-text">Ver detalles ({{ data.certificacionRoot.children.length }} ítems)</span>
+            <div class="programa-values">
+              <div class="value-item">
+                <span class="value-label">Meta:</span>
+                <span class="value-number">{{ data.certificacionRoot.meta | number:'1.0-0' }}</span>
+              </div>
+              <div class="value-item">
+                <span class="value-label">Ejecución:</span>
+                <span class="value-number">{{ data.certificacionRoot.ejecucion | number:'1.0-0' }}</span>
+              </div>
             </div>
           </div>
 
-          <!-- Tarjetas 2, 3, 4: IDs 2, 3, 4 sin botón de detalles -->
-          <div class="programa-card certificacion-card"
-               *ngFor="let node of data.certificacionTree.slice(1, 4); trackBy: trackByHierarchyId">
-            <div class="programa-card-header">
-              <h4 class="programa-title">{{ node.descripcion }}</h4>
-            </div>
-
-            <div class="programa-metrics">
-              <div class="progress" [class.has-overflow]="node.porcentaje > 100">
-                <div class="progress-bar" [ngClass]="getClasePorcentaje(node.porcentaje / 100)"
-                  [style.width.%]="node.porcentaje > 100 ? 100 : node.porcentaje">
-                  {{ node.porcentaje / 100 | percent:'1.2-2' }}
-                </div>
-              </div>
-
-              <div class="programa-values">
-                <div class="value-item">
-                  <span class="value-label">Meta:</span>
-                  <span class="value-number">{{ node.meta | number:'1.0-0' }}</span>
-                </div>
-                <div class="value-item">
-                  <span class="value-label">Ejecución:</span>
-                  <span class="value-number">{{ node.ejecucion | number:'1.0-0' }}</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Espaciador para mantener misma altura que tarjeta con botón -->
-            <div class="certificacion-spacer"></div>
+          <div class="child-has-details" *ngIf="data.certificacionRoot.children.length > 0">
+            <mat-icon class="details-icon">assessment</mat-icon>
+            <span class="details-text">Ver detalles ({{ data.certificacionRoot.children.length }} ítems)</span>
           </div>
         </div>
 
-        <!-- Tabla de detalles para certificación con 3 niveles (estilo tree-table) -->
-        <div *ngIf="selectedCertificacionNode" class="data-section selected-node-tree-section">
-          <div class="selected-node-header">
-            <h2 class="section-title">
-              <span>{{ selectedCertificacionNode.descripcion }}</span>
-              <button mat-icon-button class="info-button" aria-label="Más información">
-                <mat-icon>info_outline</mat-icon>
-              </button>
-            </h2>
-            <button class="close-tree-btn" (click)="selectedCertificacionNode = null">✕ Cerrar</button>
+        <!-- Tarjetas 2, 3, 4: IDs 2, 3, 4 sin botón de detalles -->
+        <div class="programa-card certificacion-card"
+          *ngFor="let node of data.certificacionTree.slice(1, 4); trackBy: trackByHierarchyId">
+          <div class="programa-card-header">
+            <h4 class="programa-title">{{ node.descripcion }}</h4>
           </div>
 
-          <!-- Mostrar hijos usando el template recursivo -->
-          <div class="children-tree-container" *ngIf="selectedCertificacionNode.children.length > 0">
-            <div *ngFor="let child of selectedCertificacionNode.children; trackBy: trackByHierarchyId">
-              <ng-container *ngTemplateOutlet="certificacionNodeTpl; context: { $implicit: child }"></ng-container>
+          <div class="programa-metrics">
+            <div class="progress" [class.has-overflow]="node.porcentaje > 100">
+              <div class="progress-bar" [ngClass]="getClasePorcentaje(node.porcentaje / 100)"
+                [style.width.%]="node.porcentaje > 100 ? 100 : node.porcentaje">
+                {{ node.porcentaje / 100 | percent:'1.2-2' }}
+              </div>
+            </div>
+
+            <div class="programa-values">
+              <div class="value-item">
+                <span class="value-label">Meta:</span>
+                <span class="value-number">{{ node.meta | number:'1.0-0' }}</span>
+              </div>
+              <div class="value-item">
+                <span class="value-label">Ejecución:</span>
+                <span class="value-number">{{ node.ejecucion | number:'1.0-0' }}</span>
+              </div>
             </div>
           </div>
-          <div class="no-children-message" *ngIf="selectedCertificacionNode.children.length === 0">
-            <p>No hay elementos de detalle para mostrar.</p>
+
+          <!-- Espaciador para mantener misma altura que tarjeta con botón -->
+          <div class="certificacion-spacer"></div>
+        </div>
+      </div>
+
+      <!-- Tabla de detalles para certificación con 3 niveles (estilo tree-table) -->
+      <div *ngIf="selectedCertificacionNode" class="data-section selected-node-tree-section">
+        <div class="selected-node-header">
+          <h2 class="section-title">
+            <span>{{ selectedCertificacionNode.descripcion }}</span>
+            <button mat-icon-button class="info-button" aria-label="Más información">
+              <mat-icon>info_outline</mat-icon>
+            </button>
+          </h2>
+          <button class="close-tree-btn" (click)="selectedCertificacionNode = null">✕ Cerrar</button>
+        </div>
+
+        <!-- Mostrar hijos usando el template recursivo -->
+        <div class="children-tree-container" *ngIf="selectedCertificacionNode.children.length > 0">
+          <div *ngFor="let child of selectedCertificacionNode.children; trackBy: trackByHierarchyId">
+            <ng-container *ngTemplateOutlet="certificacionNodeTpl; context: { $implicit: child }"></ng-container>
           </div>
         </div>
+        <div class="no-children-message" *ngIf="selectedCertificacionNode.children.length === 0">
+          <p>No hay elementos de detalle para mostrar.</p>
+        </div>
+      </div>
     </div>
 
     <!-- End Tab Content: Formación Profesional Integral -->
@@ -646,167 +646,63 @@
 
   <!-- Tab Content: Sistema Nacional de Formación para el Trabajo -->
   <div *ngIf="isTabActive('sistema-nacional-formacion-para-el-trabajo')" class="tab-content fade-in">
-    
+
     <!-- Debug: Mostrar si no hay datos -->
-    <div *ngIf="!data.retencionPadres && !data.certificacionRoot && !data.competenciasLaboralesRoot" class="data-section">
+    <div *ngIf="!data.retencionPadres && !data.certificacionRoot && !data.competenciasLaboralesRoot"
+      class="data-section">
       <p style="text-align: center; padding: 2rem; color: #666;">No hay datos disponibles para esta sección.</p>
     </div>
-    
+
     <!-- CERTIFICACIÓN DE COMPETENCIAS LABORALES -->
     <div *ngIf="data.competenciasLaboralesRoot && data.competenciasLaboralesOtros" class="data-section">
       <h2 class="section-title">
         <span>Certificación de competencias laborales</span>
-        <button mat-icon-button class="info-button" (click)="openSeccionInfo('certificacion-competencias-laborales')" aria-label="Más información sobre Certificación de competencias laborales">
+        <button mat-icon-button class="info-button" (click)="openSeccionInfo('certificacion-competencias-laborales')"
+          aria-label="Más información sobre Certificación de competencias laborales">
           <mat-icon>info_outline</mat-icon>
         </button>
       </h2>
 
-        <!-- Fila 1: ID=1 con botón Ver detalles -->
-        <div class="competencias-laborales-row-1">
+      <!-- Fila 1: ID=1 con botón Ver detalles -->
+      <div class="competencias-laborales-row-1">
+        <div class="programa-card" [class.child-card-selected]="showCompetenciasLaboralesDetails"
+          (click)="toggleCompetenciasLaboralesDetails()">
+          <div class="programa-card-header">
+            <h4 class="programa-title">{{ data.competenciasLaboralesRoot.descripcion }}</h4>
+          </div>
+
+          <div class="programa-metrics">
+            <div class="progress" [class.has-overflow]="data.competenciasLaboralesRoot.porcentaje > 100">
+              <div class="progress-bar" [ngClass]="getClasePorcentaje(data.competenciasLaboralesRoot.porcentaje / 100)"
+                [style.width.%]="data.competenciasLaboralesRoot.porcentaje > 100 ? 100 : data.competenciasLaboralesRoot.porcentaje">
+                {{ data.competenciasLaboralesRoot.porcentaje / 100 | percent:'1.2-2' }}
+              </div>
+            </div>
+
+            <div class="programa-values">
+              <div class="value-item">
+                <span class="value-label">Meta:</span>
+                <span class="value-number">{{ data.competenciasLaboralesRoot.meta | number:'1.0-0' }}</span>
+              </div>
+              <div class="value-item">
+                <span class="value-label">Ejecución:</span>
+                <span class="value-number">{{ data.competenciasLaboralesRoot.ejecucion | number:'1.0-0' }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="child-has-details" *ngIf="data.competenciasLaboralesRoot.children.length > 0">
+            <mat-icon class="details-icon">assessment</mat-icon>
+            <span class="details-text">Ver detalles ({{ data.competenciasLaboralesRoot.children.length }} ítems)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fila 2: IDs 1.1, 1.2, 1.3 (solo visible si showCompetenciasLaboralesDetails es true) -->
+      <div *ngIf="showCompetenciasLaboralesDetails" class="competencias-laborales-row-2">
+        <div class="competencias-laborales-grid-3col">
           <div class="programa-card"
-               [class.child-card-selected]="showCompetenciasLaboralesDetails"
-               (click)="toggleCompetenciasLaboralesDetails()">
-            <div class="programa-card-header">
-              <h4 class="programa-title">{{ data.competenciasLaboralesRoot.descripcion }}</h4>
-            </div>
-
-            <div class="programa-metrics">
-              <div class="progress" [class.has-overflow]="data.competenciasLaboralesRoot.porcentaje > 100">
-                <div class="progress-bar" [ngClass]="getClasePorcentaje(data.competenciasLaboralesRoot.porcentaje / 100)"
-                  [style.width.%]="data.competenciasLaboralesRoot.porcentaje > 100 ? 100 : data.competenciasLaboralesRoot.porcentaje">
-                  {{ data.competenciasLaboralesRoot.porcentaje / 100 | percent:'1.2-2' }}
-                </div>
-              </div>
-
-              <div class="programa-values">
-                <div class="value-item">
-                  <span class="value-label">Meta:</span>
-                  <span class="value-number">{{ data.competenciasLaboralesRoot.meta | number:'1.0-0' }}</span>
-                </div>
-                <div class="value-item">
-                  <span class="value-label">Ejecución:</span>
-                  <span class="value-number">{{ data.competenciasLaboralesRoot.ejecucion | number:'1.0-0' }}</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="child-has-details" *ngIf="data.competenciasLaboralesRoot.children.length > 0">
-              <mat-icon class="details-icon">assessment</mat-icon>
-              <span class="details-text">Ver detalles ({{ data.competenciasLaboralesRoot.children.length }} ítems)</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Fila 2: IDs 1.1, 1.2, 1.3 (solo visible si showCompetenciasLaboralesDetails es true) -->
-        <div *ngIf="showCompetenciasLaboralesDetails" class="competencias-laborales-row-2">
-          <div class="competencias-laborales-grid-3col">
-            <div class="programa-card"
-                 *ngFor="let node of data.competenciasLaboralesRoot.children; trackBy: trackByHierarchyId">
-              <div class="programa-card-header">
-                <h4 class="programa-title">{{ node.descripcion }}</h4>
-              </div>
-
-              <div class="programa-metrics">
-                <div class="progress" [class.has-overflow]="node.porcentaje > 100">
-                  <div class="progress-bar" [ngClass]="getClasePorcentaje(node.porcentaje / 100)"
-                    [style.width.%]="node.porcentaje > 100 ? 100 : node.porcentaje">
-                    {{ node.porcentaje / 100 | percent:'1.2-2' }}
-                  </div>
-                </div>
-
-                <div class="programa-values">
-                  <div class="value-item">
-                    <span class="value-label">Meta:</span>
-                    <span class="value-number">{{ node.meta | number:'1.0-0' }}</span>
-                  </div>
-                  <div class="value-item">
-                    <span class="value-label">Ejecución:</span>
-                    <span class="value-number">{{ node.ejecucion | number:'1.0-0' }}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Fila 3: IDs 2, 3, 4 -->
-        <div class="competencias-laborales-row-3">
-          <div class="competencias-laborales-grid-3col">
-            <div class="programa-card"
-                 *ngFor="let node of data.competenciasLaboralesOtros.slice(0, 3); trackBy: trackByHierarchyId">
-              <div class="programa-card-header">
-                <h4 class="programa-title">{{ node.descripcion }}</h4>
-              </div>
-
-              <div class="programa-metrics">
-                <div class="progress" [class.has-overflow]="node.porcentaje > 100">
-                  <div class="progress-bar" [ngClass]="getClasePorcentaje(node.porcentaje / 100)"
-                    [style.width.%]="node.porcentaje > 100 ? 100 : node.porcentaje">
-                    {{ node.porcentaje / 100 | percent:'1.2-2' }}
-                  </div>
-                </div>
-
-                <div class="programa-values">
-                  <div class="value-item">
-                    <span class="value-label">Meta:</span>
-                    <span class="value-number">{{ node.meta | number:'1.0-0' }}</span>
-                  </div>
-                  <div class="value-item">
-                    <span class="value-label">Ejecución:</span>
-                    <span class="value-number">{{ node.ejecucion | number:'1.0-0' }}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Fila 4: IDs 5, 6, 7 -->
-        <div class="competencias-laborales-row-4">
-          <div class="competencias-laborales-grid-3col">
-            <div class="programa-card"
-                 *ngFor="let node of data.competenciasLaboralesOtros.slice(3, 6); trackBy: trackByHierarchyId">
-              <div class="programa-card-header">
-                <h4 class="programa-title">{{ node.descripcion }}</h4>
-              </div>
-
-              <div class="programa-metrics">
-                <div class="progress" [class.has-overflow]="node.porcentaje > 100">
-                  <div class="progress-bar" [ngClass]="getClasePorcentaje(node.porcentaje / 100)"
-                    [style.width.%]="node.porcentaje > 100 ? 100 : node.porcentaje">
-                    {{ node.porcentaje / 100 | percent:'1.2-2' }}
-                  </div>
-                </div>
-
-                <div class="programa-values">
-                  <div class="value-item">
-                    <span class="value-label">Meta:</span>
-                    <span class="value-number">{{ node.meta | number:'1.0-0' }}</span>
-                  </div>
-                  <div class="value-item">
-                    <span class="value-label">Ejecución:</span>
-                    <span class="value-number">{{ node.ejecucion | number:'1.0-0' }}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-    </div>
-
-    <!-- PRODUCTIVIDAD CAMPESENA -->
-    <div *ngIf="data.productividadCampesena && data.productividadCampesena.length > 0" class="data-section">
-      <h2 class="section-title">
-        <span>Productividad CampeSENA</span>
-        <button mat-icon-button class="info-button" (click)="openSeccionInfo('productividad-campesena')" aria-label="Más información sobre Productividad CampeSENA">
-          <mat-icon>info_outline</mat-icon>
-        </button>
-      </h2>
-
-        <!-- Una fila con 4 tarjetas -->
-        <div class="productividad-campesena-grid">
-          <div class="programa-card"
-               *ngFor="let node of data.productividadCampesena; trackBy: trackByHierarchyId">
+            *ngFor="let node of data.competenciasLaboralesRoot.children; trackBy: trackByHierarchyId">
             <div class="programa-card-header">
               <h4 class="programa-title">{{ node.descripcion }}</h4>
             </div>
@@ -832,6 +728,111 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- Fila 3: IDs 2, 3, 4 -->
+      <div class="competencias-laborales-row-3">
+        <div class="competencias-laborales-grid-3col">
+          <div class="programa-card"
+            *ngFor="let node of data.competenciasLaboralesOtros.slice(0, 3); trackBy: trackByHierarchyId">
+            <div class="programa-card-header">
+              <h4 class="programa-title">{{ node.descripcion }}</h4>
+            </div>
+
+            <div class="programa-metrics">
+              <div class="progress" [class.has-overflow]="node.porcentaje > 100">
+                <div class="progress-bar" [ngClass]="getClasePorcentaje(node.porcentaje / 100)"
+                  [style.width.%]="node.porcentaje > 100 ? 100 : node.porcentaje">
+                  {{ node.porcentaje / 100 | percent:'1.2-2' }}
+                </div>
+              </div>
+
+              <div class="programa-values">
+                <div class="value-item">
+                  <span class="value-label">Meta:</span>
+                  <span class="value-number">{{ node.meta | number:'1.0-0' }}</span>
+                </div>
+                <div class="value-item">
+                  <span class="value-label">Ejecución:</span>
+                  <span class="value-number">{{ node.ejecucion | number:'1.0-0' }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fila 4: IDs 5, 6, 7 -->
+      <div class="competencias-laborales-row-4">
+        <div class="competencias-laborales-grid-3col">
+          <div class="programa-card"
+            *ngFor="let node of data.competenciasLaboralesOtros.slice(3, 6); trackBy: trackByHierarchyId">
+            <div class="programa-card-header">
+              <h4 class="programa-title">{{ node.descripcion }}</h4>
+            </div>
+
+            <div class="programa-metrics">
+              <div class="progress" [class.has-overflow]="node.porcentaje > 100">
+                <div class="progress-bar" [ngClass]="getClasePorcentaje(node.porcentaje / 100)"
+                  [style.width.%]="node.porcentaje > 100 ? 100 : node.porcentaje">
+                  {{ node.porcentaje / 100 | percent:'1.2-2' }}
+                </div>
+              </div>
+
+              <div class="programa-values">
+                <div class="value-item">
+                  <span class="value-label">Meta:</span>
+                  <span class="value-number">{{ node.meta | number:'1.0-0' }}</span>
+                </div>
+                <div class="value-item">
+                  <span class="value-label">Ejecución:</span>
+                  <span class="value-number">{{ node.ejecucion | number:'1.0-0' }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCTIVIDAD CAMPESENA -->
+    <div *ngIf="data.productividadCampesena && data.productividadCampesena.length > 0" class="data-section">
+      <h2 class="section-title">
+        <span>Productividad CampeSENA</span>
+        <button mat-icon-button class="info-button" (click)="openSeccionInfo('productividad-campesena')"
+          aria-label="Más información sobre Productividad CampeSENA">
+          <mat-icon>info_outline</mat-icon>
+        </button>
+      </h2>
+
+      <!-- Una fila con 4 tarjetas -->
+      <div class="productividad-campesena-grid">
+        <div class="programa-card" *ngFor="let node of data.productividadCampesena; trackBy: trackByHierarchyId">
+          <div class="programa-card-header">
+            <h4 class="programa-title">{{ node.descripcion }}</h4>
+          </div>
+
+          <div class="programa-metrics">
+            <div class="progress" [class.has-overflow]="node.porcentaje > 100">
+              <div class="progress-bar" [ngClass]="getClasePorcentaje(node.porcentaje / 100)"
+                [style.width.%]="node.porcentaje > 100 ? 100 : node.porcentaje">
+                {{ node.porcentaje / 100 | percent:'1.2-2' }}
+              </div>
+            </div>
+
+            <div class="programa-values">
+              <div class="value-item">
+                <span class="value-label">Meta:</span>
+                <span class="value-number">{{ node.meta | number:'1.0-0' }}</span>
+              </div>
+              <div class="value-item">
+                <span class="value-label">Ejecución:</span>
+                <span class="value-number">{{ node.ejecucion | number:'1.0-0' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -844,128 +845,133 @@
     <div *ngIf="data.agenciaPublicaEmpleoNivel1 && data.agenciaPublicaEmpleoNivel1.length > 0" class="data-section">
       <h2 class="section-title">
         <span>Agencia pública de empleo</span>
-        <button mat-icon-button class="info-button" (click)="openSeccionInfo('agencia-publica-empleo')" aria-label="Más información sobre Agencia pública de empleo">
+        <button mat-icon-button class="info-button" (click)="openSeccionInfo('agencia-publica-empleo')"
+          aria-label="Más información sobre Agencia pública de empleo">
           <mat-icon>info_outline</mat-icon>
         </button>
       </h2>
 
-        <!-- Fila 1: 5 tarjetas de nivel 1 (IDs 1, 2, 3, 4, 5) -->
-        <div class="agencia-publica-empleo-grid">
-          <div *ngFor="let node of data.agenciaPublicaEmpleoNivel1; trackBy: trackByHierarchyId"
-               class="programa-card"
-               [class.child-card-selected]="isAgenciaPublicaEmpleoNodeSelected(node) && node.children.length > 0"
-               [class.clickable]="node.children.length > 0"
-               (click)="node.children.length > 0 ? selectAgenciaPublicaEmpleoNode(node) : null">
+      <!-- Fila 1: 5 tarjetas de nivel 1 (IDs 1, 2, 3, 4, 5) -->
+      <div class="agencia-publica-empleo-grid">
+        <div *ngFor="let node of data.agenciaPublicaEmpleoNivel1; trackBy: trackByHierarchyId" class="programa-card"
+          [class.child-card-selected]="isAgenciaPublicaEmpleoNodeSelected(node) && node.children.length > 0"
+          [class.clickable]="node.children.length > 0"
+          (click)="node.children.length > 0 ? selectAgenciaPublicaEmpleoNode(node) : null">
+          <div class="programa-card-header">
+            <h4 class="programa-title">{{ node.descripcion }}</h4>
+          </div>
+
+          <div class="programa-metrics">
+            <div class="progress" [class.has-overflow]="node.porcentaje > 100">
+              <div class="progress-bar" [ngClass]="getClasePorcentaje(node.porcentaje / 100)"
+                [style.width.%]="node.porcentaje > 100 ? 100 : node.porcentaje">
+                {{ node.id === '5' ? (node.ejecucion / 100 | percent:'1.2-2') : (node.porcentaje / 100 |
+                percent:'1.2-2') }}
+              </div>
+            </div>
+
+            <div class="programa-values">
+              <div class="value-item">
+                <span class="value-label">Meta:</span>
+                <span class="value-number">{{ node.id === '5' ? (node.meta / 100 | percent:'1.0-0') : (node.meta |
+                  number:'1.0-0') }}</span>
+              </div>
+              <div class="value-item">
+                <span class="value-label">Ejecución:</span>
+                <span class="value-number">{{ node.id === '5' ? (node.ejecucion / 100 | percent:'1.2-2') :
+                  (node.ejecucion | number:'1.0-0') }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="child-has-details" *ngIf="node.children.length > 0">
+            <mat-icon class="details-icon">assessment</mat-icon>
+            <span class="details-text">Ver detalles ({{ node.children.length }} ítems)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fila 2: Tarjetas hijas (visible al hacer clic) -->
+      <div *ngIf="selectedAgenciaPublicaEmpleoNode && selectedAgenciaPublicaEmpleoNode.children.length > 0"
+        class="agencia-publica-empleo-children-row">
+        <div class="agencia-publica-empleo-children-grid">
+          <div *ngFor="let child of selectedAgenciaPublicaEmpleoNode.children; trackBy: trackByHierarchyId"
+            class="programa-card child-card">
             <div class="programa-card-header">
-              <h4 class="programa-title">{{ node.descripcion }}</h4>
+              <h4 class="programa-title">{{ child.descripcion }}</h4>
             </div>
 
             <div class="programa-metrics">
-              <div class="progress" [class.has-overflow]="node.porcentaje > 100">
-                <div class="progress-bar" [ngClass]="getClasePorcentaje(node.porcentaje / 100)"
-                  [style.width.%]="node.porcentaje > 100 ? 100 : node.porcentaje">
-                  {{ node.id === '5' ? (node.ejecucion / 100 | percent:'1.2-2') : (node.porcentaje / 100 | percent:'1.2-2') }}
+              <div class="progress" [class.has-overflow]="child.porcentaje > 100">
+                <div class="progress-bar" [ngClass]="getClasePorcentaje(child.porcentaje / 100)"
+                  [style.width.%]="child.porcentaje > 100 ? 100 : child.porcentaje">
+                  {{ child.porcentaje / 100 | percent:'1.2-2' }}
                 </div>
               </div>
 
               <div class="programa-values">
                 <div class="value-item">
                   <span class="value-label">Meta:</span>
-                  <span class="value-number">{{ node.id === '5' ? (node.meta / 100 | percent:'1.0-0') : (node.meta | number:'1.0-0') }}</span>
+                  <span class="value-number">{{ child.meta | number:'1.0-0' }}</span>
                 </div>
                 <div class="value-item">
                   <span class="value-label">Ejecución:</span>
-                  <span class="value-number">{{ node.id === '5' ? (node.ejecucion / 100 | percent:'1.2-2') : (node.ejecucion | number:'1.0-0') }}</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="child-has-details" *ngIf="node.children.length > 0">
-              <mat-icon class="details-icon">assessment</mat-icon>
-              <span class="details-text">Ver detalles ({{ node.children.length }} ítems)</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Fila 2: Tarjetas hijas (visible al hacer clic) -->
-        <div *ngIf="selectedAgenciaPublicaEmpleoNode && selectedAgenciaPublicaEmpleoNode.children.length > 0"
-             class="agencia-publica-empleo-children-row">
-          <div class="agencia-publica-empleo-children-grid">
-            <div *ngFor="let child of selectedAgenciaPublicaEmpleoNode.children; trackBy: trackByHierarchyId"
-                 class="programa-card child-card">
-              <div class="programa-card-header">
-                <h4 class="programa-title">{{ child.descripcion }}</h4>
-              </div>
-
-              <div class="programa-metrics">
-                <div class="progress" [class.has-overflow]="child.porcentaje > 100">
-                  <div class="progress-bar" [ngClass]="getClasePorcentaje(child.porcentaje / 100)"
-                    [style.width.%]="child.porcentaje > 100 ? 100 : child.porcentaje">
-                    {{ child.porcentaje / 100 | percent:'1.2-2' }}
-                  </div>
-                </div>
-
-                <div class="programa-values">
-                  <div class="value-item">
-                    <span class="value-label">Meta:</span>
-                    <span class="value-number">{{ child.meta | number:'1.0-0' }}</span>
-                  </div>
-                  <div class="value-item">
-                    <span class="value-label">Ejecución:</span>
-                    <span class="value-number">{{ child.ejecucion | number:'1.0-0' }}</span>
-                  </div>
+                  <span class="value-number">{{ child.ejecucion | number:'1.0-0' }}</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
     </div>
 
     <!-- Sección: Fondo Emprender -->
     <div *ngIf="data.fondoEmprender && data.fondoEmprender.length > 0" class="data-section section-odd">
       <h2 class="section-title">
         <span>Fondo Emprender</span>
-        <button mat-icon-button class="info-button" (click)="openSeccionInfo('fondo-emprender')" aria-label="Más información sobre Fondo Emprender">
+        <button mat-icon-button class="info-button" (click)="openSeccionInfo('fondo-emprender')"
+          aria-label="Más información sobre Fondo Emprender">
           <mat-icon>info_outline</mat-icon>
         </button>
       </h2>
 
-        <!-- Grid 2x2 de tarjetas -->
-        <div class="fondo-emprender-grid">
-          <div *ngFor="let node of data.fondoEmprender; trackBy: trackByHierarchyId"
-               class="programa-card fondo-emprender-card">
-            <div class="programa-card-header">
-              <h4 class="programa-title">{{ node.descripcion }}</h4>
+      <!-- Grid 2x2 de tarjetas -->
+      <div class="fondo-emprender-grid">
+        <div *ngFor="let node of data.fondoEmprender; trackBy: trackByHierarchyId"
+          class="programa-card fondo-emprender-card">
+          <div class="programa-card-header">
+            <h4 class="programa-title">{{ node.descripcion }}</h4>
+          </div>
+
+          <div class="programa-metrics">
+            <div class="progress" [class.has-overflow]="node.porcentaje > 100">
+              <div class="progress-bar" [ngClass]="getClasePorcentaje(node.porcentaje / 100)"
+                [style.width.%]="node.porcentaje > 100 ? 100 : node.porcentaje">
+                {{ node.porcentaje / 100 | percent:'1.2-2' }}
+              </div>
             </div>
 
-            <div class="programa-metrics">
-              <div class="progress" [class.has-overflow]="node.porcentaje > 100">
-                <div class="progress-bar" [ngClass]="getClasePorcentaje(node.porcentaje / 100)"
-                  [style.width.%]="node.porcentaje > 100 ? 100 : node.porcentaje">
-                  {{ node.porcentaje / 100 | percent:'1.2-2' }}
-                </div>
+            <div class="programa-values">
+              <div class="value-item">
+                <span class="value-label">Meta:</span>
+                <span class="value-number">{{ node.meta | number:'1.0-0' }}</span>
               </div>
-
-              <div class="programa-values">
-                <div class="value-item">
-                  <span class="value-label">Meta:</span>
-                  <span class="value-number">{{ node.meta | number:'1.0-0' }}</span>
-                </div>
-                <div class="value-item">
-                  <span class="value-label">Ejecución:</span>
-                  <span class="value-number">{{ node.ejecucion | number:'1.0-0' }}</span>
-                </div>
+              <div class="value-item">
+                <span class="value-label">Ejecución:</span>
+                <span class="value-number">{{ node.ejecucion | number:'1.0-0' }}</span>
               </div>
             </div>
           </div>
         </div>
+      </div>
     </div>
 
     <!-- POBLACIONES VULNERABLES -->
     <div *ngIf="data.poblacionesVulnerablesRoot" class="data-section">
       <h2 class="section-title">
         <span>Poblaciones vulnerables</span>
-        <button mat-icon-button class="info-button" (click)="openSeccionInfo('poblaciones-vulnerables')" aria-label="Más información sobre Poblaciones vulnerables">
+        <button mat-icon-button class="info-button" (click)="openSeccionInfo('poblaciones-vulnerables')"
+          aria-label="Más información sobre Poblaciones vulnerables">
           <mat-icon>info_outline</mat-icon>
         </button>
       </h2>
@@ -973,8 +979,8 @@
       <!-- Fila 1: Tarjeta principal ID=1 con botón Ver detalles -->
       <div class="poblaciones-vulnerables-row-1">
         <div class="programa-card"
-              [class.child-card-selected]="isPoblacionesVulnerablesNodeSelected(data.poblacionesVulnerablesRoot)"
-              (click)="selectPoblacionesVulnerablesNode(data.poblacionesVulnerablesRoot)">
+          [class.child-card-selected]="isPoblacionesVulnerablesNodeSelected(data.poblacionesVulnerablesRoot)"
+          (click)="selectPoblacionesVulnerablesNode(data.poblacionesVulnerablesRoot)">
           <div class="programa-card-header">
             <h4 class="programa-title">{{ data.poblacionesVulnerablesRoot.descripcion }}</h4>
           </div>
@@ -1008,19 +1014,20 @@
 
       <!-- Fila 2: Tree-table con detalles (visible al hacer clic) -->
       <div *ngIf="selectedPoblacionesVulnerablesNode" class="data-section selected-node-tree-section">
-                <div class="selected-node-header">
-                  <h2 class="section-title">
-                    <span>{{ selectedPoblacionesVulnerablesNode.descripcion }}</span>
-                    <button mat-icon-button class="info-button" aria-label="Más información">
-                      <mat-icon>info_outline</mat-icon>
-                    </button>
-                  </h2>
-                  <button class="close-tree-btn" (click)="selectedPoblacionesVulnerablesNode = null">✕ Cerrar</button>
-                </div>
+        <div class="selected-node-header">
+          <h2 class="section-title">
+            <span>{{ selectedPoblacionesVulnerablesNode.descripcion }}</span>
+            <button mat-icon-button class="info-button" aria-label="Más información">
+              <mat-icon>info_outline</mat-icon>
+            </button>
+          </h2>
+          <button class="close-tree-btn" (click)="selectedPoblacionesVulnerablesNode = null">✕ Cerrar</button>
+        </div>
         <!-- Mostrar hijos usando el template recursivo -->
         <div class="children-tree-container" *ngIf="selectedPoblacionesVulnerablesNode.children.length > 0">
           <div *ngFor="let child of selectedPoblacionesVulnerablesNode.children; trackBy: trackByHierarchyId">
-            <ng-container *ngTemplateOutlet="poblacionesVulnerablesNodeTpl; context: { $implicit: child }"></ng-container>
+            <ng-container
+              *ngTemplateOutlet="poblacionesVulnerablesNodeTpl; context: { $implicit: child }"></ng-container>
           </div>
         </div>
         <div class="no-children-message" *ngIf="selectedPoblacionesVulnerablesNode.children.length === 0">
@@ -1038,15 +1045,15 @@
     <div *ngIf="data.productividadCampesena && data.productividadCampesena.length > 0" class="data-section">
       <h2 class="section-title">
         <span>Productividad CampeSENA</span>
-        <button mat-icon-button class="info-button" (click)="openSeccionInfo('productividad-campesena')" aria-label="Más información sobre Productividad CampeSENA">
+        <button mat-icon-button class="info-button" (click)="openSeccionInfo('productividad-campesena')"
+          aria-label="Más información sobre Productividad CampeSENA">
           <mat-icon>info_outline</mat-icon>
         </button>
       </h2>
 
       <!-- Una fila con 4 tarjetas -->
       <div class="productividad-campesena-grid">
-        <div class="programa-card"
-              *ngFor="let node of data.productividadCampesena; trackBy: trackByHierarchyId">
+        <div class="programa-card" *ngFor="let node of data.productividadCampesena; trackBy: trackByHierarchyId">
           <div class="programa-card-header">
             <h4 class="programa-title">{{ node.descripcion }}</h4>
           </div>
@@ -1078,113 +1085,117 @@
     <div *ngIf="data.productividadFullPopularRoot" class="data-section section-odd">
       <h2 class="section-title">
         <span>Full Popular</span>
-        <button mat-icon-button class="info-button" (click)="openSeccionInfo('productividad-full-popular')" aria-label="Más información sobre Productividad Full Popular">
+        <button mat-icon-button class="info-button" (click)="openSeccionInfo('productividad-full-popular')"
+          aria-label="Más información sobre Productividad Full Popular">
           <mat-icon>info_outline</mat-icon>
         </button>
       </h2>
 
-        <!-- Una fila con 4 tarjetas: ID=1, ID=2, ID=3, ID=4 -->
-        <div class="certificacion-grid-4col" *ngIf="data.productividadFullPopular">
-          <!-- Tarjeta 1: ID=1 (Total Formación Profesional Full Popular) con botón de detalles -->
-          <div class="programa-card certificacion-card"
-               [class.child-card-selected]="isFullPopularNodeSelected(data.productividadFullPopularRoot)"
-               (click)="selectFullPopularNode(data.productividadFullPopularRoot)">
-            <div class="programa-card-header">
-              <h4 class="programa-title">{{ data.productividadFullPopularRoot.descripcion }}</h4>
-            </div>
+      <!-- Una fila con 4 tarjetas: ID=1, ID=2, ID=3, ID=4 -->
+      <div class="certificacion-grid-4col" *ngIf="data.productividadFullPopular">
+        <!-- Tarjeta 1: ID=1 (Total Formación Profesional Full Popular) con botón de detalles -->
+        <div class="programa-card certificacion-card"
+          [class.child-card-selected]="isFullPopularNodeSelected(data.productividadFullPopularRoot)"
+          (click)="selectFullPopularNode(data.productividadFullPopularRoot)">
+          <div class="programa-card-header">
+            <h4 class="programa-title">{{ data.productividadFullPopularRoot.descripcion }}</h4>
+          </div>
 
-            <div class="programa-metrics">
-              <div class="progress" [class.has-overflow]="data.productividadFullPopularRoot.porcentaje > 100">
-                <div class="progress-bar" [ngClass]="getClasePorcentaje(data.productividadFullPopularRoot.porcentaje / 100)"
-                  [style.width.%]="data.productividadFullPopularRoot.porcentaje > 100 ? 100 : data.productividadFullPopularRoot.porcentaje">
-                  {{ data.productividadFullPopularRoot.porcentaje / 100 | percent:'1.2-2' }}
-                </div>
-              </div>
-
-              <div class="programa-values">
-                <div class="value-item">
-                  <span class="value-label">Meta:</span>
-                  <span class="value-number">{{ data.productividadFullPopularRoot.meta | number:'1.0-0' }}</span>
-                </div>
-                <div class="value-item">
-                  <span class="value-label">Ejecución:</span>
-                  <span class="value-number">{{ data.productividadFullPopularRoot.ejecucion | number:'1.0-0' }}</span>
-                </div>
+          <div class="programa-metrics">
+            <div class="progress" [class.has-overflow]="data.productividadFullPopularRoot.porcentaje > 100">
+              <div class="progress-bar"
+                [ngClass]="getClasePorcentaje(data.productividadFullPopularRoot.porcentaje / 100)"
+                [style.width.%]="data.productividadFullPopularRoot.porcentaje > 100 ? 100 : data.productividadFullPopularRoot.porcentaje">
+                {{ data.productividadFullPopularRoot.porcentaje / 100 | percent:'1.2-2' }}
               </div>
             </div>
 
-            <div class="child-has-details" *ngIf="data.productividadFullPopularRoot.children.length > 0">
-              <mat-icon class="details-icon">assessment</mat-icon>
-              <span class="details-text">Ver detalles ({{ data.productividadFullPopularRoot.children.length }} ítems)</span>
+            <div class="programa-values">
+              <div class="value-item">
+                <span class="value-label">Meta:</span>
+                <span class="value-number">{{ data.productividadFullPopularRoot.meta | number:'1.0-0' }}</span>
+              </div>
+              <div class="value-item">
+                <span class="value-label">Ejecución:</span>
+                <span class="value-number">{{ data.productividadFullPopularRoot.ejecucion | number:'1.0-0' }}</span>
+              </div>
             </div>
           </div>
 
-          <!-- Tarjetas 2, 3, 4: IDs restantes sin botón de detalles -->
-          <div class="programa-card certificacion-card"
-               *ngFor="let node of data.productividadFullPopular.slice(1); trackBy: trackByHierarchyId">
-            <div class="programa-card-header">
-              <h4 class="programa-title">{{ node.descripcion }}</h4>
-            </div>
-
-            <div class="programa-metrics">
-              <div class="progress" [class.has-overflow]="node.porcentaje > 100">
-                <div class="progress-bar" [ngClass]="getClasePorcentaje(node.porcentaje / 100)"
-                  [style.width.%]="node.porcentaje > 100 ? 100 : node.porcentaje">
-                  {{ node.porcentaje / 100 | percent:'1.2-2' }}
-                </div>
-              </div>
-
-              <div class="programa-values">
-                <div class="value-item">
-                  <span class="value-label">Meta:</span>
-                  <span class="value-number">{{ node.meta | number:'1.0-0' }}</span>
-                </div>
-                <div class="value-item">
-                  <span class="value-label">Ejecución:</span>
-                  <span class="value-number">{{ node.ejecucion | number:'1.0-0' }}</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Espaciador para mantener misma altura que tarjeta con botón -->
-            <div class="certificacion-spacer"></div>
+          <div class="child-has-details" *ngIf="data.productividadFullPopularRoot.children.length > 0">
+            <mat-icon class="details-icon">assessment</mat-icon>
+            <span class="details-text">Ver detalles ({{ data.productividadFullPopularRoot.children.length }}
+              ítems)</span>
           </div>
         </div>
 
-        <!-- Tabla de detalles para Full Popular (tree-table expandible) -->
-        <div *ngIf="selectedFullPopularNode" class="data-section selected-node-tree-section">
-          <div class="selected-node-header">
-            <h2 class="section-title">
-              <span>{{ selectedFullPopularNode.descripcion }}</span>
-              <button mat-icon-button class="info-button" aria-label="Más información">
-                <mat-icon>info_outline</mat-icon>
-              </button>
-            </h2>
-            <button class="close-tree-btn" (click)="selectedFullPopularNode = null">✕ Cerrar</button>
+        <!-- Tarjetas 2, 3, 4: IDs restantes sin botón de detalles -->
+        <div class="programa-card certificacion-card"
+          *ngFor="let node of data.productividadFullPopular.slice(1); trackBy: trackByHierarchyId">
+          <div class="programa-card-header">
+            <h4 class="programa-title">{{ node.descripcion }}</h4>
           </div>
-          <!-- Mostrar hijos usando el template recursivo -->
-          <div class="children-tree-container" *ngIf="selectedFullPopularNode.children.length > 0">
-            <div *ngFor="let child of selectedFullPopularNode.children; trackBy: trackByHierarchyId">
-              <ng-container *ngTemplateOutlet="hierarchyNodeTpl; context: { $implicit: child }"></ng-container>
+
+          <div class="programa-metrics">
+            <div class="progress" [class.has-overflow]="node.porcentaje > 100">
+              <div class="progress-bar" [ngClass]="getClasePorcentaje(node.porcentaje / 100)"
+                [style.width.%]="node.porcentaje > 100 ? 100 : node.porcentaje">
+                {{ node.porcentaje / 100 | percent:'1.2-2' }}
+              </div>
+            </div>
+
+            <div class="programa-values">
+              <div class="value-item">
+                <span class="value-label">Meta:</span>
+                <span class="value-number">{{ node.meta | number:'1.0-0' }}</span>
+              </div>
+              <div class="value-item">
+                <span class="value-label">Ejecución:</span>
+                <span class="value-number">{{ node.ejecucion | number:'1.0-0' }}</span>
+              </div>
             </div>
           </div>
-          <div class="no-children-message" *ngIf="selectedFullPopularNode.children.length === 0">
-            <p>No hay elementos de detalle para mostrar.</p>
+
+          <!-- Espaciador para mantener misma altura que tarjeta con botón -->
+          <div class="certificacion-spacer"></div>
+        </div>
+      </div>
+
+      <!-- Tabla de detalles para Full Popular (tree-table expandible) -->
+      <div *ngIf="selectedFullPopularNode" class="data-section selected-node-tree-section">
+        <div class="selected-node-header">
+          <h2 class="section-title">
+            <span>{{ selectedFullPopularNode.descripcion }}</span>
+            <button mat-icon-button class="info-button" aria-label="Más información">
+              <mat-icon>info_outline</mat-icon>
+            </button>
+          </h2>
+          <button class="close-tree-btn" (click)="selectedFullPopularNode = null">✕ Cerrar</button>
+        </div>
+        <!-- Mostrar hijos usando el template recursivo -->
+        <div class="children-tree-container" *ngIf="selectedFullPopularNode.children.length > 0">
+          <div *ngFor="let child of selectedFullPopularNode.children; trackBy: trackByHierarchyId">
+            <ng-container *ngTemplateOutlet="hierarchyNodeTpl; context: { $implicit: child }"></ng-container>
           </div>
         </div>
+        <div class="no-children-message" *ngIf="selectedFullPopularNode.children.length === 0">
+          <p>No hay elementos de detalle para mostrar.</p>
+        </div>
+      </div>
     </div>
-    
+
   </div>
   <!-- End Tab Content: CampeSENA y Full Popular -->
 
   <!-- Tab Content: Promoción y Relaciones Corporativas -->
 
   <div *ngIf="isTabActive('relaciones-corporativas')" class="tab-content fade-in">
-        <!-- CONTRATOS DE APRENDIZAJE -->
+    <!-- CONTRATOS DE APRENDIZAJE -->
     <div *ngIf="data.contratosAprendizajePrincipal && data.contratosAprendizaje" class="data-section section-odd">
       <h2 class="section-title">
         <span>Contratos de Aprendizaje</span>
-        <button mat-icon-button class="info-button" (click)="openSeccionInfo('contratos-aprendizaje')" aria-label="Más información sobre Contratos de Aprendizaje">
+        <button mat-icon-button class="info-button" (click)="openSeccionInfo('contratos-aprendizaje')"
+          aria-label="Más información sobre Contratos de Aprendizaje">
           <mat-icon>info_outline</mat-icon>
         </button>
       </h2>
@@ -1192,15 +1203,16 @@
       <!-- Fila 1: Tarjeta Principal ID=3 con botón Ver detalles -->
       <div class="contratos-aprendizaje-row-1">
         <div class="programa-card contratos-aprendizaje-card-principal"
-              [class.child-card-selected]="isContratosAprendizajeNodeSelected(data.contratosAprendizajePrincipal)"
-              (click)="selectContratosAprendizajeNode(data.contratosAprendizajePrincipal)">
+          [class.child-card-selected]="isContratosAprendizajeNodeSelected(data.contratosAprendizajePrincipal)"
+          (click)="selectContratosAprendizajeNode(data.contratosAprendizajePrincipal)">
           <div class="programa-card-header">
             <h4 class="programa-title">{{ data.contratosAprendizajePrincipal.descripcion }}</h4>
           </div>
 
           <div class="programa-metrics">
             <div class="progress" [class.has-overflow]="data.contratosAprendizajePrincipal.porcentaje > 100">
-              <div class="progress-bar" [ngClass]="getClasePorcentaje(data.contratosAprendizajePrincipal.porcentaje / 100)"
+              <div class="progress-bar"
+                [ngClass]="getClasePorcentaje(data.contratosAprendizajePrincipal.porcentaje / 100)"
                 [style.width.%]="data.contratosAprendizajePrincipal.porcentaje > 100 ? 100 : data.contratosAprendizajePrincipal.porcentaje">
                 {{ data.contratosAprendizajePrincipal.porcentaje / 100 | percent:'1.2-2' }}
               </div>
@@ -1220,17 +1232,18 @@
 
           <div class="child-has-details" *ngIf="data.contratosAprendizajePrincipal.children.length > 0">
             <mat-icon class="details-icon">assessment</mat-icon>
-            <span class="details-text">Ver detalles ({{ data.contratosAprendizajePrincipal.children.length }} ítems)</span>
+            <span class="details-text">Ver detalles ({{ data.contratosAprendizajePrincipal.children.length }}
+              ítems)</span>
           </div>
         </div>
       </div>
 
       <!-- Fila 2: Tarjetas detalle (IDs 3.1 y 3.2) - visible al hacer clic -->
       <div *ngIf="selectedContratosAprendizajeNode && selectedContratosAprendizajeNode.children.length > 0"
-            class="contratos-aprendizaje-detail-row">
+        class="contratos-aprendizaje-detail-row">
         <div class="contratos-aprendizaje-detail-grid">
           <div *ngFor="let child of selectedContratosAprendizajeNode.children; trackBy: trackByHierarchyId"
-                class="programa-card contratos-aprendizaje-detail-card">
+            class="programa-card contratos-aprendizaje-detail-card">
             <div class="programa-card-header">
               <h4 class="programa-title">{{ child.descripcion }}</h4>
             </div>
@@ -1262,8 +1275,8 @@
       <div class="contratos-aprendizaje-row-3">
         <div class="contratos-aprendizaje-grid-3col">
           <div class="programa-card"
-                *ngFor="let node of data.contratosAprendizaje | slice:0:3; trackBy: trackByHierarchyId"
-                [hidden]="node.id === '3'">
+            *ngFor="let node of data.contratosAprendizaje | slice:0:3; trackBy: trackByHierarchyId"
+            [hidden]="node.id === '3'">
             <div class="programa-card-header">
               <h4 class="programa-title">{{ node.descripcion }}</h4>
             </div>
@@ -1291,7 +1304,7 @@
 
           <!-- Asegurar que siempre mostramos exactamente 3 tarjetas (IDs 4, 1, 2) -->
           <div class="programa-card"
-                *ngFor="let node of data.contratosAprendizaje | slice:3:6; trackBy: trackByHierarchyId">
+            *ngFor="let node of data.contratosAprendizaje | slice:3:6; trackBy: trackByHierarchyId">
             <div class="programa-card-header">
               <h4 class="programa-title">{{ node.descripcion }}</h4>
             </div>
@@ -1320,8 +1333,8 @@
       </div>
     </div>
   </div>
-  <!-- End Tab Content: Promoción y Relaciones Corporativas -->  
-   
+  <!-- End Tab Content: Promoción y Relaciones Corporativas -->
+
 </div>
 <!-- End Dashboard Container -->
 
@@ -1468,7 +1481,8 @@
 <!-- Plantilla Recursiva para Jerarquía -->
 <ng-template #hierarchyNodeTpl let-node>
   <div class="hierarchy-node-card" [style.margin-left.rem]="node.level * 2">
-    <div class="hierarchy-node-header" (click)="toggleHierarchyNode(node)" [class.expandable]="node.children.length > 0">
+    <div class="hierarchy-node-header" (click)="toggleHierarchyNode(node)"
+      [class.expandable]="node.children.length > 0">
       <div class="hierarchy-header-content">
         <span class="toggle-icon" *ngIf="node.children.length > 0">
           {{ node.isCollapsed ? '►' : '▼' }}
@@ -1505,7 +1519,7 @@
 <ng-template #certificacionNodeTpl let-node>
   <div class="hierarchy-node-card" [style.margin-left.rem]="node.level * 2">
     <div class="hierarchy-node-header" (click)="toggleHierarchyNode(node)"
-         [class.expandable]="node.children.length > 0">
+      [class.expandable]="node.children.length > 0">
       <div class="hierarchy-header-content">
         <span class="toggle-icon" *ngIf="node.children.length > 0">
           {{ node.isCollapsed ? '►' : '▼' }}
@@ -1514,8 +1528,7 @@
       </div>
 
       <div class="hierarchy-metrics">
-        <div class="hierarchy-metric-item hierarchy-percentage"
-             [ngClass]="getClasePorcentaje(node.porcentaje / 100)">
+        <div class="hierarchy-metric-item hierarchy-percentage" [ngClass]="getClasePorcentaje(node.porcentaje / 100)">
           {{ node.porcentaje / 100 | percent:'1.2-2' }}
         </div>
         <div class="hierarchy-metric-item">
@@ -1540,7 +1553,8 @@
 <!-- Plantilla para Formación por Estrategia -->
 <ng-template #formacionEstrategiaNodeTpl let-node>
   <div class="hierarchy-node-card" [style.margin-left.rem]="node.level * 2">
-    <div class="hierarchy-node-header" (click)="toggleFormacionEstrategiaNode(node)" [class.expandable]="node.children.length > 0">
+    <div class="hierarchy-node-header" (click)="toggleFormacionEstrategiaNode(node)"
+      [class.expandable]="node.children.length > 0">
       <div class="hierarchy-header-content">
         <span class="toggle-icon" *ngIf="node.children.length > 0">
           {{ node.isCollapsed ? '►' : '▼' }}
@@ -1555,8 +1569,8 @@
         <div class="hierarchy-metric-item estrategia-metric" *ngIf="node.regularMeta !== null">
           <span class="estrategia-label">Regular:</span>
           <span class="hierarchy-percentage clickable"
-                [ngClass]="getClaseSemaforo(calcularPorcentaje(node.regularMeta, node.regularEjecucion))"
-                (click)="showMetaEjecucionPopup('Regular', node.regularMeta, node.regularEjecucion); $event.stopPropagation()">
+            [ngClass]="getClaseSemaforo(calcularPorcentaje(node.regularMeta, node.regularEjecucion))"
+            (click)="showMetaEjecucionPopup('Regular', node.regularMeta, node.regularEjecucion); $event.stopPropagation()">
             {{ calcularPorcentaje(node.regularMeta, node.regularEjecucion) | percent:'1.2-2' }}
           </span>
         </div>
@@ -1565,8 +1579,8 @@
         <div class="hierarchy-metric-item estrategia-metric" *ngIf="node.campesenaMeta !== null">
           <span class="estrategia-label">CampeSENA:</span>
           <span class="hierarchy-percentage clickable"
-                [ngClass]="getClaseSemaforo(calcularPorcentaje(node.campesenaMeta, node.campesenaEjecucion))"
-                (click)="showMetaEjecucionPopup('CampeSENA', node.campesenaMeta, node.campesenaEjecucion); $event.stopPropagation()">
+            [ngClass]="getClaseSemaforo(calcularPorcentaje(node.campesenaMeta, node.campesenaEjecucion))"
+            (click)="showMetaEjecucionPopup('CampeSENA', node.campesenaMeta, node.campesenaEjecucion); $event.stopPropagation()">
             {{ calcularPorcentaje(node.campesenaMeta, node.campesenaEjecucion) | percent:'1.2-2' }}
           </span>
         </div>
@@ -1575,8 +1589,8 @@
         <div class="hierarchy-metric-item estrategia-metric" *ngIf="node.fullPopularMeta !== null">
           <span class="estrategia-label">Full Popular:</span>
           <span class="hierarchy-percentage clickable"
-                [ngClass]="getClaseSemaforo(calcularPorcentaje(node.fullPopularMeta, node.fullPopularEjecucion))"
-                (click)="showMetaEjecucionPopup('Full Popular', node.fullPopularMeta, node.fullPopularEjecucion); $event.stopPropagation()">
+            [ngClass]="getClaseSemaforo(calcularPorcentaje(node.fullPopularMeta, node.fullPopularEjecucion))"
+            (click)="showMetaEjecucionPopup('Full Popular', node.fullPopularMeta, node.fullPopularEjecucion); $event.stopPropagation()">
             {{ calcularPorcentaje(node.fullPopularMeta, node.fullPopularEjecucion) | percent:'1.2-2' }}
           </span>
         </div>
@@ -1595,7 +1609,7 @@
 <ng-template #poblacionesVulnerablesNodeTpl let-node>
   <div class="hierarchy-node-card" [style.margin-left.rem]="node.level * 2">
     <div class="hierarchy-node-header" (click)="toggleHierarchyNode(node)"
-         [class.expandable]="node.children.length > 0">
+      [class.expandable]="node.children.length > 0">
       <div class="hierarchy-header-content">
         <span class="toggle-icon" *ngIf="node.children.length > 0">
           {{ node.isCollapsed ? '►' : '▼' }}
@@ -1604,8 +1618,7 @@
       </div>
 
       <div class="hierarchy-metrics">
-        <div class="hierarchy-metric-item hierarchy-percentage"
-             [ngClass]="getClasePorcentaje(node.porcentaje / 100)">
+        <div class="hierarchy-metric-item hierarchy-percentage" [ngClass]="getClasePorcentaje(node.porcentaje / 100)">
           {{ node.porcentaje / 100 | percent:'1.2-2' }}
         </div>
         <div class="hierarchy-metric-item">
