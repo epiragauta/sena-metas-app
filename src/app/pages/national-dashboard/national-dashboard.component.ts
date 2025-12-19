@@ -110,6 +110,7 @@ export class NationalDashboardComponent implements OnInit {
   public cargando = true;
   public selectedNodeForTree: HierarchyNode | null = null;
   public selectedEstrategiaNodeForTree: FormacionEstrategiaNode | null = null;
+  public selectedEstrategiaType: 'regular' | 'campesena' | 'fullPopular' | null = null;
   public selectedRetencionNode: HierarchyNode | null = null;
   public selectedCertificacionNode: HierarchyNode | null = null;
   public showCompetenciasLaboralesDetails = false;
@@ -911,17 +912,77 @@ export class NationalDashboardComponent implements OnInit {
     }
   }
 
-  public selectEstrategiaNodeForTree(node: FormacionEstrategiaNode): void {
-    // Si ya está seleccionado, deseleccionar
-    if (this.selectedEstrategiaNodeForTree?.id === node.id) {
+  public selectEstrategiaNodeForTree(node: FormacionEstrategiaNode, estrategia: 'regular' | 'campesena' | 'fullPopular'): void {
+    // Si ya está seleccionado el mismo nodo y estrategia, deseleccionar
+    if (this.selectedEstrategiaNodeForTree?.id === node.id && this.selectedEstrategiaType === estrategia) {
       this.selectedEstrategiaNodeForTree = null;
+      this.selectedEstrategiaType = null;
     } else {
       this.selectedEstrategiaNodeForTree = node;
+      this.selectedEstrategiaType = estrategia;
     }
   }
 
   public isEstrategiaNodeSelectedForTree(node: FormacionEstrategiaNode): boolean {
     return this.selectedEstrategiaNodeForTree?.id === node.id;
+  }
+
+  public isEstrategiaTypeSelected(node: FormacionEstrategiaNode, estrategia: 'regular' | 'campesena' | 'fullPopular'): boolean {
+    return this.selectedEstrategiaNodeForTree?.id === node.id && this.selectedEstrategiaType === estrategia;
+  }
+
+  public isFormacionComplementaria(node: FormacionEstrategiaNode): boolean {
+    const nivelNormalizado = node.nivelFormacion.toUpperCase().trim();
+    return nivelNormalizado.includes('FORMACION COMPLEMENTARIA') ||
+           nivelNormalizado.includes('COMPLEMENTARIA') ||
+           nivelNormalizado.includes('FORMACIÓN COMPLEMENTARIA');
+  }
+
+  /**
+   * Filtra los hijos de FORMACION COMPLEMENTARIA según la estrategia seleccionada
+   * - Todas las estrategias incluyen: COMPLEMENTARIA
+   * - Regular: Programa de Formación Continua Especializada
+   * - CampeSENA: Estrategia Formación Continua Especial Campesina
+   * - Full Popular: Formación Continua Especial Popular
+   */
+  public getFilteredChildrenByEstrategia(): FormacionEstrategiaNode[] {
+    if (!this.selectedEstrategiaNodeForTree || !this.selectedEstrategiaType) {
+      return [];
+    }
+
+    // Si NO es FORMACION COMPLEMENTARIA, devolver todos los hijos
+    if (!this.isFormacionComplementaria(this.selectedEstrategiaNodeForTree)) {
+      return this.selectedEstrategiaNodeForTree.children;
+    }
+
+    // Filtrar hijos según la estrategia seleccionada
+    return this.selectedEstrategiaNodeForTree.children.filter(child => {
+      const nivelNormalizado = child.nivelFormacion.toUpperCase().trim();
+
+      // COMPLEMENTARIA se incluye en todas las estrategias
+      if (nivelNormalizado === 'COMPLEMENTARIA') {
+        return true;
+      }
+
+      switch (this.selectedEstrategiaType) {
+        case 'regular':
+          return nivelNormalizado.includes('PROGRAMA DE FORMACION CONTINUA ESPECIALIZADA') ||
+                 nivelNormalizado.includes('PROGRAMA DE FORMACIÓN CONTINUA ESPECIALIZADA');
+
+        case 'campesena':
+          return nivelNormalizado.includes('ESTRATEGIA FORMACION CONTINUA ESPECIAL CAMPESINA') ||
+                 nivelNormalizado.includes('ESTRATEGIA FORMACIÓN CONTINUA ESPECIAL CAMPESINA') ||
+                 nivelNormalizado.includes('FEEC');
+
+        case 'fullPopular':
+          return nivelNormalizado.includes('FORMACION CONTINUA ESPECIAL POPULAR') ||
+                 nivelNormalizado.includes('FORMACIÓN CONTINUA ESPECIAL POPULAR') ||
+                 nivelNormalizado.includes('FEP');
+
+        default:
+          return false;
+      }
+    });
   }
 
   public showMetaEjecucionPopup(estrategia: string, meta: number | null, ejecucion: number | null): void {
