@@ -126,14 +126,14 @@
     "regularMeta": null,
     "regularEjecucion": null,
     "campesenaMeta": 30000,
-    "campesenaEjecucion": 10405,
+    "campesenaEjecucion": 104005,
     "fullPopularMeta": null,
     "fullPopularEjecucion": null,
     "totalMeta": 30000
   },
   {
     "id": "1.2.4",
-    "nivelFormacion": "Formación Contina Especial Popular (En el marco de FEP)",
+    "nivelFormacion": "Formación Continua Especial Popular (En el marco de FEP)",
     "regularMeta": null,
     "regularEjecucion": null,
     "campesenaMeta": null,

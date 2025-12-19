@@ -183,7 +183,7 @@ export class NationalDashboardComponent implements OnInit {
         })
       ),
       metasJerarquia: this.metasService.getMetasJerarquia(),
-      formacionPorEstrategia: this.metasService.getFormacionPorEstrategia(),
+      formacionPorEstrategia: this.metasService.getFormacionPorEstrategiaConAPI(),
       arbolRetencion: this.mongoDBService.getArbolRetencionConEjecuciones(),
       arbolCertificacion: this.mongoDBService.getArbolCertificacionConEjecuciones(),
       metasCompetenciasLaborales: this.metasService.getMetasCompetenciasLaborales(),
