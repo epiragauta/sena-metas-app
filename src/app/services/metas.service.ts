@@ -451,6 +451,151 @@ export class MetasService {
   }
 
   /**
+   * Obtiene metas de poblaciones vulnerables combinando estructura del JSON con datos de ejecución de la API
+   */
+  getMetasPoblacionesVulnerablesConAPI(): Observable<Meta[]> {
+    return forkJoin({
+      estructura: this.http.get<Meta[]>(`${this.basePath}/metas_poblaciones_vulnerables.json`),
+      ejecucionPoblaciones: this.xlsbApiService.getEjecucionPoblacionesVulnerables()
+    }).pipe(
+      map(({ estructura, ejecucionPoblaciones }) => {
+        // Sumar datos de ejecución de todas las regionales
+        const totales = {
+          desplazados: 0,           // DESPLAZADOS
+          hechosVictimizantes: 0,   // HECHOS_VICT
+          totalVictimas: 0,         // TO_VICTIMAS
+          conDiscapacidad: 0,       // CON_DISCAPA
+          indigenas: 0,             // INDIGENAS
+          inpec: 0,                 // INPEC
+          jovenVulnerable: 0,       // JOVEN_VULNE
+          adolescenteLeyPenal: 0,   // ADO_LEY_PEN
+          mujerCabezaHogar: 0,      // MUJER_CA_HO
+          negros: 0,                // NEGROS
+          afrocolombianos: 0,       // AFROCOLOMBI
+          raizales: 0,              // RAIZALES
+          palenqueros: 0,           // PALENQUEROS
+          procesoReintegracion: 0,  // PR_RE_AD_DE
+          terceraEdad: 0,           // TERCERA_EDA
+          adolescenteTrabajador: 0, // ADO_TRABAJA
+          rom: 0,                   // ROM
+          otrasVulnerables: 0,      // OTRAS_VULNE
+          totalVulnerables: 0       // TO_VULNERAB
+        };
+
+        ejecucionPoblaciones.forEach(regional => {
+          totales.desplazados += regional.DESPLAZADOS || 0;
+          totales.hechosVictimizantes += regional.HECHOS_VICT || 0;
+          totales.totalVictimas += regional.TO_VICTIMAS || 0;
+          totales.conDiscapacidad += regional.CON_DISCAPA || 0;
+          totales.indigenas += regional.INDIGENAS || 0;
+          totales.inpec += regional.INPEC || 0;
+          totales.jovenVulnerable += regional.JOVEN_VULNE || 0;
+          totales.adolescenteLeyPenal += regional.ADO_LEY_PEN || 0;
+          totales.mujerCabezaHogar += regional.MUJER_CA_HO || 0;
+          totales.negros += regional.NEGROS || 0;
+          totales.afrocolombianos += regional.AFROCOLOMBI || 0;
+          totales.raizales += regional.RAIZALES || 0;
+          totales.palenqueros += regional.PALENQUEROS || 0;
+          totales.procesoReintegracion += regional.PR_RE_AD_DE || 0;
+          totales.terceraEdad += regional.TERCERA_EDA || 0;
+          totales.adolescenteTrabajador += regional.ADO_TRABAJA || 0;
+          totales.rom += regional.ROM || 0;
+          totales.otrasVulnerables += regional.OTRAS_VULNE || 0;
+          totales.totalVulnerables += regional.TO_VULNERAB || 0;
+        });
+
+        // Actualizar nodos con datos de la API
+        return estructura.map(nodo => {
+          const nodoActualizado = { ...nodo };
+          const idStr = String(nodo.id);
+
+          // Mapear según el ID del nodo
+          switch (idStr) {
+            case '1':
+              // TOTAL POBLACIONES VULNERABLES
+              nodoActualizado.ejecucion = totales.totalVulnerables;
+              break;
+            case '1.1':
+              // TOTAL VICTIMAS
+              nodoActualizado.ejecucion = totales.totalVictimas;
+              break;
+            case '1.1.1':
+              // DESPLAZADOS POR LA VIOLENCIA
+              nodoActualizado.ejecucion = totales.desplazados;
+              break;
+            case '1.1.2':
+              // HECHOS VICTIMIZANTES
+              nodoActualizado.ejecucion = totales.hechosVictimizantes;
+              break;
+            case '1.2':
+              // OTRAS POBLACIONES VULNERABLES
+              nodoActualizado.ejecucion = totales.otrasVulnerables;
+              break;
+            case '1.2.1':
+              // Personas en condición de Discapacidad
+              nodoActualizado.ejecucion = totales.conDiscapacidad;
+              break;
+            case '1.2.2':
+              // Indígenas
+              nodoActualizado.ejecucion = totales.indigenas;
+              break;
+            case '1.2.3':
+              // INPEC
+              nodoActualizado.ejecucion = totales.inpec;
+              break;
+            case '1.2.4':
+              // Jóvenes Vulnerables
+              nodoActualizado.ejecucion = totales.jovenVulnerable;
+              break;
+            case '1.2.5':
+              // Adolescente en Conflicto con la Ley Penal
+              nodoActualizado.ejecucion = totales.adolescenteLeyPenal;
+              break;
+            case '1.2.6':
+              // Mujer Cabeza de Hogar
+              nodoActualizado.ejecucion = totales.mujerCabezaHogar;
+              break;
+            case '1.2.7':
+              // Negritudes (Negros)
+              nodoActualizado.ejecucion = totales.negros;
+              break;
+            case '1.2.8':
+              // Afrocolombianos
+              nodoActualizado.ejecucion = totales.afrocolombianos;
+              break;
+            case '1.2.9':
+              // Raizales
+              nodoActualizado.ejecucion = totales.raizales;
+              break;
+            case '1.2.10':
+              // Palenqueros
+              nodoActualizado.ejecucion = totales.palenqueros;
+              break;
+            case '1.2.11':
+              // Proceso de Reintegración y Adolescentes desvinculados
+              nodoActualizado.ejecucion = totales.procesoReintegracion;
+              break;
+            case '1.2.12':
+              // Tercera Edad
+              nodoActualizado.ejecucion = totales.terceraEdad;
+              break;
+            case '1.2.13':
+              // Adolescente Trabajador
+              nodoActualizado.ejecucion = totales.adolescenteTrabajador;
+              break;
+            case '1.2.14':
+              // Rom
+              nodoActualizado.ejecucion = totales.rom;
+              break;
+          }
+
+          return nodoActualizado;
+        });
+      })
+    );
+  }
+
+  /**
    * Obtiene jerarquías de poblaciones vulnerables
    */
   getJerarquiasPoblacionesVulnerables(): Observable<Jerarquia[]> {
