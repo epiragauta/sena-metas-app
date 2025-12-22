@@ -86,6 +86,59 @@ export class MetasService {
   }
 
   /**
+   * Obtiene programas relevantes combinando estructura del JSON con datos de ejecución de la API
+   */
+  getProgramasRelevantesConAPI(): Observable<ProgramaRelevante[]> {
+    return forkJoin({
+      estructura: this.http.get<ProgramaRelevante[]>(`${this.basePath}/programas_relevantes.json`),
+      ejecucionRegional: this.xlsbApiService.getEjecucionRegional()
+    }).pipe(
+      map(({ estructura, ejecucionRegional }) => {
+        // Sumar datos de ejecución de todas las regionales
+        const totales = {
+          campesena: 0,      // TOT_FP_CAME
+          fullPopular: 0,    // TOT_FP_FULL
+          virtual: 0         // TOT_FP_VIRT
+        };
+
+        ejecucionRegional.forEach(regional => {
+          totales.campesena += regional.TOT_FP_CAME || 0;
+          totales.fullPopular += regional.TOT_FP_FULL || 0;
+          totales.virtual += regional.TOT_FP_VIRT || 0;
+        });
+
+        // Actualizar cada programa con datos de la API
+        return estructura.map(programa => {
+          const programaActualizado = { ...programa };
+
+          // Mapear según el ID
+          switch (programa.id) {
+            case 1:
+              // Total Formación Profesional CampeSENA
+              programaActualizado.ejecucion = totales.campesena;
+              break;
+            case 2:
+              // Total Formación Profesional Full Popular
+              programaActualizado.ejecucion = totales.fullPopular;
+              break;
+            case 3:
+              // Total Formación Profesional Integral - Virtual
+              programaActualizado.ejecucion = totales.virtual;
+              break;
+          }
+
+          // Recalcular porcentaje
+          if (programaActualizado.meta > 0) {
+            programaActualizado.porcentaje = (programaActualizado.ejecucion / programaActualizado.meta) * 100;
+          }
+
+          return programaActualizado;
+        });
+      })
+    );
+  }
+
+  /**
    * Obtiene primer curso desde referencias_totales.json (DEPRECATED)
    */
   getPrimerCurso(): Observable<MetasPrimerCurso> {

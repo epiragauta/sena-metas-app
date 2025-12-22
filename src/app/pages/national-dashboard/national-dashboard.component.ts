@@ -200,7 +200,7 @@ export class NationalDashboardComponent implements OnInit {
       metasContratosAprendizaje: this.metasService.getMetasContratosAprendizaje(),
       formacionProfesionalIntegral: this.mongoDBService.getArbolFPIConEjecuciones(),
       // Nuevas llamadas para programas relevantes y primer curso
-      programasRelevantes: this.metasService.getProgramasRelevantes().pipe(
+      programasRelevantes: this.metasService.getProgramasRelevantesConAPI().pipe(
         catchError(err => {
           console.warn('⚠️ Error cargando programas relevantes:', err);
           return of([]);
