@@ -740,6 +740,91 @@ export class MetasService {
   }
 
   /**
+   * Obtiene metas completas de Full Popular combinando estructura del JSON con datos de ejecución de la API
+   */
+  getMetasFullPopularCompletoConAPI(): Observable<Meta[]> {
+    return forkJoin({
+      estructura: this.http.get<Meta[]>(`${this.basePath}/metas_full_popular_completo.json`),
+      ejecucionRegional: this.xlsbApiService.getEjecucionRegional()
+    }).pipe(
+      map(({ estructura, ejecucionRegional }) => {
+        // Sumar datos de ejecución de todas las regionales
+        const totales = {
+          totalFullPopular: 0,     // TOT_FP_FULL
+          tecnologos: 0,            // TEC_FULL_PO
+          operarios: 0,             // OPE_FULL_PO
+          auxiliares: 0,            // AUX_FULL_PO
+          tecnicoLaboral: 0,        // TCO_FULL_PO
+          complementaria: 0,        // COM_FULL_PO
+          retencion: 0,             // R_FULL
+          certificacion: 0          // C_FULL
+        };
+
+        ejecucionRegional.forEach(regional => {
+          totales.totalFullPopular += regional.TOT_FP_FULL || 0;
+          totales.tecnologos += regional.TEC_FULL_PO || 0;
+          totales.operarios += regional.OPE_FULL_PO || 0;
+          totales.auxiliares += regional.AUX_FULL_PO || 0;
+          totales.tecnicoLaboral += regional.TCO_FULL_PO || 0;
+          totales.complementaria += regional.COM_FULL_PO || 0;
+          totales.retencion += regional.R_FULL || 0;
+          totales.certificacion += regional.C_FULL || 0;
+        });
+
+        // Actualizar nodos con datos de la API
+        return estructura.map(nodo => {
+          const nodoActualizado = { ...nodo };
+          const idStr = String(nodo.id);
+
+          // Mapear según el ID del nodo
+          switch (idStr) {
+            case '1':
+              // Total Formación Profesional Full Popular
+              nodoActualizado.ejecucion = totales.totalFullPopular;
+              break;
+            case '1.1':
+              // Tecnólogos Full Popular
+              nodoActualizado.ejecucion = totales.tecnologos;
+              break;
+            case '1.2':
+              // Operarios Full Popular
+              nodoActualizado.ejecucion = totales.operarios;
+              break;
+            case '1.3':
+              // Auxiliares Full Popular
+              nodoActualizado.ejecucion = totales.auxiliares;
+              break;
+            case '1.4':
+              // Técnico Laboral Full Popular
+              nodoActualizado.ejecucion = totales.tecnicoLaboral;
+              break;
+            case '1.5':
+              // Formación Complementaria Full Popular
+              nodoActualizado.ejecucion = totales.complementaria;
+              break;
+            case '4':
+              // Retención - Full Popular (es tasa, se maneja como porcentaje)
+              nodoActualizado.ejecucion = totales.retencion;
+              break;
+            case '2':
+              // Certificación - Full Popular
+              nodoActualizado.ejecucion = totales.certificacion;
+              break;
+            // case '3': Certificaciones de competencia laboral - NO disponible en API, mantener del JSON
+          }
+
+          // Recalcular porcentaje solo si no es tasa
+          if (!nodoActualizado.esTasa && nodoActualizado.meta > 0) {
+            nodoActualizado.porcentaje = (nodoActualizado.ejecucion / nodoActualizado.meta) * 100;
+          }
+
+          return nodoActualizado;
+        });
+      })
+    );
+  }
+
+  /**
    * Obtiene metas de FEEC (Tabla 18)
    */
   getMetasFEEC(): Observable<Meta[]> {

@@ -189,7 +189,7 @@ export class NationalDashboardComponent implements OnInit {
       metasCompetenciasLaborales: this.metasService.getMetasCompetenciasLaborales(),
       jerarquiasCompetenciasLaborales: this.metasService.getJerarquiasCompetenciasLaborales(),
       metasProductividadCampesena: this.metasService.getMetasProductividadCampesena(),
-      metasFullPopularCompleto: this.metasService.getMetasFullPopularCompleto(),
+      metasFullPopularCompleto: this.metasService.getMetasFullPopularCompletoConAPI(),
       metasPoblacionesVulnerables: this.metasService.getMetasPoblacionesVulnerablesConAPI(),
       jerarquiasPoblacionesVulnerables: this.metasService.getJerarquiasPoblacionesVulnerables(),
       metasAgenciaPublicaEmpleo: this.metasService.getMetasAgenciaPublicaEmpleo(),
