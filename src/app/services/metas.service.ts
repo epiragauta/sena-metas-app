@@ -454,6 +454,73 @@ export class MetasService {
   }
 
   /**
+   * Obtiene metas de cupos autorizados FIC combinando estructura del JSON con datos de ejecución de la API
+   */
+  getMetasCuposFICConAPI(): Observable<Meta[]> {
+    return forkJoin({
+      estructura: this.http.get<Meta[]>(`${this.basePath}/metas_cupos_fic.json`),
+      ejecucionFIC: this.xlsbApiService.getEjecucionFIC()
+    }).pipe(
+      map(({ estructura, ejecucionFIC }) => {
+        // Sumar datos de ejecución de todos los centros
+        const totales = {
+          tecnologos: 0,
+          operarios: 0,
+          tecnicoLaboral: 0,
+          formacionTitulada: 0,
+          formacionComplementaria: 0,
+          totalFPI: 0
+        };
+
+        ejecucionFIC.forEach(centro => {
+          totales.tecnologos += centro.TECNOLOGOS || 0;
+          totales.operarios += centro.SUB_TOT_OPE || 0;
+          totales.tecnicoLaboral += centro.SUB_TCO_LAB || 0;
+          totales.formacionTitulada += centro.TOT_FOR_TIT || 0;
+          totales.formacionComplementaria += centro.TOT_COMPLEM || 0;
+          totales.totalFPI += centro.TOT_PROF_IN || 0;
+        });
+
+        // Actualizar nodos con datos de la API
+        return estructura.map(nodo => {
+          const nodoActualizado = { ...nodo };
+          const idStr = String(nodo.id);
+
+          // Mapear según el ID del nodo
+          switch (idStr) {
+            case '1':
+              // TOTAL FORMACION PROFESIONAL INTEGRAL FIC
+              nodoActualizado.ejecucion = totales.totalFPI;
+              break;
+            case '1.1':
+              // FORMACION TITULADA FIC
+              nodoActualizado.ejecucion = totales.formacionTitulada;
+              break;
+            case '1.1.1':
+              // TECNOLOGOS FIC
+              nodoActualizado.ejecucion = totales.tecnologos;
+              break;
+            case '1.1.2':
+              // OPERARIOS FIC
+              nodoActualizado.ejecucion = totales.operarios;
+              break;
+            case '1.1.3':
+              // TECNICO LABORAL FIC
+              nodoActualizado.ejecucion = totales.tecnicoLaboral;
+              break;
+            case '1.2':
+              // FORMACION COMPLEMENTARIA FIC
+              nodoActualizado.ejecucion = totales.formacionComplementaria;
+              break;
+          }
+
+          return nodoActualizado;
+        });
+      })
+    );
+  }
+
+  /**
    * Obtiene jerarquías de cupos FIC
    */
   getJerarquiasCuposFIC(): Observable<Jerarquia[]> {
