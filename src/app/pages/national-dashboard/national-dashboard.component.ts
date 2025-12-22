@@ -189,18 +189,18 @@ export class NationalDashboardComponent implements OnInit {
       metasCompetenciasLaborales: this.metasService.getMetasCompetenciasLaborales(),
       jerarquiasCompetenciasLaborales: this.metasService.getJerarquiasCompetenciasLaborales(),
       metasProductividadCampesena: this.metasService.getMetasProductividadCampesena(),
-      metasFullPopularCompleto: this.metasService.getMetasFullPopularCompleto(),
-      metasPoblacionesVulnerables: this.metasService.getMetasPoblacionesVulnerables(),
+      metasFullPopularCompleto: this.metasService.getMetasFullPopularCompletoConAPI(),
+      metasPoblacionesVulnerables: this.metasService.getMetasPoblacionesVulnerablesConAPI(),
       jerarquiasPoblacionesVulnerables: this.metasService.getJerarquiasPoblacionesVulnerables(),
       metasAgenciaPublicaEmpleo: this.metasService.getMetasAgenciaPublicaEmpleo(),
       jerarquiasAgenciaPublicaEmpleo: this.metasService.getJerarquiasAgenciaPublicaEmpleo(),
-      metasCuposFIC: this.metasService.getMetasCuposFIC(),
+      metasCuposFIC: this.metasService.getMetasCuposFICConAPI(),
       jerarquiasCuposFIC: this.metasService.getJerarquiasCuposFIC(),
       metasFondoEmprender: this.metasService.getMetasFondoEmprender(),
       metasContratosAprendizaje: this.metasService.getMetasContratosAprendizaje(),
       formacionProfesionalIntegral: this.mongoDBService.getArbolFPIConEjecuciones(),
       // Nuevas llamadas para programas relevantes y primer curso
-      programasRelevantes: this.metasService.getProgramasRelevantes().pipe(
+      programasRelevantes: this.metasService.getProgramasRelevantesConAPI().pipe(
         catchError(err => {
           console.warn('⚠️ Error cargando programas relevantes:', err);
           return of([]);

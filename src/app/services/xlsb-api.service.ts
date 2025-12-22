@@ -333,4 +333,50 @@ export class XlsbApiService {
       map(ejecucion => ejecucion.filter(e => e.COD_REGIONAL === codigoRegional))
     );
   }
+
+  // ========================================
+  // MÉTODOS PARA CONSULTAR FIC (MongoDB)
+  // ========================================
+
+  /**
+   * Obtiene datos de ejecución FIC desde MongoDB
+   */
+  getEjecucionFIC(limit?: number, offset?: number): Observable<any[]> {
+    let url = `${this.apiUrl}/mongodb/collections/ejecucion_fpi_fic`;
+    const params: string[] = [];
+
+    if (limit) params.push(`limit=${limit}`);
+    if (offset) params.push(`offset=${offset}`);
+
+    if (params.length > 0) {
+      url += '?' + params.join('&');
+    }
+
+    return this.http.get<MetasCollectionResponse>(url).pipe(
+      map(response => response.data)
+    );
+  }
+
+  // ========================================
+  // MÉTODOS PARA CONSULTAR POBLACIONES VULNERABLES (MongoDB)
+  // ========================================
+
+  /**
+   * Obtiene datos de ejecución de poblaciones vulnerables desde MongoDB
+   */
+  getEjecucionPoblacionesVulnerables(limit?: number, offset?: number): Observable<any[]> {
+    let url = `${this.apiUrl}/mongodb/collections/ejecucion_fpi_tp_regional`;
+    const params: string[] = [];
+
+    if (limit) params.push(`limit=${limit}`);
+    if (offset) params.push(`offset=${offset}`);
+
+    if (params.length > 0) {
+      url += '?' + params.join('&');
+    }
+
+    return this.http.get<MetasCollectionResponse>(url).pipe(
+      map(response => response.data)
+    );
+  }
 }
