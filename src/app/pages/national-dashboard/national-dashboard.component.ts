@@ -84,6 +84,8 @@ export interface DashboardData {
   productividadCampesena?: HierarchyNode[];  // 4 elementos sin jerarquía
   productividadFullPopular?: HierarchyNode[];  // Árbol completo Full Popular (IDs 1, 2, 3, 4)
   productividadFullPopularRoot?: HierarchyNode;  // ID=1 para tarjeta principal con detalles
+  campeSenaCompleto?: HierarchyNode[];  // Árbol completo CampeSENA (IDs 1, 2, 3, 4)
+  campeSenaCompletoRoot?: HierarchyNode;  // ID=1 para tarjeta principal con detalles
   poblacionesVulnerablesRoot?: HierarchyNode;  // ID=1 para tarjeta
   poblacionesVulnerablesTree?: HierarchyNode[];  // Todos los nodos para tree-table
   agenciaPublicaEmpleoNivel1?: HierarchyNode[];  // 5 tarjetas nivel 1 (IDs 1, 2, 3, 4, 5)
@@ -114,6 +116,7 @@ export class NationalDashboardComponent implements OnInit {
   public selectedRetencionNode: HierarchyNode | null = null;
   public selectedCertificacionNode: HierarchyNode | null = null;
   public showCompetenciasLaboralesDetails = false;
+  public selectedCampeSenaNode: HierarchyNode | null = null;
   public selectedFullPopularNode: HierarchyNode | null = null;
   public selectedPoblacionesVulnerablesNode: HierarchyNode | null = null;
   public selectedAgenciaPublicaEmpleoNode: HierarchyNode | null = null;
@@ -189,6 +192,7 @@ export class NationalDashboardComponent implements OnInit {
       metasCompetenciasLaborales: this.metasService.getMetasCompetenciasLaborales(),
       jerarquiasCompetenciasLaborales: this.metasService.getJerarquiasCompetenciasLaborales(),
       metasProductividadCampesena: this.metasService.getMetasProductividadCampesena(),
+      metasCampeSenaCompleto: this.metasService.getMetasCampeSenaCompletoConAPI(),
       metasFullPopularCompleto: this.metasService.getMetasFullPopularCompletoConAPI(),
       metasPoblacionesVulnerables: this.metasService.getMetasPoblacionesVulnerablesConAPI(),
       jerarquiasPoblacionesVulnerables: this.metasService.getJerarquiasPoblacionesVulnerables(),
@@ -239,6 +243,11 @@ export class NationalDashboardComponent implements OnInit {
         console.log('Competencias Laborales - Total nodos:', competenciasLaboralesTree.length, 'Root:', competenciasLaboralesRoot?.id, 'Otros:', competenciasLaboralesOtros.length);
 
         const productividadCampesena = this.buildProductividadCampesenaNodes(results.metasProductividadCampesena);
+
+        const campeSenaCompleto = this.buildProductividadFullPopularNodes(results.metasCampeSenaCompleto);
+        const campeSenaCompletoRoot = campeSenaCompleto.find(node => node.id === '1');
+        console.log('CampeSENA Completo - Total nodos:', campeSenaCompleto.length, 'Root:', campeSenaCompletoRoot?.id);
+
         const productividadFullPopular = this.buildProductividadFullPopularNodes(results.metasFullPopularCompleto);
         const productividadFullPopularRoot = productividadFullPopular.find(node => node.id === '1');
         console.log('Full Popular - Total nodos:', productividadFullPopular.length, 'Root:', productividadFullPopularRoot?.id);
@@ -284,6 +293,8 @@ export class NationalDashboardComponent implements OnInit {
           competenciasLaboralesRoot: competenciasLaboralesRoot,
           competenciasLaboralesOtros: competenciasLaboralesOtros,
           productividadCampesena: productividadCampesena,
+          campeSenaCompleto: campeSenaCompleto,
+          campeSenaCompletoRoot: campeSenaCompletoRoot,
           productividadFullPopular: productividadFullPopular,
           productividadFullPopularRoot: productividadFullPopularRoot,
           poblacionesVulnerablesRoot: poblacionesVulnerablesRoot,
@@ -1029,6 +1040,19 @@ export class NationalDashboardComponent implements OnInit {
 
   public isCertificacionNodeSelected(node: HierarchyNode): boolean {
     return this.selectedCertificacionNode?.id === node.id;
+  }
+
+  // Métodos para CampeSENA
+  public selectCampeSenaNode(node: HierarchyNode): void {
+    if (this.selectedCampeSenaNode?.id === node.id) {
+      this.selectedCampeSenaNode = null;
+    } else {
+      this.selectedCampeSenaNode = node;
+    }
+  }
+
+  public isCampeSenaNodeSelected(node: HierarchyNode): boolean {
+    return this.selectedCampeSenaNode?.id === node.id;
   }
 
   // Métodos para Full Popular

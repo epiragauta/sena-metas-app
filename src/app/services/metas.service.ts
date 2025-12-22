@@ -825,6 +825,76 @@ export class MetasService {
   }
 
   /**
+   * Obtiene metas de CampeSENA completo integrando datos de la API regional
+   * Mapea los campos de la API a los IDs del JSON:
+   * - ID "1": TOT_FP_CAME (Total Formación Profesional CampeSENA)
+   * - ID "1.1": TEC_CAMPESE (Tecnólogos CampeSENA)
+   * - ID "1.2": OPE_CAMPESE (Operarios CampeSENA)
+   * - ID "1.3": AUX_CAMPESE (Auxiliares CampeSENA)
+   * - ID "1.4": TCO_CAMPESE (Técnico Laboral CampeSENA)
+   * - ID "1.5": COM_CAMPESE (Formación Complementaria CampeSENA)
+   * - ID "2": R_CAMPESENA (Retención - CampeSENA, es tasa)
+   * - ID "3": C_CAMPESENA (Certificación - CampeSENA)
+   * - ID "4": NO disponible en API, mantiene JSON
+   */
+  getMetasCampeSenaCompletoConAPI(): Observable<Meta[]> {
+    return forkJoin({
+      estructura: this.http.get<Meta[]>(`${this.basePath}/metas_campesena_completo.json`),
+      ejecucionRegional: this.xlsbApiService.getEjecucionRegional()
+    }).pipe(
+      map(({ estructura, ejecucionRegional }) => {
+        // Sumar datos de ejecución de todas las regionales
+        const totales = {
+          totalCampeSena: 0,       // TOT_FP_CAME
+          tecnologos: 0,            // TEC_CAMPESE
+          operarios: 0,             // OPE_CAMPESE
+          auxiliares: 0,            // AUX_CAMPESE
+          tecnicoLaboral: 0,        // TCO_CAMPESE
+          complementaria: 0,        // COM_CAMPESE
+          retencion: 0,             // R_CAMPESENA
+          certificacion: 0          // C_CAMPESENA
+        };
+
+        ejecucionRegional.forEach(regional => {
+          totales.totalCampeSena += regional.TOT_FP_CAME || 0;
+          totales.tecnologos += regional.TEC_CAMPESE || 0;
+          totales.operarios += regional.OPE_CAMPESE || 0;
+          totales.auxiliares += regional.AUX_CAMPESE || 0;
+          totales.tecnicoLaboral += regional.TCO_CAMPESE || 0;
+          totales.complementaria += regional.COM_CAMPESE || 0;
+          totales.retencion += regional.R_CAMPESENA || 0;
+          totales.certificacion += regional.C_CAMPESENA || 0;
+        });
+
+        // Actualizar nodos con datos de la API
+        return estructura.map(nodo => {
+          const nodoActualizado = { ...nodo };
+          const idStr = String(nodo.id);
+
+          switch (idStr) {
+            case '1': nodoActualizado.ejecucion = totales.totalCampeSena; break;
+            case '1.1': nodoActualizado.ejecucion = totales.tecnologos; break;
+            case '1.2': nodoActualizado.ejecucion = totales.operarios; break;
+            case '1.3': nodoActualizado.ejecucion = totales.auxiliares; break;
+            case '1.4': nodoActualizado.ejecucion = totales.tecnicoLaboral; break;
+            case '1.5': nodoActualizado.ejecucion = totales.complementaria; break;
+            case '2': nodoActualizado.ejecucion = totales.retencion; break;
+            case '3': nodoActualizado.ejecucion = totales.certificacion; break;
+            // case '4': Certificaciones de competencias laborales - NO disponible en API
+          }
+
+          // Recalcular porcentaje solo si no es tasa
+          if (!nodoActualizado.esTasa && nodoActualizado.meta > 0) {
+            nodoActualizado.porcentaje = (nodoActualizado.ejecucion / nodoActualizado.meta) * 100;
+          }
+
+          return nodoActualizado;
+        });
+      })
+    );
+  }
+
+  /**
    * Obtiene metas de FEEC (Tabla 18)
    */
   getMetasFEEC(): Observable<Meta[]> {
