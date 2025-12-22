@@ -166,8 +166,7 @@
         <div class="children-cards-grid">
           <div class="child-card estrategia-child-card"
             *ngFor="let child of filterFormacionEstrategiaNodes(data.formacionEstrategiaRoot?.children); trackBy: trackByEstrategiaId"
-            [class.child-card-selected]="isEstrategiaNodeSelectedForTree(child)"
-            (click)="selectEstrategiaNodeForTree(child)">
+            [class.child-card-selected]="isEstrategiaNodeSelectedForTree(child)">
             <div class="child-card-header">
               <h4 class="child-title">{{ removeParentheses(child.nivelFormacion) }}</h4>
             </div>
@@ -244,8 +243,34 @@
               </div>
             </div>
 
-            <!-- Indicador de hijos disponibles -->
-            <div class="child-has-details" *ngIf="child.children.length > 0">
+            <!-- Botones de detalles - Tres botones para FORMACION COMPLEMENTARIA -->
+            <div class="child-has-details estrategia-buttons-container" *ngIf="child.children.length > 0 && isFormacionComplementaria(child)">
+              <button
+                class="estrategia-detail-btn"
+                [class.active]="isEstrategiaTypeSelected(child, 'regular')"
+                (click)="selectEstrategiaNodeForTree(child, 'regular'); $event.stopPropagation()">
+                <mat-icon class="details-icon">assessment</mat-icon>
+                <span class="details-text">Ver Detalle</span>
+              </button>
+              <button
+                class="estrategia-detail-btn"
+                [class.active]="isEstrategiaTypeSelected(child, 'campesena')"
+                (click)="selectEstrategiaNodeForTree(child, 'campesena'); $event.stopPropagation()">
+                <mat-icon class="details-icon">assessment</mat-icon>
+                <span class="details-text">Ver Detalle</span>
+              </button>
+              <button
+                class="estrategia-detail-btn"
+                [class.active]="isEstrategiaTypeSelected(child, 'fullPopular')"
+                (click)="selectEstrategiaNodeForTree(child, 'fullPopular'); $event.stopPropagation()">
+                <mat-icon class="details-icon">assessment</mat-icon>
+                <span class="details-text">Ver Detalle</span>
+              </button>
+            </div>
+
+            <!-- Botón único para FORMACION TITULADA y otros -->
+            <div class="child-has-details" *ngIf="child.children.length > 0 && !isFormacionComplementaria(child)"
+                 (click)="selectEstrategiaNodeForTree(child, 'regular'); $event.stopPropagation()">
               <mat-icon class="details-icon">assessment</mat-icon>
               <span class="details-text">Click para ver detalles ({{ child.children.length }} ítems)</span>
             </div>
@@ -254,24 +279,31 @@
       </div>
 
       <!-- Tabla de Estrategias para nodo seleccionado -->
-      <div *ngIf="selectedEstrategiaNodeForTree" class="data-section section-odd selected-node-tree-section">
+      <div *ngIf="selectedEstrategiaNodeForTree && selectedEstrategiaType" class="data-section section-odd selected-node-tree-section">
         <div class="selected-node-header">
           <h2 class="section-title">
-            <span>{{ removeParentheses(selectedEstrategiaNodeForTree.nivelFormacion) }}</span>
+            <span>{{ removeParentheses(selectedEstrategiaNodeForTree.nivelFormacion) }}
+              <span *ngIf="isFormacionComplementaria(selectedEstrategiaNodeForTree)">
+                -
+                <span *ngIf="selectedEstrategiaType === 'regular'">Regular</span>
+                <span *ngIf="selectedEstrategiaType === 'campesena'">CampeSENA</span>
+                <span *ngIf="selectedEstrategiaType === 'fullPopular'">Full Popular</span>
+              </span>
+            </span>
             <button mat-icon-button class="info-button" aria-label="Más información">
               <mat-icon>info_outline</mat-icon>
             </button>
           </h2>
-          <button class="close-tree-btn" (click)="selectedEstrategiaNodeForTree = null">✕ Cerrar</button>
+          <button class="close-tree-btn" (click)="selectedEstrategiaNodeForTree = null; selectedEstrategiaType = null">✕ Cerrar</button>
         </div>
 
-        <!-- Mostrar solo los hijos, no el nodo padre -->
-        <div class="children-tree-container" *ngIf="selectedEstrategiaNodeForTree.children.length > 0">
-          <div *ngFor="let child of selectedEstrategiaNodeForTree.children; trackBy: trackByEstrategiaId">
+        <!-- Mostrar solo los hijos filtrados según estrategia -->
+        <div class="children-tree-container" *ngIf="getFilteredChildrenByEstrategia().length > 0">
+          <div *ngFor="let child of getFilteredChildrenByEstrategia(); trackBy: trackByEstrategiaId">
             <ng-container *ngTemplateOutlet="formacionEstrategiaNodeTpl; context: { $implicit: child }"></ng-container>
           </div>
         </div>
-        <div class="no-children-message" *ngIf="selectedEstrategiaNodeForTree.children.length === 0">
+        <div class="no-children-message" *ngIf="getFilteredChildrenByEstrategia().length === 0">
           <p>No hay elementos de detalle para mostrar.</p>
         </div>
       </div>
@@ -1565,35 +1597,89 @@
       </div>
 
       <div class="hierarchy-metrics">
-        <!-- Regular -->
-        <div class="hierarchy-metric-item estrategia-metric" *ngIf="node.regularMeta !== null">
-          <span class="estrategia-label">Regular:</span>
-          <span class="hierarchy-percentage clickable"
-            [ngClass]="getClaseSemaforo(calcularPorcentaje(node.regularMeta, node.regularEjecucion))"
-            (click)="showMetaEjecucionPopup('Regular', node.regularMeta, node.regularEjecucion); $event.stopPropagation()">
-            {{ calcularPorcentaje(node.regularMeta, node.regularEjecucion) | percent:'1.2-2' }}
-          </span>
-        </div>
+        <!-- Si es FORMACION COMPLEMENTARIA: mostrar Porcentaje, Meta y Ejecución en línea -->
+        <ng-container *ngIf="selectedEstrategiaNodeForTree && isFormacionComplementaria(selectedEstrategiaNodeForTree)">
+          <!-- Regular -->
+          <ng-container *ngIf="selectedEstrategiaType === 'regular'">
+            <div class="hierarchy-metric-item hierarchy-percentage"
+              [ngClass]="getClaseSemaforo(calcularPorcentaje(node.regularMeta, node.regularEjecucion))">
+              {{ calcularPorcentaje(node.regularMeta, node.regularEjecucion) | percent:'1.2-2' }}
+            </div>
+            <div class="hierarchy-metric-item">
+              <span class="metric-label">Meta:</span>
+              <span class="metric-value">{{ node.regularMeta | number:'1.0-0' }}</span>
+            </div>
+            <div class="hierarchy-metric-item">
+              <span class="metric-label">Ejecución:</span>
+              <span class="metric-value">{{ node.regularEjecucion | number:'1.0-0' }}</span>
+            </div>
+          </ng-container>
 
-        <!-- CampeSENA -->
-        <div class="hierarchy-metric-item estrategia-metric" *ngIf="node.campesenaMeta !== null">
-          <span class="estrategia-label">CampeSENA:</span>
-          <span class="hierarchy-percentage clickable"
-            [ngClass]="getClaseSemaforo(calcularPorcentaje(node.campesenaMeta, node.campesenaEjecucion))"
-            (click)="showMetaEjecucionPopup('CampeSENA', node.campesenaMeta, node.campesenaEjecucion); $event.stopPropagation()">
-            {{ calcularPorcentaje(node.campesenaMeta, node.campesenaEjecucion) | percent:'1.2-2' }}
-          </span>
-        </div>
+          <!-- CampeSENA -->
+          <ng-container *ngIf="selectedEstrategiaType === 'campesena'">
+            <div class="hierarchy-metric-item hierarchy-percentage"
+              [ngClass]="getClaseSemaforo(calcularPorcentaje(node.campesenaMeta, node.campesenaEjecucion))">
+              {{ calcularPorcentaje(node.campesenaMeta, node.campesenaEjecucion) | percent:'1.2-2' }}
+            </div>
+            <div class="hierarchy-metric-item">
+              <span class="metric-label">Meta:</span>
+              <span class="metric-value">{{ node.campesenaMeta | number:'1.0-0' }}</span>
+            </div>
+            <div class="hierarchy-metric-item">
+              <span class="metric-label">Ejecución:</span>
+              <span class="metric-value">{{ node.campesenaEjecucion | number:'1.0-0' }}</span>
+            </div>
+          </ng-container>
 
-        <!-- Full Popular -->
-        <div class="hierarchy-metric-item estrategia-metric" *ngIf="node.fullPopularMeta !== null">
-          <span class="estrategia-label">Full Popular:</span>
-          <span class="hierarchy-percentage clickable"
-            [ngClass]="getClaseSemaforo(calcularPorcentaje(node.fullPopularMeta, node.fullPopularEjecucion))"
-            (click)="showMetaEjecucionPopup('Full Popular', node.fullPopularMeta, node.fullPopularEjecucion); $event.stopPropagation()">
-            {{ calcularPorcentaje(node.fullPopularMeta, node.fullPopularEjecucion) | percent:'1.2-2' }}
-          </span>
-        </div>
+          <!-- Full Popular -->
+          <ng-container *ngIf="selectedEstrategiaType === 'fullPopular'">
+            <div class="hierarchy-metric-item hierarchy-percentage"
+              [ngClass]="getClaseSemaforo(calcularPorcentaje(node.fullPopularMeta, node.fullPopularEjecucion))">
+              {{ calcularPorcentaje(node.fullPopularMeta, node.fullPopularEjecucion) | percent:'1.2-2' }}
+            </div>
+            <div class="hierarchy-metric-item">
+              <span class="metric-label">Meta:</span>
+              <span class="metric-value">{{ node.fullPopularMeta | number:'1.0-0' }}</span>
+            </div>
+            <div class="hierarchy-metric-item">
+              <span class="metric-label">Ejecución:</span>
+              <span class="metric-value">{{ node.fullPopularEjecucion | number:'1.0-0' }}</span>
+            </div>
+          </ng-container>
+        </ng-container>
+
+        <!-- Si NO es FORMACION COMPLEMENTARIA: mostrar todas las estrategias -->
+        <ng-container *ngIf="selectedEstrategiaNodeForTree && !isFormacionComplementaria(selectedEstrategiaNodeForTree)">
+          <!-- Regular -->
+          <div class="hierarchy-metric-item estrategia-metric" *ngIf="node.regularMeta !== null">
+            <span class="estrategia-label">Regular:</span>
+            <span class="hierarchy-percentage clickable"
+              [ngClass]="getClaseSemaforo(calcularPorcentaje(node.regularMeta, node.regularEjecucion))"
+              (click)="showMetaEjecucionPopup('Regular', node.regularMeta, node.regularEjecucion); $event.stopPropagation()">
+              {{ calcularPorcentaje(node.regularMeta, node.regularEjecucion) | percent:'1.2-2' }}
+            </span>
+          </div>
+
+          <!-- CampeSENA -->
+          <div class="hierarchy-metric-item estrategia-metric" *ngIf="node.campesenaMeta !== null">
+            <span class="estrategia-label">CampeSENA:</span>
+            <span class="hierarchy-percentage clickable"
+              [ngClass]="getClaseSemaforo(calcularPorcentaje(node.campesenaMeta, node.campesenaEjecucion))"
+              (click)="showMetaEjecucionPopup('CampeSENA', node.campesenaMeta, node.campesenaEjecucion); $event.stopPropagation()">
+              {{ calcularPorcentaje(node.campesenaMeta, node.campesenaEjecucion) | percent:'1.2-2' }}
+            </span>
+          </div>
+
+          <!-- Full Popular -->
+          <div class="hierarchy-metric-item estrategia-metric" *ngIf="node.fullPopularMeta !== null">
+            <span class="estrategia-label">Full Popular:</span>
+            <span class="hierarchy-percentage clickable"
+              [ngClass]="getClaseSemaforo(calcularPorcentaje(node.fullPopularMeta, node.fullPopularEjecucion))"
+              (click)="showMetaEjecucionPopup('Full Popular', node.fullPopularMeta, node.fullPopularEjecucion); $event.stopPropagation()">
+              {{ calcularPorcentaje(node.fullPopularMeta, node.fullPopularEjecucion) | percent:'1.2-2' }}
+            </span>
+          </div>
+        </ng-container>
       </div>
     </div>
 

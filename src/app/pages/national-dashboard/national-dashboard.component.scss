@@ -2198,6 +2198,65 @@
   }
 }
 
+// Contenedor para los tres botones de estrategia
+.estrategia-buttons-container {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0;
+  margin-top: 0.25rem;
+  background: transparent;
+  border: none;
+}
+
+// Estilos para cada botón individual de estrategia
+.estrategia-detail-btn {
+  flex: 1;
+  padding: 0.15rem 0.75rem;  // Mismo padding que .child-has-details
+  background: linear-gradient(135deg, #f0f9f4 0%, #e8f5e9 100%);
+  border: 1px solid var(--sena-verde);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;  // Mismo gap que .child-has-details
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  .details-icon {
+    font-size: 1.75rem;  // Mismo tamaño que .child-has-details
+    color: var(--sena-verde);
+  }
+
+  .details-text {
+    font-size: 0.85rem;  // Mismo tamaño que .child-has-details
+    font-weight: 600;
+    color: var(--sena-verde);
+    white-space: nowrap;
+  }
+
+  &:hover {
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    border-color: #388e3c;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(57, 169, 0, 0.2);
+  }
+
+  &.active {
+    background: linear-gradient(135deg, var(--sena-verde) 0%, #388e3c 100%);
+    border-color: #2e7d32;
+    box-shadow: 0 4px 12px rgba(57, 169, 0, 0.4);
+
+    .details-icon,
+    .details-text {
+      color: white;
+    }
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
 // ================================================
 // SELECTED NODE TREE SECTION
 // ================================================

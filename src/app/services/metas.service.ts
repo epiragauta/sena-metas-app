@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map, shareReplay, switchMap } from 'rxjs';
+import { Observable, map, shareReplay, switchMap, forkJoin } from 'rxjs';
 import {
   Meta,
   FormacionPorNivel,
@@ -14,6 +14,7 @@ import {
   MetasPrimerCurso,
   FiltrosMetas
 } from '../models/meta.model';
+import { XlsbApiService } from './xlsb-api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,10 @@ export class MetasService {
   private dashboardCache$?: Observable<DashboardData>;
   private referenciasCache$?: Observable<Referencias>;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private xlsbApiService: XlsbApiService
+  ) {}
 
   /**
    * Obtiene todas las metas de formación profesional integral
@@ -141,10 +145,200 @@ export class MetasService {
   }
 
   /**
-   * Obtiene formación por estrategia
+   * Obtiene formación por estrategia (desde JSON estático)
    */
   getFormacionPorEstrategia(): Observable<any[]> {
     return this.http.get<any[]>(`${this.basePath}/formacion_por_estrategia.json`);
+  }
+
+  /**
+   * Obtiene formación por estrategia combinando estructura del JSON con datos de ejecución de la API
+   */
+  getFormacionPorEstrategiaConAPI(): Observable<any[]> {
+    return forkJoin({
+      estructura: this.http.get<any[]>(`${this.basePath}/formacion_por_estrategia.json`),
+      ejecucionRegional: this.xlsbApiService.getEjecucionRegional()
+    }).pipe(
+      map(({ estructura, ejecucionRegional }) => {
+        // Sumar datos de ejecución de todas las regionales
+        const totales = {
+          campesenaEjecucion: 0,
+          fullPopularEjecucion: 0
+        };
+
+        ejecucionRegional.forEach(regional => {
+          totales.campesenaEjecucion += regional.COM_CAMPESE || 0;
+          totales.fullPopularEjecucion += regional.COM_FULL_PO || 0;
+        });
+
+        // Calcular subtotales específicos de estrategias COMPLEMENTARIA
+        const subTotales = {
+          subComFCEC: 0,  // Estrategia Formación Continua Especial Campesina
+          subComFCEF: 0   // Formación Continua Especial Popular
+        };
+
+        ejecucionRegional.forEach(regional => {
+          subTotales.subComFCEC += regional.SUB_COM_FCEC || 0;
+          subTotales.subComFCEF += regional.SUB_COM_FCEF || 0;
+        });
+
+        // Calcular totales de FORMACION TITULADA
+        const totalesFormacionTitulada = {
+          // AUXILIAR
+          auxRegular: 0,
+          auxCampese: 0,
+          auxFullPo: 0,
+          // OPERARIO
+          opeRegular: 0,
+          opeCampese: 0,
+          opeFullPo: 0,
+          // PROFUNDIZACIÓN TÉCNICA
+          profTecnic: 0,
+          // ARTICULACIÓN CON LA MEDIA TECNICA
+          tcoArtMed: 0,
+          // TÉCNICO
+          tcoRegular: 0,  // TCO_REG_PRE + TCO_REG_VIR
+          tcoCampese: 0,
+          tcoFullPo: 0,
+          // TECNÓLOGO
+          tecRegular: 0,  // TEC_REG_PRE + TEC_REG_VIR + TEC_REG_A_D
+          tecCampese: 0,
+          tecFullPo: 0
+        };
+
+        ejecucionRegional.forEach(regional => {
+          // AUXILIAR
+          totalesFormacionTitulada.auxRegular += regional.AUX_REGULAR || 0;
+          totalesFormacionTitulada.auxCampese += regional.AUX_CAMPESE || 0;
+          totalesFormacionTitulada.auxFullPo += regional.AUX_FULL_PO || 0;
+          // OPERARIO
+          totalesFormacionTitulada.opeRegular += regional.OPE_REGULAR || 0;
+          totalesFormacionTitulada.opeCampese += regional.OPE_CAMPESE || 0;
+          totalesFormacionTitulada.opeFullPo += regional.OPE_FULL_PO || 0;
+          // PROFUNDIZACIÓN TÉCNICA
+          totalesFormacionTitulada.profTecnic += regional.PROF_TECNIC || 0;
+          // ARTICULACIÓN CON LA MEDIA TECNICA
+          totalesFormacionTitulada.tcoArtMed += regional.TCO_ART_MED || 0;
+          // TÉCNICO (suma de dos campos)
+          totalesFormacionTitulada.tcoRegular += (regional.TCO_REG_PRE || 0) + (regional.TCO_REG_VIR || 0);
+          totalesFormacionTitulada.tcoCampese += regional.TCO_CAMPESE || 0;
+          totalesFormacionTitulada.tcoFullPo += regional.TCO_FULL_PO || 0;
+          // TECNÓLOGO (suma de tres campos)
+          totalesFormacionTitulada.tecRegular += (regional.TEC_REG_PRE || 0) + (regional.TEC_REG_VIR || 0) + (regional.TEC_REG_A_D || 0);
+          totalesFormacionTitulada.tecCampese += regional.TEC_CAMPESE || 0;
+          totalesFormacionTitulada.tecFullPo += regional.TEC_FULL_PO || 0;
+        });
+
+        // Actualizar nodos con datos de la API
+        return estructura.map(nodo => {
+          const nodoActualizado = { ...nodo };
+          const nivelNormalizado = nodo.nivelFormacion?.toUpperCase().trim() || '';
+
+          // Verificar si el nodo es de FORMACION COMPLEMENTARIA o TITULADA
+          const esFormacionComplementaria = nodo.id?.startsWith('1.2');
+          const esFormacionTitulada = nodo.id?.startsWith('1.1');
+
+          // FORMACION COMPLEMENTARIA
+          if (esFormacionComplementaria) {
+            // Actualizar ejecución de CampeSENA según el nivel específico
+            if (nodo.campesenaMeta !== null && nodo.campesenaMeta !== undefined) {
+              if (nivelNormalizado.includes('ESTRATEGIA FORMACION CONTINUA ESPECIAL CAMPESINA') ||
+                  nivelNormalizado.includes('FEEC')) {
+                nodoActualizado.campesenaEjecucion = subTotales.subComFCEC;
+              } else {
+                nodoActualizado.campesenaEjecucion = totales.campesenaEjecucion;
+              }
+            }
+
+            // Actualizar ejecución de Full Popular según el nivel específico
+            if (nodo.fullPopularMeta !== null && nodo.fullPopularMeta !== undefined) {
+              if (nivelNormalizado.includes('FORMACION CONTINUA ESPECIAL POPULAR') ||
+                  nivelNormalizado.includes('FEP')) {
+                nodoActualizado.fullPopularEjecucion = subTotales.subComFCEF;
+              } else {
+                nodoActualizado.fullPopularEjecucion = totales.fullPopularEjecucion;
+              }
+            }
+          }
+
+          // FORMACION TITULADA
+          if (esFormacionTitulada) {
+            // AUXILIAR (1.1.1.1)
+            if (nodo.id === '1.1.1.1') {
+              nodoActualizado.regularEjecucion = totalesFormacionTitulada.auxRegular;
+              nodoActualizado.campesenaEjecucion = totalesFormacionTitulada.auxCampese;
+              nodoActualizado.fullPopularEjecucion = totalesFormacionTitulada.auxFullPo;
+            }
+            // OPERARIO (1.1.1.2)
+            else if (nodo.id === '1.1.1.2') {
+              nodoActualizado.regularEjecucion = totalesFormacionTitulada.opeRegular;
+              nodoActualizado.campesenaEjecucion = totalesFormacionTitulada.opeCampese;
+              nodoActualizado.fullPopularEjecucion = totalesFormacionTitulada.opeFullPo;
+            }
+            // PROFUNDIZACIÓN TÉCNICA (1.1.1.3)
+            else if (nodo.id === '1.1.1.3') {
+              nodoActualizado.regularEjecucion = totalesFormacionTitulada.profTecnic;
+            }
+            // ARTICULACIÓN CON LA MEDIA TECNICA (1.1.1.4)
+            else if (nodo.id === '1.1.1.4') {
+              nodoActualizado.regularEjecucion = totalesFormacionTitulada.tcoArtMed;
+            }
+            // TÉCNICO (1.1.1.5)
+            else if (nodo.id === '1.1.1.5') {
+              nodoActualizado.regularEjecucion = totalesFormacionTitulada.tcoRegular;
+              nodoActualizado.campesenaEjecucion = totalesFormacionTitulada.tcoCampese;
+              nodoActualizado.fullPopularEjecucion = totalesFormacionTitulada.tcoFullPo;
+            }
+            // TECNÓLOGO (1.1.2.1)
+            else if (nodo.id === '1.1.2.1') {
+              nodoActualizado.regularEjecucion = totalesFormacionTitulada.tecRegular;
+              nodoActualizado.campesenaEjecucion = totalesFormacionTitulada.tecCampese;
+              nodoActualizado.fullPopularEjecucion = totalesFormacionTitulada.tecFullPo;
+            }
+            // TOTAL FORMACION LABORAL (1.1.1) = suma de todos los niveles laborales
+            else if (nodo.id === '1.1.1') {
+              nodoActualizado.regularEjecucion =
+                totalesFormacionTitulada.auxRegular +
+                totalesFormacionTitulada.opeRegular +
+                totalesFormacionTitulada.profTecnic +
+                totalesFormacionTitulada.tcoArtMed +
+                totalesFormacionTitulada.tcoRegular;
+              nodoActualizado.campesenaEjecucion =
+                totalesFormacionTitulada.auxCampese +
+                totalesFormacionTitulada.opeCampese +
+                totalesFormacionTitulada.tcoCampese;
+              nodoActualizado.fullPopularEjecucion =
+                totalesFormacionTitulada.auxFullPo +
+                totalesFormacionTitulada.opeFullPo +
+                totalesFormacionTitulada.tcoFullPo;
+            }
+            // TOTAL FORMACION EDUCACION SUPERIOR (1.1.2) = solo tecnólogo
+            else if (nodo.id === '1.1.2') {
+              nodoActualizado.regularEjecucion = totalesFormacionTitulada.tecRegular;
+              nodoActualizado.campesenaEjecucion = totalesFormacionTitulada.tecCampese;
+              nodoActualizado.fullPopularEjecucion = totalesFormacionTitulada.tecFullPo;
+            }
+            // TOTAL FORMACION TITULADA (1.1) = suma de formación laboral + educación superior
+            else if (nodo.id === '1.1') {
+              const totalLaboral = {
+                regular: totalesFormacionTitulada.auxRegular + totalesFormacionTitulada.opeRegular +
+                         totalesFormacionTitulada.profTecnic + totalesFormacionTitulada.tcoArtMed +
+                         totalesFormacionTitulada.tcoRegular,
+                campese: totalesFormacionTitulada.auxCampese + totalesFormacionTitulada.opeCampese +
+                         totalesFormacionTitulada.tcoCampese,
+                fullPo: totalesFormacionTitulada.auxFullPo + totalesFormacionTitulada.opeFullPo +
+                        totalesFormacionTitulada.tcoFullPo
+              };
+              nodoActualizado.regularEjecucion = totalLaboral.regular + totalesFormacionTitulada.tecRegular;
+              nodoActualizado.campesenaEjecucion = totalLaboral.campese + totalesFormacionTitulada.tecCampese;
+              nodoActualizado.fullPopularEjecucion = totalLaboral.fullPo + totalesFormacionTitulada.tecFullPo;
+            }
+          }
+
+          return nodoActualizado;
+        });
+      })
+    );
   }
 
   /**
